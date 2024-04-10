@@ -19,6 +19,13 @@ services:
             - ./volumes/database/data:/var/lib/mysql:rw
             - ./volumes/database/config:/etc/mysql:ro
         command: --log_bin_trust_function_creators=1
+        healthcheck:
+          test:
+          interval: 5s
+          timeout: 10s
+          retries: 10
+          start_period: 5s
+          start_interval: 5s
     scadalts:
         container_name: scadalts
         image: scadalts:latest
@@ -28,18 +35,11 @@ services:
         ports: 
             - "8080:8080"
         depends_on: 
-            - database
+            database:
+              condition: service_healthy
         expose: ["8080", "8000"]
         volumes:
             - ./volumes/tomcat_log:/usr/local/tomcat/logs:rw
         links:
             - database:database
-        command:
-            - /usr/bin/wait-for-it
-            - --host=database
-            - --port=3306
-            - --timeout=30
-            - --strict
-            - --
-            - /usr/local/tomcat/bin/catalina.sh
-            - run
+
