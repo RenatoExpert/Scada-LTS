@@ -29,12 +29,11 @@ COPY installers/debian scadalts
 RUN dpkg-deb --build scadalts
 
 FROM debian:stable-20240408 as debian_installer_test
-WORKDIR /pack
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
 	apt update
-COPY --from=debian_installer_builder /pack/scadalts.deb .
+COPY --from=debian_installer_builder /pack/scadalts.deb /tmp
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
 	--mount=target=/var/cache/apt,type=cache,sharing=locked		\
-	apt install -y /pack/scadalts.deb
+	apt install -y /tmp/scadalts.deb
 
 
