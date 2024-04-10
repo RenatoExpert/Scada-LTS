@@ -29,6 +29,7 @@ COPY installers/debian scadalts-standalone
 COPY installers/systemd/scadalts.service scadalts-standalone/etc/systemd/system/scadalts.service
 ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.87.tar.gz .
 RUN tar -xvf apache-tomcat-9.0.87.tar.gz
+RUN mkdir -p scadalts-standalone/usr/lib/scadalts/
 RUN mv apache-tomcat-9.0.87 scadalts-standalone/usr/lib/scadalts/tomcat
 COPY --from=package /Scada-LTS.war .
 RUN unzip Scada-LTS.war -d scadalts/usr/lib/scadalts/tomcat/webapps/Scada-LTS
