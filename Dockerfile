@@ -1,3 +1,12 @@
+FROM node:14-alpine as npm
+WORKDIR /app
+COPY scadalts-ui/package.json scadalts-ui/package-lock.json scadalts-ui/node_modules .
+RUN --mount=type=cache,target=node_modules	\
+	npm install
+COPY scadalts-ui/* .
+RUN --mount=type=cache,target=node_modules	\
+	npm build
+
 FROM gradle:7-jdk11 as build
 WORKDIR /src
 COPY . .
