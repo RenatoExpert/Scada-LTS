@@ -1,7 +1,9 @@
 FROM gradle:7-jdk11 as build
-WORKDIR /src
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash	\
+WORKDIR /tmp
+RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh	&& \
+	bash install.sh		&& \
 	nvm install 14
+WORKDIR /src
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle		\
 	--mount=type=cache,target=/src/build/classes	\
