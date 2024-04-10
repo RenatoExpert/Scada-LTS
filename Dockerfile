@@ -12,10 +12,6 @@ WORKDIR /
 COPY --from=build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk8-corretto-al2 as webserver
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
-	--mount=target=/var/cache/apt,type=cache,sharing=locked		\
-	apt update &&	\
-	apt install wait-for-it
 WORKDIR /usr/local/tomcat/
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
