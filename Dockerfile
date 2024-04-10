@@ -32,7 +32,7 @@ RUN tar -xvf apache-tomcat-9.0.87.tar.gz
 RUN mkdir -p scadalts-standalone/usr/lib/scadalts/
 RUN mv apache-tomcat-9.0.87 scadalts-standalone/usr/lib/scadalts/tomcat
 COPY --from=package /Scada-LTS.war .
-DIR=scada/usr/lib/scadalts/tomcat/webapps/Scada-LTS
+ARG DIR=scada/usr/lib/scadalts/tomcat/webapps/Scada-LTS
 RUN mkdir -p $DIR && cd $DIR && jar -xvf /pack/Scada-LTS.war
 RUN dpkg-deb --build scadalts-standalone
 
