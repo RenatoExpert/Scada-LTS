@@ -6,6 +6,14 @@ RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked	\
 	apt install xz-utils
 ADD https://nodejs.org/dist/v14.21.3/node-v14.21.3-linux-x64.tar.xz .
 RUN tar -xf node-v14.21.3-linux-x64.tar.xz
+WORKDIR node-v14.21.3-linux-x64
+RUN mv bin/* /usr/bin/			&& \
+	mv lib/* /usr/			&& \
+	mv lib/* /usr/lib		&& \
+	mv include/* /usr/include	&& \
+	mv share/doc/* /usr/share/doc	&& \
+	mv share/man/* /usr/share/man
+
 
 FROM gradle:7-jdk11 as build
 RUN tar -xvf node-v14.21.3-linux-x64.tar.xz
