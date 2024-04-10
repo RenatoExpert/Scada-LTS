@@ -27,13 +27,13 @@ FROM debian:stable-20240408 as debian_installer_builder
 WORKDIR /pack
 ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz
 COPY installers/debian scadalts
-COPY --from=package /Scada-LTS.war scadalts/usr/lib/scadalts/Scada-LTS.war
+COPY --from=package /Scada-LTS.war scadalts/usr/lib/scadalts-standalone/Scada-LTS.war
 RUN dpkg-deb --build scadalts
 
 FROM debian:stable-20240408 as debian_installer_test
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt update
-COPY --from=debian_installer_builder /pack/scadalts.deb /tmp
+COPY --from=debian_installer_builder /pack/scadalts-standalone.deb /tmp
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt install -y /tmp/scadalts.deb
 
