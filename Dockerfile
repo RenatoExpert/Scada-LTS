@@ -1,4 +1,4 @@
-FROM gradle:7-jdk11 as installnpm
+FROM gradle:7-jdk11 as build
 WORKDIR /tmp/npm
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked	\
 	--mount=target=/var/cache/apt,type=cache,sharing=locked	\
