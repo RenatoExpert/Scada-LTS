@@ -24,6 +24,8 @@ RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
 
 FROM debian:stable-20240408 as debian_installer_build
+RUN apt update
+RUN apt install -y unzip
 WORKDIR /pack
 COPY installers/debian scadalts-standalone
 COPY installers/systemd/scadalts.service scadalts-standalone/etc/systemd/system/scadalts.service
@@ -31,8 +33,7 @@ ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.8
 RUN tar -xvf apache-tomcat-9.0.87.tar.gz
 RUN mkdir -p scadalts-standalone/usr/lib/scadalts/
 RUN mv apache-tomcat-9.0.87 scadalts-standalone/usr/lib/scadalts/tomcat
-COPY --from=package /Scada-LTS.war .
-ARG DIR=scada/usr/lib/scadalts/tomcat/webapps/Scada-LTS
+RUN unzip Scada-LTS.war scadalts-standalone/usr/lib/scadalts/tomcat/webapps/Scada-LTS
 RUN mkdir -p $DIR && cd $DIR && jar -xvf /pack/Scada-LTS.war
 RUN dpkg-deb --build scadalts-standalone
 
