@@ -1,10 +1,3 @@
-FROM node:14-alpine as npm
-WORKDIR /
-COPY scadalts-ui app
-WORKDIR /app
-RUN --mount=type=cache,target=node_modules	\
-	npm install && npm build
-
 FROM gradle:7-jdk11 as build
 WORKDIR /src
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash	\
