@@ -55,6 +55,7 @@ processTestResources {
 }
 
 war {
+    dependsOn(':scadalts-ui:copyNewUiImages')
     from 'WebContent'
     webInf {
         from 'webapp-resources/'
