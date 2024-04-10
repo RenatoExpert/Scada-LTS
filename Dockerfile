@@ -30,11 +30,10 @@ COPY --from=package /Scada-LTS.war scadalts/usr/lib/scadalts
 RUN dpkg-deb --build scadalts
 
 FROM debian:stable-20240408 as debian_installer_test
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
+RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt update
 COPY --from=debian_installer_builder /pack/scadalts.deb /tmp
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
-	--mount=target=/var/cache/apt,type=cache,sharing=locked		\
+RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt install -y /tmp/scadalts.deb
 
 
