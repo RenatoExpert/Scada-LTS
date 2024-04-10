@@ -12,11 +12,8 @@ RUN mv bin/* /usr/bin/			&& \
 	mv include/* /usr/include	&& \
 	mv share/doc/* /usr/share/doc	&& \
 	mv share/man/* /usr/share/man
-
-
-FROM gradle:7-jdk11 as build
-RUN tar -xvf node-v14.21.3-linux-x64.tar.xz
 WORKDIR /src
+RUN rm /tmp/npm
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle		\
 	--mount=type=cache,target=/src/build/classes	\
