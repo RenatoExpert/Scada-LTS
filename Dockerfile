@@ -26,6 +26,7 @@ COPY docker/config/context.xml META-INF/context.xml
 FROM debian:stable-20240408 as debian_installer_builder
 WORKDIR /pack
 COPY installers/debian scadalts
+COPY --from=package /Scada-LTS.war scadalts/usr/lib/scadalts
 RUN dpkg-deb --build scadalts
 
 FROM debian:stable-20240408 as debian_installer_test
