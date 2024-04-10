@@ -5,7 +5,7 @@ RUN --mount=type=cache,target=/root/.gradle		\
 	--mount=type=cache,target=/src/build/classes	\
 	--mount=type=cache,target=/src/build/generated	\
 	--mount=type=cache,target=/src/build/tmp	\
-	gradle war
+	gradle war --stacktrace
 
 FROM scratch as package
 WORKDIR /
