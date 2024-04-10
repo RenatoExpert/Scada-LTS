@@ -1,27 +1,10 @@
 FROM gradle:7-jdk11 as build
-WORKDIR /tmp/npm
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked	\
-	--mount=target=/var/cache/apt,type=cache,sharing=locked	\
-	apt update		&& \
-	apt install xz-utils
-ADD https://nodejs.org/dist/v14.21.3/node-v14.21.3-linux-x64.tar.xz .
-RUN tar -xf node-v14.21.3-linux-x64.tar.xz
-WORKDIR node-v14.21.3-linux-x64
-RUN mv bin/* /usr/bin/			&& \
-	mv lib/* /usr/lib		&& \
-	mv include/* /usr/include	&& \
-	mv share/doc/* /usr/share/doc	&& \
-	mv share/man/* /usr/share/man
 WORKDIR /src
-RUN rm -rf /tmp/npm
 COPY . .
-RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
-	cd scadalts-ui && npm install
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
 	--mount=type=cache,target=/src/build/generated		\
 	--mount=type=cache,target=/src/build/tmp		\
-	--mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	gradle war --stacktrace
 
 FROM scratch as package
