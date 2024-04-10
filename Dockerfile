@@ -1,6 +1,13 @@
-FROM gradle:7-jdk11 as build
+FROM gradle:7-jdk11 as installnpm
 WORKDIR /tmp/npm
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked	\
+	--mount=target=/var/cache/apt,type=cache,sharing=locked	\
+	apt update		&& \
+	apt install xz-utils
 ADD https://nodejs.org/dist/v14.21.3/node-v14.21.3-linux-x64.tar.xz .
+RUN tar -xf node-v14.21.3-linux-x64.tar.xz
+
+FROM gradle:7-jdk11 as build
 RUN tar -xvf node-v14.21.3-linux-x64.tar.xz
 WORKDIR /src
 COPY . .
