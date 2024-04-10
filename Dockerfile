@@ -23,3 +23,7 @@ WORKDIR webapps/Scada-LTS
 RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
 
+FROM debian:stable-20240408 debian_installer
+COPY installers/debian /pack
+WORKDIR /pack
+
