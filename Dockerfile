@@ -23,7 +23,7 @@ WORKDIR webapps/Scada-LTS
 RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
 
-FROM debian:stable-20240408 as debian_installer_builder
+FROM debian:stable-20240408 as debian_installer_build
 WORKDIR /pack
 COPY installers/debian scadalts-standalone
 COPY installers/systemd/scadalts.service scadalts-standalone/etc/systemd/system/scadalts.service
@@ -37,7 +37,7 @@ RUN dpkg-deb --build scadalts-standalone
 FROM debian:stable-20240408 as debian_installer_test
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt update
-COPY --from=debian_installer_builder /pack/scadalts-standalone.deb /tmp
+COPY --from=debian_installer_build /pack/scadalts-standalone.deb /tmp
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt install -y /tmp/scadalts-standalone.deb
 
