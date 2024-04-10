@@ -26,9 +26,9 @@ COPY docker/config/context.xml META-INF/context.xml
 FROM debian:stable-20240408 as debian_installer_builder
 WORKDIR /pack
 ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.87.tar.gz .
-COPY installers/debian scadalts
+COPY installers/debian scadalts-standalone
 COPY --from=package /Scada-LTS.war scadalts/usr/lib/scadalts-standalone/Scada-LTS.war
-RUN dpkg-deb --build scadalts
+RUN dpkg-deb --build scadalts-standalone
 
 FROM debian:stable-20240408 as debian_installer_test
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
