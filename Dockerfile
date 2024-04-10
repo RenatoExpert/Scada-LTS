@@ -1,8 +1,7 @@
 FROM gradle:7-jdk11 as build
-WORKDIR /tmp
-RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh	&& \
-	bash install.sh		&& \
-	nvm install 14
+WORKDIR /tmp/npm
+ADD https://nodejs.org/dist/v14.21.3/node-v14.21.3-linux-x64.tar.xz .
+RUN tar -xvf node-v14.21.3-linux-x64.tar.xz
 WORKDIR /src
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle		\
