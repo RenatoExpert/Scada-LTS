@@ -6,7 +6,7 @@ RUN --mount=type=cache,target=/root/.gradle	\
 
 FROM scratch as package
 WORKDIR /
-COPY --from=build /src/target/scadalts-1.0-SNAPSHOT.war Scada-LTS.war
+COPY --from=build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk8-corretto-al2 as webserver
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked		\
