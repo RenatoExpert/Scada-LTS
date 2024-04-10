@@ -20,7 +20,7 @@ services:
             - ./volumes/database/config:/etc/mysql:ro
         command: --log_bin_trust_function_creators=1
         healthcheck:
-          test: mysql -h localhost -P 3306 -u root --password=root -d scadalts
+          test: mysqladmin ping -h localhost
           interval: 5s
           timeout: 10s
           retries: 10
