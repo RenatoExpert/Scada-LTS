@@ -30,7 +30,7 @@ RUN dpkg-deb --build scadalts
 
 FROM debian:stable-20240408 as debian_installer_test
 WORKDIR /pack
-COPY --from=debian_installer_builder scadalts.deb .
+COPY --from=debian_installer_builder /pack/scadalts.deb .
 RUN dpkg -i scadalts.deb
 
 
