@@ -15,6 +15,8 @@ RUN mv bin/* /usr/bin/			&& \
 WORKDIR /src
 RUN rm -rf /tmp/npm
 COPY . .
+RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
+	cd scadalts-ui && npm install
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
 	--mount=type=cache,target=/src/build/generated		\

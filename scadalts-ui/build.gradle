@@ -12,7 +12,7 @@ node {
     download = false
 }
 
-task bundle(type: NpmTask, dependsOn: npmInstall) {
+task bundle(type: NpmTask) {
     args = ['build']
 }
 
