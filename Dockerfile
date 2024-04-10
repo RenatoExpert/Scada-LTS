@@ -23,8 +23,12 @@ WORKDIR webapps/Scada-LTS
 RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
 
-FROM debian:stable-20240408 as debian_installer
+FROM debian:stable-20240408 as debian_installer_builder
 WORKDIR /pack
 COPY installers/debian scadalts
 RUN dpkg-deb --build scadalts
+
+FROM debian_installer as debian_installer_test
+WORKDIR /pack
+RUN dpkg -i scadalts.deb
 
