@@ -1,7 +1,10 @@
 FROM gradle:7-jdk11 as build
 WORKDIR /src
 COPY . .
-RUN --mount=type=cache,target=/root/.gradle	\
+RUN --mount=type=cache,target=/root/.gradle		\
+	--mount=type=cache,target=/src/build/classes	\
+	--mount=type=cache,target=/src/build/generated	\
+	--mount=type=cache,target=/src/build/tmp	\
 	gradle war
 
 FROM scratch as package
