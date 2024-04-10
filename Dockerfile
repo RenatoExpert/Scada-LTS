@@ -1,4 +1,4 @@
-FROM gradle:7-jdk11 as war_build
+FROM gradle:7-jdk11 as build
 WORKDIR /src
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle	\
