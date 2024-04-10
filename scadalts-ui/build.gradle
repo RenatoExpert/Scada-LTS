@@ -13,7 +13,7 @@ node {
 }
 
 task bundle(type: NpmTask, dependsOn: npmInstall) {
-    args = ['npm', 'build']
+    args = ['build']
 }
 
 task testUi(type: NpmTask, dependsOn: bundle) {
