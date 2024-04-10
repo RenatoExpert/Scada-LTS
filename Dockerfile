@@ -15,10 +15,11 @@ RUN mv bin/* /usr/bin/			&& \
 WORKDIR /src
 RUN rm -rf /tmp/npm
 COPY . .
-RUN --mount=type=cache,target=/root/.gradle		\
-	--mount=type=cache,target=/src/build/classes	\
-	--mount=type=cache,target=/src/build/generated	\
-	--mount=type=cache,target=/src/build/tmp	\
+RUN --mount=type=cache,target=/root/.gradle			\
+	--mount=type=cache,target=/src/build/classes		\
+	--mount=type=cache,target=/src/build/generated		\
+	--mount=type=cache,target=/src/build/tmp		\
+	--mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	gradle war --stacktrace
 
 FROM scratch as package
