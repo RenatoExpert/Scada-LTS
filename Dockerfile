@@ -1,14 +1,25 @@
-#Create an Scada-LTS.war file and deploy it into Docker Tomcat Image.
-FROM tomcat:9.0.53
-LABEL maintainer="rjajko@softq.pl"
-COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar /usr/local/tomcat/lib/mysql-connector-java-5.1.49.jar
-COPY tomcat/lib/activation.jar /usr/local/tomcat/lib/activation.jar
-COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar /usr/local/tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar
-COPY tomcat/lib/jaxb-core-3.0.2.jar /usr/local/tomcat/lib/jaxb-core-3.0.2.jar
-COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar /usr/local/tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar
+FROM gradle:7-jdk11 as build
+WORKDIR /src
+COPY . .
+RUN --mount=type=cache,target=/root/.gradle			\
+	--mount=type=cache,target=/src/build/classes		\
+	--mount=type=cache,target=/src/build/generated		\
+	--mount=type=cache,target=/src/build/tmp		\
+	gradle war --stacktrace
 
-COPY build/libs/Scada-LTS.war /usr/local/tomcat/webapps/
-RUN cd /usr/local/tomcat/webapps/ && mkdir Scada-LTS && unzip Scada-LTS.war -d Scada-LTS
-COPY docker/config/context.xml /usr/local/tomcat/webapps/Scada-LTS/META-INF/context.xml
+FROM scratch as package
+WORKDIR /
+COPY --from=build /src/build/libs/Scada-LTS.war .
 
-RUN apt update && apt install wait-for-it && apt clean && rm -rf /var/lib/apt/lists/*
+FROM tomcat:9.0.53 as webserver
+WORKDIR /usr/local/tomcat/
+COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
+COPY tomcat/lib/activation.jar					lib/activation.jar
+COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
+COPY tomcat/lib/jaxb-core-3.0.2.jar				lib/jaxb-core-3.0.2.jar
+COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180830.0438.jar
+COPY --from=package /Scada-LTS.war webapps/
+WORKDIR webapps/Scada-LTS
+RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
+COPY docker/config/context.xml META-INF/context.xml
+
