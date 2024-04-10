@@ -25,6 +25,6 @@ COPY docker/config/context.xml META-INF/context.xml
 
 FROM debian:stable-20240408 as debian_installer
 WORKDIR /pack
-COPY installers/debian /scadalts
+COPY installers/debian scadalts
 RUN dpkg-deb --build scadalts
 
