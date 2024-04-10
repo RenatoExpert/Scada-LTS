@@ -7,6 +7,8 @@ RUN --mount=type=cache,target=node_modules	\
 
 FROM gradle:7-jdk11 as build
 WORKDIR /src
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash	\
+	nvm install 14
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle		\
 	--mount=type=cache,target=/src/build/classes	\
