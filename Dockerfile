@@ -13,7 +13,7 @@ RUN mv bin/* /usr/bin/			&& \
 	mv share/doc/* /usr/share/doc	&& \
 	mv share/man/* /usr/share/man
 WORKDIR /src
-RUN rm /tmp/npm
+RUN rm -rf /tmp/npm
 COPY . .
 RUN --mount=type=cache,target=/root/.gradle		\
 	--mount=type=cache,target=/src/build/classes	\
