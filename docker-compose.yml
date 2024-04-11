@@ -29,7 +29,10 @@ services:
     scadalts:
         container_name: scadalts
         image: scadalts:latest
-        build: .
+        build:
+          context: .
+          dockerfile: Dockerfile
+          target: war_deploy
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
         ports: 
