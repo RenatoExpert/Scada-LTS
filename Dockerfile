@@ -1,11 +1,47 @@
+FROM node:14.21.3-bullseye as npm_build
+WORKDIR /scadalts-ui
+COPY ./scadalts-ui/package.json ./scadalts-ui/node_modules /scadalts-ui
+RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
+	npm install
+COPY ./scadalts-ui /scadalts-ui
+RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
+	npm run build
+
 FROM gradle:7-jdk11 as war_build
 WORKDIR /src
 COPY . .
+COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
+RUN mkdir -p WebContent/resources/node_modules						&& \
+	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
+	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
+COPY --from=npm_build /scadalts-ui/dist dist
+RUN mkdir -p WebContent/resources/js-ui/app/									&& \
+	cp -r dist/css						WebContent/resources/js-ui/app/css		&& \
+	mkdir -p WebContent/resources/js-ui/app/js								&& \
+	cp -r dist/js/chunk-vendors.js				WebContent/resources/js-ui/app/js		&& \
+	cp -r dist/js/app.js					WebContent/resources/js-ui/app/js		&& \
+	mkdir -p WebContent/resources/js-ui/modernWatchList/js							&& \
+	cp -r dist/js/pdfmake.js				WebContent/resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/xlsx.js					WebContent/resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/canvg.js					WebContent/resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/example-chart-cmp.js			WebContent/resources/js-ui/modernWatchList/js	&& \
+	mkdir -p WebContent/resources/js-ui/views/js								&& \
+	cp -r dist/js/simple-component-svg.js			WebContent/resources/js-ui/views/js		&& \
+	cp -r dist/js/live-alarms-component.js			WebContent/resources/js-ui/views/js		&& \
+	cp -r dist/js/isalive-component.js			WebContent/resources/js-ui/views/js		&& \
+	mkdir -p WebContent/resources/js-ui/ds/js								&& \
+	cp -r dist/js/sleep-and-reactivation-ds-component.js	WebContent/resources/js-ui/ds/js		&& \
+	mkdir -p WebContent/resources/js-ui/pointHierarchy/js							&& \
+	cp -r dist/js/ph.js					WebContent/resources/js-ui/pointHierarchy/js	&& \
+	cp -r dist/fonts					WebContent/resources/js-ui/app/fonts		&& \
+	cp -r dist/img						WebContent/img					;
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
 	--mount=type=cache,target=/src/build/generated		\
 	--mount=type=cache,target=/src/build/tmp		\
 	gradle war --stacktrace
+#RUN cp -r dist/js/test-component.js				WebContent/resources/js-ui/views/js
+#RUN cp -r dist/js/cmp-component-svg.js				WebContent/resources/js-ui/views/js
 
 FROM scratch as war_package
 WORKDIR /
