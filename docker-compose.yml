@@ -19,6 +19,11 @@ services:
             - ./volumes/database/data:/var/lib/mysql:rw
             - ./volumes/database/config:/etc/mysql:ro
         command: --log_bin_trust_function_creators=1
+        deploy:
+          resources:
+            limits:
+             cpus: '1'
+             memory: 200M
         healthcheck:
           test: mysqladmin ping -h localhost
           interval: 5s
@@ -45,4 +50,9 @@ services:
             - ./volumes/tomcat_log:/usr/local/tomcat/logs:rw
         links:
             - database:database
+        deploy:
+          resources:
+            limits:
+              cpus: '1'
+              memory: 800M
 
