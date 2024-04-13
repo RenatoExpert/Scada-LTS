@@ -43,6 +43,11 @@ RUN --mount=type=cache,target=/root/.gradle			\
 #RUN cp -r dist/js/test-component.js				WebContent/resources/js-ui/views/js
 #RUN cp -r dist/js/cmp-component-svg.js				WebContent/resources/js-ui/views/js
 
+FROM gradle:7-jdk11 as war_debug
+WORKDIR /debug
+COPY --from=war_build /src/build/libs/Scada-LTS.war /tmp
+RUN unzip /tmp/Scada-LTS.war -d .
+
 FROM scratch as war_package
 WORKDIR /
 COPY --from=war_build /src/build/libs/Scada-LTS.war .
