@@ -28,6 +28,7 @@ import br.org.scadabr.vo.dataSource.iec101.IEC101EthernetDataSourceVO;
 import br.org.scadabr.vo.dataSource.iec101.IEC101SerialDataSourceVO;
 import br.org.scadabr.vo.dataSource.nodaves7.NodaveS7DataSourceVO;
 import br.org.scadabr.vo.dataSource.opc.OPCDataSourceVO;
+import br.org.scadabr.vo.dataSource.opcua.OPCUADataSourceVO;
 import cc.radiuino.scadabr.vo.datasource.radiuino.RadiuinoDataSourceVO;
 import com.serotonin.ShouldNeverHappenException;
 import com.serotonin.json.*;
@@ -247,6 +248,12 @@ abstract public class DataSourceVO<T extends DataSourceVO<?>> extends ChangeStat
 			@Override
 			public DataSourceVO<?> createDataSourceVO() {
 				return new VMStatDataSourceVO();
+			}
+		},
+		OPCUA(48, "dsEdit.opcua", true) {
+			@Override
+			public DataSourceVO<?> createDataSourceVO() {
+				return new OPCUADataSourceVO();
 			}
 		},
 		OPC(32, "dsEdit.opc", true) {

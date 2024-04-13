@@ -463,6 +463,10 @@
 			<jsp:include page="dataSourceEdit/editOpc.jsp" />
 		</c:when>
 		<c:when
+			test="${dataSource.type.id == applicationScope['constants.DataSourceVO.Types.OPCUA']}">
+			<jsp:include page="dataSourceEdit/editOpcua.jsp" />
+		</c:when>
+		<c:when
 			test="${dataSource.type.id == applicationScope['constants.DataSourceVO.Types.ASCII_FILE']}">
 			<jsp:include page="dataSourceEdit/editAsciiFile.jsp" />
 		</c:when>

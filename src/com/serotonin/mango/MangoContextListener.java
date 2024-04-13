@@ -319,6 +319,8 @@ public class MangoContextListener implements ServletContextListener {
 				DataSourceVO.Type.ALPHA_2.getId());
 		ctx.setAttribute("constants.DataSourceVO.Types.OPC",
 				DataSourceVO.Type.OPC.getId());
+		ctx.setAttribute("constants.DataSourceVO.Types.OPCUA",
+				DataSourceVO.Type.OPCUA.getId());
 		ctx.setAttribute("constants.DataSourceVO.Types.ASCII_FILE",
 				DataSourceVO.Type.ASCII_FILE.getId());
 		ctx.setAttribute("constants.DataSourceVO.Types.ASCII_SERIAL",

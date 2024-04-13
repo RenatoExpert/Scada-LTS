@@ -82,6 +82,8 @@ import br.org.scadabr.vo.dataSource.nodaves7.NodaveS7DataSourceVO;
 import br.org.scadabr.vo.dataSource.nodaves7.NodaveS7PointLocatorVO;
 import br.org.scadabr.vo.dataSource.opc.OPCDataSourceVO;
 import br.org.scadabr.vo.dataSource.opc.OPCPointLocatorVO;
+import br.org.scadabr.vo.dataSource.opcua.OPCUADataSourceVO;
+import br.org.scadabr.vo.dataSource.opcua.OPCUAPointLocatorVO;
 import cc.radiuino.scadabr.vo.datasource.radiuino.RadiuinoDataSourceVO;
 import cc.radiuino.scadabr.vo.datasource.radiuino.RadiuinoPointLocatorVO;
 
@@ -2331,6 +2333,49 @@ public class DataSourceEditDwr extends DataSourceListDwr {
             }
         }
         return response;
+    }
+
+    //
+    // /
+    // / OPC UA stuff
+    // /
+    //
+    
+    public DwrResponseI18n saveOPCUADataSource(String name, String xid,
+                                             String endpoint, String user, String password,
+                                             int updatePeriods, int updatePeriodType) {
+        Permissions.ensureAdmin();
+        OPCUADataSourceVO<?> ds = (OPCUADataSourceVO<?>) Common.getUser()
+                .getEditDataSource();
+        ds.setXid(xid);
+        ds.setName(name);
+        ds.setEndpoint(endpoint);
+        ds.setUser(user);
+        ds.setPassword(password);
+        ds.setUpdatePeriods(updatePeriods);
+        ds.setUpdatePeriodType(updatePeriodType);
+        return tryDataSourceSave(ds);
+    }
+
+    
+    public DwrResponseI18n saveOPCUAPointLocator(int id, String xid, String name,
+                                               VirtualPointLocatorVO locator) {
+        return validatePoint(id, xid, name, locator, null);
+    }
+
+    public ArrayList<String> searchOpcuaServer(String endpoint,
+                                             String user, String password) {
+        Logger log = JISystem.getLogger();
+        log.setLevel(Level.OFF);
+        ArrayList<String> serverList = new ArrayList<String>();
+        return serverList;
+    }
+
+    public boolean validateOPCUATag(String tag, String user, String password,
+                                  String host, String endpoint) {
+        Logger log = JISystem.getLogger();
+        log.setLevel(Level.OFF);
+        return true;
     }
 
     //
