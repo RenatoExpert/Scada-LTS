@@ -19,7 +19,6 @@ import com.serotonin.mango.rt.dataSource.PollingDataSource;
 import com.serotonin.web.i18n.LocalizableMessage;
 
 public class OPCUADataSource extends PollingDataSource {
-
 	private final Log LOG = LogFactory.getLog(OPCUADataSource.class);
 	public static final int POINT_READ_EXCEPTION_EVENT = 1;
 	public static final int DATA_SOURCE_EXCEPTION_EVENT = 2;
@@ -31,22 +30,17 @@ public class OPCUADataSource extends PollingDataSource {
 	public OPCUADataSource(OPCUADataSourceVO<?> vo) {
 		super(vo);
 		this.vo = vo;
-		setPollingPeriod(vo.getUpdatePeriodType(), vo.getUpdatePeriods(), true);
-
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
 	@Override
 	protected void doPoll(long time) {
 		ArrayList<String> enabledTags = new ArrayList<String>();
-
 		for (DataPointRT dataPoint : dataPoints) {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
 			enabledTags.add(dataPointVO.getTag());
 		}
-
 		try {
-
 			if (timeoutCount >= timeoutsToReconnect) {
 				System.out.println("[OPCUA] Trying to reconnect !");
 				timeoutCount = 0;
@@ -54,14 +48,13 @@ public class OPCUADataSource extends PollingDataSource {
 			} else {
 				returnToNormal(DATA_SOURCE_EXCEPTION_EVENT, time);
 			}
-
 		} catch (Exception e) {
 			raiseEvent(
-					DATA_SOURCE_EXCEPTION_EVENT,
-					time,
-					true,
-					new LocalizableMessage("event.exception2", vo.getName(), e
-							.getMessage()));
+				DATA_SOURCE_EXCEPTION_EVENT,
+				time,
+				true,
+				new LocalizableMessage("event.exception2", vo.getName(), e.getMessage())
+			);
 			timeoutCount++;
 			System.out.println("[OPCUA] Poll Failed !");
 		}
@@ -70,26 +63,23 @@ public class OPCUADataSource extends PollingDataSource {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
 			MangoValue mangoValue = null;
 			String value = "0";
-
 			try {
-
-				mangoValue = MangoValue.stringToValue(value,
-						dataPointVO.getDataTypeId());
-				dataPoint
-						.updatePointValue(new PointValueTime(mangoValue, time));
+				mangoValue = MangoValue.stringToValue(value, dataPointVO.getDataTypeId());
+				dataPoint.updatePointValue(new PointValueTime(mangoValue, time));
 			} catch (Exception e) {
-				raiseEvent(POINT_READ_EXCEPTION_EVENT, time, true,
-						new LocalizableMessage("event.exception2",
-								vo.getName(), e.getMessage()));
+				raiseEvent(
+					POINT_READ_EXCEPTION_EVENT,
+					time,
+					true,
+					new LocalizableMessage("event.exception2", vo.getName(), e.getMessage())
+				);
 			}
 		}
 	}
 
 	@Override
-	public void setPointValue(DataPointRT dataPoint, PointValueTime valueTime,
-			SetPointSource source) {
-		String tag = ((OPCUAPointLocatorVO) dataPoint.getVO().getPointLocator())
-				.getTag();
+	public void setPointValue(DataPointRT dataPoint, PointValueTime valueTime, SetPointSource source) {
+		String tag = ((OPCUAPointLocatorVO) dataPoint.getVO().getPointLocator()).getTag();
 		Object value = null;
 		if (dataPoint.getDataTypeId() == DataTypes.NUMERIC)
 			value = valueTime.getDoubleValue();
@@ -103,20 +93,18 @@ public class OPCUADataSource extends PollingDataSource {
 		try {
 		} catch (Exception e) {
 			raiseEvent(
-					POINT_WRITE_EXCEPTION_EVENT,
-					System.currentTimeMillis(),
-					true,
-					new LocalizableMessage("event.exception2", vo.getName(), e
-							.getMessage()));
+				POINT_WRITE_EXCEPTION_EVENT,
+				System.currentTimeMillis(),
+				true,
+				new LocalizableMessage("event.exception2", vo.getName(), e.getMessage())
+			);
 			e.printStackTrace();
 		}
 	}
 
 	public void initialize() {
-
 		try {
-			returnToNormal(DATA_SOURCE_EXCEPTION_EVENT,
-					System.currentTimeMillis());
+			returnToNormal(DATA_SOURCE_EXCEPTION_EVENT, System.currentTimeMillis());
 		} catch (Exception e) {
 			String message = e.getMessage();
 			if(e.getMessage() != null && e.getMessage().contains("Unknown Error")) {
@@ -125,10 +113,11 @@ public class OPCUADataSource extends PollingDataSource {
 			message = "Error while initializing data source: " +  message;
 			LOG.error(message + e.getMessage(), e);
 			raiseEvent(
-					DATA_SOURCE_EXCEPTION_EVENT,
-					System.currentTimeMillis(),
-					true,
-					new LocalizableMessage("event.exception2", vo.getName(), message));
+				DATA_SOURCE_EXCEPTION_EVENT,
+				System.currentTimeMillis(),
+				true,
+				new LocalizableMessage("event.exception2", vo.getName(), message)
+			);
 			return;
 		}
 		super.initialize();
@@ -146,11 +135,13 @@ public class OPCUADataSource extends PollingDataSource {
 			message = "Error while terminating data source: " +  message;
 			LOG.error(message + e.getMessage(), e);
 			raiseEvent(
-					DATA_SOURCE_EXCEPTION_EVENT,
-					System.currentTimeMillis(),
-					true,
-					new LocalizableMessage("event.exception2", vo.getName(), message));
+				DATA_SOURCE_EXCEPTION_EVENT,
+				System.currentTimeMillis(),
+				true,
+				new LocalizableMessage("event.exception2", vo.getName(), message)
+			);
 		}
 	}
 
 }
+

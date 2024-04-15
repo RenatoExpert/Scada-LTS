@@ -240,20 +240,20 @@ public class DataSourceEditDwr extends DataSourceListDwr {
 	}
 
 	private DwrResponseI18n tryDataSourceSave(DataSourceVO<?> ds) {
-        Permissions.ensureAdmin();
+		Permissions.ensureAdmin();
 		DwrResponseI18n response = new DwrResponseI18n();
-
 		ds.validate(response);
-
-		if (!response.getHasMessages()) {
+		if (response.getHasMessages()) {
+			LOG.warn("Problems on Datasource save");
+			System.out.println("Error on datasource saving");
+		} else {
 			LOG.debug("Trying to save datasource " + ds.getName());
 			Common.ctx.getRuntimeManager().saveDataSource(ds);
 			response.addData("id", ds.getId());
 			LOG.debug("Response: " + response.toString());
 		}
-
-        return response;
-    }
+		return response;
+	}
 
     //
     public void cancelTestingUtility() {
@@ -329,32 +329,30 @@ public class DataSourceEditDwr extends DataSourceListDwr {
         return dp;
     }
 
-    private DwrResponseI18n validatePoint(int id, String xid, String name,
-                                          PointLocatorVO locator, DataPointDefaulter defaulter) {
-        Permissions.ensureAdmin();
-        DwrResponseI18n response = new DwrResponseI18n();
+	private DwrResponseI18n validatePoint(int id, String xid, String name, PointLocatorVO locator) {
+		return validatePoint(id, xid, name, locator, null);
+	}
 
-        DataPointVO dp = getPoint(id, defaulter);
-        dp.setXid(xid);
-        dp.setName(name);
-        dp.setPointLocator(locator);
-
-        DataPointService dataPointService = new DataPointService();
-        validateXid(response, dataPointService::isXidUnique, xid, id);
-
-        if (StringUtils.isEmpty(name))
-            response.addContextualMessage("name", "dsEdit.validate.required");
-
-        locator.validate(response);
-
-        if (!response.getHasMessages()) {
-            Common.ctx.getRuntimeManager().saveDataPoint(dp);
-            response.addData("id", dp.getId());
-            response.addData("points", getPoints());
-        }
-
-        return response;
-    }
+	private DwrResponseI18n validatePoint(int id, String xid, String name, PointLocatorVO locator, DataPointDefaulter defaulter) {
+		Permissions.ensureAdmin();
+		DwrResponseI18n response = new DwrResponseI18n();
+		DataPointVO dp = getPoint(id, defaulter);
+		dp.setXid(xid);
+		dp.setName(name);
+		dp.setPointLocator(locator);
+		DataPointService dataPointService = new DataPointService();
+		validateXid(response, dataPointService::isXidUnique, xid, id);
+		if (StringUtils.isEmpty(name)) {
+			response.addContextualMessage("name", "dsEdit.validate.required");
+		}
+		locator.validate(response);
+		if (!response.getHasMessages()) {
+			Common.ctx.getRuntimeManager().saveDataPoint(dp);
+			response.addData("id", dp.getId());
+			response.addData("points", getPoints());
+		}
+		return response;
+	}
 
     //
     public List<DataPointVO> deletePoint(int id) {
@@ -2341,42 +2339,21 @@ public class DataSourceEditDwr extends DataSourceListDwr {
     // /
     //
     
-    public DwrResponseI18n saveOPCUADataSource(String name, String xid,
-                                             String endpoint, String user, String password,
-                                             int updatePeriods, int updatePeriodType) {
-        Permissions.ensureAdmin();
-        OPCUADataSourceVO<?> ds = (OPCUADataSourceVO<?>) Common.getUser()
-                .getEditDataSource();
-        ds.setXid(xid);
-        ds.setName(name);
-        ds.setEndpoint(endpoint);
-        ds.setUser(user);
-        ds.setPassword(password);
-        ds.setUpdatePeriods(updatePeriods);
-        ds.setUpdatePeriodType(updatePeriodType);
-        return tryDataSourceSave(ds);
-    }
-
+	public DwrResponseI18n saveOPCUADataSource(String name, String xid, String endpoint, String user, String password) {
+		System.out.println("FUNCTION saveOPCUADataSource");
+		Permissions.ensureAdmin();
+		OPCUADataSourceVO<?> ds = (OPCUADataSourceVO<?>) Common.getUser().getEditDataSource();
+		ds.setXid(xid);
+		ds.setName(name);
+		ds.setEndpoint(endpoint);
+		ds.setUser(user);
+		ds.setPassword(password);
+		return tryDataSourceSave(ds);
+	}
     
-    public DwrResponseI18n saveOPCUAPointLocator(int id, String xid, String name,
-                                               VirtualPointLocatorVO locator) {
-        return validatePoint(id, xid, name, locator, null);
-    }
-
-    public ArrayList<String> searchOpcuaServer(String endpoint,
-                                             String user, String password) {
-        Logger log = JISystem.getLogger();
-        log.setLevel(Level.OFF);
-        ArrayList<String> serverList = new ArrayList<String>();
-        return serverList;
-    }
-
-    public boolean validateOPCUATag(String tag, String user, String password,
-                                  String host, String endpoint) {
-        Logger log = JISystem.getLogger();
-        log.setLevel(Level.OFF);
-        return true;
-    }
+	public DwrResponseI18n saveOPCUAPointLocator(int id, String xid, String name, VirtualPointLocatorVO locator) {
+		return validatePoint(id, xid, name, locator);
+	}
 
     //
     // /
