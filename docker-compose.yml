@@ -23,7 +23,7 @@ services:
           resources:
             limits:
              cpus: '1'
-             memory: 200M
+             memory: 256M
         healthcheck:
           test: mysqladmin ping -h localhost
           interval: 5s
