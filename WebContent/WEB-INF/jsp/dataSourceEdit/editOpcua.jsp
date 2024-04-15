@@ -81,14 +81,14 @@
 	<table>
 		<tr>
 			<td colspan="2" class="smallTitle">
-				<fmt:message key="dsEdit.opc.addTags" />
+				<fmt:message key="dsEdit.opcua.addTags" />
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<fmt:message key="dsEdit.opc.tagName" />
+				<fmt:message key="dsEdit.opcua.tagName" />
 				<input id="tagName" type="text" />
-				<input id="btnAddTag" type="button" value="<fmt:message key="dsEdit.opc.validateTag"/>" onclick="validateTag();" />
+				<input id="btnAddTag" type="button" value="<fmt:message key="dsEdit.opcua.validateTag"/>" onclick="validateTag();" />
 			</td>
 		</tr>
 		<tr>
@@ -98,10 +98,10 @@
 			<td>
 				<table cellspacing="1" cellpadding="0" border="0">
 					<thead class="rowHeader">
-						<td align="center"><fmt:message key="dsEdit.opc.tag" /></td>
+						<td align="center"><fmt:message key="dsEdit.opcua.tag" /></td>
 						<td align="center"><fmt:message key="dsEdit.pointDataType" /></td>
 						<td align="center"><fmt:message key="dsEdit.settable" /></td>
-						<td align="center"><fmt:message key="dsEdit.opc.validation" /></td>
+						<td align="center"><fmt:message key="dsEdit.opcua.validation" /></td>
 						<td align="center"><fmt:message key="common.add" /></td>
 					</thead>
 					<!-- TODO why is the height being enforced? -->
@@ -112,7 +112,7 @@
 		<tr>
 			<td colspan="2" align="center">
 				<input id="btnAddTag" type="button"
-				value="<fmt:message key='dsEdit.opc.addTags'/>"
+				value="<fmt:message key='dsEdit.opcua.addTags'/>"
 				onclick="btnAddTag();"
 			/>
 			</td>
