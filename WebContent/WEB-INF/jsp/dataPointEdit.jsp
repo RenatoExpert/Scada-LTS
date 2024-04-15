@@ -18,47 +18,47 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 
+<style type="text/css">
+	#swal2-title {
+		font-size: 16px;
+	}
+	.scada-swal2 {
+		color: blue !important;
+		text-size: 12em;
+	}
+	.swal-content {
+		font-size: 12px;
+	}
+	.scada-swal-ul {
+		text-align: left;
+		font-weight: bold;
+		list-style-type: none;
+		font-size: 12px;
+		margin-left: 0px;
+		padding: 0;
+	}
+	.scada-swal-ul2 {
+		text-align: left;
+		list-style-type: none;
+		font-weight: normal;
+		margin-left: 10px;
+		padding: 0;
+	}
+	.scada-swal-content {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 14px;
+	}
+	.swal2-cancel {
+		font-size: 0.8em;
+	}
+	.swal2-actions {
+		font-size: 0.8em;
+	}
+</style>
+
 <tag:page dwr="DataPointEditDwr">
 	<link href="resources/node_modules/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="resources/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-
-	<style type="text/css">
-		#swal2-title {
-			font-size: 16px;
-		}
-		.scada-swal2 {
-			color: blue !important;
-			text-size: 12em;
-		}
-		.swal-content {
-			font-size: 12px;
-		}
-		.scada-swal-ul {
-			text-align: left;
-			font-weight: bold;
-			list-style-type: none;
-			font-size: 12px;
-			margin-left: 0px;
-			padding: 0;
-		}
-		.scada-swal-ul2 {
-			text-align: left;
-			list-style-type: none;
-			font-weight: normal;
-			margin-left: 10px;
-			padding: 0;
-		}
-		.scada-swal-content {
-			font-family: Verdana, Arial, Helvetica, sans-serif;
-			font-size: 14px;
-		}
-		.swal2-cancel {
-			font-size: 0.8em;
-		}
-		.swal2-actions {
-			font-size: 0.8em;
-		}
-	</style>
 
 	<%@ include file="/WEB-INF/jsp/pointEdit/pointName.jsp" %>
 
@@ -84,6 +84,54 @@
 		</table>
 		<%@ include file="/WEB-INF/jsp/pointEdit/buttons.jsp" %>
 	</form>
+
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<div class="borderDiv marB marR" style="margin:20px; padding:10px; border-color:blue; max-width: 800px;">
+					<table width="100%" cellpadding="0" cellspacing="0">
+						<tr>
+							<td colspan="4">
+								<span class="smallTitle">
+									<fmt:message key="pointEdit.basing_on.title"/>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="formLabelRequired">
+								<fmt:message key="pointEdit.basing_on.select"/>
+							</td>
+							<td colspan="2" class="formField">
+								<select id="selected_base_on_existing_point_chooser">
+									<c:forEach items="${userPoints}" var="point">
+										<sst:option value="${point.id}">${point.extendedName}</sst:option>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input id="baseOnExistingPointBtn" type="button" value="<fmt:message key="pointEdit.basing_on.apply"/>" onclick="baseOnExistingPoint()">
+							</td>
+							<td colspan="3">
+								<input type="checkbox" id="checkGetAlertError" value="true" checked>
+								<label for="checkGetAlertError">
+									<fmt:message key="pointEdit.basing_on.warning_on"/>
+								</label>
+							</td>
+						</tr>
+					</table>
+					<p>Note: changes require saving</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%@ include file="/WEB-INF/jsp/pointEdit/valuePurge.jsp" %>
+			</td>
+		</tr>
+	</table>
+</tag:page>
 
 <script>
 	function checkGetAlertError() {
@@ -217,9 +265,9 @@
 							}
 						}
 						eventTextRendererEditor.addRangeEventValue(
-							String( properties.eventTextRenderer.rangeEventValues[range].from ),
-							String( properties.eventTextRenderer.rangeEventValues[range].to ),
-							String( properties.eventTextRenderer.rangeEventValues[range].text )
+							String(properties.eventTextRenderer.rangeEventValues[range].from),
+							String(properties.eventTextRenderer.rangeEventValues[range].to),
+							String(properties.eventTextRenderer.rangeEventValues[range].text)
 						);
 					}
 				} catch (err) {
@@ -230,9 +278,9 @@
 			} else {
 				for (var range in properties.eventTextRenderer.rangeEventValues) {
 					eventTextRendererEditor.addRangeEventValue(
-						String( properties.eventTextRenderer.rangeEventValues[range].from ),
-						String( properties.eventTextRenderer.rangeEventValues[range].to ),
-						String( properties.eventTextRenderer.rangeEventValues[range].text )
+						String(properties.eventTextRenderer.rangeEventValues[range].from),
+						String(properties.eventTextRenderer.rangeEventValues[range].to),
+						String(properties.eventTextRenderer.rangeEventValues[range].text)
 					);
 				}
 			}
@@ -267,9 +315,9 @@
 					}
 					for (var multistate in properties.textRenderer.multistateValues) {
 						textRendererEditor.addMultistateValue(
-							String( properties.textRenderer.multistateValues[multistate].key ),
-							String( properties.textRenderer.multistateValues[multistate].text ),
-							String( properties.textRenderer.multistateValues[multistate].colour )
+							String(properties.textRenderer.multistateValues[multistate].key),
+							String(properties.textRenderer.multistateValues[multistate].text),
+							String(properties.textRenderer.multistateValues[multistate].colour)
 						);
 					}
 				} catch (err) {
@@ -280,9 +328,9 @@
 			} else {
 				for (var multistate in properties.textRenderer.multistateValues) {
 					textRendererEditor.addMultistateValue(
-						String( properties.textRenderer.multistateValues[multistate].key ),
-						String( properties.textRenderer.multistateValues[multistate].text ),
-						String( properties.textRenderer.multistateValues[multistate].colour )
+						String(properties.textRenderer.multistateValues[multistate].key),
+						String(properties.textRenderer.multistateValues[multistate].text),
+						String(properties.textRenderer.multistateValues[multistate].colour)
 					);
 				}
 			}
@@ -312,10 +360,10 @@
 							}
 						}
 						textRendererEditor.addRangeValue(
-							String( properties.textRenderer.rangeValues[range].from ),
-							String( properties.textRenderer.rangeValues[range].to ),
-							String( properties.textRenderer.rangeValues[range].text ),
-							String( properties.textRenderer.rangeValues[range].colour )
+							String(properties.textRenderer.rangeValues[range].from),
+							String(properties.textRenderer.rangeValues[range].to),
+							String(properties.textRenderer.rangeValues[range].text),
+							String(properties.textRenderer.rangeValues[range].colour)
 						);
 					}
 				} catch (err) {
@@ -326,10 +374,10 @@
 			} else {
 				for (var range in properties.textRenderer.rangeValues) {
 					textRendererEditor.addRangeValue(
-						String( properties.textRenderer.rangeValues[range].from ),
-						String( properties.textRenderer.rangeValues[range].to ),
-						String( properties.textRenderer.rangeValues[range].text ),
-						String( properties.textRenderer.rangeValues[range].colour )
+						String(properties.textRenderer.rangeValues[range].from),
+						String(properties.textRenderer.rangeValues[range].to),
+						String(properties.textRenderer.rangeValues[range].text),
+						String(properties.textRenderer.rangeValues[range].colour)
 					);
 				}
 			}
@@ -790,53 +838,5 @@
 			}
 		});
 	}
-	</script>
+</script>
 
-	<table width="100%" cellpadding="0" cellspacing="0">
-		<tr>
-			<td>
-				<div class="borderDiv marB marR" style="margin:20px; padding:10px; border-color:blue; max-width: 800px;">
-					<table width="100%" cellpadding="0" cellspacing="0">
-						<tr>
-							<td colspan="4">
-								<span class="smallTitle">
-									<fmt:message key="pointEdit.basing_on.title"/>
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="formLabelRequired">
-								<fmt:message key="pointEdit.basing_on.select"/>
-							</td>
-							<td colspan="2" class="formField">
-								<select id="selected_base_on_existing_point_chooser">
-									<c:forEach items="${userPoints}" var="point">
-										<sst:option value="${point.id}">${point.extendedName}</sst:option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input id="baseOnExistingPointBtn" type="button" value="<fmt:message key="pointEdit.basing_on.apply"/>" onclick="baseOnExistingPoint()">
-							</td>
-							<td colspan="3">
-								<input type="checkbox" id="checkGetAlertError" value="true" checked>
-								<label for="checkGetAlertError">
-									<fmt:message key="pointEdit.basing_on.warning_on"/>
-								</label>
-							</td>
-						</tr>
-					</table>
-					<p>Note: changes require saving</p>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<%@ include file="/WEB-INF/jsp/pointEdit/valuePurge.jsp" %>
-			</td>
-		</tr>
-	</table>
-
-</tag:page>
