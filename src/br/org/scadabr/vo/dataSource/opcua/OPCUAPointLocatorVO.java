@@ -88,20 +88,15 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 	@Override
 	public void addProperties(List<LocalizableMessage> list) {
 		AuditEventType.addDataTypeMessage(list, "dsEdit.sql.rowId", dataType);
-		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tagName", tagName);
 		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tagUrl", tagUrl);
 	}
 
 	@Override
 	public void addPropertyChanges(List<LocalizableMessage> list, Object o) {
 		OPCUAPointLocatorVO from = (OPCUAPointLocatorVO) o;
-
-		AuditEventType.maybeAddDataTypeChangeMessage(list,
-				"dsEdit.pointDataType", from.dataType, dataType);
-		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.opcua.tag",
-				from.tag, tag);
-		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.settable",
-				from.settable, settable);
+		AuditEventType.maybeAddDataTypeChangeMessage(list, "dsEdit.pointDataType", from.dataType, dataType);
+		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.opcua.tag", from.tag, tag);
+		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.settable", from.settable, settable);
 	}
 
 	private static final long serialVersionUID = -1;

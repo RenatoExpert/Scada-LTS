@@ -103,5 +103,23 @@
 			<input type="text" id="tagUrl"/>
 		</td>
 	</tr>
+	<tr>
+		<td class="formLabelRequired">
+			<fmt:message key="dsEdit.opcua.opcuaDataType"/>
+		</td>
+		<td class="formField">
+			<select id="opcuaDataType" onchange="changeDataType('')">
+				<option value="<c:out value="<%= DataType.BOOL %>"/>">
+					<fmt:message key="dsEdit.opcua.opcuaDataType.bool"/>
+				</option>
+				<option value="<c:out value="<%= DataType.INTEGER %>"/>">
+					<fmt:message key="dsEdit.opcua.opcuaDataType.integer"/>
+				</option>
+				<option value="<c:out value="<%= DataType.FLOAT %>"/>">
+					<fmt:message key="dsEdit.opcua.opcuaDataType.float"/>
+				</option>
+			</select>
+		</td>
+	</tr>
 </tag:pointList>
 
