@@ -84,6 +84,7 @@
 		delete locator.relinquishable;
 
 		locator.tagUrl = $get("tagUrl");
+		locator.tagUrl = $get("opcuaDatatype");
 		DataSourceEditDwr.saveModbusPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
 	}
 
