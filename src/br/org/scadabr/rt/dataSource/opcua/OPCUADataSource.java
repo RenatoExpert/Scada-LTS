@@ -33,6 +33,21 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
+	private getData(String server, String node) {
+		PlcConnection connection = PlcDriverManager.getDefault()
+			.getConnectionManager()
+			.getConnection(server);
+		PlcReadRequest.Builder builder = connection.readRequestBuilder();
+		builder.addTagAddress("my_tag", node);
+		PlcReadResponse response = builder.build()
+			.execute()
+			.get(5000, TimeUnit.MILLISECONDS);
+		String tagName = response.getTagNames()[0];
+		Object value = response.getObject(tagName);
+		connection.close();
+		return value;
+	}	
+
 	@Override
 	protected void doPoll(long time) {
 		ArrayList<String> enabledTags = new ArrayList<String>();
@@ -142,6 +157,5 @@ public class OPCUADataSource extends PollingDataSource {
 			);
 		}
 	}
-
 }
 
