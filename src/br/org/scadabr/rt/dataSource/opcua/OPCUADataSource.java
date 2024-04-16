@@ -50,30 +50,6 @@ public class OPCUADataSource extends PollingDataSource {
 
 	@Override
 	protected void doPoll(long time) {
-		ArrayList<String> enabledTags = new ArrayList<String>();
-		for (DataPointRT dataPoint : dataPoints) {
-			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
-			enabledTags.add(dataPointVO.getTag());
-		}
-		try {
-			if (timeoutCount >= timeoutsToReconnect) {
-				System.out.println("[OPCUA] Trying to reconnect !");
-				timeoutCount = 0;
-				initialize();
-			} else {
-				returnToNormal(DATA_SOURCE_EXCEPTION_EVENT, time);
-			}
-		} catch (Exception e) {
-			raiseEvent(
-				DATA_SOURCE_EXCEPTION_EVENT,
-				time,
-				true,
-				new LocalizableMessage("event.exception2", vo.getName(), e.getMessage())
-			);
-			timeoutCount++;
-			System.out.println("[OPCUA] Poll Failed !");
-		}
-
 		for (DataPointRT dataPoint : dataPoints) {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
 			MangoValue mangoValue = null;
