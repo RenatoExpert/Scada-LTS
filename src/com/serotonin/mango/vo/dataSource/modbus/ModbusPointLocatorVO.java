@@ -337,27 +337,17 @@ public class ModbusPointLocatorVO extends AbstractPointLocatorVO implements
 
 	@Override
 	public void addProperties(List<LocalizableMessage> list) {
-		AuditEventType.addPropertyMessage(list, "dsEdit.modbus.slaveId",
-				slaveId);
+		AuditEventType.addPropertyMessage(list, "dsEdit.modbus.slaveId", slaveId);
 		if (!slaveMonitor && !socketMonitor) {
-			AuditEventType.addExportCodeMessage(list,
-					"dsEdit.modbus.registerRange", RANGE_CODES, range);
-			AuditEventType.addExportCodeMessage(list,
-					"dsEdit.modbus.modbusDataType", MODBUS_DATA_TYPE_CODES,
-					modbusDataType);
-			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.offset",
-					offset);
+			AuditEventType.addExportCodeMessage(list, "dsEdit.modbus.registerRange", RANGE_CODES, range);
+			AuditEventType.addExportCodeMessage(list, "dsEdit.modbus.modbusDataType", MODBUS_DATA_TYPE_CODES, modbusDataType);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.offset", offset);
 			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.bit", bit);
-			AuditEventType.addPropertyMessage(list,
-					"dsEdit.modbus.registerCount", registerCount);
-			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.charset",
-					charset);
-			AuditEventType.addPropertyMessage(list,
-					"dsEdit.modbus.settableOverride", settableOverride);
-			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.multiplier",
-					multiplier);
-			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.additive",
-					additive);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.registerCount", registerCount);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.charset", charset);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.settableOverride", settableOverride);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.multiplier", multiplier);
+			AuditEventType.addPropertyMessage(list, "dsEdit.modbus.additive", additive);
 		}
 	}
 
