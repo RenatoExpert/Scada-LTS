@@ -105,21 +105,15 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="formLabelRequired">
-			<fmt:message key="dsEdit.opcua.opcuaDataType"/>
-		</td>
-		<td class="formField">
-			<select id="opcuaDataType" onchange="changeDataType('')">
-				<option value="<c:out value="<%= DataType.BOOL %>"/>">
-					<fmt:message key="dsEdit.opcua.opcuaDataType.bool"/>
-				</option>
-				<option value="<c:out value="<%= DataType.INTEGER %>"/>">
-					<fmt:message key="dsEdit.opcua.opcuaDataType.integer"/>
-				</option>
-				<option value="<c:out value="<%= DataType.FLOAT %>"/>">
-					<fmt:message key="dsEdit.opcua.opcuaDataType.float"/>
-				</option>
-			</select>
+		<td>
+		<table cellspacing="1" cellpadding="0" border="0">
+			<thead class="rowHeader">
+				<td align="center"><fmt:message key="dsEdit.opc.tag" /></td>
+				<td align="center"><fmt:message key="dsEdit.pointDataType" /></td>
+				<td align="center"><fmt:message key="common.add" /></td>
+			</thead>
+			<tbody id="tagsTable" style="height: 160px; overflow: auto;"></tbody>
+		</table>
 		</td>
 	</tr>
 </tag:pointList>
