@@ -39,7 +39,7 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
-	private getData(String node) {
+	private String getData(String node) {
 		String server = this.vo.getEndpoint();
 		PlcConnection connection = PlcDriverManager.getDefault()
 			.getConnectionManager()
