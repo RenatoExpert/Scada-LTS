@@ -60,6 +60,7 @@ public class OPCUADataSource extends PollingDataSource {
 				value = getData(node); 
 				mangoValue = MangoValue.stringToValue(value, dataPointVO.getDataTypeId());
 				dataPoint.updatePointValue(new PointValueTime(mangoValue, time));
+				setPointValue(dataPoint, new PointValueTime(value, time), null);
 			} catch (Exception e) {
 				raiseEvent(
 					POINT_READ_EXCEPTION_EVENT,
