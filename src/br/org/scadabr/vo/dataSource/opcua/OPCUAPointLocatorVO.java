@@ -24,6 +24,28 @@ import com.serotonin.web.i18n.LocalizableMessage;
 public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
 		JsonSerializable {
 
+	@JsonRemoteProperty
+	private String tagName;
+
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
+	@JsonRemoteProperty
+	private String tagUrl;
+
+	public String getTagUrl() {
+		return tagUrl;
+	}
+
+	public void setTagUrl(String tagUrl) {
+		this.tagUrl = tagUrl;
+	}
+
 	@Override
 	public PointLocatorRT createRuntime() {
 		return new OPCUAPointLocatorRT(this);
@@ -67,8 +89,8 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
 	@Override
 	public void addProperties(List<LocalizableMessage> list) {
 		AuditEventType.addDataTypeMessage(list, "dsEdit.sql.rowId", dataType);
-		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tag", tag);
-		AuditEventType.addPropertyMessage(list, "dsEdit.settable", settable);
+		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tagName", tagName);
+		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tagUrl", tagUrl);
 	}
 
 	@Override
