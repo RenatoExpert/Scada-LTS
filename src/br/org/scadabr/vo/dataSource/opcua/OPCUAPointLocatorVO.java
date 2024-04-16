@@ -21,8 +21,7 @@ import com.serotonin.util.SerializationHelper;
 import com.serotonin.web.dwr.DwrResponseI18n;
 import com.serotonin.web.i18n.LocalizableMessage;
 
-public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
-		JsonSerializable {
+public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonSerializable {
 
 	@JsonRemoteProperty
 	private String tagName;
