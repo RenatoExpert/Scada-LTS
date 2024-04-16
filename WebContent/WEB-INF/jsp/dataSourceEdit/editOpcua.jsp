@@ -84,7 +84,6 @@
 		delete locator.relinquishable;
 
 		locator.tagUrl = $get("tagUrl");
-		locator.tagUrl = $get("opcuaDatatype");
 		DataSourceEditDwr.saveModbusPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
 	}
 
@@ -108,8 +107,8 @@
 		<td>
 		<table cellspacing="1" cellpadding="0" border="0">
 			<thead class="rowHeader">
-				<td align="center"><fmt:message key="dsEdit.opc.tag" /></td>
-				<td align="center"><fmt:message key="dsEdit.pointDataType" /></td>
+				<td align="center"><fmt:message key="dsEdit.opcua.tag" /></td>
+				<td align="center"><fmt:message key="dsEdit.opcua.tagUrl" /></td>
 				<td align="center"><fmt:message key="common.add" /></td>
 			</thead>
 			<tbody id="tagsTable" style="height: 160px; overflow: auto;"></tbody>
