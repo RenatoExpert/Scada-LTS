@@ -33,7 +33,8 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
-	private getData(String server, String node) {
+	private getData(String node) {
+		String server = this.vo.getEndpoint();
 		PlcConnection connection = PlcDriverManager.getDefault()
 			.getConnectionManager()
 			.getConnection(server);
@@ -52,9 +53,11 @@ public class OPCUADataSource extends PollingDataSource {
 	protected void doPoll(long time) {
 		for (DataPointRT dataPoint : dataPoints) {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
+			String node = dataPointVO.getTagUrl;
 			MangoValue mangoValue = null;
 			String value = "0";
 			try {
+				value = getData(node); 
 				mangoValue = MangoValue.stringToValue(value, dataPointVO.getDataTypeId());
 				dataPoint.updatePointValue(new PointValueTime(mangoValue, time));
 			} catch (Exception e) {
