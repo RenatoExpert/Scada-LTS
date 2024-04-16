@@ -103,17 +103,5 @@
 			<input type="text" id="tagUrl"/>
 		</td>
 	</tr>
-	<tr>
-		<td>
-		<table cellspacing="1" cellpadding="0" border="0">
-			<thead class="rowHeader">
-				<td align="center"><fmt:message key="dsEdit.opcua.tag" /></td>
-				<td align="center"><fmt:message key="dsEdit.opcua.tagUrl" /></td>
-				<td align="center"><fmt:message key="common.add" /></td>
-			</thead>
-			<tbody id="tagsTable" style="height: 160px; overflow: auto;"></tbody>
-		</table>
-		</td>
-	</tr>
 </tag:pointList>
 
