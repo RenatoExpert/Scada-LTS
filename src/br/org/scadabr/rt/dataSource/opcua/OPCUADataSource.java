@@ -18,6 +18,12 @@ import com.serotonin.mango.rt.dataImage.types.MangoValue;
 import com.serotonin.mango.rt.dataSource.PollingDataSource;
 import com.serotonin.web.i18n.LocalizableMessage;
 
+import java.util.concurrent.TimeUnit;
+import org.apache.plc4x.java.api.PlcConnection;
+import org.apache.plc4x.java.api.PlcDriverManager;
+import org.apache.plc4x.java.api.messages.PlcReadResponse;
+import org.apache.plc4x.java.api.messages.PlcReadRequest;
+
 public class OPCUADataSource extends PollingDataSource {
 	private final Log LOG = LogFactory.getLog(OPCUADataSource.class);
 	public static final int POINT_READ_EXCEPTION_EVENT = 1;
