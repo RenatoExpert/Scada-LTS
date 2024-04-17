@@ -43,7 +43,7 @@ services:
         ports: 
             - "8080:8080"
         depends_on: 
-            opcua_server:
+            opcuaserver:
               condition: service_healthy
             database:
               condition: service_healthy
