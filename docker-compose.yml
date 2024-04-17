@@ -57,15 +57,15 @@ services:
             limits:
               cpus: '1'
               memory: 800M
-    opcua_server:
-        container_name: opcua_server
+    opcuaserver:
+        container_name: opcuaserver
         image: opcua_server:latest
         build: ./opcua_server
         ports:
           - 4840:4840
         expose: ["4840"]
         healthcheck:
-          test: echo "exit()" | uaclient -u opcua_server:4840
+          test: echo "exit()" | uaclient -u opcuaserver:4840
           interval: 5s
           timeout: 10s
           retries: 10
