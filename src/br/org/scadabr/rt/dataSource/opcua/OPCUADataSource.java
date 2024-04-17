@@ -53,11 +53,11 @@ public class OPCUADataSource extends PollingDataSource {
 			String tagName = response.getTagNames().iterator().next();
 			String value = response.getObject(tagName).toString();
 			connection.close();
-			return value;
+			//return value;
 		} catch(Exception ex) {
 			System.out.println("Error on getData() method");
-			return "ERROR";
 		}
+		return "0";
 	}	
 
 	@Override
