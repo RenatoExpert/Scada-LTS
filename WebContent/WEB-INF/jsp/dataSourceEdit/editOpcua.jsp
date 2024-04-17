@@ -82,7 +82,7 @@
 		delete locator.rangeMessage;
 		delete locator.relinquishable;
 
-		locator.dataTypeId = 1
+		locator.dataTypeId = 3;
 		locator.tagUrl = $get("tagUrl");
 		DataSourceEditDwr.saveOPCUAPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
 	}
