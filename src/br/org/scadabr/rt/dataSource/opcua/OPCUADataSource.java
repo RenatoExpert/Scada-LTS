@@ -40,19 +40,24 @@ public class OPCUADataSource extends PollingDataSource {
 	}
 
 	private String getData(String node) {
-		String server = this.vo.getEndpoint();
-		PlcConnection connection = PlcDriverManager.getDefault()
-			.getConnectionManager()
-			.getConnection(server);
-		PlcReadRequest.Builder builder = connection.readRequestBuilder();
-		builder.addTagAddress("my_tag", node);
-		PlcReadResponse response = builder.build()
-			.execute()
-			.get(5000, TimeUnit.MILLISECONDS);
-		String tagName = response.getTagNames().iterator().next();
-		String value = response.getObject(tagName).toString();
-		connection.close();
-		return value;
+		try {
+			String server = this.vo.getEndpoint();
+			PlcConnection connection = PlcDriverManager.getDefault()
+				.getConnectionManager()
+				.getConnection(server);
+			PlcReadRequest.Builder builder = connection.readRequestBuilder();
+			builder.addTagAddress("my_tag", node);
+			PlcReadResponse response = builder.build()
+				.execute()
+				.get(5000, TimeUnit.MILLISECONDS);
+			String tagName = response.getTagNames().iterator().next();
+			String value = response.getObject(tagName).toString();
+			connection.close();
+			return value;
+		} catch(Exception ex) {
+			System.out.println("Error on getData() method");
+			return "ERROR";
+		}
 	}	
 
 	@Override
