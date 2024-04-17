@@ -49,8 +49,9 @@ public class OPCUADataSource extends PollingDataSource {
 		PlcReadResponse response = builder.build()
 			.execute()
 			.get(5000, TimeUnit.MILLISECONDS);
+		String value;
 		for (String tagName: response.getTagNames()) {
-			String value = response.getObject(tagName).toString();
+			value = response.getObject(tagName).toString();
 		}
 		connection.close();
 		return value;
