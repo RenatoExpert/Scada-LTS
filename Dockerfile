@@ -8,6 +8,8 @@ RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	npm run build
 
 FROM debian:stable-20240408 as lib
+RUN --mount=type=cache,target=/var/lib/apt	\
+	apt update && apt install -y wget
 WORKDIR /tmp/fetch
 COPY fetch_lib.sh liblist.txt .
 RUN bash fetch_lib.sh
