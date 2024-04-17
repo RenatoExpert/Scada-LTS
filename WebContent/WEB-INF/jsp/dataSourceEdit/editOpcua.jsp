@@ -84,7 +84,7 @@
 		delete locator.relinquishable;
 
 		locator.tagUrl = $get("tagUrl");
-		DataSourceEditDwr.saveModbusPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
+		DataSourceEditDwr.saveOpcuaPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
 	}
 
 	function savePointCB() {
