@@ -50,7 +50,7 @@ public class OPCUADataSource extends PollingDataSource {
 			.execute()
 			.get(5000, TimeUnit.MILLISECONDS);
 		String tagName = response.getTagNames().get(0);
-		Object value = response.getObject(tagName);
+		Object value = response.getObject(tagName).toString();
 		connection.close();
 		return value;
 	}	
