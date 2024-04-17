@@ -80,9 +80,9 @@
 		console.log("savePointImpl() FUNCTION");
 		delete locator.settable;
 		delete locator.rangeMessage;
-		delete locator.dataTypeId;
 		delete locator.relinquishable;
 
+		locator.dataTypeId = 0
 		locator.tagUrl = $get("tagUrl");
 		DataSourceEditDwr.saveOPCUAPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
 	}
