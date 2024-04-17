@@ -19,10 +19,12 @@ import com.serotonin.mango.rt.dataSource.PollingDataSource;
 import com.serotonin.web.i18n.LocalizableMessage;
 
 import java.util.concurrent.TimeUnit;
+/*
 import org.apache.plc4x.java.api.PlcConnection;
 import org.apache.plc4x.java.api.PlcDriverManager;
 import org.apache.plc4x.java.api.messages.PlcReadResponse;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
+*/
 
 public class OPCUADataSource extends PollingDataSource {
 	private final Log LOG = LogFactory.getLog(OPCUADataSource.class);
@@ -40,6 +42,7 @@ public class OPCUADataSource extends PollingDataSource {
 	}
 
 	private String getData(String node) {
+		/*
 		try {
 			String server = this.vo.getEndpoint();
 			PlcConnection connection = PlcDriverManager.getDefault()
@@ -57,6 +60,7 @@ public class OPCUADataSource extends PollingDataSource {
 		} catch(Exception ex) {
 			System.out.println("Error on getData() method");
 		}
+		*/
 		return "0";
 	}	
 
