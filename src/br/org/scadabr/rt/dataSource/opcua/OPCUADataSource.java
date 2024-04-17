@@ -39,15 +39,23 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
-	private String getData(String node) {
+	private String getData(String nodex) {
 		try {
 			String server = this.vo.getEndpoint();
+			String node = "ns=2;i=10";
+			System.out.println("Connecting to server...");
+			System.out.println("Server URL: " + server);
+			System.out.println("Node URL: " + node);
 			PlcConnection connection = PlcDriverManager.getDefault()
 				.getConnectionManager()
 				.getConnection(server);
+			if (connection.isConnected()) {
+				System.out.println("Connected to server");
+			} else {
+				throw new Exception("Not connected to server");
+			}
 			PlcReadRequest.Builder builder = connection.readRequestBuilder();
-			//builder.addTagAddress("my_tag", node);
-			builder.addTagAddress("my_tag", "ns=2;i=10");
+			builder.addTagAddress("my_tag", node);
 			PlcReadResponse response = builder.build()
 				.execute()
 				.get(5000, TimeUnit.MILLISECONDS);
@@ -57,6 +65,7 @@ public class OPCUADataSource extends PollingDataSource {
 			return value;
 		} catch(Exception ex) {
 			System.out.println("Error on getData() method");
+			ex.printStackTrace();
 			return "0";
 		}
 	}	
