@@ -61,7 +61,7 @@ public class OPCUADataSource extends PollingDataSource {
 			System.out.println("Error on getData() method");
 		}
 		*/
-		return "5";
+		return "5.7";
 	}	
 
 	@Override
