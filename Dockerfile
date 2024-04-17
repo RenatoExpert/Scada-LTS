@@ -11,8 +11,9 @@ FROM debian:stable-20240408 as lib
 RUN --mount=type=cache,target=/var/lib/apt	\
 	apt update && apt install -y wget
 WORKDIR /tmp/fetch
-COPY fetch_lib.sh liblist.txt .
-RUN bash fetch_lib.sh
+RUN mkdir -p /tmp/lib
+COPY liblist.txt .
+RUN wget -i liblist.txt -P /tmp/lib
 
 FROM gradle:7-jdk11 as war_build
 WORKDIR /src
