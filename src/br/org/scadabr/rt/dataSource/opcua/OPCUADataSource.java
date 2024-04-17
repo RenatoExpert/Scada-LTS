@@ -46,7 +46,8 @@ public class OPCUADataSource extends PollingDataSource {
 				.getConnectionManager()
 				.getConnection(server);
 			PlcReadRequest.Builder builder = connection.readRequestBuilder();
-			builder.addTagAddress("my_tag", node);
+			//builder.addTagAddress("my_tag", node);
+			builder.addTagAddress("my_tag", "ns=2;i=10");
 			PlcReadResponse response = builder.build()
 				.execute()
 				.get(5000, TimeUnit.MILLISECONDS);
