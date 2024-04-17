@@ -17,9 +17,9 @@ RUN wget -i liblist.txt -P /tmp/lib
 
 FROM gradle:7-jdk11 as war_build
 WORKDIR /src
-COPY . .
 COPY --from=lib /tmp/lib/* lib
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
+COPY . .
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
