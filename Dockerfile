@@ -10,6 +10,7 @@ RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 FROM gradle:7-jdk11 as war_build
 WORKDIR /src
 COPY . .
+RUN bash fetch_lib.sh
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
