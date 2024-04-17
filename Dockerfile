@@ -20,7 +20,7 @@ COPY --from=lib /tmp/lib /tmp/lib
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 WORKDIR /src
 COPY . .
-RUN mv /tmp/lib/* lib/
+RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
