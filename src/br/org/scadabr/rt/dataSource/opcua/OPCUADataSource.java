@@ -59,7 +59,7 @@ public class OPCUADataSource extends PollingDataSource {
 	protected void doPoll(long time) {
 		for (DataPointRT dataPoint : dataPoints) {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
-			String node = dataPointVO.getTagUrl;
+			String node = dataPointVO.getTagUrl();
 			MangoValue mangoValue = null;
 			String value = "0";
 			try {
