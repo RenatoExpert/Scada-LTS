@@ -100,7 +100,7 @@
 			<fmt:message key="dsEdit.opcua.tagUrl"/>
 		</td>
 		<td class="formField">
-			<input type="text" id="tagUrl" value="${dataSource.getTagUrl()}" />
+			<input type="text" id="tagUrl"/>
 		</td>
 	</tr>
 </tag:pointList>
