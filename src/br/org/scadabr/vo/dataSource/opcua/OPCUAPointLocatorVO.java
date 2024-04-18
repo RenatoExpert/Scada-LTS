@@ -22,18 +22,6 @@ import com.serotonin.web.dwr.DwrResponseI18n;
 import com.serotonin.web.i18n.LocalizableMessage;
 
 public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonSerializable {
-
-	@JsonRemoteProperty
-	private String tagName;
-
-	public String getTagName() {
-		return tagName;
-	}
-
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
-	}
-
 	@JsonRemoteProperty
 	private String tagUrl;
 
