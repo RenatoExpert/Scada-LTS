@@ -95,7 +95,7 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsFoot.jspf"%>
 
 <tag:pointList pointHelpId="opcuaPP">
-	<tr id="tagUrl">
+	<tr>
 		<td class="formLabelRequired">
 			<fmt:message key="dsEdit.opcua.tagUrl"/>
 		</td>
