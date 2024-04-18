@@ -127,5 +127,4 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-
 }
