@@ -98,8 +98,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 		SerializationHelper.writeSafeUTF(out, tagUrl);
 	}
 
-	private void readObject(ObjectInputStream in) throws IOException,
-			ClassNotFoundException {
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		int ver = in.readInt();
 		if (ver == 1) {
 			tag = SerializationHelper.readSafeUTF(in);
@@ -110,8 +109,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 	}
 
 	@Override
-	public void jsonDeserialize(JsonReader reader, JsonObject json)
-			throws JsonException {
+	public void jsonDeserialize(JsonReader reader, JsonObject json) throws JsonException {
 		Integer value = deserializeDataType(json, DataTypes.IMAGE);
 		if (value != null)
 			dataType = value;
