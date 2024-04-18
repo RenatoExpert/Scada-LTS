@@ -95,7 +95,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 		SerializationHelper.writeSafeUTF(out, tag);
 		out.writeInt(dataType);
 		out.writeBoolean(settable);
-		out.writeString(tagUrl);
+		SerializationHelper.writeSafeUTF(out, tagUrl);
 	}
 
 	private void readObject(ObjectInputStream in) throws IOException,
@@ -105,7 +105,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 			tag = SerializationHelper.readSafeUTF(in);
 			dataType = in.readInt();
 			settable = in.readBoolean();
-			tagUrl = in.readString();
+			tagUrl = SerializationHelper.readSafeUTF(in);
 		}
 	}
 
