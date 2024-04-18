@@ -21,8 +21,17 @@ import com.serotonin.util.SerializationHelper;
 import com.serotonin.web.dwr.DwrResponseI18n;
 import com.serotonin.web.i18n.LocalizableMessage;
 
-public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
-		JsonSerializable {
+public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonSerializable {
+	@JsonRemoteProperty
+	private String tagUrl;
+
+	public String getTagUrl() {
+		return tagUrl;
+	}
+
+	public void setTagUrl(String tagUrl) {
+		this.tagUrl = tagUrl;
+	}
 
 	@Override
 	public PointLocatorRT createRuntime() {
@@ -67,20 +76,15 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
 	@Override
 	public void addProperties(List<LocalizableMessage> list) {
 		AuditEventType.addDataTypeMessage(list, "dsEdit.sql.rowId", dataType);
-		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tag", tag);
-		AuditEventType.addPropertyMessage(list, "dsEdit.settable", settable);
+		AuditEventType.addPropertyMessage(list, "dsEdit.opcua.tagUrl", tagUrl);
 	}
 
 	@Override
 	public void addPropertyChanges(List<LocalizableMessage> list, Object o) {
 		OPCUAPointLocatorVO from = (OPCUAPointLocatorVO) o;
-
-		AuditEventType.maybeAddDataTypeChangeMessage(list,
-				"dsEdit.pointDataType", from.dataType, dataType);
-		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.opcua.tag",
-				from.tag, tag);
-		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.settable",
-				from.settable, settable);
+		AuditEventType.maybeAddDataTypeChangeMessage(list, "dsEdit.pointDataType", from.dataType, dataType);
+		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.opcua.tag", from.tag, tag);
+		AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.settable", from.settable, settable);
 	}
 
 	private static final long serialVersionUID = -1;
@@ -91,22 +95,21 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
 		SerializationHelper.writeSafeUTF(out, tag);
 		out.writeInt(dataType);
 		out.writeBoolean(settable);
-
+		SerializationHelper.writeSafeUTF(out, tagUrl);
 	}
 
-	private void readObject(ObjectInputStream in) throws IOException,
-			ClassNotFoundException {
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		int ver = in.readInt();
 		if (ver == 1) {
 			tag = SerializationHelper.readSafeUTF(in);
 			dataType = in.readInt();
 			settable = in.readBoolean();
+			tagUrl = SerializationHelper.readSafeUTF(in);
 		}
 	}
 
 	@Override
-	public void jsonDeserialize(JsonReader reader, JsonObject json)
-			throws JsonException {
+	public void jsonDeserialize(JsonReader reader, JsonObject json) throws JsonException {
 		Integer value = deserializeDataType(json, DataTypes.IMAGE);
 		if (value != null)
 			dataType = value;
@@ -124,5 +127,4 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-
 }

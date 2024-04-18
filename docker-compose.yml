@@ -43,6 +43,8 @@ services:
         ports: 
             - "8080:8080"
         depends_on: 
+            opcuaserver:
+              condition: service_healthy
             database:
               condition: service_healthy
         expose: ["8080", "8000"]
@@ -53,6 +55,24 @@ services:
         deploy:
           resources:
             limits:
-              cpus: '1'
+              cpus: '2'
               memory: 800M
+    opcuaserver:
+        container_name: opcuaserver
+        image: opcua_server:latest
+        build: ./opcua_server
+        ports:
+          - 4840:4840
+        expose: ["4840"]
+        healthcheck:
+          test: echo "exit()" | uaclient -u opcuaserver:4840
+          interval: 5s
+          timeout: 10s
+          retries: 10
+          start_period: 3s
+        deploy:
+          resources:
+            limits:
+              cpus: '1'
+              memory: 128M
 

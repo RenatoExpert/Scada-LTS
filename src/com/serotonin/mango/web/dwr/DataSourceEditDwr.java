@@ -2355,6 +2355,10 @@ public class DataSourceEditDwr extends DataSourceListDwr {
 		return validatePoint(id, xid, name, locator);
 	}
 
+	public DwrResponseI18n saveOPCUAPointLocator(int id, String xid, String name, OPCUAPointLocatorVO locator) {
+		return validatePoint(id, xid, name, locator);
+	}
+
     //
     // /
     // / OPC DA stuff

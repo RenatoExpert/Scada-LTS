@@ -20,59 +20,91 @@
 <%@page import="com.serotonin.mango.DataTypes"%>
 
 <script type="text/javascript">
-  dojo.addOnLoad(function() {
-      if (dataTypeId == <%= DataTypes.NUMERIC %>)
-          show("engineeringUnitsSection");
-  });
+	dojo.addOnLoad(function() {
+		if (dataTypeId == <%= DataTypes.NUMERIC %>)
+			show("engineeringUnitsSection");
+	});
 </script>
 
 <div class="borderDiv marB marR">
-  <table>
-    <tr>
-      <td colspan="3">
-        <img src="images/icon_comp_edit.png"/>
-        <span class="smallTitle"><fmt:message key="pointEdit.props.props"/></span>
-        <tag:help id="dataPointEditing"/>
-        <a href="data_point_details.shtm?dpid=${form.id}"><tag:img png="icon_comp" title="pointEdit.props.details"/></a>
-      </td>
-    </tr>
-    
-    <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.props.ds"/></td>
-      <td colspan="2" class="formField">
-        ${dataSource.name}
-        <a href="data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}"><tag:img png="icon_ds_edit"
-                title="pointEdit.props.editDs"/></a>
-      </td>
-    </tr>
-      
-    <spring:bind path="form.name">
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.props.name"/></td>
-        <td class="formField"><input type="text" name="name" value="${status.value}"/></td>
-        <c:if test="${error.name != null}"><td class="formError"><fmt:message key="${error.name}"/></td></c:if>
-      </tr>
-    </spring:bind>
+	<table>
+		<tr>
+			<td colspan="3">
+				<img src="images/icon_comp_edit.png"/>
+				<span class="smallTitle">
+					<fmt:message key="pointEdit.props.props"/>
+				</span>
+				<tag:help id="dataPointEditing"/>
+				<a href="data_point_details.shtm?dpid=${form.id}">
+					<tag:img png="icon_comp" title="pointEdit.props.details"/>
+				</a>
+			</td>
+		</tr>
 
-    <spring:bind path="form.description">
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.props.description"/></td>
-        <td class="formField"><input type="text" class="formLong" name="description" value="${status.value}"/></td>
-        <c:if test="${error.description != null}"><td class="formError"><fmt:message key="${error.description}"/></td></c:if>
-      </tr>
-    </spring:bind>
-    
-    <tbody id="engineeringUnitsSection" style="display:none;">
-      <spring:bind path="form.engineeringUnits">
-        <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.props.engineeringUnits"/></td>
-          <td class="formField">
-            <sst:select name="engineeringUnits" value="${status.value}"><tag:engineeringUnits/></sst:select>
-          </td>
-          <c:if test="${error.engineeringUnits != null}"><td class="formError"><fmt:message key="${error.engineeringUnits}"/></td></c:if>
-        </tr>
-      </spring:bind>
-    </tbody>
-    
-  </table>
+		<tr>
+			<td class="formLabelRequired">
+				<fmt:message key="pointEdit.props.ds"/>
+			</td>
+			<td colspan="2" class="formField">
+				${dataSource.name}
+				<a href="data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}">
+					<tag:img png="icon_ds_edit" title="pointEdit.props.editDs"/>
+				</a>
+			</td>
+		</tr>
+
+		<spring:bind path="form.name">
+			<tr>
+				<td class="formLabelRequired">
+					<fmt:message key="pointEdit.props.name"/>
+				</td>
+				<td class="formField">
+					<input type="text" name="name" value="${status.value}"/>
+				</td>
+				<c:if test="${error.name != null}">
+					<td class="formError">
+						<fmt:message key="${error.name}"/>
+					</td>
+				</c:if>
+			</tr>
+		</spring:bind>
+
+		<spring:bind path="form.description">
+			<tr>
+				<td class="formLabelRequired">
+					<fmt:message key="pointEdit.props.description"/>
+				</td>
+				<td class="formField">
+					<input type="text" class="formLong" name="description" value="${status.value}"/>
+				</td>
+				<c:if test="${error.description != null}">
+					<td class="formError">
+						<fmt:message key="${error.description}"/>
+					</td>
+				</c:if>
+			</tr>
+		</spring:bind>
+
+		<tbody id="engineeringUnitsSection" style="display:none;">
+			<spring:bind path="form.engineeringUnits">
+				<tr>
+					<td class="formLabelRequired">
+						<fmt:message key="pointEdit.props.engineeringUnits"/>
+					</td>
+					<td class="formField">
+						<sst:select name="engineeringUnits" value="${status.value}">
+							<tag:engineeringUnits/>
+						</sst:select>
+					</td>
+					<c:if test="${error.engineeringUnits != null}">
+						<td class="formError">
+							<fmt:message key="${error.engineeringUnits}"/>
+						</td>
+					</c:if>
+				</tr>
+			</spring:bind>
+		</tbody>
+
+	</table>
 </div>
+

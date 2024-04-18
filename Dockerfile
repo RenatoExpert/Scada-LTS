@@ -7,10 +7,20 @@ COPY ./scadalts-ui /scadalts-ui
 RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	npm run build
 
+FROM debian:stable-20240408 as lib
+RUN --mount=type=cache,target=/var/lib/apt	\
+	apt update && apt install -y wget
+WORKDIR /tmp/fetch
+RUN mkdir -p /tmp/lib
+COPY liblist.txt .
+RUN wget -i liblist.txt -P /tmp/lib
+
 FROM gradle:7-jdk11 as war_build
+COPY --from=lib /tmp/lib /tmp/lib
+COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 WORKDIR /src
 COPY . .
-COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
+RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;

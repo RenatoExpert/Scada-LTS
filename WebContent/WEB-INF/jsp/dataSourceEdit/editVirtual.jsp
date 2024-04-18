@@ -19,174 +19,201 @@
 <%@ include file="/WEB-INF/jsp/include/tech.jsp"%>
 
 <script type="text/javascript">
-  var currentChangeType;
+	var currentChangeType;
   
-  function saveDataSourceImpl() {
-      DataSourceEditDwr.saveVirtualDataSource($get("dataSourceName"), $get("dataSourceXid"), $get("updatePeriods"),
-              $get("updatePeriodType"), saveDataSourceCB);
-  }
+	function saveDataSourceImpl() {
+		DataSourceEditDwr.saveVirtualDataSource(
+			$get("dataSourceName"),
+			$get("dataSourceXid"),
+			$get("updatePeriods"),
+			$get("updatePeriodType"),
+			saveDataSourceCB
+		);
+	}
+
+	function initImpl() {
+		createContextualMessageNode(
+			$("incrementMultistateTable"),
+			"incrementMultistateChange.values"
+		);
+		createContextualMessageNode(
+			$("randomMultistateTable"),
+			"randomMultistateChange.values"
+		);
+	}
+
+	function editPointCBImpl(locator) {
+		$set("settable", locator.settable);
+		$set("dataTypeId", locator.dataTypeId);
+		DataSourceEditDwr.getChangeTypes(
+			locator.dataTypeId,
+			function(data) {
+				$set("changeTypeId", locator.changeTypeId);
+				changeDataTypeCB(data, locator.changeTypeId);
+			}
+		);
+	}
+
+	function savePointImpl(locator) {
+		delete locator.alternateBooleanChange.description;
+		delete locator.brownianChange.description;
+		delete locator.incrementAnalogChange.description;
+		delete locator.incrementMultistateChange.description;
+		delete locator.noChange.description;
+		delete locator.randomAnalogChange.description;
+		delete locator.randomBooleanChange.description;
+		delete locator.randomMultistateChange.description;
+		delete locator.analogAttractorChange.description;
+
+		locator.settable = $get("settable");
+		locator.dataTypeId = $get("dataTypeId");
+		locator.changeTypeId = $get("changeTypeId");
+		locator.alternateBooleanChange.startValue = $get("alternateBooleanChange.startValue");
+		locator.brownianChange.min = $get("brownianChange.min");
+		locator.brownianChange.max = $get("brownianChange.max");
+		locator.brownianChange.maxChange = $get("brownianChange.maxChange");
+		locator.brownianChange.startValue = $get("brownianChange.startValue");
+		locator.incrementAnalogChange.min = $get("incrementAnalogChange.min");
+		locator.incrementAnalogChange.max = $get("incrementAnalogChange.max");
+		locator.incrementAnalogChange.change = $get("incrementAnalogChange.change");
+		locator.incrementAnalogChange.roll = $get("incrementAnalogChange.roll") ? "true" : "false";
+		locator.incrementAnalogChange.startValue = $get("incrementAnalogChange.startValue");
+		locator.incrementMultistateChange.roll = $get("incrementMultistateChange.roll") ? "true" : "false";
+		locator.incrementMultistateChange.startValue = $get("incrementMultistateChange.startValue");
+		locator.noChange.startValue = $get("noChange.startValue");
+		locator.randomAnalogChange.min = $get("randomAnalogChange.min");
+		locator.randomAnalogChange.max = $get("randomAnalogChange.max");
+		locator.randomAnalogChange.startValue = $get("randomAnalogChange.startValue");
+		locator.randomBooleanChange.startValue = $get("randomBooleanChange.startValue");
+		locator.randomMultistateChange.startValue = $get("randomMultistateChange.startValue");
+		locator.analogAttractorChange.maxChange = $get("analogAttractorChange.maxChange");
+		locator.analogAttractorChange.volatility = $get("analogAttractorChange.volatility");
+		locator.analogAttractorChange.attractionPointId = $get("analogAttractorChange.attractionPointId");
+		locator.analogAttractorChange.startValue = $get("analogAttractorChange.startValue");
+
+		DataSourceEditDwr.saveVirtualPointLocator(
+			currentPoint.id,
+			$get("xid"),
+			$get("name"),
+			locator,
+			savePointCB
+		);
+	}
   
-  function initImpl() {
-      createContextualMessageNode($("incrementMultistateTable"), "incrementMultistateChange.values");
-      createContextualMessageNode($("randomMultistateTable"), "randomMultistateChange.values");
-  }
+	function changeDataType() {
+		DataSourceEditDwr.getChangeTypes(
+			$get("dataTypeId"),
+			function(data) {
+				changeDataTypeCB(data);
+			}
+		);
+	}
+
+	function changeDataTypeCB(changeTypes, changeTypeId) {
+		var changeTypeDD = $("changeTypeId");
+		dwr.util.removeAllOptions(changeTypeDD);
+		dwr.util.addOptions(changeTypeDD, changeTypes, "key", "message");
+		var savedType;
+		if(changeTypeId) {
+			savedType = changeTypeId;
+		} else {
+			savedType = 5;
+		}
+		changeTypeDD.value = savedType;
+		changeChangeType(savedType);
+	}
   
-  function editPointCBImpl(locator) {
-      $set("settable", locator.settable);
-      $set("dataTypeId", locator.dataTypeId);
-      DataSourceEditDwr.getChangeTypes(locator.dataTypeId, function(data) {
-          $set("changeTypeId", locator.changeTypeId);
-          changeDataTypeCB(data, locator.changeTypeId);
-      });
-  }
+	function changeChangeType(changeTypeId) {
+		var changeType = changeTypeId ? changeTypeId : $get("changeTypeId");
+		var changeTypeId = "divCH" + changeType;
+		// Close the current change type div.
+		if (currentChangeType)
+			hide(currentChangeType);
+
+		// Open the selected type.
+		show(changeTypeId);
+		currentChangeType = changeTypeId;
+
+		// Update the values.
+		var locator = currentPoint.pointLocator;
+		$set("alternateBooleanChange.startValue", locator.alternateBooleanChange.startValue);
+		$set("brownianChange.min", locator.brownianChange.min);
+		$set("brownianChange.max", locator.brownianChange.max);
+		$set("brownianChange.maxChange", locator.brownianChange.maxChange);
+		$set("brownianChange.startValue", locator.brownianChange.startValue);
+		$set("incrementAnalogChange.min", locator.incrementAnalogChange.min);
+		$set("incrementAnalogChange.max", locator.incrementAnalogChange.max);
+		$set("incrementAnalogChange.change", locator.incrementAnalogChange.change);
+		$set("incrementAnalogChange.roll", locator.incrementAnalogChange.roll);
+		$set("incrementAnalogChange.startValue", locator.incrementAnalogChange.startValue);
+		refreshValueList("incrementMultistate", locator.incrementMultistateChange.values);
+		$set("incrementMultistateChange.roll", locator.incrementMultistateChange.roll);
+		$set("incrementMultistateChange.startValue", locator.incrementMultistateChange.startValue);
+		$set("noChange.startValue", locator.noChange.startValue);
+		$set("randomAnalogChange.min", locator.randomAnalogChange.min);
+		$set("randomAnalogChange.max", locator.randomAnalogChange.max);
+		$set("randomAnalogChange.startValue", locator.randomAnalogChange.startValue);
+		$set("randomBooleanChange.startValue", locator.randomBooleanChange.startValue);
+		refreshValueList("randomMultistate", locator.randomMultistateChange.values);
+		$set("randomMultistateChange.startValue", locator.randomMultistateChange.startValue);
+		$set("analogAttractorChange.maxChange", locator.analogAttractorChange.maxChange);
+		$set("analogAttractorChange.volatility", locator.analogAttractorChange.volatility);
+		$set("analogAttractorChange.attractionPointId", locator.analogAttractorChange.attractionPointId);
+		$set("analogAttractorChange.startValue", locator.analogAttractorChange.startValue);
+	}
   
-  function savePointImpl(locator) {
-      delete locator.alternateBooleanChange.description;
-      delete locator.brownianChange.description;
-      delete locator.incrementAnalogChange.description;
-      delete locator.incrementMultistateChange.description;
-      delete locator.noChange.description;
-      delete locator.randomAnalogChange.description;
-      delete locator.randomBooleanChange.description;
-      delete locator.randomMultistateChange.description;
-      delete locator.analogAttractorChange.description;
-      
-      locator.settable = $get("settable");
-      locator.dataTypeId = $get("dataTypeId");
-      locator.changeTypeId = $get("changeTypeId");
-      locator.alternateBooleanChange.startValue = $get("alternateBooleanChange.startValue");
-      locator.brownianChange.min = $get("brownianChange.min");
-      locator.brownianChange.max = $get("brownianChange.max");
-      locator.brownianChange.maxChange = $get("brownianChange.maxChange");
-      locator.brownianChange.startValue = $get("brownianChange.startValue");
-      locator.incrementAnalogChange.min = $get("incrementAnalogChange.min");
-      locator.incrementAnalogChange.max = $get("incrementAnalogChange.max");
-      locator.incrementAnalogChange.change = $get("incrementAnalogChange.change");
-      locator.incrementAnalogChange.roll = $get("incrementAnalogChange.roll") ? "true" : "false";
-      locator.incrementAnalogChange.startValue = $get("incrementAnalogChange.startValue");
-      locator.incrementMultistateChange.roll = $get("incrementMultistateChange.roll") ? "true" : "false";
-      locator.incrementMultistateChange.startValue = $get("incrementMultistateChange.startValue");
-      locator.noChange.startValue = $get("noChange.startValue");
-      locator.randomAnalogChange.min = $get("randomAnalogChange.min");
-      locator.randomAnalogChange.max = $get("randomAnalogChange.max");
-      locator.randomAnalogChange.startValue = $get("randomAnalogChange.startValue");
-      locator.randomBooleanChange.startValue = $get("randomBooleanChange.startValue");
-      locator.randomMultistateChange.startValue = $get("randomMultistateChange.startValue");
-      locator.analogAttractorChange.maxChange = $get("analogAttractorChange.maxChange");
-      locator.analogAttractorChange.volatility = $get("analogAttractorChange.volatility");
-      locator.analogAttractorChange.attractionPointId = $get("analogAttractorChange.attractionPointId");
-      locator.analogAttractorChange.startValue = $get("analogAttractorChange.startValue");
-      
-      DataSourceEditDwr.saveVirtualPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
-  }
+	//
+	// List manipulation.
+	function addListValue(prefix) {
+		var theValue = $get(prefix);
+		var theNumber = parseInt(theValue);
+		if (isNaN(theNumber)) {
+			alert("<fmt:message key="dsEdit.virtual.errorParsingValue"/>");
+			return false;
+		}
+		var arr = currentPoint.pointLocator[prefix +"Change"].values;
+		for (var i=arr.length-1; i>=0; i--) {
+			if (arr[i] == theNumber) {
+				alert("<fmt:message key="dsEdit.virtual.invalidValue"/> "+ theNumber);
+				return false;
+			}
+		}
+		arr[arr.length] = theNumber;
+		arr.sort(
+			function(a,b) {
+				return a-b;
+			}
+		);
+		refreshValueList(prefix, arr);
+		$set(prefix, theNumber + 1);
+		return false;
+	}
   
-  function changeDataType() {
-      DataSourceEditDwr.getChangeTypes($get("dataTypeId"), function(data) {
-        changeDataTypeCB(data);
-      });
-  }
-  
-  function changeDataTypeCB(changeTypes, changeTypeId) {
-      var changeTypeDD = $("changeTypeId");
-      dwr.util.removeAllOptions(changeTypeDD);
-      dwr.util.addOptions(changeTypeDD, changeTypes, "key", "message");
-      var savedType;
-      if(changeTypeId) {
-          savedType = changeTypeId;
-      } else {
-          savedType = 5;
-      }
-      changeTypeDD.value = savedType;
-      changeChangeType(savedType);
-  }
-  
-  function changeChangeType(changeTypeId) {
-      var changeType = changeTypeId ? changeTypeId : $get("changeTypeId");
-      var changeTypeId = "divCH" + changeType;
-      // Close the current change type div.
-      if (currentChangeType)
-          hide(currentChangeType);
-      
-      // Open the selected type.
-      show(changeTypeId);
-      currentChangeType = changeTypeId;
-      
-      // Update the values.
-      var locator = currentPoint.pointLocator;
-      $set("alternateBooleanChange.startValue", locator.alternateBooleanChange.startValue);
-      $set("brownianChange.min", locator.brownianChange.min);
-      $set("brownianChange.max", locator.brownianChange.max);
-      $set("brownianChange.maxChange", locator.brownianChange.maxChange);
-      $set("brownianChange.startValue", locator.brownianChange.startValue);
-      $set("incrementAnalogChange.min", locator.incrementAnalogChange.min);
-      $set("incrementAnalogChange.max", locator.incrementAnalogChange.max);
-      $set("incrementAnalogChange.change", locator.incrementAnalogChange.change);
-      $set("incrementAnalogChange.roll", locator.incrementAnalogChange.roll);
-      $set("incrementAnalogChange.startValue", locator.incrementAnalogChange.startValue);
-      refreshValueList("incrementMultistate", locator.incrementMultistateChange.values);
-      $set("incrementMultistateChange.roll", locator.incrementMultistateChange.roll);
-      $set("incrementMultistateChange.startValue", locator.incrementMultistateChange.startValue);
-      $set("noChange.startValue", locator.noChange.startValue);
-      $set("randomAnalogChange.min", locator.randomAnalogChange.min);
-      $set("randomAnalogChange.max", locator.randomAnalogChange.max);
-      $set("randomAnalogChange.startValue", locator.randomAnalogChange.startValue);
-      $set("randomBooleanChange.startValue", locator.randomBooleanChange.startValue);
-      refreshValueList("randomMultistate", locator.randomMultistateChange.values);
-      $set("randomMultistateChange.startValue", locator.randomMultistateChange.startValue);
-      $set("analogAttractorChange.maxChange", locator.analogAttractorChange.maxChange);
-      $set("analogAttractorChange.volatility", locator.analogAttractorChange.volatility);
-      $set("analogAttractorChange.attractionPointId", locator.analogAttractorChange.attractionPointId);
-      $set("analogAttractorChange.startValue", locator.analogAttractorChange.startValue);
-  }
-  
-  //
-  // List manipulation.
-  function addListValue(prefix) {
-      var theValue = $get(prefix);
-      var theNumber = parseInt(theValue);
-      if (isNaN(theNumber)) {
-          alert("<fmt:message key="dsEdit.virtual.errorParsingValue"/>");
-          return false;
-      }
-      var arr = currentPoint.pointLocator[prefix +"Change"].values;
-      for (var i=arr.length-1; i>=0; i--) {
-          if (arr[i] == theNumber) {
-              alert("<fmt:message key="dsEdit.virtual.invalidValue"/> "+ theNumber);
-              return false;
-          }
-      }
-      arr[arr.length] = theNumber;
-      arr.sort( function(a,b) { return a-b; } );
-      refreshValueList(prefix, arr);
-      $set(prefix, theNumber + 1);
-      return false;
-  }
-  
-  function removeListValue(theValue, prefix) {
-      var arr = currentPoint.pointLocator[prefix +"Change"].values;
-      for (var i=arr.length-1; i>=0; i--) {
-          if (arr[i] == theValue)
-              arr.splice(i, 1);
-      }
-      refreshValueList(prefix, arr);
-      return false;
-  }
-  
-  function refreshValueList(prefix, arr) {
-      dwr.util.removeAllRows(prefix +"Values");
-      dwr.util.addRows(prefix +"Values", arr, [
-              function(data) { return data; },
-              function(data) {
-                  return writeImage(null, null, "bullet_delete", "<fmt:message key="common.delete"/>",
-                          "removeListValue("+ data +", '"+ prefix +"');");
-              }
-              ]);
-      var startDD = $(prefix +"Change.startValue");
-      var currentStart = startDD.value;
-      dwr.util.removeAllOptions(startDD);
-      dwr.util.addOptions(startDD, arr);
-      startDD.value = currentStart;
-  }
+	function removeListValue(theValue, prefix) {
+		var arr = currentPoint.pointLocator[prefix +"Change"].values;
+		for (var i=arr.length-1; i>=0; i--) {
+			if (arr[i] == theValue)
+				arr.splice(i, 1);
+		}
+		refreshValueList(prefix, arr);
+		return false;
+	}
+
+	function refreshValueList(prefix, arr) {
+		dwr.util.removeAllRows(prefix +"Values");
+		dwr.util.addRows(prefix +"Values", arr, [
+			function(data) { return data; },
+			function(data) {
+				return writeImage(null, null, "bullet_delete", "<fmt:message key="common.delete"/>",
+				"removeListValue("+ data +", '"+ prefix +"');");
+			}
+		]);
+		var startDD = $(prefix +"Change.startValue");
+		var currentStart = startDD.value;
+		dwr.util.removeAllOptions(startDD);
+		dwr.util.addOptions(startDD, arr);
+		startDD.value = currentStart;
+	}
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.virtual.desc"/></c:set>

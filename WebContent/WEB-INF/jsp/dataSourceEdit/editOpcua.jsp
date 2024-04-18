@@ -75,8 +75,33 @@
 
 	function dataTestImpl(slaveId, range, offset, length) {
 	}
+
+	function savePointImpl(locator) {
+		console.log("savePointImpl() FUNCTION");
+		delete locator.settable;
+		delete locator.rangeMessage;
+		delete locator.relinquishable;
+
+		locator.dataTypeId = 3;
+		locator.tagUrl = $get("tagUrl");
+		DataSourceEditDwr.saveOPCUAPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
+	}
+
+	function savePointCB() {
+		console.log("savePointCB() FUNCTION");
+	}
 </script>
 
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsFoot.jspf"%>
 
-<tag:pointList pointHelpId="opcuaPP"></tag:pointList>
+<tag:pointList pointHelpId="opcuaPP">
+	<tr>
+		<td class="formLabelRequired">
+			<fmt:message key="dsEdit.opcua.tagUrl"/>
+		</td>
+		<td class="formField">
+			<input type="text" id="tagUrl"/>
+		</td>
+	</tr>
+</tag:pointList>
+

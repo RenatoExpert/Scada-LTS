@@ -18,6 +18,12 @@ import com.serotonin.mango.rt.dataImage.types.MangoValue;
 import com.serotonin.mango.rt.dataSource.PollingDataSource;
 import com.serotonin.web.i18n.LocalizableMessage;
 
+import java.util.concurrent.TimeUnit;
+import org.apache.plc4x.java.api.PlcConnection;
+import org.apache.plc4x.java.api.PlcDriverManager;
+import org.apache.plc4x.java.api.messages.PlcReadResponse;
+import org.apache.plc4x.java.api.messages.PlcReadRequest;
+
 public class OPCUADataSource extends PollingDataSource {
 	private final Log LOG = LogFactory.getLog(OPCUADataSource.class);
 	public static final int POINT_READ_EXCEPTION_EVENT = 1;
@@ -33,39 +39,49 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
+	private String getData(String node) {
+		try {
+			String server = this.vo.getEndpoint();
+			//String node = "ns=2;i=10";
+			System.out.println("Connecting to server...");
+			System.out.println("Server URL: " + server);
+			System.out.println("Node URL: " + node);
+			PlcConnection connection = PlcDriverManager.getDefault()
+				.getConnectionManager()
+				.getConnection(server);
+			if (connection.isConnected()) {
+				System.out.println("Connected to server");
+			} else {
+				throw new Exception("Not connected to server");
+			}
+			PlcReadRequest.Builder builder = connection.readRequestBuilder();
+			builder.addTagAddress("my_tag", node);
+			PlcReadResponse response = builder.build()
+				.execute()
+				.get(5000, TimeUnit.MILLISECONDS);
+			String tagName = response.getTagNames().iterator().next();
+			String value = response.getObject(tagName).toString();
+			connection.close();
+			return value;
+		} catch(Exception ex) {
+			System.out.println("Error on getData() method");
+			ex.printStackTrace();
+			return "0";
+		}
+	}	
+
 	@Override
 	protected void doPoll(long time) {
-		ArrayList<String> enabledTags = new ArrayList<String>();
 		for (DataPointRT dataPoint : dataPoints) {
 			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
-			enabledTags.add(dataPointVO.getTag());
-		}
-		try {
-			if (timeoutCount >= timeoutsToReconnect) {
-				System.out.println("[OPCUA] Trying to reconnect !");
-				timeoutCount = 0;
-				initialize();
-			} else {
-				returnToNormal(DATA_SOURCE_EXCEPTION_EVENT, time);
-			}
-		} catch (Exception e) {
-			raiseEvent(
-				DATA_SOURCE_EXCEPTION_EVENT,
-				time,
-				true,
-				new LocalizableMessage("event.exception2", vo.getName(), e.getMessage())
-			);
-			timeoutCount++;
-			System.out.println("[OPCUA] Poll Failed !");
-		}
-
-		for (DataPointRT dataPoint : dataPoints) {
-			OPCUAPointLocatorVO dataPointVO = dataPoint.getVO().getPointLocator();
+			String node = dataPointVO.getTagUrl();
 			MangoValue mangoValue = null;
 			String value = "0";
 			try {
+				value = getData(node); 
 				mangoValue = MangoValue.stringToValue(value, dataPointVO.getDataTypeId());
 				dataPoint.updatePointValue(new PointValueTime(mangoValue, time));
+				setPointValue(dataPoint, new PointValueTime(value, time), null);
 			} catch (Exception e) {
 				raiseEvent(
 					POINT_READ_EXCEPTION_EVENT,
@@ -142,6 +158,5 @@ public class OPCUADataSource extends PollingDataSource {
 			);
 		}
 	}
-
 }
 
