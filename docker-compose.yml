@@ -55,7 +55,7 @@ services:
         deploy:
           resources:
             limits:
-              cpus: '1'
+              cpus: '2'
               memory: 800M
     opcuaserver:
         container_name: opcuaserver
