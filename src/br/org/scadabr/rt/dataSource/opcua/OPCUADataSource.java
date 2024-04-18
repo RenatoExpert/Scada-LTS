@@ -39,11 +39,11 @@ public class OPCUADataSource extends PollingDataSource {
 		JISystem.getLogger().setLevel(Level.OFF);
 	}
 
-	private String getData(String nodex) {
+	private String getData(String node) {
 		System.out.println("Node URL from Datapoint:" + nodex);
 		try {
 			String server = this.vo.getEndpoint();
-			String node = "ns=2;i=10";
+			//String node = "ns=2;i=10";
 			System.out.println("Connecting to server...");
 			System.out.println("Server URL: " + server);
 			System.out.println("Node URL: " + node);
