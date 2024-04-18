@@ -70,4 +70,9 @@ services:
           timeout: 10s
           retries: 10
           start_period: 3s
+        deploy:
+          resources:
+            limits:
+              cpus: '1'
+              memory: 128M
 
