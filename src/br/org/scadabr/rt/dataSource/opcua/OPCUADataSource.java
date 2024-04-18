@@ -40,7 +40,7 @@ public class OPCUADataSource extends PollingDataSource {
 	}
 
 	private String getData(String nodex) {
-		System.out.println("Node URL from Datapoint:", nodex);
+		System.out.println("Node URL from Datapoint:" + nodex);
 		try {
 			String server = this.vo.getEndpoint();
 			String node = "ns=2;i=10";
