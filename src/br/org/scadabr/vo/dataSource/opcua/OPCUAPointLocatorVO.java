@@ -95,7 +95,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 		SerializationHelper.writeSafeUTF(out, tag);
 		out.writeInt(dataType);
 		out.writeBoolean(settable);
-		//SerializationHelper.writeSafeUTF(out, tagUrl);
+		SerializationHelper.writeSafeUTF(out, tagUrl);
 	}
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -104,7 +104,7 @@ public class OPCUAPointLocatorVO extends AbstractPointLocatorVO implements JsonS
 			tag = SerializationHelper.readSafeUTF(in);
 			dataType = in.readInt();
 			settable = in.readBoolean();
-			//tagUrl = SerializationHelper.readSafeUTF(in);
+			tagUrl = SerializationHelper.readSafeUTF(in);
 		}
 	}
 
