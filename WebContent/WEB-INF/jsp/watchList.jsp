@@ -1041,8 +1041,9 @@
                         </div>
                       </div>
 
-                    <input type="checkbox"
-
+                    <!-- <input type="checkbox"   -->
+                    <input type="checkbox" name="chartCB" id="p_TEMPLATE_ChartCB" value="_TEMPLATE_" checked="checked"
+                    title="<fmt:message key="watchlist.consolidatedChart"/>"/>
 
                     <tag:img png="icon_comp" title="watchlist.pointDetails"
                             onclick="window.location='data_point_details.shtm?dpid='+ getMangoId(this)"/>

@@ -305,168 +305,146 @@
 </head>
 <body>
 
-  <div class="scada-watch-list-xKW">
+  <c:if test="${!sessionUser.hideHeader}">
+      <div class="scada-watch-list-xKW">
 
-    <c:if test="${!empty sessionUser}">
+        <c:if test="${!empty sessionUser}">
 
-      <div class="frame-1-ZaC">
-        <c:if test="${sessionUser.username=='admin'}">
-            <div class="frame-294-5wr">
-              <img class="argos-L76" src="assets/icons/argos.png"/>
+          <div class="frame-1-ZaC">
+            <c:if test="${sessionUser.username=='admin'}">
+                <div class="frame-294-5wr">
+                  <img class="argos-L76" src="assets/icons/argos.png"/>
 
-              <div class="frame-217-3nC">
-                <div class="auto-group-cerz-zhS">
+                  <div class="frame-217-3nC">
+                    <div class="auto-group-cerz-zhS">
 
-                  <div class="frame-2-WQt">
-                    <img class="notificao-DCp" src="assets/icons/notificao.png"/>
-                    <a href="events.shtm" class="informao-VAL">Informa&ccedil;&atilde;o</a>
-                  </div>
+                      <div class="frame-2-WQt">
+                        <img class="notificao-DCp" src="assets/icons/notificao.png"/>
+                        <a href="events.shtm" class="informao-VAL">Informa&ccedil;&atilde;o</a>
+                      </div>
 
-                  <img title="Som" class="som-yLQ" src="assets/icons/som.png"
-                      onclick="MiscDwr.toggleUserMuted(setUserMuted)"
-                      onmouseover="hideLayer('localeEdit')"/>
+                      <img title="Som" class="som-yLQ" src="assets/icons/som.png"
+                          onclick="MiscDwr.toggleUserMuted(setUserMuted)"
+                          onmouseover="hideLayer('localeEdit')"/>
 
 
-                  <div class="idioma-VZe" onclick="showMenu('localeEdit', -40, 10);">
-                    <img class="union-1H6" src="assets/icons/union-dCQ.png"/>
-                    <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
-                      <c:forEach items="${availableLanguages}" var="lang">
-                        <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
-                      </c:forEach>
+                      <div class="idioma-VZe" onclick="showMenu('localeEdit', -40, 10);">
+                        <img class="union-1H6" src="assets/icons/union-dCQ.png"/>
+                        <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
+                          <c:forEach items="${availableLanguages}" var="lang">
+                            <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
+                          </c:forEach>
+                        </div>
+                      </div>
+
+                      <a href="help.shtm" title="Ajuda"><img class="ajuda-YH2" src="assets/icons/ajuda.png"/></a>
+
+                      <div class="frame-1-fsS">
+                        <img class="user-z92" src="assets/icons/user.png"/>
+                        <div class="admin123-8FE">${sessionUser.username}</div>
+                      </div>
+
+                      <div class="frame-3-QCk">
+                        <a href="logout.htm" onclick="disconnect()" class="sair-wyN">Sair
+                          <img class="box-arrow-right-gRA" src="assets/icons/box-arrow-right.png"/>
+                        </a>
+                      </div>
+
                     </div>
                   </div>
+                  <img class="vector-20-nyz" src="REPLACE_IMAGE:6:368"/>
+                </div>
+            </c:if>
 
-                  <a href="help.shtm" title="Ajuda"><img class="ajuda-YH2" src="assets/icons/ajuda.png"/></a>
 
-                  <div class="frame-1-fsS">
-                    <img class="user-z92" src="assets/icons/user.png"/>
-                    <div class="admin123-8FE">${sessionUser.username}</div>
-                  </div>
+            <c:if test="${!simple}">
+                <div class="auto-group-yb9e-YCU">
+                  <c:if test="${isLoggedToScadaUser}">
 
-                  <div class="frame-3-QCk">
-                    <a href="logout.htm" onclick="disconnect()" class="sair-wyN">Sair
-                      <img class="box-arrow-right-gRA" src="assets/icons/box-arrow-right.png"/>
-                    </a>
-                  </div>
+                    <div class="auto-group-5vlt-Urp">
+                      <div class="rectangle-318-1br"></div>
+                      <div class="frame-294-8Ra">
+                        <c:choose>
+                          <c:when test="${sessionUser.hideMenu}">
+                            <c:if test="${!empty sessionUser.homeUrl}">
+                                <c:set var="homeUrl" value="${fn:split(sessionUser.homeUrl, '?')}" />
+
+                                <c:if test="${homeUrl[0] == 'app.shtm'}">
+                                    <img class="vector-263-wtp" src="REPLACE_IMAGE:6:212"/>
+                                </c:if>
+                                <c:if test="${homeUrl[0] == 'watch_list.shtm'}">
+                                    <a href="watch_list.shtm" title="Watch list"><img class="graphic-view-cEG" src="assets/icons/auto-group-fxrz.png"/></a>
+                                </c:if>
+                                <c:if test="${homeUrl[0] == 'views.shtm'}">
+                                  <a href="views.shtm" title="Graphical Views"><img class="graphic-view-cEG" src="assets/icons/graphic-view.png"/></a>
+                                </c:if>
+                                <c:if test="${homeUrl[0] == 'events.shtm'}">
+                                  <a href="events.shtm" title="Alarms"><img class="flag-8TW" src="assets/icons/flag.png"/></a>
+                                </c:if>
+                                <c:if test="${homeUrl[0] == 'reports.shtm'}">
+                                  <a href="reports.shtm" title="Reports"><img class="relatrios-sAC" src="assets/icons/relatrios-M96.png"/></a>
+                                </c:if>
+                            </c:if>
+                          </c:when>
+                          <c:otherwise>
+                            <img class="vector-263-wtp" src="REPLACE_IMAGE:6:212"/>
+                            <a href="watch_list.shtm" title="Watch list"><img class="graphic-view-cEG" src="assets/icons/auto-group-fxrz.png"/></a>
+                            <a href="views.shtm" title="Graphical Views"><img class="graphic-view-cEG" src="assets/icons/graphic-view.png"/></a>
+                            <a href="events.shtm" title="Alarms"><img class="flag-8TW" src="assets/icons/flag.png"/></a>
+                            <a href="reports.shtm" title="Reports"><img class="relatrios-sAC" src="assets/icons/relatrios-M96.png"/></a>
+                          </c:otherwise>
+                        </c:choose>
+                        <c:if test="${sessionUser.admin}">
+                          <img class="vector-264-1XJ" src="REPLACE_IMAGE:6:217"/>
+                            <a href="event_handlers.shtm" title="Event Handlers"><img class="tratadores-de-eventos-Z32" src="assets/icons/tratadores-de-eventos.png"/></a>
+                            <a href="data_sources.shtm" title="Data Sources"><img class="data-source-51N" src="assets/icons/data-source.png"/></a>
+                            <a href="scheduled_events.shtm" title="Scheduled Events"><img class="eventos-agendados-DNU" src="assets/icons/eventos-agendados.png"/></a>
+                            <a href="compound_events.shtm" title="Compound Events Detectorts"><img class="eventos-compostos-MUg" src="assets/icons/eventos-compostos.png"/></a>
+                            <a href="point_links.shtm" title="Point Links"><img class="points-links-h2k" src="assets/icons/points-links.png"/></a>
+                            <a href="scripting.shtm" title="Scripting"><img class="scripting-pt4" src="assets/icons/scripting.png"/></a>
+                        </c:if>
+
+                          <img class="vector-265-N8t" src="REPLACE_IMAGE:6:224"/>
+
+                          <c:if test="${sessionUser.admin}">
+                            <div class="spacer">
+                              <a href="users.shtm" title="Users"><img class="usurios-uPi" src="assets/icons/usurios.png"/></a>
+                              <a href="usersProfiles.shtm" title="Users Profiles"><img class="perfil-3Vv" src="assets/icons/perfil.png"/></a>
+                              <a href="pointHierarchySLTS" title="Point Hierarchy"><img class="hierarquia-aVr" src="assets/icons/hierarquia.png"/></a>
+                              <a href="mailing_lists.shtm" title="Mailing Lists"><img class="lista-envios-ic4" src="assets/icons/lista-envios.png"/></a>
+
+                              <a href="publishers.shtm" title="Publishers"><img class="published-fXJ" src="assets/icons/published.png"/></a>
+                              <a href="maintenance_events.shtm" title="Maintenance Events"><img class="eventos-de-manuteno-Py6" src="assets/icons/eventos-de-manuteno.png"/></a>
+                              <a href="system_settings.shtm" title="System Settings"><img class="config-do-sistema-KLx" src="assets/icons/config-do-sistema.png"/></a>
+                              <a href="emport.shtm" title="Import/Export"><img class="importar-exportar-SgU" src="assets/icons/importar-exportar.png"/></a>
+                            </div>
+                          </c:if>
+
+                          <div class="sql-mik">
+                            <a href="sql.shtm" title="Sql"><img class="union-sfJ" src="assets/icons/union.png"/></a>
+                          </div>
+
+                          <!-- Favoritos
+                            <img class="vector-266-p4k" src="REPLACE_IMAGE:6:234"/>
+                            <a href="" title=""><img class="star-fill-xwe" src="assets/icons/star-fill.png"/></a>
+                            <a href="" title=""><img class="favorito-urt" src="assets/icons/favorito.png"/></a>
+                          -->
+
+
+                      </div>
+                    </div>
+                  </c:if>
+
 
                 </div>
-              </div>
-              <img class="vector-20-nyz" src="REPLACE_IMAGE:6:368"/>
-            </div>
+            </c:if>
+          </div>
         </c:if>
-
-        <div class="auto-group-yb9e-YCU">
-          <div class="auto-group-5vlt-Urp">
-            <div class="rectangle-318-1br"></div>
-            <div class="frame-294-8Ra">
-              <img class="vector-263-wtp" src="REPLACE_IMAGE:6:212"/>
-              <img class="graphic-view-cEG" src="assets/icons/auto-group-fxrz.png"/>
-              <img class="graphic-view-cEG" src="assets/icons/graphic-view.png"/>
-              <img class="flag-8TW" src="assets/icons/flag.png"/>
-              <img class="relatrios-sAC" src="assets/icons/relatrios-M96.png"/>
-              <img class="vector-264-1XJ" src="REPLACE_IMAGE:6:217"/>
-              <img class="tratadores-de-eventos-Z32" src="assets/icons/tratadores-de-eventos.png"/>
-              <img class="data-source-51N" src="assets/icons/data-source.png"/>
-              <img class="eventos-agendados-DNU" src="assets/icons/eventos-agendados.png"/>
-              <img class="eventos-compostos-MUg" src="assets/icons/eventos-compostos.png"/>
-              <img class="points-links-h2k" src="assets/icons/points-links.png"/>
-              <img class="scripting-pt4" src="assets/icons/scripting.png"/>
-              <img class="vector-265-N8t" src="REPLACE_IMAGE:6:224"/>
-              <img class="usurios-uPi" src="assets/icons/usurios.png"/>
-              <img class="perfil-3Vv" src="assets/icons/perfil.png"/>
-              <img class="hierarquia-aVr" src="assets/icons/hierarquia.png"/>
-              <img class="lista-envios-ic4" src="assets/icons/lista-envios.png"/>
-              <img class="published-fXJ" src="assets/icons/published.png"/>
-              <img class="eventos-de-manuteno-Py6" src="assets/icons/eventos-de-manuteno.png"/>
-              <img class="config-do-sistema-KLx" src="assets/icons/config-do-sistema.png"/>
-              <img class="importar-exportar-SgU" src="assets/icons/importar-exportar.png"/>
-              <div class="sql-mik">
-                <img class="union-sfJ" src="assets/icons/union.png"/>
-              </div>
-              <img class="vector-266-p4k" src="REPLACE_IMAGE:6:234"/>
-              <img class="star-fill-xwe" src="assets/icons/star-fill.png"/>
-              <img class="favorito-urt" src="assets/icons/favorito.png"/>
-            </div>
-          </div>
-
-          <!--
-          <img class="vector-20-rGL" src="REPLACE_IMAGE:6:238"/>
-          <div class="auto-group-5h6t-yrk">
-            <div class="frame-217-KQp">
-              <div class="group-218-mV6">
-                <div class="frame-218-urC">
-                  <div class="frame-220-eYt">
-                    <p class="watch-list-An8">Watch List</p>
-                    <div class="auto-group-uugg-6fn">
-
-                      <div class="frame-3-pbn">
-                        <p class="unnamed-n2p">unnamed</p>
-                        <img class="chevron-down-Jmr" src="assets/icons/chevron-down.png"/>
-                      </div>
-
-                      <div class="frame-219-8Vz">
-                        <img class="plus-4eY" src="assets/icons/plus.png"/>
-                        <img class="edit-1Jt" src="assets/icons/edit.png"/>
-                        <img class="relatrios-8uJ" src="assets/icons/relatrios.png"/>
-                        <img class="file-plus-fPS" src="assets/icons/file-plus.png"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="frame-222-Q68">
-                    <p class="item-vaG">Item</p>
-                    <p class="label-f24">Label</p>
-                    <p class="hora-C1z">Hora</p>
-                  </div>
-                  <img class="vector-20-jXi" src="REPLACE_IMAGE:6:404"/>
-                  <div class="frame-223-ghr">
-                    <div class="auto-group-aagl-1EL">
-                      <div class="checks-kBv">
-                        <div class="checbox-t3E">
-                        </div>
-                      </div>
-                      <p class="testedatasource-pressaobasf-oR6">teste_datasource-pressao_basf</p>
-                    </div>
-                    <p class="item-1526398478-gjn">1526398478</p>
-                    <p class="item-00-00-00-brk">00:00:00</p>
-                    <div class="frame-219-jCG">
-                      <img class="search-fLp" src="assets/icons/search-iAg.png"/>
-                      <img class="ordenar-P1v" src="assets/icons/ordenar-x4U.png"/>
-                      <img class="less-Jeg" src="assets/icons/less-wBa.png"/>
-                    </div>
-                  </div>
-                  <img class="vector-22-rRJ" src="REPLACE_IMAGE:6:414"/>
-                  <div class="frame-219-btg">
-                    <div class="auto-group-zavs-XnL">
-                      <div class="checks-HFi">
-                        <div class="checbox-d4g">
-                        </div>
-                      </div>
-                      <p class="testedatasource-testepoint-Lzg">teste_datasource-testepoint</p>
-                    </div>
-                    <p class="item-1526398478-SH2">1526398478</p>
-                    <p class="item-00-00-00-ZMe">00:00:00</p>
-                    <div class="frame-219-Txp">
-                      <img class="search-CfW" src="assets/icons/search.png"/>
-                      <img class="ordenar-XBz" src="assets/icons/ordenar.png"/>
-                      <img class="less-3AL" src="assets/icons/less.png"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        -->
-        </div>
       </div>
-    </c:if>
+  </c:if>
 
-  </div>
-
-  <!-- mainHeader -->
-
-
-  <!--
-    // CODIGO COMENTADO - DIEGO
+  <!-- mainHeader OLD -->
+  <!-- coment
   <c:if test="${!sessionUser.hideHeader}">
 
     <div id="mainHeader">
@@ -483,11 +461,12 @@
 
       <div>
         <c:if test="${!empty instanceDescriptionHeader}">
-          <span id="instanceDescriptionHeader" align="right" valign="bottom" class="projectTitle"><a href="system_settings.shtm" style="text-decoration: none;color:grey">${instanceDescriptionHeader}</a></span>
+          <span id="instanceDescriptionHeader" align="right" valign="bottom" class="projectTitle">
+            <a href="system_settings.shtm" style="text-decoration: none;color:grey">${instanceDescriptionHeader}</a>
+          </span>
         </c:if>
       </div>
     </div>
-
 
     <c:if test="${!simple}">
       <div class="navHeader" id="subHeader">
@@ -495,17 +474,21 @@
           <nav class="flex-default">
             <c:if test="${isLoggedToScadaUser}">
               <div class="spacer">
+
                   <c:choose>
                       <c:when test="${sessionUser.hideMenu}">
                           <c:if test="${!empty sessionUser.homeUrl}">
                               <c:set var="homeUrl" value="${fn:split(sessionUser.homeUrl, '?')}" />
+
                               <c:if test="${homeUrl[0] == 'app.shtm'}">
                                   <tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
                                   <img src="./images/menu_separator.png" class="separator"/>
                               </c:if>
+
                               <c:if test="${homeUrl[0] == 'watch_list.shtm'}">
                                   <tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
                               </c:if>
+
                               <c:if test="${homeUrl[0] == 'views.shtm'}">
                                 <tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
                               </c:if>
@@ -518,17 +501,16 @@
                           </c:if>
                       </c:when>
 
-                  <c:otherwise>
-                      <tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
-                      <img src="./images/menu_separator.png" class="separator"/>
-                      <tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
-                      <tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
-                      <tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
-                      <tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
-                  </c:otherwise>
-                </c:choose>
+                      <c:otherwise>
+                          <tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
+                          <img src="./images/menu_separator.png" class="separator"/>
+                          <tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
+                          <tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
+                          <tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
+                          <tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
+                      </c:otherwise>
+                  </c:choose>
               </div>
-
 
               <c:if test="${sessionUser.admin}">
                 <div class="spacer">
@@ -583,6 +565,7 @@
             <c:if test="${empty sessionUser}">
                 <tag:menuItem href="login.htm" png="control_play_blue" key="header.login"/>
             </c:if>
+
             <div id="headerMenuDescription" class="labelDiv" style="position:absolute;display:none;"></div>
           </nav>
         </div>
@@ -604,6 +587,7 @@
 
 
           <div id="navbarUserProperties" class="flex-default spacer">
+
             <c:if test="${isLoggedToScadaUser}">
               <c:if test="${!sessionUser.hideMenu}">
                   <tag:img id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')"/>
@@ -622,14 +606,17 @@
             </div>
 
           </div>
+
+
         </div>
+
       </div>
     </c:if>
   </c:if>
 
-  -->
+  end coment -->
 
-
+  <!-- fim - mainHeader OLD -->
 
 
 
