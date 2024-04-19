@@ -283,3 +283,7 @@ html > body .dojoTreeNodeLabelTitle {
 	}
 
 }
+
+#hp-headers > div {
+	margin-bottom: 15px;
+}
