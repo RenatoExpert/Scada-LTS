@@ -264,13 +264,13 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 #viewContent button {
-  overflow: visible;
-  background: silver;
-  border-width: 3px;
-  border-color: gainsboro gray gray gainsboro;
-  border-style: solid;
-  padding: 1px 5px;
-  color: black;
+    overflow: visible;
+    background: #eaa6a6;
+    border-width: 3px;
+    border-color: #e30a0a gray gray gainsboro;
+    border-style: solid;
+    padding: 1px 5px;
+    color: #a04545;
 }
 
 @media screen and (max-width: 730px) {

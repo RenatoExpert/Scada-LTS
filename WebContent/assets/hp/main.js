@@ -61,7 +61,7 @@ function get_current_view() {
 						view.process = process;
 						let reference = children[view.name];
 						view.label = reference.label;
-						view.title = process.label + "/" + view.label;
+						view.title = process.label + "/" + view.label; 
 						console.log({ l2, process });
 						break from_tree;
 					}
@@ -106,7 +106,7 @@ async function main() {
 		};
 		console.log(sources);
 
-		[l1_svg, tree, links] = await Promise.all([
+		[l1_svg, tree, links] = await Promise.all([ 
 			load_svg(sources.l1),
 			load_json(sources.tree),
 			load_json(sources.links)
@@ -276,3 +276,5 @@ boot: {
 		main();
 	}
 }
+
+
