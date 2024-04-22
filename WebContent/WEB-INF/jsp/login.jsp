@@ -20,7 +20,7 @@
 
 <tag:page onload="setFocus">
 	<div class="login-container">
-		<div>
+		<div class="login-logo">
 			<img src="/Scada-LTS/assets/logo.png" />
 		</div>
 		<div class="login-box">

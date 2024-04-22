@@ -381,6 +381,14 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 	padding: 20px;
 }
 
+.login-logo {
+	align-items: center;
+}
+
+.login-logo > img {
+	width: 80%;
+}
+
 .login-box .form-box > .formField > input {
 	width: 200px;
 	height: 30px;
