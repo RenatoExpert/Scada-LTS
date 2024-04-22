@@ -357,7 +357,7 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 /* Login form */
 .login-container {
 	margin: 100px auto 10px auto;
-	background-color: #77c055;
+	background-color: #eeedff;
 	width: 290px;
 	border-radius: 10px;
 	padding: 20px;
