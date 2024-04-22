@@ -48,6 +48,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 #mainHeader .logo-section--title,
 #mainHeader .logo-section--details {
 	display: flex;
+	padding: 10px;
 }
 #mainHeader .logo-section #logo {
 	max-height: 32px;
