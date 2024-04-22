@@ -69,7 +69,12 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 
 div#subHeader > div > nav > div > a {
-	margin-right: 10px;
+	margin-right: 5px;
+}
+
+div#subHeader > div > nav > div > a > img {
+	width: 20px;
+	height: 20px;
 }
 
 .bigTitle {
