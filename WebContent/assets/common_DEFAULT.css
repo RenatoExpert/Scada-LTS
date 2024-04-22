@@ -18,7 +18,7 @@
 */
 :root {
 	--slts-color-primary: #39B54A;
-	--slts-color-primary-text: #000000;
+	--slts-color-primary-text: #555555;
 	--slts-color-secondary: #424041;
 	--slts-color-secondary-lighter: #F0F0F0;
 	--slts-color-secondary-lighter-alt: #d0d0d0;
@@ -247,6 +247,12 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 .login-box .form-box > .formLabelRequired {
+	margin-bottom: 0.6rem;
+	font-weight: 400;
+	line-height: 1.25;
+	font-family: Inter, 'Source Sans Pro';
+	white-space: nowrap;
+	flex-shrink: 0;
 	color: var(--slts-color-primary-text);
 	font-size: var(--slts-font-size--subtitle);
 }
