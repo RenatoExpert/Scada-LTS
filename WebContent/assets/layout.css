@@ -385,7 +385,7 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 
 .login-box .login-button > input {
     margin: 0rem 8rem 4rem 8rem;
-    width: calc(100% - 16rem);
+    width: 150px;
     height: 5rem;
     font-size: 1.6rem;
     font-weight: 600;
