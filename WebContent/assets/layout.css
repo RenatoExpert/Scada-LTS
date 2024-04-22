@@ -382,7 +382,7 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 }
 
 .login-logo {
-	align-items: center;
+	text-align: center;
 }
 
 .login-logo > img {
