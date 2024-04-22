@@ -313,8 +313,6 @@
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
-									<img src="./images/menu_separator.png" class="separator"/>
 									<tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
 									<tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
 									<tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
