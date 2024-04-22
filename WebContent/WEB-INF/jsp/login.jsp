@@ -20,19 +20,6 @@
 
 <tag:page onload="setFocus">
 	<div class="login-container">
-		<div class="login-browser">
-			<span id="browser">
-				<fmt:message key="login.unknownBrowser"/>
-			</span>
-			<img id="browserImg" src="images/magnifier.png" style="height: 10px;width: auto;"/>
-			<span id="okMsg" style="display:none">
-				<fmt:message key="login.supportedBrowser"/>
-			</span>
-			<span id="warnMsg" style="display:none">
-				<fmt:message key="login.unsupportedBrowser"/>
-			</span>
-		</div>
-
 		<div class="login-box">
 			<form name="f" action="login.htm" method="post" onclick="nag()">
 				<div class="form-box">
