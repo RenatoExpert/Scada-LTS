@@ -68,6 +68,10 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 	padding: 5px 10px;
 }
 
+div#subHeader > div > nav > div > a {
+	margin-right: 10px;
+}
+
 .bigTitle {
 	color: var(--slts-color-secondary-darker);
 	font-size: var(--slts-font-size--title);
