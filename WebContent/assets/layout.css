@@ -340,7 +340,8 @@ html > body .dojoFloatingPaneClient img, #help img {
     width: 20px;
 }
 .login-button {
-    width: 165px;
+	padding: 10px 0px;
+	width: 100%;
 }
 
 img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="images/"]:not(#viewBackground){
@@ -357,9 +358,10 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 /* Login form */
 .login-container {
 	margin: 100px auto 10px auto;
-	background-color: #77c055;
+	background-color: #eeedff;
 	width: 290px;
 	border-radius: 10px;
+	padding: 20px;
 }
 .login-browser {
 	text-align: center;
@@ -375,17 +377,41 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 
 .login-box > form {
 	margin: 0 auto;
-	width:200px;
+	width: 200px;
+	padding: 20px;
+}
+
+.login-logo {
+	text-align: center;
+}
+
+.login-logo > img {
+	width: 80%;
 }
 
 .login-box .form-box > .formField > input {
 	width: 200px;
-	height: 20px;
+	height: 30px;
+	border: solid 0.1rem #888888;
+	background-color: #fafafa;
+	border-radius: 0.6rem;
 }
+
 .login-box .login-button > input {
-	padding: 5px 20px;
-	margin-left:30%;
-	margin-top:10px;
+    width: 150px;
+    height: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.125;
+    color: #ffffff;
+    font-family: Inter, 'Source Sans Pro';
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0050d3;
+    border-radius: 10rem;
+    flex-shrink: 0;
 }
 
 /* Fixed styles */
