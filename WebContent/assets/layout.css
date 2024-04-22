@@ -340,7 +340,8 @@ html > body .dojoFloatingPaneClient img, #help img {
     width: 20px;
 }
 .login-button {
-    width: 100%;
+	padding: 10px 0px;
+	width: 100%;
 }
 
 img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="images/"]:not(#viewBackground){
