@@ -19,310 +19,39 @@
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.Common"%>
 <%@page import="com.serotonin.mango.view.ShareUser"%>
-
-
 <tag:page dwr="WatchListDwr" js="view" onload="init">
   <jsp:attribute name="styles">
-
     <style>
-            html > body .dojoTreeNodeLabelSelected {
-                background-color: inherit;
-                color: inherit;
-            }
-            .watchListAttr {
-                min-width:600px;
-            }
-            .rowIcons img {
-                padding-right: 3px;
-            }
-            html > body .dojoSplitContainerSizerH {
-                border: 1px solid #FFFFFF;
-                background-color: #39B54A;
-                margin-top:4px;
-                margin-bottom:4px;
-            }
-
-            .wlComponentMin {
-                top:0px;
-                left:0px;
-                position:relative;
-                margin:0px;
-                padding:0px;
-                width:16px;
-                height:16px;
-            }
-
-            .checks-kBv {
-                box-sizing: border-box;
-                padding: 0.4rem 0;
-                width: 6.6rem;
-                height: 2.4rem;
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
-
-
+    html > body .dojoTreeNodeLabelSelected {
+        background-color: inherit;
+        color: inherit;
+    }
+    .watchListAttr {
+        min-width:600px;
+    }
+    .rowIcons img {
+        padding-right: 3px;
+    }
+    html > body .dojoSplitContainerSizerH {
+        border: 1px solid #FFFFFF;
+        background-color: #39B54A;
+        margin-top:4px;
+        margin-bottom:4px;
+    }
+    .wlComponentMin {
+        top:0px;
+        left:0px;
+        position:relative;
+        margin:0px;
+        padding:0px;
+        width:16px;
+        height:16px;
+    }
     </style>
-
-
-    <style>
-
-    .group-points {
-      margin-right: 2.4rem;
-      box-sizing: border-box;
-      padding: 2.4rem 0;
-      width: 38rem;
-      height: 100%;
-      box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.200000003);
-      background-color: #ffffff;
-      border-radius: 0.8rem;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ {
-      width: 100%;
-      height: 13.6rem;
-      display: flex;
-      flex-direction: column;
-    }
-    .group-points .frame-218-nZJ .points-ihr {
-      margin: 0rem 0rem 2.4rem 2.4rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-      line-height: 1.2000000212;
-      color: #555555;
-      font-family: Inter, 'Source Sans Pro';
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-220-RsA {
-      margin: 0rem 2.4rem 1.6rem 2.4rem;
-      width: calc(100% - 4.8rem);
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-220-RsA .search-Mkp {
-      margin: 0rem 0.8rem 0rem 0rem;
-      width: 1.5999rem;
-      height: 1.6rem;
-      position: relative;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-220-RsA .testedatasource-pressaobasf-gHJ {
-      margin-right: 7.6rem;
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 1.5;
-      color: #111111;
-      font-family: Inter, 'Source Sans Pro';
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-220-RsA .arrow-right-circle-QDJ {
-      width: 2rem;
-      height: 2rem;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .vector-20-vSY {
-      margin-bottom: 1.6rem;
-      width: 38rem;
-      height: 0;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-219-BNU {
-      margin: 0rem 2.4rem 1.6rem 2.4rem;
-      width: calc(100% - 4.8rem);
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-219-BNU .search-uZN {
-      margin: 0rem 0.8rem 0rem 0rem;
-      width: 1.5999rem;
-      height: 1.6rem;
-      position: relative;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-219-BNU .testedatasource-testepoint-dkG {
-      margin-right: 9.7rem;
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 1.5;
-      color: #111111;
-      font-family: Inter, 'Source Sans Pro';
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .frame-219-BNU .arrow-right-circle-Zdv {
-      width: 2rem;
-      height: 2rem;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-    .group-points .frame-218-nZJ .vector-21-J5i {
-      width: 38rem;
-      height: 0;
-      object-fit: contain;
-      vertical-align: top;
-      flex-shrink: 0;
-    }
-
-    </style>
-
-
-    <style>
-        .dojoTree {
-            margin-right: 7.6rem !important;
-            font-size: 1.4rem !important;
-            font-weight: 500 !important;
-            line-height: 1.5 !important;
-            color: #111111 !important;
-            font-family: Inter, 'Source Sans Pro' !important;
-            white-space: nowrap !important;
-            flex-shrink: 0 !important;
-            width: 100%;
-        }
-
-        .dojoTreeNode {
-            width: 100%;
-            padding-bottom: 10px;
-        }
-
-        .dojoTreeNode .dojoTreeNodeLabel {
-            width: 100% !important;
-        }
-
-        .dojoTreeNode .dojoTreeNodeLabel .dojoTreeNodeLabelTitle {
-            width: 100% !important;
-        }
-
-        .dojoTreeNode .dojoTreeNodeLabel .dojoTreeNodeLabelTitle img {
-            width: 20px !important;
-            height: 20px !important;
-            opacity: 1 !important;
-        }
-
-        .dojoTreeNode .dojoTreeNodeLabel .dojoTreeNodeLabelTitle img[id*='ph'] {
-            float: right !important;
-            margin-right: 20px;
-        }
-
-    </style>
-
-    <style>
-
-             .dojoSplitPane {
-                overflow: auto !important;
-                padding: 2px !important;
-                position: relative !important;
-                width: 407px !important;
-                height: 502px !important;
-                float: left !important;
-            }
-
-            .watch-list-box-right {
-                box-sizing: border-box !important;
-                width: 93.6rem !important;
-                height: 506px !important;
-                box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.200000003) !important;
-                background-color: #ffffff !important;
-                border-radius: 0.8rem !important;
-                flex-shrink: 0 !important;
-                padding: 15px !important;
-
-                position: relative !important;
-                top: 0px !important;
-                float: left !important;
-                left: 0 !important;
-            }
-
-            .dojoSplitContainerSizerH {
-                box-sizing: border-box !important;
-
-                width: 87.6rem !important;
-                height: 100% !important;
-                box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.200000003) !important ;
-                background-color: #ffffff !important;
-                border-radius: 0.8rem !important;
-                flex-shrink: 0 !important;
-
-                position: relative !important;
-                width: 3px !important;
-                height: 498px !important;
-                float: left !important;
-            }
-
-
-
-            .smallTitle {
-                font-size: 1.8rem;
-                font-weight: 700;
-                line-height: 1.2000000212;
-                color: #555555;
-                font-family: Inter, 'Source Sans Pro';
-                white-space: nowrap;
-                flex-shrink: 0;
-            }
-
-            .textTitle{
-                font-size: 1.4rem !important;
-                font-weight: 500 !important;
-                line-height: 1.5 !important;
-                color: #111111 !important;
-                font-family: Inter, 'Source Sans Pro' !important;
-                white-space: nowrap !important;
-                flex-shrink: 0 !important;
-            }
-
-            #watchListSelect {
-                border:0;
-                font-size: 1.4rem;
-                font-weight: 500;
-                line-height: 1.5;
-                color: #0050d3;
-                font-family: Inter, 'Source Sans Pro';
-            }
-
-            .icon-size img{
-                width: 18px;
-                height: 18px;
-            }
-
-            #watchListTable {
-                font-size: 1.4rem !important;
-                font-weight: 500 !important;
-                line-height: 1.5 !important;
-                color: #1c1c1c !important;
-                font-family: Inter, 'Source Sans Pro' !important;
-                white-space: nowrap !important;
-                flex-shrink: 0 !important;
-            }
-
-            .horzSeparator {
-                height: 1px;
-                background: #c6c6c6 !important;
-                padding: 0px;
-            }
-    </style>
-
-
   </jsp:attribute>
 
-
   <jsp:body>
-
     <script type="text/javascript">
-
       dojo.require("dojo.widget.SplitContainer");
       dojo.require("dojo.widget.ContentPane");
       mango.view.initWatchlist();
@@ -333,8 +62,7 @@
       var isChartLive = false;
       var isAdmin = false;
 
-      function init()
-      {
+      function init() {
           WatchListDwr.init(function(data) {
               isAdmin = data.admin;
               mango.share.users = data.shareUsers;
@@ -904,64 +632,43 @@
     		window.setInterval(saveDivHeightsToCookieOnChange, 2000);
    	  	})(jQuery);
    	  });
-
     </script>
 
     <table width="100%">
-    <tr>
-    <td>
-      <div id="splitContainer"
-            dojoType="SplitContainer" orientation="horizontal" sizerWidth="3" activeSizing="true"
-            widgetId="splitContainer"
-            style="width: 100%; height: 500px; resize:vertical;">
-
+    <tr><td>
+      <div id="splitContainer" dojoType="SplitContainer" orientation="horizontal" sizerWidth="3" activeSizing="true" class="borderDiv"
+              widgetId="splitContainer" style="width: 100%; height: 500px; resize:vertical;">
         <div dojoType="ContentPane" sizeMin="20" sizeShare="20" style="overflow:auto;padding:2px;">
-            <div class="group-points">
-                <div class="frame-218-nZJ">
-                  <p class="points-ihr">Points</p>
-                    <!-- CARREGA A TREE -->
-                    <img src="images/hourglass.png" id="loadingImg"/>
-                    <div id="treeDiv" style="display:none;">
-                        <div dojoType="Tree" widgetId="tree"></div>
-                    </div>
-                </div>
-            </div>
+          <span class="smallTitle"><fmt:message key="watchlist.points"/></span> <tag:help id="watchListPoints"/><br/>
+        <!-- <div style="margin:5px 0 10px 5px;">
+          <select id="dpSelector" data-placeholder="Choose data point ..." class="chosen-select" style="width:80%;margin-bottom:10px;">
+          	<option></option>
+          </select>
+          <img title="Add to watch list" src="images/bullet_go.png" onclick="addSelectedToWatchList()" style="cursor:pointer;">
         </div>
-
-        <div dojoType="ContentPane"
-            sizeMin="50"
-            sizeShare="50"
-            class="watch-list-box-right">
-
+        <div class="horzSeparator" style="margin-bottom:10px;"></div> -->
+        <img src="images/hourglass.png" id="loadingImg"/>
+        <div id="treeDiv" style="display:none;"><div dojoType="Tree" widgetId="tree"></div></div>
+        </div>
+        <div dojoType="ContentPane" sizeMin="50" sizeShare="50" style="overflow:auto; padding:2px 10px 2px 2px;">
           <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
-              <td class="smallTitle">
-                <fmt:message key="watchlist.watchlist"/>
-                <!-- <tag:help id="watchList"/> -->
-              </td>
-              <td align="right" class="icon-size">
-
-                <sst:select
-                            id="watchListSelect"
-                            value="${selectedWatchList}"
-                            onchange="watchListChanged()"
-                            onmouseover="closeLayers();">
-
+              <td class="smallTitle"><fmt:message key="watchlist.watchlist"/> <tag:help id="watchList"/></td>
+              <td align="right">
+                <sst:select id="watchListSelect" value="${selectedWatchList}" onchange="watchListChanged()"
+                        onmouseover="closeLayers();">
                   <c:forEach items="${watchLists}" var="wl">
                     <sst:option value="${wl.key}">${sst:escapeLessThan(wl.value)}</sst:option>
                   </c:forEach>
                 </sst:select>
 
                 <div id="wlEditDiv" style="display:inline;" onmouseover="showWatchListEdit()">
-                  <tag:img src="assets/icons/edit.png" title="watchlist.editListName"/>
+                  <tag:img id="wlEditImg" png="pencil" title="watchlist.editListName"/>
                   <div id="wlEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv"
                           onmouseout="hideLayer(this)">
-
                     <fmt:message key="watchlist.newListName"/><br/>
-
                     <input type="text" id="newWatchListName"
                             onkeypress="if (event.keyCode==13) $('saveWatchListNameLink').onclick();"/>
-
                     <a class="ptr" id="saveWatchListNameLink" onclick="saveWatchListName()"><fmt:message key="common.save"/></a>
                   </div>
                 </div>
@@ -974,85 +681,50 @@
                   </div>
                 </div>
 
-                <tag:img src="assets/icons/relatrios.png" onclick="addWatchList(true)" title="watchlist.copyList" onmouseover="closeLayers();"/>
-
-                <tag:img src="assets/icons/add.png" onclick="addWatchList(false)" title="watchlist.addNewList" onmouseover="closeLayers();"/>
-
-                <tag:img src="assets/icons/delete.png" id="watchListDeleteImg" onclick="deleteWatchList()" title="watchlist.deleteList"
-                         style="display:none;" onmouseover="closeLayers();"/>
-
-                <tag:img src="assets/icons/file-plus.png"
-                         onclick="createReport()"
-                         title="watchlist.createReport" onmouseover="closeLayers();"/>
+                <tag:img png="copy" onclick="addWatchList(true)" title="watchlist.copyList" onmouseover="closeLayers();"/>
+                <tag:img png="add" onclick="addWatchList(false)" title="watchlist.addNewList" onmouseover="closeLayers();"/>
+                <tag:img png="delete" id="watchListDeleteImg" onclick="deleteWatchList()" title="watchlist.deleteList"
+                        style="display:none;" onmouseover="closeLayers();"/>
+                <tag:img png="report_add" onclick="createReport()" title="watchlist.createReport" onmouseover="closeLayers();"/>
               </td>
             </tr>
           </table>
-
           <div id="watchListDiv" class="watchListAttr">
             <table style="display:none;">
               <tbody id="p_TEMPLATE_">
-                <tr id="p_TEMPLATE_BreakRow">
-                    <td class="horzSeparator" colspan="5"></td>
-                </tr>
+                <tr id="p_TEMPLATE_BreakRow"><td class="horzSeparator" colspan="5"></td></tr>
                 <tr>
                   <td width="1">
-
                     <table cellpadding="0" cellspacing="0" class="rowIcons">
                       <tr>
                         <td onclick="mango.view.showChange('p'+ getMangoId(this) +'Change', 4, 12);"
                                 ondblclick="mango.view.hideChange('p'+ getMangoId(this) +'Change');"
                                 id="p_TEMPLATE_ChangeMin" style="display:none;"><img alt="" id="p_TEMPLATE_Changing"
-                                src="images/icon_edit.png"/>
-
-                                <div id="p_TEMPLATE_Change" class="labelDiv"
+                                src="images/icon_edit.png"/><div id="p_TEMPLATE_Change" class="labelDiv"
                                 style="visibility:hidden;top:10px;left:1px;" ondblclick="hideLayer(this);">
-                                    <tag:img png="hourglass" title="common.gettingData"/>
-                                </div>
-                        </td>
-
+                          <tag:img png="hourglass" title="common.gettingData"/>
+                        </div></td>
                         <td id="p_TEMPLATE_ChartMin" style="display:none;" onmouseover="showChart(getMangoId(this), event, this);"
-                                onmouseout="hideChart(getMangoId(this), event, this);">
-
-                                <img alt=""
-                                src="images/icon_chart.png"/>
-
-                                <div id="p_TEMPLATE_ChartLayer" class="labelDiv"
-                                style="visibility:hidden;top:0;left:0;"></div>
-
-                                <textarea style="display:none;" id="p_TEMPLATE_Chart">
-                                    <tag:img png="hourglass" title="common.gettingData"/>
-                                </textarea>
-                        </td>
+                                onmouseout="hideChart(getMangoId(this), event, this);"><img alt=""
+                                src="images/icon_chart.png"/><div id="p_TEMPLATE_ChartLayer" class="labelDiv"
+                                style="visibility:hidden;top:0;left:0;"></div><textarea
+                                style="display:none;" id="p_TEMPLATE_Chart"><tag:img png="hourglass"
+                                title="common.gettingData"/></textarea></td>
                       </tr>
                     </table>
-
                   </td>
                   <td id="p_TEMPLATE_Name" style="font-weight:bold"></td>
-                  <td id="p_TEMPLATE_Value" align="center">
-                    <img src="images/hourglass.png"/>
-                  </td>
+                  <td id="p_TEMPLATE_Value" align="center"><img src="images/hourglass.png"/></td>
                   <td id="p_TEMPLATE_Time" align="center"></td>
                   <td style="width:1px; white-space:nowrap;">
-                    <div class="checks-kBv">
-                        <div class="checbox-t3E"
-                            id="p_TEMPLATE_ChartCB" value="_TEMPLATE_" checked="checked"
-                            name="chartCB"
-                            title="<fmt:message key="watchlist.consolidatedChart"/>"/>
-                        </div>
-                      </div>
-
-                    <!-- <input type="checkbox"   -->
                     <input type="checkbox" name="chartCB" id="p_TEMPLATE_ChartCB" value="_TEMPLATE_" checked="checked"
-                    title="<fmt:message key="watchlist.consolidatedChart"/>"/>
-
+                            title="<fmt:message key="watchlist.consolidatedChart"/>"/>
                     <tag:img png="icon_comp" title="watchlist.pointDetails"
                             onclick="window.location='data_point_details.shtm?dpid='+ getMangoId(this)"/>
-
                     <tag:img png="arrow_up_thin" id="p_TEMPLATE_MoveUp" title="watchlist.moveUp" style="display:none;"
                             onclick="moveRowUp('p'+ getMangoId(this));"/><tag:img png="arrow_down_thin"
                             id="p_TEMPLATE_MoveDown" title="watchlist.moveDown" style="display:none;"
                             onclick="moveRowDown('p'+ getMangoId(this));"/>
-
                     <tag:img id="p_TEMPLATE_Delete" png="bullet_delete" title="watchlist.delete" style="display:none;"
                             onclick="removeFromWatchList(getMangoId(this))"/>
                   </td>
@@ -1060,56 +732,44 @@
                 <tr><td colspan="5" style="padding-left:16px;" id="p_TEMPLATE_Messages"></td></tr>
               </tbody>
             </table>
-            <table id="watchListTable" width="100%">
-            </table>
+            <table id="watchListTable" width="100%"></table>
             <div id="emptyListMessage" style="color:#888888;padding:10px;text-align:center;">
               <fmt:message key="watchlist.emptyList"/>
             </div>
           </div>
         </div>
       </div>
-    </td>
-    </tr>
-    <tr>
-        <td>
-            <div id="chartContainer" class="borderDiv" style="width: 100%; resize: vertical; overflow: hidden; height: 500px;">
-                <table width="100%">
-                    <tr>
-                        <td class="smallTitle">
-                            <fmt:message key="watchlist.chart"/>
-                            <tag:help id="watchListCharts"/>
-                        </td>
-                        <td align="right">
-                            <input type="text" id="prevPeriodCount" class="formVeryShort"/>
-                            <select id="prevPeriodType">
-                                <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
-                            </select>
-                        </td>
-                        <td align="left">
-                            <tag:img id="imageChartLiveImg" png="control_play_blue" title="watchlist.imageChartLiveButton" onclick="switchChartMode()"/><br/>
-                        </td>
-                        <td class="vertSeparator"></td>
-                        <td align="right"><tag:dateRange/></td>
-                        <td>
-                        <tag:img id="imageChartImg" png="control_play_blue" title="watchlist.imageChartButton" onclick="getImageChart()"/>
-                           <tag:img id="chartDataImg" png="bullet_down" title="watchlist.chartDataButton" onclick="getChartData()"/>
-                        </td>
-                    </tr>
-                    <tr><td colspan="6" id="imageChartDiv"></td></tr>
-                    <tr><td colspan="6" id="temp" style="display:none"></td></tr>
-                </table>
-            </div>
+    </td></tr>
 
-
-
-        </td>
-    </tr>
+    <tr><td>
+      <div id="chartContainer" class="borderDiv" style="width: 100%; resize: vertical; overflow: hidden; height: 500px;">
+        <table width="100%">
+          <tr>
+            <td class="smallTitle"><fmt:message key="watchlist.chart"/> <tag:help id="watchListCharts"/></td>
+            <td align="right"><input type="text" id="prevPeriodCount" class="formVeryShort"/>
+            	<select id="prevPeriodType">
+                	<tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
+            	</select>
+            </td>
+            <td  align="left"><tag:img id="imageChartLiveImg" png="control_play_blue" title="watchlist.imageChartLiveButton"
+                      onclick="switchChartMode()"/><br/></td>
+            <td class="vertSeparator"></td>
+            <td align="right"><tag:dateRange/></td>
+            <td>
+              <tag:img id="imageChartImg" png="control_play_blue" title="watchlist.imageChartButton"
+                      onclick="getImageChart()"/>
+<%--               <tag:img id="chartDataImg" png="bullet_down" title="watchlist.chartDataButton" --%>
+<!--                       onclick="getChartData()"/> -->
+            </td>
+          </tr>
+          <tr><td colspan="6" id="imageChartDiv"></td></tr>
+          <tr><td colspan="6" id="temp" style="display:none"></td></tr>
+        </table>
+      </div>
+    </td></tr>
 
     <tag:newPageNotification href="./app.shtm#/watch-list" ref="watchListNotification"/>
 
     </table>
   </jsp:body>
-
-
-
 </tag:page>
