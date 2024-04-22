@@ -377,7 +377,8 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 
 .login-box > form {
 	margin: 0 auto;
-	width:200px;
+	width: 200px;
+	padding: 20px;
 }
 
 .login-box .form-box > .formField > input {
