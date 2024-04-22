@@ -340,7 +340,7 @@ html > body .dojoFloatingPaneClient img, #help img {
     width: 20px;
 }
 .login-button {
-    width: 165px;
+    width: 100%;
 }
 
 img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="images/"]:not(#viewBackground){
@@ -384,7 +384,6 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 }
 
 .login-box .login-button > input {
-    margin: 0rem 8rem 4rem 8rem;
     width: 150px;
     height: 5rem;
     font-size: 1.6rem;
