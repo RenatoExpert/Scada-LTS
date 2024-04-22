@@ -65,7 +65,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 
 #subHeader {
 	background-color: var(--slts-color-secondary-lighter);
-	padding: var(--padding-default);
+	padding: 5px 10px;
 }
 
 .bigTitle {
