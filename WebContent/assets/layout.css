@@ -382,10 +382,23 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 	width: 200px;
 	height: 20px;
 }
+
 .login-box .login-button > input {
-	padding: 5px 20px;
-	margin-left:30%;
-	margin-top:10px;
+    margin: 0rem 8rem 4rem 8rem;
+    width: calc(100% - 16rem);
+    height: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.125;
+    color: #ffffff;
+    font-family: Inter, 'Source Sans Pro';
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0050d3;
+    border-radius: 10rem;
+    flex-shrink: 0;
 }
 
 /* Fixed styles */
