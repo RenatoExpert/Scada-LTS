@@ -88,11 +88,26 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 #eventsRow {
 	align-self: center;
 }
+
 #subHeader {
 	display: flex;
     justify-content: space-between;
 	min-width: 500px;
 }
+
+#subHeader a {
+	margin-right: 5px;
+}
+
+#subHeader img {
+	width: 20px;
+	height: 20px;
+}
+
+#subHeader img:hover {
+    background-color: #3875d72b;
+}
+
 #navbarUserInfo {
 	margin-right: 30px;
 }
