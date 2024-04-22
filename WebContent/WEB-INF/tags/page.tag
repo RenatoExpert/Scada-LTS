@@ -279,158 +279,142 @@
 
 <!-- mainHeader -->
 <c:if test="${!sessionUser.hideHeader}">
-<div id="mainHeader">
-  <tag:logo/>
+	<div id="mainHeader">
+		<tag:logo/>
+	</div>
 
-  <div id="eventsRow">
-    <a href="events.shtm">
-      <span id="__header__alarmLevelDiv">
-        <img id="__header__alarmLevelImg" src="images/spacer.gif" alt="" border="0" title=""/>
-        <span id="__header__alarmLevelText"></span>
-      </span>
-    </a>
-  </div>
+	<!-- subheader -->
+	<c:if test="${!simple}">
+		<div class="navHeader" id="subHeader">
+			<div>
+				<nav class="flex-default">
+					<c:if test="${isLoggedToScadaUser}">
+						<div class="spacer">
+							<c:choose>
+								<c:when test="${sessionUser.hideMenu}">
+									<c:if test="${!empty sessionUser.homeUrl}">
+										<c:set var="homeUrl" value="${fn:split(sessionUser.homeUrl, '?')}" />
+										<c:if test="${homeUrl[0] == 'app.shtm'}">
+											<tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
+											<img src="./images/menu_separator.png" class="separator"/>
+										</c:if>
+										<c:if test="${homeUrl[0] == 'watch_list.shtm'}">
+											<tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
+										</c:if>
+										<c:if test="${homeUrl[0] == 'views.shtm'}">
+											<tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
+										</c:if>
+										<c:if test="${homeUrl[0] == 'events.shtm'}">
+											<tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
+										</c:if>
+										<c:if test="${homeUrl[0] == 'reports.shtm'}">
+											<tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
+										</c:if>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
+									<img src="./images/menu_separator.png" class="separator"/>
+									<tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
+									<tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
+									<tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
+									<tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
+								</c:otherwise>
+							</c:choose>
+						</div>
 
-  <div>
-    <c:if test="${!empty instanceDescriptionHeader}">
-      <span id="instanceDescriptionHeader" align="right" valign="bottom" class="projectTitle"><a href="system_settings.shtm" style="text-decoration: none;color:grey">${instanceDescriptionHeader}</a></span>
-    </c:if>
-  </div>
-</div>
+						<c:if test="${sessionUser.admin}">
+							<div class="spacer">
+								<img src="./images/menu_separator.png" class="separator"/>
+								<tag:menuItem href="event_handlers.shtm" png="cog" key="header.eventHandlers"/>
+								<tag:menuItem href="data_sources.shtm" png="icon_ds" key="header.dataSources"/>
+								<tag:menuItem href="scheduled_events.shtm" png="clock" key="header.scheduledEvents"/>
+								<tag:menuItem href="compound_events.shtm" png="multi_bell" key="header.compoundEvents"/>
+								<tag:menuItem href="point_links.shtm" png="link" key="header.pointLinks"/>
+								<tag:menuItem href="scripting.shtm" png="script_gear" key="header.scripts"/>
+							</div>
+						</c:if>
 
-<!-- subheader -->
-<c:if test="${!simple}">
-<div class="navHeader" id="subHeader">
-  <div>
-    <nav class="flex-default">
-      <c:if test="${isLoggedToScadaUser}">
-        <div class="spacer">
-            <c:choose>
-                <c:when test="${sessionUser.hideMenu}">
-                    <c:if test="${!empty sessionUser.homeUrl}">
-                        <c:set var="homeUrl" value="${fn:split(sessionUser.homeUrl, '?')}" />
-                        <c:if test="${homeUrl[0] == 'app.shtm'}">
-                            <tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
-                            <img src="./images/menu_separator.png" class="separator"/>
-                        </c:if>
-                        <c:if test="${homeUrl[0] == 'watch_list.shtm'}">
-                            <tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
-                        </c:if>
-                        <c:if test="${homeUrl[0] == 'views.shtm'}">
-                          <tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
-                        </c:if>
-                        <c:if test="${homeUrl[0] == 'events.shtm'}">
-                          <tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
-                        </c:if>
-                        <c:if test="${homeUrl[0] == 'reports.shtm'}">
-                          <tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
-                        </c:if>
-                    </c:if>
-                </c:when>
-             <c:otherwise>
-                <tag:menuItem href="app.shtm#/watch-list" png="desktop" key="header.newui"/>
-                <img src="./images/menu_separator.png" class="separator"/>
-                <tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
-                <tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
-                <tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
-                <tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
-             </c:otherwise>
-           </c:choose>
-        </div>
+						<div class="spacer">
+							<img src="./images/menu_separator.png" class="separator"/>
+							<tag:menuItem href="users.shtm" png="user" key="header.users"/>
+						</div>
 
+						<c:if test="${sessionUser.admin}">
+							<div class="spacer">
+								<tag:menuItem href="usersProfiles.shtm" png="user_ds" key="header.usersProfiles"/>
+								<tag:menuItem href="pointHierarchySLTS" png="folder_brick" key="header.pointHierarchy"/>
+								<tag:menuItem href="mailing_lists.shtm" png="book" key="header.mailingLists"/>
+								<tag:menuItem href="publishers.shtm" png="transmit" key="header.publishers"/>
+								<tag:menuItem href="maintenance_events.shtm" png="hammer" key="header.maintenanceEvents"/>
+								<tag:menuItem href="system_settings.shtm" png="application_form" key="header.systemSettings"/>
+								<tag:menuItem href="emport.shtm" png="script_code" key="header.emport"/>
+								<tag:menuItem href="sql.shtm" png="script" key="header.sql"/>
+							</div>
+						</c:if>
 
-        <c:if test="${sessionUser.admin}">
-          <div class="spacer">
-            <img src="./images/menu_separator.png" class="separator"/>
-            <tag:menuItem href="event_handlers.shtm" png="cog" key="header.eventHandlers"/>
-            <tag:menuItem href="data_sources.shtm" png="icon_ds" key="header.dataSources"/>
-            <tag:menuItem href="scheduled_events.shtm" png="clock" key="header.scheduledEvents"/>
-            <tag:menuItem href="compound_events.shtm" png="multi_bell" key="header.compoundEvents"/>
-            <tag:menuItem href="point_links.shtm" png="link" key="header.pointLinks"/>
-            <tag:menuItem href="scripting.shtm" png="script_gear" key="header.scripts"/>
-          </div>
-        </c:if>
+						<div class="spacer">
+							<img src="./images/menu_separator.png" class="separator"/>
+							<span onclick="disconnect()">
+								<tag:menuItem href="logout.htm" png="control_stop_blue" key="header.logout"/>
+							</span>
+							<tag:menuItem href="help.shtm" png="help" key="header.help"/>
+						</div>
+					</c:if>
 
-        <div class="spacer">
-          <img src="./images/menu_separator.png" class="separator"/>
-          <tag:menuItem href="users.shtm" png="user" key="header.users"/>
-        </div>
+					<c:if test="${isRolePublic}">
+						<div class="spacer">
+							<img src="./images/menu_separator.png" class="separator"/>
+							<span onclick="disconnect()">
+							<tag:menuItem href="logout.htm" png="control_stop_blue" key="header.logout"/>
+								</span>
+							<tag:menuItem href="help.shtm" png="help" key="header.help"/>
+						</div>
+					</c:if>
 
-        <c:if test="${sessionUser.admin}">
-          <div class="spacer">
-	          <tag:menuItem href="usersProfiles.shtm" png="user_ds" key="header.usersProfiles"/>
-            <tag:menuItem href="pointHierarchySLTS" png="folder_brick" key="header.pointHierarchy"/>
-            <tag:menuItem href="mailing_lists.shtm" png="book" key="header.mailingLists"/>
-            <tag:menuItem href="publishers.shtm" png="transmit" key="header.publishers"/>
-            <tag:menuItem href="maintenance_events.shtm" png="hammer" key="header.maintenanceEvents"/>
-            <tag:menuItem href="system_settings.shtm" png="application_form" key="header.systemSettings"/>
-            <tag:menuItem href="emport.shtm" png="script_code" key="header.emport"/>
-            <tag:menuItem href="sql.shtm" png="script" key="header.sql"/>
-          </div>
-        </c:if>
+					<c:if test="${empty sessionUser}">
+						<tag:menuItem href="login.htm" png="control_play_blue" key="header.login"/>
+					</c:if>
+					<div id="headerMenuDescription" class="labelDiv" style="position:absolute;display:none;"></div>
+				</nav>
+			</div>
 
-        <div class="spacer">
-          <img src="./images/menu_separator.png" class="separator"/>
-          <span onclick="disconnect()">
-          <tag:menuItem href="logout.htm" png="control_stop_blue" key="header.logout"/>
-          </span>
-          <tag:menuItem href="help.shtm" png="help" key="header.help"/>
-        </div>
-      </c:if>
+			<div class="flex-default">
+				<div id="navbarUserInfo">
+					<c:if test="${isLoggedToScadaUser}">
+						<span class="copyTitle"><fmt:message key="header.user"/>:</span>
+						<c:choose>
+							<c:when test="${!empty sessionUser.firstName}">
+								<span class="userName"><c:out value="${sessionUser.firstName} ${sessionUser.lastName}"/></span>
+							</c:when>
+							<c:otherwise>
+								<span class="userName"><c:out value="${sessionUser.username}"/></span>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</div>
 
-      <c:if test="${isRolePublic}">
-        <div class="spacer">
-          <img src="./images/menu_separator.png" class="separator"/>
-          <span onclick="disconnect()">
-          <tag:menuItem href="logout.htm" png="control_stop_blue" key="header.logout"/>
-          </span>
-          <tag:menuItem href="help.shtm" png="help" key="header.help"/>
-        </div>
-      </c:if>
+				<div id="navbarUserProperties" class="flex-default spacer">
+					<c:if test="${isLoggedToScadaUser}">
+						<c:if test="${!sessionUser.hideMenu}">
+							<tag:img id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')"/>
+							<tag:img png="house" title="header.goHomeUrl" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
+							<tag:img png="house_link" title="header.setHomeUrl" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
+						</c:if>
+					</c:if>
 
-      <c:if test="${empty sessionUser}">
-          <tag:menuItem href="login.htm" png="control_play_blue" key="header.login"/>
-      </c:if>
-      <div id="headerMenuDescription" class="labelDiv" style="position:absolute;display:none;"></div>
-    </nav>
-  </div>
-
-  <div class="flex-default">
-    <div id="navbarUserInfo">
-      <c:if test="${isLoggedToScadaUser}">
-        <span class="copyTitle"><fmt:message key="header.user"/>:</span>
-        <c:choose>
-            <c:when test="${!empty sessionUser.firstName}">
-              <span class="userName"><c:out value="${sessionUser.firstName} ${sessionUser.lastName}"/></span>
-            </c:when>
-            <c:otherwise>
-              <span class="userName"><c:out value="${sessionUser.username}"/></span>
-            </c:otherwise>
-        </c:choose>
-      </c:if>
-    </div>
-
-    <div id="navbarUserProperties" class="flex-default spacer">
-      <c:if test="${isLoggedToScadaUser}">
-        <c:if test="${!sessionUser.hideMenu}">
-            <tag:img id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')"/>
-            <tag:img png="house" title="header.goHomeUrl" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
-            <tag:img png="house_link" title="header.setHomeUrl" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
-        </c:if>
-      </c:if>
-
-      <div class="ptr" onmouseover="showMenu('localeEdit', -40, 10);">
-        <tag:img png="world" title="header.changeLanguage"/>
-        <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
-          <c:forEach items="${availableLanguages}" var="lang">
-            <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
-          </c:forEach>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</c:if>
+					<div class="ptr" onmouseover="showMenu('localeEdit', -40, 10);">
+						<tag:img png="world" title="header.changeLanguage"/>
+						<div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
+							<c:forEach items="${availableLanguages}" var="lang">
+								<a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
 </c:if>
 
 <div id="sltsContent" class="content">
