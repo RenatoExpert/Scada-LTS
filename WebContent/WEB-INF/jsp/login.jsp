@@ -63,7 +63,6 @@
 
 				<div class="login-button" align="center">
 					<input type="submit" value="<fmt:message key="login.loginButton"/>"/>
-					<tag:help id="welcomeToMango"/>
 				</div>
 			</form>
 		</div>
