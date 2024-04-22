@@ -20,6 +20,9 @@
 
 <tag:page onload="setFocus">
 	<div class="login-container">
+		<div>
+			<img src="/Scada-LTS/assets/logo.png" />
+		</div>
 		<div class="login-box">
 			<form name="f" action="login.htm" method="post" onclick="nag()">
 				<div class="form-box">
