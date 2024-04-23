@@ -424,7 +424,7 @@
                       hide(rows[i].id +"BreakRow");
                       hide(rows[i].id +"MoveUp");
                   } else {
-                      //show(rows[i].id +"BreakRow");
+                      show(rows[i].id /*+"BreakRow"*/);
                       if (owner || isAdmin)
                           show(rows[i].id +"MoveUp");
                   }
