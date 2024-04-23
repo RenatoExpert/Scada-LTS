@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 :root {
-	--slts-color-primary: #39B54A;
+	--slts-color-primary: #ab97f5;
 	--slts-color-primary-text: #555555;
 	--slts-color-secondary: #424041;
 	--slts-color-secondary-lighter: #F0F0F0;
@@ -127,9 +127,11 @@ a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:
 }
 
 .borderDiv, .borderDivPadded {
-	border: 1px solid var(--slts-color-primary);
-	padding: 3px;
+	border: 3px solid var(--slts-color-primary);
+	padding: 5px;
+	border-radius: 10px;
 }
+
 .borderDivPadded {
 	padding: var(--padding-default);
 }
