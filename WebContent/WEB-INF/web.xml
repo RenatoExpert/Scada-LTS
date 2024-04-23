@@ -298,6 +298,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
+    <url-pattern>*.json</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -329,7 +333,7 @@
     <url-pattern>*.jpeg</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>springDispatcher</servlet-name>
+    <servlet-name>default</servlet-name>
     <url-pattern>*.svg</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
