@@ -129,8 +129,9 @@ thead th {
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"
 				id="mainHeader">
 				<tr>
-					<td><img id="logo" class="logo" src="assets/logo.png"
-						alt="Logo" /></td>
+					<td>
+						<img id="logo" class="logo" src="assets/logo.png" alt="Logo" />
+					</td>
 					<c:if test="${!simple}">
 						<td align="center" width="99%" id="eventsRow">
 						<span id="__header__MemoryInfo" style="visibility:visible;">

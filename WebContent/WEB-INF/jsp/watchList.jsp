@@ -419,20 +419,19 @@
           }
           else {
               hide("emptyListMessage");
-              for (var i=0; i<rows.length; i++) {
+              for (var i = 0; i < rows.length; i++) {
                   if (i == 0) {
                       hide(rows[i].id +"BreakRow");
                       hide(rows[i].id +"MoveUp");
-                  }
-                  else {
-                      show(rows[i].id +"BreakRow");
+                  } else {
+                      show(rows[i].id /*+"BreakRow"*/);
                       if (owner || isAdmin)
                           show(rows[i].id +"MoveUp");
                   }
 
-                  if (i == rows.length - 1)
+		if (i == rows.length - 1) {
                       hide(rows[i].id +"MoveDown");
-                  else if (owner || isAdmin)
+		 } else if (owner || isAdmin)
                       show(rows[i].id +"MoveDown");
               }
           }

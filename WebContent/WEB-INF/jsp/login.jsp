@@ -18,6 +18,9 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400%2C500%2C600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600">
+
 <tag:page onload="setFocus">
 	<div class="login-container">
 		<div class="login-logo">

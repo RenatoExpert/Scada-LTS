@@ -48,6 +48,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 #mainHeader .logo-section--title,
 #mainHeader .logo-section--details {
 	display: flex;
+	padding: 10px;
 }
 #mainHeader .logo-section #logo {
 	max-height: 32px;
@@ -87,11 +88,30 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 #eventsRow {
 	align-self: center;
 }
+
 #subHeader {
 	display: flex;
     justify-content: space-between;
 	min-width: 500px;
 }
+
+#subHeader a {
+	margin-right: 5px;
+}
+
+#subHeader img,
+.medium_icon,
+.ptr {
+	width: 20px;
+	height: 20px;
+}
+
+#subHeader img:hover,
+.medium_icon:hover,
+.ptr:hover {
+    background-color: #3875d72b;
+}
+
 #navbarUserInfo {
 	margin-right: 30px;
 }
@@ -344,11 +364,6 @@ html > body .dojoFloatingPaneClient img, #help img {
 	width: 100%;
 }
 
-img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="images/"]:not(#viewBackground){
-	height: 16px;
-	width: 16px;
-}
-
 /* *** Main *** */
 #instanceDescription {
 	padding:5px;
@@ -399,8 +414,8 @@ img[src$="blue.png"], img[src$="accept.png"], img[src$="theme.png"], img[src^="i
 
 .login-box .login-button > input {
     width: 150px;
-    height: 5rem;
-    font-size: 1.6rem;
+    height: 50px;
+    font-size: 15px;
     font-weight: 600;
     line-height: 1.125;
     color: #ffffff;
