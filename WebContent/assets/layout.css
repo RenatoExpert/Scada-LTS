@@ -100,13 +100,15 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 
 #subHeader img,
-.medium_icon {
+.medium_icon,
+.ptr {
 	width: 20px;
 	height: 20px;
 }
 
 #subHeader img:hover,
-.medium_icon:hover {
+.medium_icon:hover,
+.ptr:hover {
     background-color: #3875d72b;
 }
 
