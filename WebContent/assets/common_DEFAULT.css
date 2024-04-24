@@ -278,7 +278,6 @@ html > body .dojoTreeNodeLabelTitle {
     border-color: gainsboro gray gray gainsboro;
     border-style: solid;
     padding: 1px 5px;
-    color: #a04545;
 }
 
 @media screen and (max-width: 730px) {
