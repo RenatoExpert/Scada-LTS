@@ -13,18 +13,20 @@ WORKDIR /img
 COPY art .
 #RUN inkscape --export-type="ico" -w 64 -h 64 favicon.svg
 #RUN inkscape --export-type="png" logo.svg
-RUN convert favicon.png -define icon:auto-resize=256,64,48,32,16 favicon.ico
+RUN mkdir -p /output
+RUN cp logo.png /output
+RUN convert favicon.png -define icon:auto-resize=256,64,48,32,16 /output/favicon.ico
 
 FROM debian:stable-20240408 as lib
 RUN --mount=type=cache,target=/var/lib/apt	\
 	apt update && apt install -y wget
 WORKDIR /tmp/fetch
-RUN mkdir -p /tmp/lib
+RUN mkdir -p /output
 COPY liblist.txt .
-RUN wget -i liblist.txt -P /tmp/lib
+RUN wget -i liblist.txt -P /output
 
 FROM gradle:7-jdk11 as war_build
-COPY --from=lib /tmp/lib /tmp/lib
+COPY --from=lib /output /tmp/lib
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 WORKDIR /src
 COPY . .
@@ -53,8 +55,8 @@ RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/js/ph.js					WebContent/resources/js-ui/pointHierarchy/js	&& \
 	cp -r dist/fonts					WebContent/resources/js-ui/app/fonts		&& \
 	cp -r dist/img						WebContent/img					;
-COPY --from=img_build /img/logo.png WebContent/assets/logo.png
-COPY --from=img_build /img/favicon.ico WebContent/images/favicon.ico
+COPY --from=img_build /output/logo.png WebContent/assets/logo.png
+COPY --from=img_build /output/favicon.ico WebContent/images/favicon.ico
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
 	--mount=type=cache,target=/src/build/generated		\
@@ -69,7 +71,7 @@ COPY --from=war_build /src/build/libs/Scada-LTS.war /tmp
 RUN unzip /tmp/Scada-LTS.war -d .
 
 FROM scratch as war_package
-WORKDIR /
+WORKDIR /output
 COPY --from=war_build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk11-corretto-al2 as war_deploy
@@ -79,9 +81,9 @@ COPY tomcat/lib/activation.jar					lib/activation.jar
 COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
 COPY tomcat/lib/jaxb-core-3.0.2.jar				lib/jaxb-core-3.0.2.jar
 COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180830.0438.jar
-COPY --from=war_package /Scada-LTS.war webapps/
+COPY --from=war_package /output /tmp
 WORKDIR webapps/Scada-LTS
-RUN jar -xvf ../Scada-LTS.war && rm ../Scada-LTS.war
+RUN jar -xvf /tmp/Scada-LTS.war && rm ../Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
 
 FROM debian:stable-20240408 as deb_build
@@ -94,7 +96,7 @@ ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.8
 RUN tar -xvf apache-tomcat-9.0.87.tar.gz
 RUN mkdir -p scadalts-standalone/usr/lib/scadalts/
 RUN mv apache-tomcat-9.0.87 scadalts-standalone/usr/lib/scadalts/tomcat
-COPY --from=war_package /Scada-LTS.war .
+COPY --from=war_package /output .
 RUN unzip Scada-LTS.war -d scadalts-standalone/usr/lib/scadalts/tomcat/webapps/Scada-LTS
 RUN dpkg-deb --build scadalts-standalone
 

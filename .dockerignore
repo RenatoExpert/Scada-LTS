@@ -1,5 +1,8 @@
+.dockerignore
+.gitignore
 Dockerfile
 docker-compose*
 .git
 volumes/
 output/
+script
