@@ -216,22 +216,12 @@ async function main() {
 			}
 		}
 		background: {
-			if(generated.current_view.level == "l0") {
-				let extension = "svg";
-				let src = `${sources.localhost}/Scada-LTS/assets/hp_bg/${generated.current_view.xid}.${extension}`;
-				if(await test_url(src)) {
-					change_background(src);
-				} else {
-					console.warn("Background file not found");
-				}
+			let extension = "png";
+			let src = `${sources.localhost}/Scada-LTS/assets/hp_bg/${generated.current_view.xid}.${extension}`;
+			if(await test_url(src)) {
+				change_background(src);
 			} else {
-				let extension = "png";
-				let src = `${sources.localhost}/Scada-LTS/assets/hp_bg/${generated.current_view.xid}.${extension}`;
-				if(await test_url(src)) {
-					change_background(src);
-				} else {
-					console.warn("Background file not found");
-				}
+				console.warn("Background file not found");
 			}
 		}
 	}

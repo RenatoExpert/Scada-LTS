@@ -18,7 +18,7 @@
 --%>
 <html>
 <head>
-  <title>Scada-LTS</title>
+  <title>SCADA Argos</title>
   <meta http-equiv="content-type" content="application/xhtml+xml;charset=utf-8"/>
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="Copyright" content="&copy; From 2012 - Scada-LTS All rights reserved."/>
@@ -31,6 +31,6 @@
 <body>
 <script language="JavaScript">window.location="login.htm";</script>
 <%--<a style="font-size: 13px; color: #804000; font-family: Verdana, Arial, Helvetica, sans-serif;" href="login.htm">Scada-LTS</a>--%>
-<a style="font-size: 13px; color: #414042 font-family: Verdana, Arial, Helvetica, sans-serif;" href="login.htm">Scada-LTS</a>
+<a style="font-size: 13px; color: #414042 font-family: Verdana, Arial, Helvetica, sans-serif;" href="login.htm">SCADA Argos</a>
 </body>
 </html>
