@@ -7,6 +7,14 @@ COPY ./scadalts-ui /scadalts-ui
 RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	npm run build
 
+FROM alpine:20240329 as img_build
+RUN apk add --update --no-cache inkscape imagemagick
+WORKDIR /img
+COPY art .
+#RUN inkscape --export-type="ico" -w 64 -h 64 favicon.svg
+#RUN inkscape --export-type="png" logo.svg
+RUN convert favicon.png -define icon:auto-resize=256,64,48,32,16 favicon.ico
+
 FROM debian:stable-20240408 as lib
 RUN --mount=type=cache,target=/var/lib/apt	\
 	apt update && apt install -y wget
@@ -45,6 +53,8 @@ RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/js/ph.js					WebContent/resources/js-ui/pointHierarchy/js	&& \
 	cp -r dist/fonts					WebContent/resources/js-ui/app/fonts		&& \
 	cp -r dist/img						WebContent/img					;
+COPY --from=img_build /img/logo.png WebContent/assets/logo.png
+COPY --from=img_build /img/favicon.ico WebContent/images/favicon.ico
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
 	--mount=type=cache,target=/src/build/generated		\

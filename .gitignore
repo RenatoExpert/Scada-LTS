@@ -1,5 +1,6 @@
 # Directories #
 volumes/
+output/
 /build/
 /bin/
 target/

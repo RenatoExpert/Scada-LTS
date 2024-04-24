@@ -1,3 +1,5 @@
 Dockerfile
 docker-compose*
 .git
+volumes/
+output/
