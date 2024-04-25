@@ -111,13 +111,13 @@ FROM alpine:20240329 as tomcat_wine
 RUN apk add --update --no-cache wine gnutls
 ADD https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.22+7/openlogic-openjdk-11.0.22+7-windows-x64.zip /tmp/jdk.zip
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88-windows-x64.zip /tmp/tomcat.zip
-WORKDIR "/root/.wine/drive_c/Program Files"
+WORKDIR "/root/.wine/drive_c/argos"
 RUN unzip /tmp/jdk.zip -d /tmp/jdk && mv /tmp/jdk/* jdk
 RUN unzip /tmp/tomcat.zip -d /tmp/tomcat && mv /tmp/tomcat/* tomcat
 RUN rm -rf /tmp/*
 ENV WINEPREFIX='/root/.wine'
-ENV CATALINA_HOME='C:\\Program Files\tomcat'
-ENV JAVA_HOME='C:\\Program Files\jdk'
+ENV CATALINA_HOME='C:\\argos\tomcat'
+ENV JAVA_HOME='C:\\argos\jdk'
 CMD wine ./tomcat/bin/catalina.bat run
 #winetricks atmlib corefonts gdiplus msxml3 msxml6 vcrun2008 vcrun2010 vcrun2012 fontsmooth-rgb gecko
 
@@ -134,6 +134,6 @@ COPY --from=war_package /output /tmp
 RUN unzip /tmp/Scada-LTS.war -d . && \
 	rm /tmp/Scada-LTS.war
 COPY docker/config/context.xml META-INF/context.xml
-WORKDIR "/root/.wine/drive_c/Program Files"
+WORKDIR "/root/.wine/drive_c/argos"
 CMD wine ./tomcat/bin/catalina.bat run
 
