@@ -4,8 +4,8 @@ set CATALINA_HOME=%ARGOS_HOME%\tomcat
 
 start /b ./mysql/bin/mysqld.exe --user=root --port=3306 --initialize-insecure
 
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';" > PING_SQL
-echo "SELECT 1;" > DEFINE_PASSWORD
+echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; > PING_SQL
+echo SELECT 1; > DEFINE_PASSWORD
 for /l %%x in (1, 1, 100) do (
 	echo Testing Mysql DB Connection... %%x
 	./mysql/bin/mysql.exe -u root --password=root < PING_SQL
