@@ -12,7 +12,7 @@ for /l %%x in (1, 1, 100) do (
 	if !errorlevel! eq 0 goto :start_tomcat
 	./mysql/bin/mysql.exe -u root --skip-password < DEFINE_PASSWORD
 	if !errorlevel! eq 0 echo "Password set to 'root'"
-	timeout 5
+	ping localhost > nul
 )
 
 echo "Failed to connect to mysql server";
