@@ -8,9 +8,11 @@ echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';" > PING_SQL
 echo "SELECT 1;" > DEFINE_PASSWORD
 for /l %%x in (1, 1, 100) do (
 	echo Testing Mysql DB Connection... %%x
-	./mysql/bin/mysql.exe -u root --password=root < PING_SQL		&& goto :start_tomcat
-	./mysql/bin/mysql.exe -u root --skip-password < DEFINE_PASSWORD		&& echo "Password set to 'root'"
-	timeout 5;
+	./mysql/bin/mysql.exe -u root --password=root < PING_SQL
+	if !errorlevel! eq 0 goto :start_tomcat
+	./mysql/bin/mysql.exe -u root --skip-password < DEFINE_PASSWORD
+	if !errorlevel! eq 0 echo "Password set to 'root'"
+	timeout 5
 )
 
 echo "Failed to connect to mysql server";
