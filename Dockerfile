@@ -111,9 +111,11 @@ FROM alpine:20240329 as tomcat_wine
 RUN apk add --update --no-cache wine gnutls
 ADD https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.22+7/openlogic-openjdk-11.0.22+7-windows-x64.zip /tmp/jdk.zip
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88-windows-x64.zip /tmp/tomcat.zip
+ADD https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.32-winx64.zip /tmp/mysql.zip
 WORKDIR "/root/.wine/drive_c/argos"
 RUN unzip /tmp/jdk.zip -d /tmp/jdk && mv /tmp/jdk/* jdk
 RUN unzip /tmp/tomcat.zip -d /tmp/tomcat && mv /tmp/tomcat/* tomcat
+RUN unzip /tmp/mysql.zip -d /tmp/mysql && mv /tmp/mysql/* mysql
 RUN rm -rf /tmp/*
 ENV WINEPREFIX='/root/.wine'
 ENV CATALINA_HOME='C:\\argos\tomcat'
