@@ -34,6 +34,8 @@ COPY src src
 COPY WebContent WebContent
 COPY webapp-resources webapp-resources
 COPY scadalts-ui scadalts-ui
+COPY templates templates
+COPY test test
 RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
