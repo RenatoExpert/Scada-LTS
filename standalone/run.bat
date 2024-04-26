@@ -18,5 +18,5 @@ exit
 
 :start_tomcat
 echo "Starting Tomcat"
-call %CATALINA_HOME%\bin\catalina.bat run
+REM call %CATALINA_HOME%\bin\catalina.bat run
 
