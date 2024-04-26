@@ -10,9 +10,9 @@ echo SELECT 1; > PING_SQL
 for /l %%x in (1, 1, 100) do (
 	echo Testing Mysql DB Connection... %%x
 	./mysql/bin/mysql.exe -u root --password=root < PING_SQL
-	if !errorlevel! eq 0 goto :start_tomcat
+	if %errorlevel% eq 0 goto :start_tomcat
 	./mysql/bin/mysql.exe -u root --skip-password < DEFINE_PASSWORD
-	if !errorlevel! eq 0 echo "Password set to 'root'"
+	if %errorlevel% eq 0 echo "Password set to 'root'"
 	ping localhost > nul
 )
 
