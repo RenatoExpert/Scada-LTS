@@ -12,6 +12,7 @@ for /l %%x in (1, 1, 100) do (
 	./mysql/bin/mysql.exe -u root --skip-password < %DEFINE_PASSWORD%	&& echo "Password set to 'root'"
 	timeout 5;
 )
+
 echo "Failed to connect to mysql server";
 exit
 
