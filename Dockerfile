@@ -29,6 +29,7 @@ FROM gradle:7-jdk11 as war_build
 COPY --from=lib /output /tmp/lib
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 WORKDIR /src
+COPY build.gradle .
 COPY src src
 COPY WebContent WebContent
 RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
