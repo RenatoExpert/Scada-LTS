@@ -2,7 +2,7 @@ set ARGOS_HOME=%cd%
 set JAVA_HOME=%ARGOS_HOME%\jdk
 set CATALINA_HOME=%ARGOS_HOME%\tomcat
 
-start /b ./mysql/bin/mysqld.exe --user=root --port=3306 --initialize-insecure
+start /b ./mysql/bin/mysqld.exe --user=root --port=3306 --initialize-insecure --console
 
 echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; > PING_SQL
 echo SELECT 1; > DEFINE_PASSWORD
