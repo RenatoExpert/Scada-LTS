@@ -120,6 +120,7 @@ RUN rm -rf /tmp/*
 ENV WINEPREFIX='/root/.wine'
 ENV CATALINA_HOME='C:\\argos\tomcat'
 ENV JAVA_HOME='C:\\argos\jdk'
+ENV WINEDEBUG=-all
 CMD wine ./tomcat/bin/catalina.bat run
 #winetricks atmlib corefonts gdiplus msxml3 msxml6 vcrun2008 vcrun2010 vcrun2012 fontsmooth-rgb gecko
 
