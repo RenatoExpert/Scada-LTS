@@ -3,6 +3,8 @@ set JAVA_HOME=%ARGOS_HOME%\jdk
 set CATALINA_HOME=%ARGOS_HOME%\tomcat
 
 ./mysql/bin/mysqld.exe --user=root --initialize-insecure
+echo "Database generated with no password"
+
 start /b ./mysql/bin/mysqld.exe --user=root --port=3306 --console
 
 :change_password
