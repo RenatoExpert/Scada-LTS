@@ -151,5 +151,5 @@ RUN unzip /tmp/Scada-LTS.war -d . && \
 COPY docker/config/context.xml META-INF/context.xml
 WORKDIR "/root/.wine/drive_c/argos"
 COPY standalone/run.bat .
-CMD wine cmd run.bat
+CMD wine run.bat
 
