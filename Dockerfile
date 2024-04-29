@@ -96,7 +96,6 @@ COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180
 COPY --from=war_package /output /tmp
 WORKDIR webapps/Scada-LTS
 RUN jar -xvf /tmp/Scada-LTS.war && rm /tmp/Scada-LTS.war
-COPY docker/config/context.xml META-INF/context.xml
 
 FROM debian:stable-20240408 as deb_build
 RUN apt update
