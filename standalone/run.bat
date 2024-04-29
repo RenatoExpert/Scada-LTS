@@ -1,7 +1,3 @@
-set ARGOS_HOME=%cd%
-set JAVA_HOME=%ARGOS_HOME%\jdk
-set CATALINA_HOME=%ARGOS_HOME%\tomcat
-
 ./mysql/bin/mysqld.exe --user=root --initialize-insecure
 echo "Database generated with no password"
 
@@ -23,5 +19,8 @@ for /L %%x in (1, 1, 100) do (
 	ping localhost > nul
 )
 
-REM call %CATALINA_HOME%\bin\catalina.bat run
+set ARGOS_HOME=%cd%
+set JAVA_HOME=%ARGOS_HOME%\jdk
+set CATALINA_HOME=%ARGOS_HOME%\tomcat
+call %CATALINA_HOME%\bin\catalina.bat run
 
