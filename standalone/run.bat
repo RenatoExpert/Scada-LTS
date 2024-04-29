@@ -28,7 +28,7 @@ start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 	echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
 	type CREATE_DB | .\mysql\bin\mysql.exe -u root --password=root
 	IF %errorlevel% LSS 1 (echo Database created!) ELSE (echo Database creation failed)
-	echo GRANT ALL ON scadalts.* TO 'root'@'localhost'; > GRANT
+	echo GRANT ALL ON scadalts.* TO 'root'@'localhost';FLUSH PRIVILEGES; > GRANT
 	type GRANT | .\mysql\bin\mysql.exe -u root --password=root --database=scadalts
 	IF %errorlevel% LSS 1 (echo Privileges granted!) ELSE (echo Grant command failed)
 	goto:testconn
