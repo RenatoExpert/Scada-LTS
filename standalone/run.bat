@@ -1,6 +1,7 @@
-
-start /b .\mysql\bin\mysqld.exe --initialize-insecure --user=root --port=3306 --console
+mysql\bin\mysqld.exe --user=root --initialize-insecure
 echo "Database generated with no password"
+
+start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 
 :testconn
 	echo SELECT 1; > PING_SQL
