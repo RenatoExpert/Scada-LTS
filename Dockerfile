@@ -93,6 +93,7 @@ COPY tomcat/lib/activation.jar					lib/activation.jar
 COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
 COPY tomcat/lib/jaxb-core-3.0.2.jar				lib/jaxb-core-3.0.2.jar
 COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180830.0438.jar
+COPY docker/config/context.xml conf/context.xml
 COPY --from=war_package /output /tmp
 WORKDIR webapps/Scada-LTS
 RUN jar -xvf /tmp/Scada-LTS.war && rm /tmp/Scada-LTS.war
