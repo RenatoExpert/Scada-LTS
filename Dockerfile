@@ -122,7 +122,7 @@ RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 FROM alpine:20240329 as standalone_build_windows
 ADD https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.22+7/openlogic-openjdk-11.0.22+7-windows-x64.zip /tmp/jdk.zip
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88-windows-x64.zip /tmp/tomcat.zip
-ADD https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.32-winx64.zip /tmp/mysql.zip
+ADD https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.36-winx64.zip /tmp/mysql.zip
 WORKDIR /standalone
 RUN unzip /tmp/jdk.zip -d /tmp/jdk && mv /tmp/jdk/* jdk
 RUN unzip /tmp/tomcat.zip -d /tmp/tomcat && mv /tmp/tomcat/* tomcat
