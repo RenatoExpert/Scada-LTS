@@ -138,7 +138,6 @@ WORKDIR webapps/Scada-LTS
 COPY --from=war_package /output /tmp
 RUN unzip /tmp/Scada-LTS.war -d . && \
 	rm /tmp/Scada-LTS.war
-COPY docker/config/context.xml META-INF/context.xml
 WORKDIR /standalone
 COPY standalone/run.bat .
 
