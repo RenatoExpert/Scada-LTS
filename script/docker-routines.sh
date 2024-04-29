@@ -11,6 +11,7 @@ build() {
 	else
 		docker buildx build . --target $TARGET -t $TARGET	&& \
 		docker create --name $TARGET $TARGET /			&& \
+		rm -rf output/$TARGET					&& \
 		docker cp $TARGET:/output/ output/$TARGET		&& \
 		docker rm $TARGET
 	fi
