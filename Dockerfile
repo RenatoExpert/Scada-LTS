@@ -145,7 +145,7 @@ COPY standalone/run.bat .
 
 FROM scratch as standalone_package_windows
 WORKDIR /output
-COPY --from=standalone_build_windows .
+COPY --from=standalone_build_windows . .
 
 FROM alpine:20240329 as standalone_test_windows
 RUN apk add --update --no-cache wine gnutls
