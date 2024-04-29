@@ -3,11 +3,8 @@ echo "Database generated with no password"
 
 start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 
-echo SELECT 1; > PING_SQL
-echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; > DEFINE_PASSWORD
-echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
-
 :testconn
+	echo SELECT 1; > PING_SQL
 	ping localhost > nul
 	echo Trying to connect with database...
 	type PING_SQL | .\mysql\bin\mysql.exe -u root --password=root --database=scadalts
@@ -21,12 +18,14 @@ echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
 	goto:testconn
 
 :changepassword
+	echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; > DEFINE_PASSWORD
 	echo Trying to change root password...;
 	type DEFINE_PASSWORD | .\mysql\bin\mysql.exe -u root
 	IF %errorlevel% LSS 1 (echo Password changed!) ELSE (echo Password changing failed)
 	goto:testconn
 
 :createdb
+	echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
 	type CREATE_DB | .\mysql\bin\mysql.exe -u root --password=root
 	IF %errorlevel% LSS 1 (echo Database created!) ELSE (echo Database creation failed)
 	goto:testconn
