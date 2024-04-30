@@ -1,6 +1,6 @@
 set ARGOS_HOME=%cd%
 
-mysql\bin\mysqld.exe --user=root		^
+start mysql\bin\mysqld.exe --user=root		^
 	--default-storage-engine=innodb		^
 	--character-set-server=utf8mb3		^
 	--collation-server=utf8mb3_general_ci	^
