@@ -1,4 +1,4 @@
-mysql\bin\mysqld.exe --user=root --initialize-insecure
+mysql\bin\mysqld.exe --user=root --default-storage-engine=innodb --initialize-insecure
 echo "Database generated with no password"
 
 start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
