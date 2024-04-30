@@ -1,26 +1,26 @@
+title SCADA Argos - Standalone Version for Windows
+
 set ARGOS_HOME=%cd%
 
+echo "Initializing database"
 mysql\bin\mysqld.exe				^
-	--defaults-file=%ARGOS_HOME%\my.cnf	^
-	--init-file=%ARGOS_HOME%\scadalts.sql	^
+	--defaults-file="my.cnf"		^
 	--user=root				^
-	--default-storage-engine=innodb		^
-	--character-set-server=utf8mb3		^
-	--collation-server=utf8mb3_general_ci	^
-	--log-bin-trust-function-creators=1	^
-	--language=english			^
-	--lower_case_table_names=1		^
+	--init-file=%ARGOS_HOME%\scadalts.sql	^
 	--initialize-insecure			^
 	--console
 echo "Database initialized"
-pause
 
-mysql\bin\mysqld.exe				^
-	--defaults-file=%ARGOS_HOME%\my.cnf	^
-	--port=3306				^
-	--console
-pause
+echo "Press [Enter] to start database" 
+pause;
+start "Database"				^
+	mysql\bin\mysqld.exe			^
+		--defaults-file=my.cnf		^
+		--port=3306			^
+		--console
 
+echo "Press [Enter] to configure and test database" 
+pause
 :testconn
 	ping localhost > nul
 	echo Trying to connect with database...
@@ -34,10 +34,13 @@ pause
 	echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';	| .\mysql\bin\mysql.exe -u root
 	echo GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;	| .\mysql\bin\mysql.exe -u root --password=root
 	echo FLUSH PRIVILEGES;						| .\mysql\bin\mysql.exe -u root --password=root
-	echo root user configured
+	echo Database configured with success
 
 :runtomcat
 	set JAVA_HOME=%ARGOS_HOME%\jdk
 	set CATALINA_HOME=%ARGOS_HOME%\tomcat
-	call %CATALINA_HOME%\bin\catalina.bat run
+	echo "Press [Enter] to start webserver" 
+	pause
+	start "Webserver" %CATALINA_HOME%\bin\catalina.bat run
+
 
