@@ -18,8 +18,16 @@ echo "Database initialized"
 	ping localhost > nul
 	echo Trying to connect with database...
 	echo SELECT 1; | .\mysql\bin\mysql.exe -u root --password=root --database=scadalts
-	IF %errorlevel% LSS 1 (goto:runtomcat) ELSE (echo Does not connect with database)
+	IF %errorlevel% LSS 1 (goto:runtomcat) ELSE (echo Does not connect with database with password)
+	echo SELECT 1; | .\mysql\bin\mysql.exe -u root
+	IF %errorlevel% LSS 1 (goto:configuser) ELSE (echo Does not connect with database without password)
 	goto:testconn
+
+:configuser
+	echo ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';	| .\mysql\bin\mysql.exe -u root
+	echo GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;	| .\mysql\bin\mysql.exe -u root --password=root
+	echo FLUSH PRIVILEGES;						| .\mysql\bin\mysql.exe -u root --password=root
+	echo root user configured
 
 :runtomcat
 	set JAVA_HOME=%ARGOS_HOME%\jdk

@@ -1,6 +1,2 @@
 CREATE DATABASE IF NOT EXISTS scadalts;
 
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
-GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-
