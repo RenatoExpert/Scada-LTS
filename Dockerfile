@@ -140,7 +140,7 @@ COPY --from=war_package /output /tmp
 RUN unzip /tmp/Scada-LTS.war -d . && \
 	rm /tmp/Scada-LTS.war
 WORKDIR /standalone
-COPY standalone/run.bat .
+COPY standalone .
 
 FROM scratch as standalone_package_windows
 WORKDIR /output
