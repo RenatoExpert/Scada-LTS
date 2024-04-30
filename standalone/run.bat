@@ -11,9 +11,14 @@ mysql\bin\mysqld.exe				^
 	--language=english			^
 	--lower_case_table_names=1		^
 	--initialize-insecure			^
-	--port=3306				^
 	--console
 echo "Database initialized"
+pause
+
+mysql\bin\mysqld.exe				^
+	--defaults-file=%ARGOS_HOME%\my.cnf	^
+	--port=3306				^
+	--console
 pause
 
 :testconn
