@@ -1,7 +1,7 @@
 mysql\bin\mysqld.exe --user=root		^
 	--default-storage-engine=innodb		^
 	--character-set-server=utf8mb4		^
-	--collation-server=utf8mb4_bin		^
+	--collation-server=utf8mb3_general_ci	^
 	--log-bin-trust-function-creators=1	^
 	--language=english			^
 	--lower_case_table_names=1		^
