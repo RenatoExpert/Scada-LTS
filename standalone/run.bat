@@ -1,7 +1,7 @@
-mysql\bin\mysqld.exe --user=root		\
-	--default-storage-engine=innodb		\
-	--character-set-server=utf8mb4		\
-	--collation-server=utf8mb4_bin		\
+mysql\bin\mysqld.exe --user=root		^
+	--default-storage-engine=innodb		^
+	--character-set-server=utf8mb4		^
+	--collation-server=utf8mb4_bin		^
 	--initialize-insecure
 echo "Database generated with no password"
 
