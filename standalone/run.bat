@@ -4,6 +4,7 @@ mysql\bin\mysqld.exe --user=root		^
 	--collation-server=utf8mb4_bin		^
 	--log-bin-trust-function-creators=1	^
 	--language=english			^
+	--lower_case_table_names=1		^
 	--initialize-insecure
 echo "Database generated with no password"
 
@@ -31,7 +32,7 @@ start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 	goto:testconn
 
 :createdb
-	echo SET lower_case_table_names=1;CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
+	echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
 	type CREATE_DB | .\mysql\bin\mysql.exe -u root --password=root
 	IF %errorlevel% LSS 1 (echo Database created!) ELSE (echo Database creation failed)
 	echo GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;FLUSH PRIVILEGES; > GRANT
