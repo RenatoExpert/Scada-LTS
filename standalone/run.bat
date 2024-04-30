@@ -1,6 +1,6 @@
 set ARGOS_HOME=%cd%
 
-start mysql\bin\mysqld.exe			^
+mysql\bin\mysqld.exe				^
 	--defaults-file=%ARGOS_HOME%\my.cnf	^
 	--init-file=%ARGOS_HOME%\scadalts.sql	^
 	--user=root				^
