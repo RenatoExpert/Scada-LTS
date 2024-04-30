@@ -1,4 +1,6 @@
+@echo off
 title SCADA Argos - Standalone Version for Windows
+color 10
 
 set ARGOS_HOME=%cd%
 
