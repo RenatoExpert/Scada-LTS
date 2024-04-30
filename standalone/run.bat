@@ -1,4 +1,4 @@
-mysql\bin\mysqld.exe --user=root --initialize-insecure
+mysql\bin\mysqld.exe --user=root -O lower_case_table_names=1 --initialize-insecure
 echo "Database generated with no password"
 
 start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
