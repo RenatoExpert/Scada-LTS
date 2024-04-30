@@ -7,7 +7,7 @@ mysql\bin\mysqld.exe --user=root		^
 	--log-bin-trust-function-creators=1	^
 	--language=english			^
 	--lower_case_table_names=1		^
-	--defaults-file=%ARGOS_HOME%\my.cnf	^
+	--defaults-file=%ARGOS_HOME%\my.ini	^
 	--init-file=%ARGOS_HOME%\scadalts.sql	^
 	--initialize-insecure			^
 	--port=3306				^
