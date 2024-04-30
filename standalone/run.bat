@@ -29,7 +29,7 @@ start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 	goto:testconn
 
 :createdb
-	echo CREATE DATABASE IF NOT EXISTS scadalts ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci; > CREATE_DB
+	echo CREATE DATABASE IF NOT EXISTS scadalts; > CREATE_DB
 	type CREATE_DB | .\mysql\bin\mysql.exe -u root --password=root
 	IF %errorlevel% LSS 1 (echo Database created!) ELSE (echo Database creation failed)
 	echo GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;FLUSH PRIVILEGES; > GRANT
