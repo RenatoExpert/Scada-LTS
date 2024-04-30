@@ -14,6 +14,7 @@ mysql\bin\mysqld.exe				^
 	--port=3306				^
 	--console
 echo "Database initialized"
+pause
 
 :testconn
 	ping localhost > nul
