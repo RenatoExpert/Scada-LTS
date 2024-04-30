@@ -1,14 +1,15 @@
 set ARGOS_HOME=%cd%
 
-start mysql\bin\mysqld.exe --user=root		^
+start mysql\bin\mysqld.exe			^
+	--defaults-file=%ARGOS_HOME%\my.cnf	^
+	--init-file=%ARGOS_HOME%\scadalts.sql	^
+	--user=root				^
 	--default-storage-engine=innodb		^
 	--character-set-server=utf8mb3		^
 	--collation-server=utf8mb3_general_ci	^
 	--log-bin-trust-function-creators=1	^
 	--language=english			^
 	--lower_case_table_names=1		^
-	--defaults-file=%ARGOS_HOME%\my.ini	^
-	--init-file=%ARGOS_HOME%\scadalts.sql	^
 	--initialize-insecure			^
 	--port=3306				^
 	--console
