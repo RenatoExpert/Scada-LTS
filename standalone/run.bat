@@ -1,3 +1,5 @@
+set ARGOS_HOME=%cd%
+
 mysql\bin\mysqld.exe --user=root		^
 	--default-storage-engine=innodb		^
 	--character-set-server=utf8mb3		^
@@ -5,7 +7,10 @@ mysql\bin\mysqld.exe --user=root		^
 	--log-bin-trust-function-creators=1	^
 	--language=english			^
 	--lower_case_table_names=1		^
-	--initialize-insecure
+	--defaults-file=%ARGOS_HOME%\my.cnf	^
+	--init-file=%ARGOS_HOME%\scadalts.sql	^
+	--initialize-insecure			^
+	--console
 echo "Database generated with no password"
 
 start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
@@ -41,7 +46,6 @@ start /b .\mysql\bin\mysqld.exe --user=root --port=3306 --console
 	goto:testconn
 
 :runtomcat
-	set ARGOS_HOME=%cd%
 	set JAVA_HOME=%ARGOS_HOME%\jdk
 	set CATALINA_HOME=%ARGOS_HOME%\tomcat
 	call %CATALINA_HOME%\bin\catalina.bat run
