@@ -29,7 +29,19 @@ FROM gradle:7-jdk11 as war_build
 COPY --from=lib /output /tmp/lib
 COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
 WORKDIR /src
-COPY . .
+COPY build.gradle .
+COPY src src
+COPY WebContent WebContent
+COPY webapp-resources webapp-resources
+COPY scadalts-ui scadalts-ui
+COPY templates templates
+COPY test test
+COPY modbus modbus
+COPY jmeter jmeter
+COPY test-resources test-resources
+COPY xml xml
+COPY backstop backstop
+COPY doc doc
 RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
@@ -81,10 +93,10 @@ COPY tomcat/lib/activation.jar					lib/activation.jar
 COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
 COPY tomcat/lib/jaxb-core-3.0.2.jar				lib/jaxb-core-3.0.2.jar
 COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180830.0438.jar
+COPY docker/config/context.xml conf/context.xml
 COPY --from=war_package /output /tmp
 WORKDIR webapps/Scada-LTS
 RUN jar -xvf /tmp/Scada-LTS.war && rm /tmp/Scada-LTS.war
-COPY docker/config/context.xml META-INF/context.xml
 
 FROM debian:stable-20240408 as deb_build
 RUN apt update
@@ -107,22 +119,16 @@ COPY --from=deb_package /pack/scadalts-standalone.deb /tmp
 RUN --mount=target=/var/lib/apt,type=cache,sharing=locked		\
 	apt install -y /tmp/scadalts-standalone.deb
 
-FROM alpine:20240329 as tomcat_wine
-RUN apk add --update --no-cache wine gnutls
+FROM alpine:20240329 as standalone_build_windows
 ADD https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.22+7/openlogic-openjdk-11.0.22+7-windows-x64.zip /tmp/jdk.zip
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88-windows-x64.zip /tmp/tomcat.zip
-WORKDIR "/root/.wine/drive_c/Program Files"
+ADD https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.36-winx64.zip /tmp/mysql.zip
+WORKDIR /standalone
 RUN unzip /tmp/jdk.zip -d /tmp/jdk && mv /tmp/jdk/* jdk
 RUN unzip /tmp/tomcat.zip -d /tmp/tomcat && mv /tmp/tomcat/* tomcat
+RUN unzip /tmp/mysql.zip -d /tmp/mysql && mv /tmp/mysql/* mysql
 RUN rm -rf /tmp/*
-ENV WINEPREFIX='/root/.wine'
-ENV CATALINA_HOME='C:\\Program Files\tomcat'
-ENV JAVA_HOME='C:\\Program Files\jdk'
-CMD wine ./tomcat/bin/catalina.bat run
-#winetricks atmlib corefonts gdiplus msxml3 msxml6 vcrun2008 vcrun2010 vcrun2012 fontsmooth-rgb gecko
-
-FROM tomcat_wine as war_deploy_windows
-WORKDIR tomcat
+WORKDIR /standalone/tomcat
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
 COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
@@ -133,7 +139,21 @@ WORKDIR webapps/Scada-LTS
 COPY --from=war_package /output /tmp
 RUN unzip /tmp/Scada-LTS.war -d . && \
 	rm /tmp/Scada-LTS.war
-COPY docker/config/context.xml META-INF/context.xml
-WORKDIR "/root/.wine/drive_c/Program Files"
-CMD wine ./tomcat/bin/catalina.bat run
+WORKDIR /standalone
+COPY standalone .
+
+FROM scratch as standalone_package_windows
+WORKDIR /output
+COPY --from=standalone_build_windows /standalone .
+
+FROM alpine:20240329 as standalone_test_windows
+RUN apk add --update --no-cache wine gnutls
+ENV WINEPREFIX='/root/.wine'
+ENV CATALINA_HOME='C:\\argos\tomcat'
+ENV JAVA_HOME='C:\\argos\jdk'
+ENV WINEDEBUG=-all
+WORKDIR "/root/.wine/drive_c/argos"
+WORKDIR tomcat
+CMD wine run.bat
+#winetricks atmlib corefonts gdiplus msxml3 msxml6 vcrun2008 vcrun2010 vcrun2012 fontsmooth-rgb gecko
 

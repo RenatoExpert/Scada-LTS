@@ -4,73 +4,19 @@
 # Attach shell to stop the tomcat instance and then you will be able to run in JPDA mode.
 version: '3'
 services:
-    database:
-        container_name: mysql
-        image: mysql/mysql-server:8.0.32
-        ports:
-            - "3306:3306"
-        environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=root
-            - MYSQL_DATABASE=scadalts
-        expose: ["3306"]
-        volumes:
-            - ./volumes/database/data:/var/lib/mysql:rw
-            - ./volumes/database/config:/etc/mysql:ro
-        command: --log_bin_trust_function_creators=1
-        deploy:
-          resources:
-            limits:
-             cpus: '1'
-             memory: 256M
-        healthcheck:
-          test: mysqladmin ping -h localhost
-          interval: 5s
-          timeout: 10s
-          retries: 10
-          start_period: 5s
-          start_interval: 5s
-    scadalts:
-        container_name: scadalts
-        image: scadalts:latest
+    standalone:
+        container_name: war_deploy_windows
+        image: war_deploy_windows
         build:
           context: .
           dockerfile: Dockerfile
           target: war_deploy_windows
-        environment:
-            - CATALINA_OPTS=-Xmx512m -Xms512m
         ports:
             - "8080:8080"
-        depends_on:
-            opcuaserver:
-              condition: service_healthy
-            database:
-              condition: service_healthy
         expose: ["8080", "8000"]
-        links:
-            - database:database
         deploy:
           resources:
             limits:
-              cpus: '2'
-              memory: 800M
-    opcuaserver:
-        container_name: opcuaserver
-        image: opcua_server:latest
-        build: ./opcua_server
-        ports:
-          - 4840:4840
-        expose: ["4840"]
-        healthcheck:
-          test: echo "exit()" | uaclient -u opcuaserver:4840
-          interval: 5s
-          timeout: 10s
-          retries: 10
-          start_period: 3s
-        deploy:
-          resources:
-            limits:
-              cpus: '1'
-              memory: 128M
+              cpus: '4'
+              memory: 400M
 
