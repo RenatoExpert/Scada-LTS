@@ -292,10 +292,24 @@ function format_var(value, eu) {
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
 	let table = document.createElement("table");
+	let css = document.createElement("style");
+	css.innerHTML = `
+		tr:nth-child(even) {
+			background-color: #ddddff;
+		}
+		tr:hover {
+			background-color: #aaaadd;
+		}
+		td, th {
+			padding: 2px 7px;
+		}
+	`;
+	table.appendChild(css);
 	table.className = "summary";
 	table.style.backgroundColor = "#f1f1f1";
 	header: {
 		let row = document.createElement("tr");
+		row.style.backgroundColor = "#b4b4c4";
 		let headers = ["Estacao", "Modem", "Comunicacao", "Atualizacao", "Entrada", "Saida", "Temperatura", "Vazao", "Mes", "Anterior"];
 		for(header in headers) {
 			let col = tag_text("th", headers[header]);

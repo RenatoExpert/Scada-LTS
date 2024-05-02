@@ -419,7 +419,10 @@
   <jsp:doBody/>
 </div>
 <div id="sltsFooter" class="footer">
-    <span>&copy;2012-${toYear} Scada-LTS <fmt:message key="footer.rightsReserved"/><span>
+	<span>
+		&copy;2012-${toYear} SCADA Argos
+		<fmt:message key="footer.rightsReserved"/>
+	<span>
 </div>
 
 <c:if test="${!!sessionUser.hideHeader}">

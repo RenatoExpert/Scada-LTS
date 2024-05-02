@@ -87,7 +87,7 @@
 
 	function nag() {
 		if (!compatible) {
-			alert('<fmt:message key="login.nag"/>');
+			console.warn('<fmt:message key="login.nag"/>');
 		}
 	}
 </script>
