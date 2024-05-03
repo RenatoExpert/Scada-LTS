@@ -407,10 +407,10 @@
 						"label": "Elekeiroz"
 					},
 					"elekeirozhidrogeniopetroquimico": {
-						"label": "Elekeiroz Hidrogênio Petroquímico"
+						"label": "Elekeiroz H Petroquímico"
 					},
 					"elekeirozhidrogeniototal": {
-						"label": "Elekeiroz Hidrogênio Total"
+						"label": "Elekeiroz H Total"
 					},
 					"fortlev": {
 						"label": "Fortlev"
