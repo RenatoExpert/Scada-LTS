@@ -8,7 +8,7 @@ echo "Initializing database"
 mysql\bin\mysqld.exe				^
 	--defaults-file="my.cnf"		^
 	--user=root				^
-	--init-file=%ARGOS_HOME%\scadalts.sql	^
+	--init-file="%ARGOS_HOME%\scadalts.sql"	^
 	--initialize-insecure			^
 	--console
 echo "Database initialized"
@@ -43,6 +43,6 @@ pause
 	set CATALINA_HOME=%ARGOS_HOME%\tomcat
 	echo "Press [Enter] to start webserver" 
 	pause
-	start "Webserver" %CATALINA_HOME%\bin\catalina.bat run
+	start "Webserver" "%CATALINA_HOME%\bin\catalina.bat" run
 
 
