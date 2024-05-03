@@ -12,8 +12,10 @@ build() {
 	else
 		docker buildx build . --target $TARGET -t $TARGET	&& \
 		docker create --name $TARGET $TARGET /			&& \
-		docker cp $TARGET:/output/ output/$TARGET-$VERSION	&& \
-		docker rm $TARGET
+		FULLNAME=$TARGET-$VERSION				&& \
+		docker cp $TARGET:/output/ output/$FULLNAME		&& \
+		docker rm $TARGET					&& \
+		tar -cf $FULLNAME.tar $FULLNAME
 	fi
 }
 
