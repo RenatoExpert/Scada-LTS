@@ -2,6 +2,7 @@
 
 COMMAND=$1
 TARGET=$2
+VERSION=`git describe`
 
 build() {
 	TARGET=$1
@@ -11,8 +12,7 @@ build() {
 	else
 		docker buildx build . --target $TARGET -t $TARGET	&& \
 		docker create --name $TARGET $TARGET /			&& \
-		rm -rf output/$TARGET					&& \
-		docker cp $TARGET:/output/ output/$TARGET		&& \
+		docker cp $TARGET:/output/ output/$TARGET-$VERSION	&& \
 		docker rm $TARGET
 	fi
 }
