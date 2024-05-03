@@ -2,7 +2,7 @@
 
 COMMAND=$1
 TARGET=$2
-VERSION=`git describe`
+VERSION=`git describe --abbrev=4`
 
 build() {
 	TARGET=$1
