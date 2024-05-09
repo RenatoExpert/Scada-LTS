@@ -101,8 +101,8 @@ async function main() {
 		sources = {
 			localhost: localhost_path,
 			preferred: preferred_path,
-			l1: `${preferred_path}/Scada-LTS/assets/hp/header_L1.svg`,
-			tree: `${preferred_path}/Scada-LTS/assets/hp/views_tree.js`
+			l1: asset_url("hp/header_L1.svg"),
+			tree: asset_url("hp/views_tree.js")
 		};
 		console.log(sources);
 
@@ -217,7 +217,7 @@ async function main() {
 		}
 		background: {
 			let extension = "png";
-			let src = `${sources.localhost}/Scada-LTS/assets/hp_bg/${generated.current_view.xid}.${extension}`;
+			let src = asset_url(`hp_bg/${generated.current_view.xid}.${extension}`);
 			if(await test_url(src)) {
 				change_background(src);
 			} else {
