@@ -7,14 +7,11 @@ services:
     database:
         container_name: mysql
         image: mysql/mysql-server:8.0.32
-        ports:
-            - "3306:3306"
         environment: 
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=root
             - MYSQL_PASSWORD=root
             - MYSQL_DATABASE=scadalts
-        expose: ["3306"]
         volumes:
             - ./volumes/database/data:/var/lib/mysql:rw
             - ./volumes/database/config:/etc/mysql:ro
@@ -40,14 +37,11 @@ services:
           target: war_deploy
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
-        ports: 
-            - "8080:8080"
         depends_on: 
             opcuaserver:
               condition: service_healthy
             database:
               condition: service_healthy
-        expose: ["8080", "8000"]
         volumes:
             - ./volumes/tomcat_log:/usr/local/tomcat/logs:rw
         links:
@@ -61,9 +55,6 @@ services:
         container_name: opcuaserver
         image: opcua_server:latest
         build: ./opcua_server
-        ports:
-          - 4840:4840
-        expose: ["4840"]
         healthcheck:
           test: echo "exit()" | uaclient -u opcuaserver:4840
           interval: 5s
