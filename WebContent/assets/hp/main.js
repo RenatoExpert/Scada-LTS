@@ -3,13 +3,32 @@ const version_tag = "4.1.1";
 const canvas = document.getElementById("viewContent");
 const viewBackGround = document.getElementById("viewBackground");
 
-function asset_url(asset) {
+function get_sublocation() {
     let currentPath = window.location.pathname;
     currentPath = currentPath.split('?')[0];
     let pathSegments = currentPath.split('/');
     let rootPath = '/' + pathSegments[1];
-    let url = window.location.origin + rootPath + "/assets/" + asset;
-    return url;
+}
+
+function get_root_path() {
+	return new URL(get_sublocation(), window.location.origin);
+}
+
+function assets_dir_url() {
+	return new URL("assets", get_root_path());
+}
+
+function asset_url(asset) {
+	return new URL(asset, assets_dir_url);
+}
+
+function tag_load_value(xid) {
+	let base_url = new URL("/api/point_value/getValue/", get_root_path());
+	let target_url = new URL(xid, api_url);
+	load_json(target_url).then(json => {
+		let value = json["value"]; 
+		console.log({ xid, value });
+	});
 }
 
 var sources;
