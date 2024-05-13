@@ -26,7 +26,7 @@ function tag_load_value(xid) {
 	let base_url = new URL("/api/point_value/getValue/", get_root_path());
 	let target_url = new URL(xid, api_url);
 	load_json(target_url).then(json => {
-		let value = json["value"]; 
+		let value = json["value"];
 		console.log({ xid, value });
 	});
 }
