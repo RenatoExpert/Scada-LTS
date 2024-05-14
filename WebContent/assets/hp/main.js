@@ -16,7 +16,7 @@ function get_root_path() {
 }
 
 function assets_dir_url() {
-	return new URL("assets", get_root_path());
+	return new URL("assets/", get_root_path());
 }
 
 function asset_url(asset) {
