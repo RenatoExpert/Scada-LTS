@@ -3,13 +3,43 @@ const version_tag = "4.1.1";
 const canvas = document.getElementById("viewContent");
 const viewBackGround = document.getElementById("viewBackground");
 
+function get_sublocation() {
+	let currentPath = window.location.pathname;
+	currentPath = currentPath.split('?')[0];
+	let pathSegments = currentPath.split('/');
+	let rootPath = '/' + pathSegments[1] + "/";
+	return rootPath;
+}
+
+function get_root_path() {
+	return new URL(get_sublocation(), window.location.origin);
+}
+
+function assets_dir_url() {
+	return new URL("assets/", get_root_path());
+}
+
 function asset_url(asset) {
-    let currentPath = window.location.pathname;
-    currentPath = currentPath.split('?')[0];
-    let pathSegments = currentPath.split('/');
-    let rootPath = '/' + pathSegments[1];
-    let url = window.location.origin + rootPath + "/assets/" + asset;
-    return url;
+	return new URL(asset, assets_dir_url());
+}
+
+function tag_load_value(xid) {
+	let base_url = new URL("api/point_value/getValue/", get_root_path());
+	let target_url = new URL(xid, base_url);
+	return new Promise((resolve, reject) => {
+		load_json(target_url).then(json => {
+			if("value" in json) {
+				let value = json["value"];
+				console.debug({ xid, value });
+				resolve(value);
+			} else {
+				reject("Bad return on Datapoint API! No value Field found");
+			}
+		}).catch(problem => {
+			console.error(problem);
+			reject("Datapoint API returned error!");
+		});
+	});
 }
 
 var sources;
