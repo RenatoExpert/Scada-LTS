@@ -150,14 +150,16 @@ async function main() {
 			div.style.position = "absolute";
 			div.id = "hp-headers";
 			div.style.display = "grid";
-			let subtitle = document.createElement("div");
-			subtitle.id = "hp-headers-subtitle";
-			subtitle.className = "labelDiv";
-			subtitle.style.position = "absolute";
-			subtitle.style.display = "none";
-			subtitle.style.left = "200px";
-			subtitle.style.top = "200px";
-			div.appendChild(subtitle);
+			subtitle_generation: {
+				let subtitle = document.createElement("div");
+				subtitle.id = "hp-headers-subtitle";
+				subtitle.className = "labelDiv";
+				subtitle.style.position = "absolute";
+				subtitle.style.display = "none";
+				subtitle.style.left = "200px";
+				subtitle.style.top = "200px";
+				div.appendChild(subtitle);
+			}
 			return div;
 		})();
 		current_view = get_current_view();
