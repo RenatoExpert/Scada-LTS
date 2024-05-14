@@ -7,7 +7,7 @@ function get_sublocation() {
 	let currentPath = window.location.pathname;
 	currentPath = currentPath.split('?')[0];
 	let pathSegments = currentPath.split('/');
-	let rootPath = '/' + pathSegments[1];
+	let rootPath = '/' + pathSegments[1] + "/";
 	return rootPath;
 }
 
