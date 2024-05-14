@@ -1,0 +1,14 @@
+services:
+    database:
+        container_name: mysql-test
+        ports:
+            - "3307:3306"
+    scadalts:
+        container_name: scadalts-test
+        ports:
+            - "8081:8080"
+    opcuaserver:
+        container_name: opcuaserver-test
+        ports:
+          - 4841:4840
+
