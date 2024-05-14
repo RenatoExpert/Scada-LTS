@@ -255,6 +255,13 @@ async function main() {
 			if(cv.class == "erpm-single") {
 				prefix = "erpm-single";
 				extension = "svg";
+				let filename = `${prefix}.${extension}`;
+				let target_url = new URL(filename, background_url);
+				load_svg(target_url).then(image => {
+					replace_background(image);
+				}).catch(problem => {
+					console.error("Error on loading background SVG file");
+				});
 			} else {
 				prefix = cv.xid;
 				extension = "png";
@@ -279,6 +286,17 @@ async function main() {
 			}, 200);
 		}
 	}
+}
+
+function replace_element_by_id(id, new_element) {
+	let old_element = document.selectElementById(id);
+	let parent_element = old_element.parentNode;
+	parent_element.replaceChild(new_element, old_element);
+}
+
+function replace_background(image) {
+	bg_id = "viewBackground";
+	replace_element_by_id(bg_id, image);
 }
 
 async function load_svg(url) {
