@@ -19,7 +19,7 @@ function assets_dir_url() {
 }
 
 function asset_url(asset) {
-	return new URL(asset, assets_dir_url);
+	return new URL(asset, assets_dir_url());
 }
 
 function tag_load_value(xid) {
