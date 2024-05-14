@@ -290,7 +290,7 @@ async function main() {
 }
 
 function replace_element_by_id(id, new_element) {
-	let old_element = document.selectElementById(id);
+	let old_element = document.getElementById(id);
 	let parent_element = old_element.parentNode;
 	parent_element.replaceChild(new_element, old_element);
 }
