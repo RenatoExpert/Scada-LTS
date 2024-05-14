@@ -261,6 +261,7 @@ async function main() {
 					replace_background(image);
 				}).catch(problem => {
 					console.error("Error on loading background SVG file");
+					console.error(problem);
 				});
 			} else {
 				prefix = cv.xid;
