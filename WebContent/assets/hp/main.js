@@ -96,6 +96,7 @@ function get_current_view() {
 				let reference = process.children[view.name];
 				view.label = reference.label;
 				view.title = process.label + "/" + view.label; 
+				view.class = reference.class;
 				console.log({ process });
 				break;
 			default:
