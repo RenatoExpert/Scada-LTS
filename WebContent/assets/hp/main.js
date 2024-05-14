@@ -248,7 +248,7 @@ async function main() {
 		}
 		background: {
 			let cv = generated.current_view;
-			let background_url = new URL("hp_bg/", asset_url);
+			let background_url = asset_url("hp_bg/");
 			let prefix, extension;
 			if(cv.class == "erpm-single") {
 				prefix = "erpm-single";
