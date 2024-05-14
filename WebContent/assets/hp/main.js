@@ -26,9 +26,19 @@ function asset_url(asset) {
 function tag_load_value(xid) {
 	let base_url = new URL("api/point_value/getValue/", get_root_path());
 	let target_url = new URL(xid, base_url);
-	load_json(target_url).then(json => {
-		let value = json["value"];
-		console.log({ xid, value });
+	return new Promise((resolve, reject) => {
+		load_json(target_url).then(json => {
+			if("value" in json) {
+				let value = json["value"];
+				console.debug({ xid, value });
+				resolve(value);
+			} else {
+				reject("Bad return on Datapoint API! No value Field found");
+			}
+		}).catch(problem => {
+			console.error(problem);
+			reject("Datapoint API returned error!");
+		});
 	});
 }
 
