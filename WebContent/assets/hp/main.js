@@ -247,13 +247,23 @@ async function main() {
 			}
 		}
 		background: {
-			let extension = "png";
-			let src = asset_url(`hp_bg/${generated.current_view.xid}.${extension}`);
-			if(await test_url(src)) {
-				change_background(src);
+			let cv = generated.current_view;
+			let background_url = new URL("hp_bg/", asset_url);
+			let prefix, extension;
+			if(cv.class == "erpm-single") {
+				prefix = "erpm-single";
+				extension = "svg";
 			} else {
-				console.warn("Background file not found");
+				prefix = cv.xid;
+				extension = "png";
 			}
+			let filename = `${prefix}.${extension}`;
+			let target_url = new URL(filename, background_url);
+			test_url(target_url).then(sucess => {
+				change_background(target_url);
+			}).catch(problem => {
+				console.warn("Background file not found");
+			});
 		}
 	}
 
