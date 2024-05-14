@@ -297,6 +297,7 @@ function replace_element_by_id(id, new_element) {
 
 function replace_background(image) {
 	bg_id = "viewBackground";
+	image.id = bg_id;
 	replace_element_by_id(bg_id, image);
 }
 
