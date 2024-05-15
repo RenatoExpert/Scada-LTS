@@ -301,7 +301,7 @@ template_fields = [
 ]
 
 function update_display(field, value) {
-	document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value;
+	document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value.toFixed(2);
 }
 
 function replace_element_by_id(id, new_element) {
