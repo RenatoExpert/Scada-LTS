@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
-   sodipodi:docname="single_line.svg"
+   sodipodi:docname="erpm-single.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.70258495"
-     inkscape:cx="542.28318"
-     inkscape:cy="322.38095"
+     inkscape:cx="848.296"
+     inkscape:cy="322.38094"
      inkscape:window-width="1366"
      inkscape:window-height="697"
      inkscape:window-x="-8"
@@ -354,7 +354,7 @@
        id="layer6"
        inkscape:label="Displays">
       <g
-         id="g23-0"
+         id="update-pi-2"
          inkscape:label="pressure output"
          transform="matrix(1.2681744,0,0,1.2681744,212.08092,-22.975355)">
         <rect
@@ -446,7 +446,7 @@
         </g>
       </g>
       <g
-         id="g23-6"
+         id="update-ti-1"
          inkscape:label="temperature"
          transform="matrix(1.2681744,0,0,1.2681744,169.65752,-22.975355)">
         <rect
@@ -533,7 +533,7 @@
         </g>
       </g>
       <g
-         id="g23-4-1-4-8"
+         id="update-fqia-1"
          inkscape:label="flow accumulated previous day"
          transform="matrix(1.2681744,0,0,1.2681744,132.98455,-22.975355)">
         <rect
@@ -620,7 +620,7 @@
         </g>
       </g>
       <g
-         id="g23-4-1-4"
+         id="update-fqi-1"
          inkscape:label="flow accumulated"
          transform="matrix(1.2681744,0,0,1.2681744,98.863196,-22.975355)">
         <rect
@@ -707,7 +707,7 @@
         </g>
       </g>
       <g
-         id="g23-4-1"
+         id="update-fi-1"
          inkscape:label="flow"
          transform="matrix(1.2681744,0,0,1.2681744,64.741841,-22.975355)">
         <rect
@@ -794,7 +794,7 @@
         </g>
       </g>
       <g
-         id="g23-4"
+         id="update-pdi-1"
          inkscape:label="differential pressure filter"
          transform="matrix(1.2681744,0,0,1.2681744,21.755426,-22.975355)">
         <rect
@@ -886,7 +886,7 @@
         </g>
       </g>
       <g
-         id="g23"
+         id="update-pi-1"
          inkscape:label="pressure input"
          transform="matrix(1.2681744,0,0,1.2681744,-12.352368,-22.975355)">
         <rect
