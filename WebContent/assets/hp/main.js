@@ -308,7 +308,8 @@ async function main() {
 }
 
 template_fields = [
-	'update-pi-1'
+	'update-pi-1',
+	'update-pi-2'
 ]
 
 function get_loop_tag() {
