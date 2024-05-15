@@ -296,7 +296,8 @@ async function main() {
 				}
 				template: {
 					template_fields.forEach(field => {
-						tag_load_num("pressure").then(value => {
+						instrument_tag = get_tag(field);
+						tag_load_num(instrument_tag).then(value => {
 							update_display(field, value);
 						});
 					});
