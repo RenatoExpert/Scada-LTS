@@ -296,7 +296,7 @@ async function main() {
 				}
 				template: {
 					template_fields.forEach(field => {
-						instrument_tag = get_tag(field);
+						let instrument_tag = get_tag(field);
 						tag_load_num(instrument_tag).then(value => {
 							update_display(field, value);
 						});
@@ -343,6 +343,7 @@ function update_display(field, value) {
 		let group = document.querySelectorAll(`#${field} g`);
 		let array = Array.from(group);
 		display = array.filter(element => element.getAttribute("inkscape:label") == "numeric value");
+		console.log({ display });
 	}
 	display.innerHTML = value.toFixed(2);
 }
