@@ -316,7 +316,7 @@ function get_loop_tag() {
 }
 
 function get_tag(svg_id) {
-	let [algorithm, instrument_function, instrument_number] = svg_id.split("-");
+	let [algorithm, instrument_function, instrument_number] = svg_id.toUpperCase().split("-");
 	let loop_tag = get_loop_tag();
 	let tag = `${loop_tag}-${instrument_function}-${instrument_number}`;
 	//	Misses branch code suffix
