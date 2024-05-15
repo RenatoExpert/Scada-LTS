@@ -284,10 +284,20 @@ async function main() {
 					change_text("date", get_date());
 					change_text("time", get_time());
 				}
+				template: {
+					for(let field in template-fields) {
+						let value = 22;
+						document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value;
+					}
+				}
 			}, 200);
 		}
 	}
 }
+
+template_fields = [
+	'update-pi-1'
+]
 
 function replace_element_by_id(id, new_element) {
 	let old_element = document.getElementById(id);
