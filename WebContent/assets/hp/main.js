@@ -311,7 +311,19 @@ template_fields = [
 ]
 
 function get_loop_tag() {
-	let loop_tag = "ERPM003-FQ064";
+	let area_tag;
+	step_a: {
+		let station_type = "ERPM";
+		let area_number = "003";
+		area_tag = `${station_type}${area_number}`;
+	}
+	let eqp_id;
+	step_b: {
+		let first_letters = "FQ";
+		let equipment_suffix = "064";
+		eqp_id = `${first_letters}${equipment_suffix}`;
+	}
+	let loop_tag = `${area_tag}-${eqp_id}`;
 	return loop_tag;
 }
 
