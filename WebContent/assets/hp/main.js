@@ -285,10 +285,10 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
-					for(let field in template_fields) {
+					template_fields.forEach(field => {
 						let value = 22;
 						document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value;
-					}
+					});
 				}
 			}, 200);
 		}
