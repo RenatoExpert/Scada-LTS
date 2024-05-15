@@ -354,7 +354,7 @@ function update_display(field, value) {
 		};
 		let iterator = document.createNodeIterator(root, whatToShow, filter);
 		let currentNode;
-		while ((currentNode = nodeIterator.nextNode())) {
+		while ((currentNode = iterator.nextNode())) {
 			try {
 				display = currentNode.querySelector("tspan");
 				break;
