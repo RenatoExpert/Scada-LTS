@@ -286,8 +286,9 @@ async function main() {
 				}
 				template: {
 					template_fields.forEach(field => {
-						let value = 22;
-						document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value;
+						tag_load_value("pressure").then(value => {
+							update_display(field, value);
+						});
 					});
 				}
 			}, 200);
@@ -298,6 +299,10 @@ async function main() {
 template_fields = [
 	'update-pi-1'
 ]
+
+function update_display(field, value) {
+	document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value;
+}
 
 function replace_element_by_id(id, new_element) {
 	let old_element = document.getElementById(id);
