@@ -310,6 +310,19 @@ template_fields = [
 	'update-pi-1'
 ]
 
+function get_loop_tag() {
+	let loop_tag = "ERPM003-FQ064";
+	return loop_tag;
+}
+
+function get_tag(svg_id) {
+	let [algorithm, instrument_function, instrument_number] = svg_id.split("-");
+	let loop_tag = get_loop_tag();
+	let tag = `${loop_tag}-${instrument_function}-${instrument_number}`;
+	//	Misses branch code suffix
+	return tag;
+}
+
 function update_display(field, value) {
 	document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value.toFixed(2);
 }
