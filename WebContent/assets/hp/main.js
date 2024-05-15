@@ -342,7 +342,7 @@ function update_display(field, value) {
 	get_display: {
 		let group = document.querySelectorAll(`#${field} g`);
 		let array = Array.from(group);
-		display = array.filter(element => element.getAttribute("inkscape:label") == "numeric_value");
+		display = array.filter(element => element.getAttribute("inkscape:label") == "numeric value");
 	}
 	display.innerHTML = value.toFixed(2);
 }
