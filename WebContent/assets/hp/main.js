@@ -342,7 +342,8 @@ function update_display(field, value) {
 	get_display: {
 		let group = document.querySelectorAll(`#${field} g`);
 		let array = Array.from(group);
-		display = array.filter(element => element.getAttribute("inkscape:label") == "numeric value");
+		let g = array.filter(element => element.getAttribute("inkscape:label") == "numeric value");
+		display = g.querySelector("tspan");
 		console.log({ display });
 	}
 	display.innerHTML = value.toFixed(2);
