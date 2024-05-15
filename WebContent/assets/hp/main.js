@@ -337,14 +337,32 @@ function get_tag(svg_id) {
 	return tag;
 }
 
+let helper;
+
 function update_display(field, value) {
 	let display;
 	get_display: {
-		let group = document.querySelectorAll(`#${field} g`);
-		let array = Array.from(group);
-		let g = array.filter(element => element.getAttribute("inkscape:label") == "numeric value");
-		display = g.querySelector("tspan");
-		console.log({ display });
+		let root = document.getElementById(field);
+		let whatToShow = NodeFilter.SHOW_ELEMENT;
+		let filter = node => {
+			if(node.nodeName.toLowerCase() == "g") {
+				console.log(node);
+				console.log('lets test');
+			} else {
+				return NodeFilter.FILTER_REJECT
+			}
+		};
+		let iterator = document.createNodeIterator(root, whatToShow, filter);
+		let currentNode;
+		while ((currentNode = nodeIterator.nextNode())) {
+			try {
+				display = currentNode.querySelector("tspan");
+				break;
+			} catch {
+				console.warn(currentNode);
+			}
+		}
+		//let check_label = node => node.getAttribute("inkscape:label") == "numeric value";
 	}
 	display.innerHTML = value.toFixed(2);
 }
