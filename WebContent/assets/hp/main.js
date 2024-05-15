@@ -338,7 +338,13 @@ function get_tag(svg_id) {
 }
 
 function update_display(field, value) {
-	document.querySelector(`#${field} #numeric_value tspan`).innerHTML = value.toFixed(2);
+	let display;
+	get_display: {
+		let group = document.querySelectorAll(`#${field} g`);
+		let array = Array.from(group);
+		display = array.filter(element => element.getAttribute("inkscape:label") == "numeric_value");
+	}
+	display.innerHTML = value.toFixed(2);
 }
 
 function replace_element_by_id(id, new_element) {
