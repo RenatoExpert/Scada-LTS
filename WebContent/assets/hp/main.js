@@ -23,6 +23,16 @@ function asset_url(asset) {
 	return new URL(asset, assets_dir_url());
 }
 
+function tag_load_num(xid) {
+	return new Promise((resolve, reject) => {
+	tag_load_value(xid).then(string => {
+			resolve(Number(string));
+		}).catch(problem => {
+			reject(problem);
+		});
+	});
+}
+
 function tag_load_value(xid) {
 	let base_url = new URL("api/point_value/getValue/", get_root_path());
 	let target_url = new URL(xid, base_url);
@@ -286,7 +296,7 @@ async function main() {
 				}
 				template: {
 					template_fields.forEach(field => {
-						tag_load_value("pressure").then(value => {
+						tag_load_num("pressure").then(value => {
 							update_display(field, value);
 						});
 					});
