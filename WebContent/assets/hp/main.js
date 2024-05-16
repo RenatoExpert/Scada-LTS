@@ -367,7 +367,7 @@ function update_display(field, value) {
 				break;
 			}
 		}
-		console.log({ display });
+		console.debug({ display });
 	}
 	display.innerHTML = value.toFixed(2);
 }
