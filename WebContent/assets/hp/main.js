@@ -338,8 +338,6 @@ function get_tag(svg_id) {
 	return tag;
 }
 
-let helper;
-
 function update_display(field, value) {
 	let display;
 	get_display: {
