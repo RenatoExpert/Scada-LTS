@@ -351,8 +351,8 @@ function update_display(field, value) {
 			let name_matches = name == "g";
 			let label_matches = label == "numeric value";
 			let right_one = name_matches && label_matches;
-			console.log({ name, label, name_matches, label_matches, right_one, node });
 			if (right_one) {
+				console.debug({ name, label, name_matches, label_matches, right_one, node });
 				return NodeFilter.FILTER_ACCEPT;
 			} else {
 				return NodeFilter.FILTER_REJECT;
