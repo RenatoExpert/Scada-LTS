@@ -347,15 +347,16 @@ function update_display(field, value) {
 		let root = document.getElementById(field);
 		let whatToShow = NodeFilter.SHOW_ELEMENT;
 		let filter = node => {
-			if(node.nodeName.toLowerCase() == "g") {
-				console.log('Node is g');
-				console.log(node);
-				if(check_label) {
-					console.log('label matches');
-					console.log(node);
-				}
+			let name = node.nodeName.toLowerCase();
+			let label = node.getAttribute("inkscape:label");
+			let name_matches = name == "g";
+			let label_matches = label == "numeric value";
+			let right_one = name_matches && label_matches;
+			console.log({ name, label, name_matches, label_matches, right_one, node });
+			if (right_one) {
+				return NodeFilter.FILTER_ACCEPT;
 			} else {
-				return NodeFilter.FILTER_REJECT
+				return NodeFilter.FILTER_REJECT;
 			}
 		};
 		let iterator = document.createNodeIterator(root, whatToShow, filter);
