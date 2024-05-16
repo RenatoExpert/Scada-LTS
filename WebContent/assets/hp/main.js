@@ -343,12 +343,17 @@ let helper;
 function update_display(field, value) {
 	let display;
 	get_display: {
+		let check_label = node => node.getAttribute("inkscape:label") == "numeric value";
 		let root = document.getElementById(field);
 		let whatToShow = NodeFilter.SHOW_ELEMENT;
 		let filter = node => {
 			if(node.nodeName.toLowerCase() == "g") {
+				console.log('Node is g');
 				console.log(node);
-				console.log('lets test');
+				if(check_label) {
+					console.log('label matches');
+					console.log(node);
+				}
 			} else {
 				return NodeFilter.FILTER_REJECT
 			}
@@ -364,7 +369,6 @@ function update_display(field, value) {
 			}
 		}
 		console.log({ display });
-		//let check_label = node => node.getAttribute("inkscape:label") == "numeric value";
 	}
 	display.innerHTML = value.toFixed(2);
 }
