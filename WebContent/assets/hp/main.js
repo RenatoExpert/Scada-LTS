@@ -362,6 +362,7 @@ function update_display(field, value) {
 				console.warn(currentNode);
 			}
 		}
+		console.log({ display });
 		//let check_label = node => node.getAttribute("inkscape:label") == "numeric value";
 	}
 	display.innerHTML = value.toFixed(2);
