@@ -343,7 +343,6 @@ let helper;
 function update_display(field, value) {
 	let display;
 	get_display: {
-		let check_label = node => node.getAttribute("inkscape:label") == "numeric value";
 		let root = document.getElementById(field);
 		let whatToShow = NodeFilter.SHOW_ELEMENT;
 		let filter = node => {
@@ -362,11 +361,10 @@ function update_display(field, value) {
 		let iterator = document.createNodeIterator(root, whatToShow, filter);
 		let currentNode;
 		while ((currentNode = iterator.nextNode())) {
-			try {
-				display = currentNode.querySelector("tspan");
+			query = currentNode.querySelector("tspan");
+			if (query) {
+				display = query;
 				break;
-			} catch {
-				console.warn(currentNode);
 			}
 		}
 		console.log({ display });
