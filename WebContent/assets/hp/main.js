@@ -289,6 +289,7 @@ async function main() {
 
 	loop: {
 		if (current_view.level != "l0") {
+			let duration = 10e3;
 			setInterval(() => {
 				clock_update: {
 					change_text("date", get_date());
@@ -302,7 +303,7 @@ async function main() {
 						});
 					});
 				}
-			}, 200);
+			}, duration);
 		}
 	}
 }
