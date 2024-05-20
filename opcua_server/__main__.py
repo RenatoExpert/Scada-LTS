@@ -46,6 +46,7 @@ async def main():
     async with server:
         print("Before init")
         await init(server)
+        print("After init")
         while True:
             await update()
             asyncio.sleep(1)
