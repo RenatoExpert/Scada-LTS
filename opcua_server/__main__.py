@@ -44,11 +44,11 @@ async def update():
 def main():
     print("def main")
     server = Server()
-    with server:
-        asyncio.run(init(server))
+    async with server:
+        await init(server)
         while True:
-            asyncio.run(update())
-            time.sleep(1)
+            await update()
+            asyncio.sleep(1)
 
 if __name__ == "__main__":
     main()
