@@ -26,10 +26,9 @@ async def init(server):
     uri = "brahmaget"
     namespace = await server.register_namespace(uri)
     # get Objects node, this is where we should put our nodes
-    objects = await server.get_objects_node()
     # populating our address space
     #super_connect = server.nodes.objects.add_folder(namespace, "SuperConnect")
-    super_connect = await objects.add_folder(namespace, "SuperConnect")
+    super_connect = await server.nodes.objects.add_folder(namespace, "SuperConnect")
     bahiagas = await super_connect.add_folder(namespace, "BrahmaGet")
     async def add_station(region_code, station_code):
         code_tuple = (region_code, station_code)
