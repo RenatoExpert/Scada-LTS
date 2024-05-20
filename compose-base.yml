@@ -46,7 +46,7 @@ services:
         image: opcua_server:latest
         build: ./opcua_server
         healthcheck:
-          test: echo "exit()" | uaclient -u opcuaserver:4840
+          test: echo "exit()" | uaclient -u localhost:4840
           interval: 5s
           timeout: 10s
           retries: 10
