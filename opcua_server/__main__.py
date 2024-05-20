@@ -43,6 +43,7 @@ async def update():
 async def main():
     print("def main")
     server = Server()
+    print("Before async")
     async with server:
         print("Before init")
         await init(server)
