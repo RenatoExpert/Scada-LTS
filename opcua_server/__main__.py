@@ -41,7 +41,7 @@ async def update():
     print("Updating variables...")
     [await station.agitate() for station in stations]
 
-def main():
+async def main():
     print("def main")
     server = Server()
     async with server:
@@ -51,6 +51,6 @@ def main():
             asyncio.sleep(1)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
 
 print("Script end")
