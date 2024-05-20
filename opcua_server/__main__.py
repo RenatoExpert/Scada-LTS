@@ -26,7 +26,7 @@ async def init(server):
     uri = "brahmaget"
     namespace = await server.register_namespace(uri)
     # get Objects node, this is where we should put our nodes
-    objects = server.get_objects_node()
+    objects = await server.get_objects_node()
     # populating our address space
     #super_connect = server.nodes.objects.add_folder(namespace, "SuperConnect")
     super_connect = await objects.add_folder(namespace, "SuperConnect")
