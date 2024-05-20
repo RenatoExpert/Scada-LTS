@@ -5,7 +5,7 @@ print("Importing libraries...")
 import asyncio
 import sys
 import time
-from asyncua import ua, Server, uamethod
+from asyncua import ua, Server
 from lib.station.Singlebranch import Singlebranch
 
 print("Libraries imported!")
@@ -44,15 +44,11 @@ async def update():
 def main():
     print("def main")
     server = Server()
-    try:
+    with server:
         asyncio.run(init(server))
         while True:
             asyncio.run(update())
             time.sleep(1)
-    finally:
-        print("finally")
-        asyncio.run(server.stop())
-        exit()
 
 if __name__ == "__main__":
     main()
