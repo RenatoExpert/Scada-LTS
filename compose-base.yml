@@ -1,8 +1,3 @@
-# Docker compose file to manage your deployed images.
-# Use MySQL server 5.7 and latest Scada-LTS local build.
-# Using attached webapps folder as developer you will be able to modify the static content from host os.
-# Attach shell to stop the tomcat instance and then you will be able to run in JPDA mode.
-version: '3'
 services: 
     database:
         container_name: mysql
@@ -28,6 +23,7 @@ services:
           retries: 10
           start_period: 5s
           start_interval: 5s
+
     scadalts:
         container_name: scadalts
         image: scadalts:latest
@@ -37,20 +33,14 @@ services:
           target: war_deploy
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
-        depends_on: 
-            opcuaserver:
-              condition: service_healthy
-            database:
-              condition: service_healthy
         volumes:
             - ./volumes/tomcat_log:/usr/local/tomcat/logs:rw
-        links:
-            - database:database
         deploy:
           resources:
             limits:
               cpus: '2'
               memory: 1.2G
+
     opcuaserver:
         container_name: opcuaserver
         image: opcua_server:latest
