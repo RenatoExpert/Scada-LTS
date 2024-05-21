@@ -325,7 +325,7 @@ function get_loop_tag() {
 	let area_tag;
 	step_a: {
 		let station_type = "ERPM";
-		let area_number = "003";
+		let area_number = "001";
 		area_tag = `${station_type}${area_number}`;
 	}
 	let eqp_id;
