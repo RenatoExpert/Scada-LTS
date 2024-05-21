@@ -50,8 +50,8 @@ class Station:
         name = f"{self.region_code}{self.station_code}.Gateway.{radical}"
         return self.add_variable(name, 'telemetry')
 
-    def add_instrument(self, isa_letter, number='101'):
-        tag = f"{self.region_code}{self.station_code}-{isa_letter}-{number}"
+    def add_instrument(self, isa_letter, number):
+        tag = f"{self.region_code}-{isa_letter}-{self.station_code}-{number}"
         return self.add_writable(tag, 'instrument')
 
     def agitate(self):
