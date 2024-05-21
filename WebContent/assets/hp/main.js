@@ -296,14 +296,21 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
+					let status_report = {};
 					template_fields.forEach(field => {
 						let instrument_tag = get_tag(field);
+						let success;
 						tag_load_num(instrument_tag).then(value => {
 							update_display(field, value);
+							success = "\u2714";
 						}).catch(problem => {
-							console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
+							//console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
+							success = "\u274c";
+						}).finally(fin => {
+							status_report[field] = { instrument_tag, success };
 						});
 					});
+					console.table(status_report);
 				}
 			}, duration);
 		}
