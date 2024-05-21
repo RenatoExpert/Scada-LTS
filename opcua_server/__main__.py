@@ -18,7 +18,7 @@ async def init(server):
     server.set_endpoint("opc.tcp://0.0.0.0:4840/")
     server.set_server_name("Argus OPC Server");
     #server.set_security_policy([ua.SecurityPolicyType.NoSecurity])
-    #await server.load_certificate("./sec/public.der")
+    await server.load_certificate("./security/certs/server.der")
     #server.set_security_policy([
     #    ua.SecurityPolicyType.NoSecurity,
     #    ua.SecurityPolicyType.Basic256Sha256_SignAndEncrypt,
