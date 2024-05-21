@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
-   sodipodi:docname="single_line.svg"
+   sodipodi:docname="erpm-single.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.70258495"
-     inkscape:cx="542.28318"
-     inkscape:cy="322.38095"
+     inkscape:cx="510.97024"
+     inkscape:cy="393.54672"
      inkscape:window-width="1366"
      inkscape:window-height="697"
      inkscape:window-x="-8"
@@ -352,9 +352,10 @@
     <g
        inkscape:groupmode="layer"
        id="layer6"
-       inkscape:label="Displays">
+       inkscape:label="Displays"
+       transform="translate(2.4309132)">
       <g
-         id="g23-0"
+         id="update-pi-2"
          inkscape:label="pressure output"
          transform="matrix(1.2681744,0,0,1.2681744,212.08092,-22.975355)">
         <rect
@@ -446,9 +447,9 @@
         </g>
       </g>
       <g
-         id="g23-6"
+         id="update-ti-1"
          inkscape:label="temperature"
-         transform="matrix(1.2681744,0,0,1.2681744,169.65752,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,178.28033,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20-8"
@@ -533,9 +534,96 @@
         </g>
       </g>
       <g
-         id="g23-4-1-4-8"
+         id="update-ei-1"
+         inkscape:label="voltage"
+         transform="matrix(1.2681744,0,0,1.2681744,144.47974,-22.975355)">
+        <rect
+           style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
+           id="rect20-8-7"
+           width="22.669933"
+           height="10.96535"
+           x="48.37775"
+           y="46.503784"
+           transform="translate(-2.0522213,23.600545)"
+           inkscape:label="background" />
+        <g
+           id="g26-4-3"
+           inkscape:label="engineering unit">
+          <rect
+             style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
+             id="rect23-2-4"
+             width="6.734458"
+             height="5.6281662"
+             x="61.513962"
+             y="74.662956"
+             inkscape:label="background" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.22542px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.417266;stroke-dasharray:none;stroke-opacity:1"
+             x="65.008934"
+             y="78.229111"
+             id="text28-5-8"
+             inkscape:label="value"><tspan
+               sodipodi:role="line"
+               style="font-size:2.22542px;stroke-width:0.417266"
+               x="65.008934"
+               y="78.229111"
+               id="tspan29-6-0">V</tspan></text>
+        </g>
+        <g
+           id="g25-7-8"
+           inkscape:label="numeric value">
+          <rect
+             style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
+             id="rect22-6-0"
+             width="13.243387"
+             height="5.6674881"
+             x="47.374069"
+             y="74.662956"
+             inkscape:label="background" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.45084px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.417267;stroke-dasharray:none;stroke-opacity:1"
+             x="54.731197"
+             y="79.444321"
+             id="text27-12-2"
+             inkscape:label="value"><tspan
+               sodipodi:role="line"
+               id="tspan27-4-3"
+               style="font-size:4.45084px;stroke-width:0.417267"
+               x="54.731197"
+               y="79.444321">15</tspan></text>
+        </g>
+        <g
+           id="g24-98-1"
+           inkscape:label="variable name">
+          <rect
+             style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
+             id="rect21-5-4"
+             width="20.913675"
+             height="2.8337479"
+             x="47.250862"
+             y="70.966774"
+             inkscape:label="background" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
+             x="61.141167"
+             y="71.24144"
+             id="text26-9-9"
+             inkscape:label="value"
+             transform="matrix(0.78853509,0,0,0.78853509,9.7402755,17.199346)"><tspan
+               sodipodi:role="line"
+               id="tspan26-6-1"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#4d4d4d;stroke:none;stroke-width:0.529167"
+               x="61.141167"
+               y="71.24144">EIT 101</tspan></text>
+        </g>
+      </g>
+      <g
+         id="update-fqia-1"
          inkscape:label="flow accumulated previous day"
-         transform="matrix(1.2681744,0,0,1.2681744,132.98455,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,110.67915,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20-9-0-5-7"
@@ -620,9 +708,9 @@
         </g>
       </g>
       <g
-         id="g23-4-1-4"
+         id="update-fqi-1"
          inkscape:label="flow accumulated"
-         transform="matrix(1.2681744,0,0,1.2681744,98.863196,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,76.878561,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20-9-0-5"
@@ -707,9 +795,9 @@
         </g>
       </g>
       <g
-         id="g23-4-1"
+         id="update-fi-1"
          inkscape:label="flow"
-         transform="matrix(1.2681744,0,0,1.2681744,64.741841,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,43.077971,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20-9-0"
@@ -794,9 +882,9 @@
         </g>
       </g>
       <g
-         id="g23-4"
+         id="update-pdi-1"
          inkscape:label="differential pressure filter"
-         transform="matrix(1.2681744,0,0,1.2681744,21.755426,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,9.2773809,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20-9"
@@ -886,9 +974,9 @@
         </g>
       </g>
       <g
-         id="g23"
+         id="update-pi-1"
          inkscape:label="pressure input"
-         transform="matrix(1.2681744,0,0,1.2681744,-12.352368,-22.975355)">
+         transform="matrix(1.2681744,0,0,1.2681744,-24.523209,-22.975355)">
         <rect
            style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
            id="rect20"
@@ -928,7 +1016,7 @@
                id="tspan29">m²</tspan></text>
         </g>
         <g
-           id="g25"
+           id="numeric_value"
            inkscape:label="numeric value">
           <rect
              style="fill:none;fill-opacity:1;stroke:#666666;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"

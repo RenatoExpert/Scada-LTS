@@ -23,6 +23,16 @@ function asset_url(asset) {
 	return new URL(asset, assets_dir_url());
 }
 
+function tag_load_num(xid) {
+	return new Promise((resolve, reject) => {
+	tag_load_value(xid).then(string => {
+			resolve(Number(string));
+		}).catch(problem => {
+			reject(problem);
+		});
+	});
+}
+
 function tag_load_value(xid) {
 	let base_url = new URL("api/point_value/getValue/", get_root_path());
 	let target_url = new URL(xid, base_url);
@@ -96,6 +106,7 @@ function get_current_view() {
 				let reference = process.children[view.name];
 				view.label = reference.label;
 				view.title = process.label + "/" + view.label; 
+				view.class = reference.class;
 				console.log({ process });
 				break;
 			default:
@@ -149,14 +160,16 @@ async function main() {
 			div.style.position = "absolute";
 			div.id = "hp-headers";
 			div.style.display = "grid";
-			let subtitle = document.createElement("div");
-			subtitle.id = "hp-headers-subtitle";
-			subtitle.className = "labelDiv";
-			subtitle.style.position = "absolute";
-			subtitle.style.display = "none";
-			subtitle.style.left = "200px";
-			subtitle.style.top = "200px";
-			div.appendChild(subtitle);
+			subtitle_generation: {
+				let subtitle = document.createElement("div");
+				subtitle.id = "hp-headers-subtitle";
+				subtitle.className = "labelDiv";
+				subtitle.style.position = "absolute";
+				subtitle.style.display = "none";
+				subtitle.style.left = "200px";
+				subtitle.style.top = "200px";
+				div.appendChild(subtitle);
+			}
 			return div;
 		})();
 		current_view = get_current_view();
@@ -246,26 +259,133 @@ async function main() {
 			}
 		}
 		background: {
-			let extension = "png";
-			let src = asset_url(`hp_bg/${generated.current_view.xid}.${extension}`);
-			if(await test_url(src)) {
-				change_background(src);
+			let cv = generated.current_view;
+			let background_url = asset_url("hp_bg/");
+			let prefix, extension;
+			if(cv.class == "erpm-single") {
+				prefix = "erpm-single";
+				extension = "svg";
+				let filename = `${prefix}.${extension}`;
+				let target_url = new URL(filename, background_url);
+				load_svg(target_url).then(image => {
+					replace_background(image);
+				}).catch(problem => {
+					console.error("Error on loading background SVG file");
+					console.error(problem);
+				});
 			} else {
-				console.warn("Background file not found");
+				prefix = cv.xid;
+				extension = "png";
 			}
+			let filename = `${prefix}.${extension}`;
+			let target_url = new URL(filename, background_url);
+			test_url(target_url).then(sucess => {
+				change_background(target_url);
+			}).catch(problem => {
+				console.warn("Background file not found");
+			});
 		}
 	}
 
 	loop: {
 		if (current_view.level != "l0") {
+			let duration = 10e3;
 			setInterval(() => {
 				clock_update: {
 					change_text("date", get_date());
 					change_text("time", get_time());
 				}
-			}, 200);
+				template: {
+					template_fields.forEach(field => {
+						let instrument_tag = get_tag(field);
+						tag_load_num(instrument_tag).then(value => {
+							update_display(field, value);
+						});
+					});
+				}
+			}, duration);
 		}
 	}
+}
+
+template_fields = [
+	'update-pi-1',
+	'update-pi-2',
+	'update-ti-1',
+	'update-pdi-1',
+	'update-fi-1',
+	'update-fqi-1',
+	'update-fqia-1',
+	'update-ei-1'
+]
+
+function get_loop_tag() {
+	let area_tag;
+	step_a: {
+		let station_type = "ERPM";
+		let area_number = "003";
+		area_tag = `${station_type}${area_number}`;
+	}
+	let eqp_id;
+	step_b: {
+		let first_letters = "FQ";
+		let equipment_suffix = "064";
+		eqp_id = `${first_letters}${equipment_suffix}`;
+	}
+	let loop_tag = `${area_tag}-${eqp_id}`;
+	return loop_tag;
+}
+
+function get_tag(svg_id) {
+	let [algorithm, instrument_function, instrument_number] = svg_id.toUpperCase().split("-");
+	let loop_tag = get_loop_tag();
+	let tag = `${loop_tag}-${instrument_function}-${instrument_number}`;
+	//	Misses branch code suffix
+	return tag;
+}
+
+function update_display(field, value) {
+	let display;
+	get_display: {
+		let root = document.getElementById(field);
+		let whatToShow = NodeFilter.SHOW_ELEMENT;
+		let filter = node => {
+			let name = node.nodeName.toLowerCase();
+			let label = node.getAttribute("inkscape:label");
+			let name_matches = name == "g";
+			let label_matches = label == "numeric value";
+			let right_one = name_matches && label_matches;
+			if (right_one) {
+				console.debug({ name, label, name_matches, label_matches, right_one, node });
+				return NodeFilter.FILTER_ACCEPT;
+			} else {
+				return NodeFilter.FILTER_REJECT;
+			}
+		};
+		let iterator = document.createNodeIterator(root, whatToShow, filter);
+		let currentNode;
+		while ((currentNode = iterator.nextNode())) {
+			query = currentNode.querySelector("tspan");
+			if (query) {
+				display = query;
+				break;
+			}
+		}
+		console.debug({ display });
+	}
+	display.innerHTML = value.toFixed(2);
+}
+
+function replace_element_by_id(id, new_element) {
+	let old_element = document.getElementById(id);
+	let parent_element = old_element.parentNode;
+	parent_element.replaceChild(new_element, old_element);
+}
+
+function replace_background(image) {
+	bg_id = "viewBackground";
+	image.id = bg_id;
+	replace_element_by_id(bg_id, image);
 }
 
 async function load_svg(url) {

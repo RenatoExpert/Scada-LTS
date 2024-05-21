@@ -440,6 +440,7 @@
 						"label": "Peroxy"
 					},
 					"postotrevo": {
+						"class": "erpm-single",
 						"label": "Posto Trevo"
 					},
 					"saintgobain": {
