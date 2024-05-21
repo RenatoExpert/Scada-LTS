@@ -300,6 +300,8 @@ async function main() {
 						let instrument_tag = get_tag(field);
 						tag_load_num(instrument_tag).then(value => {
 							update_display(field, value);
+						}).catch(problem => {
+							console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
 						});
 					});
 				}
