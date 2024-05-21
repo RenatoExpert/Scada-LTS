@@ -3,13 +3,10 @@ from lib.station.Station import Station
 class Singlebranch(Station):
     def __init__(self, code_tuple, namespace, parent_node):
         super().__init__(code_tuple, namespace, parent_node)
-    async def init(self):
-        await super().init()
-        await self.init_instruments()
-        return self
-    async def init_instruments(self, number='201'):
-        for (isa_letter, suffix_number) in instrument_tags:
-            await super().add_instrument(isa_letter, suffix_number)
+        self.init_instruments()
+    def init_instruments(self, number='101'):
+        for isa_letter in instrument_tags:
+            super().add_instrument(isa_letter, number)
 
 instrument_tags = [
     ("EI", "201"),

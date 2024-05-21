@@ -5,6 +5,5 @@ RUN pip install asyncua
 RUN pip install opcua
 WORKDIR /server
 COPY . .
-RUN python3 certificate_gen.py
-CMD python3 -u /server
+CMD python3 /server
 
