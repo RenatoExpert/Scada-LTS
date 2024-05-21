@@ -296,7 +296,6 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
-					let status_report = {};
 					template_fields.forEach(field => {
 						let instrument_tag = get_tag(field);
 						let success;
@@ -317,6 +316,7 @@ async function main() {
 	}
 }
 
+let status_report = {};
 template_fields = [
 	'update-pi-1',
 	'update-pi-2',
