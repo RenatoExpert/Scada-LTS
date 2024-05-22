@@ -1,6 +1,6 @@
 from lib.station.Singlebranch import Singlebranch
 
-class Doublebranch(Station):
+class Doublebranch(Singlebranch):
     instrument_tags = [
         ("EI", "201"),
         ("FI", "201A"),
