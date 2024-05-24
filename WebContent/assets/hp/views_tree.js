@@ -344,6 +344,7 @@
 			},
 
 			"polopetroquimico": {
+				"code": "001",
 				"label": "Pólo Petroquímico",
 				"children": {
 					"etccamacari1": {
@@ -371,6 +372,7 @@
 						"label": "AMBEV"
 					},
 					"basf": {
+						"code": "028",
 						"class": "rpm-double",
 						"label": "BASF"
 					},
@@ -441,6 +443,7 @@
 						"label": "Peroxy"
 					},
 					"postotrevo": {
+						"code": "064",
 						"class": "erpm-single",
 						"label": "Posto Trevo"
 					},
