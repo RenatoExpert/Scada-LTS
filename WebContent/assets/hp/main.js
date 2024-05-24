@@ -261,9 +261,9 @@ async function main() {
 		background: {
 			let cv = generated.current_view;
 			let background_url = asset_url("hp_bg/");
-			let prefix, extension;
-			if(cv.class == "erpm-single") {
-				prefix = "erpm-single";
+			let prefix = cv.class;
+			let extension;
+			if(prefix) {
 				extension = "svg";
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
@@ -296,7 +296,8 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
-					template_fields.forEach(field => {
+					let station_class = generated.current_view.class;
+					template_fields[station_class].forEach(field => {
 						let instrument_tag = get_tag(field);
 						let success;
 						tag_load_num(instrument_tag).then(value => {
@@ -317,16 +318,28 @@ async function main() {
 }
 
 let status_report = {};
-template_fields = [
-	'update-pi-1',
-	'update-pi-2',
-	'update-ti-1',
-	'update-pdi-1',
-	'update-fi-1',
-	'update-fqi-1',
-	'update-fqia-1',
-	'update-ei-1'
-]
+template_fields = {
+	'rpm-single': [
+		'update-pi-1',
+		'update-pi-2',
+		'update-ti-1',
+		'update-pdi-1',
+		'update-fi-1',
+		'update-fqi-1',
+		'update-fqia-1',
+		'update-ei-1'
+	],
+	'rpm-double': [
+		'update-pi-1',
+		'update-pi-2',
+		'update-ti-1',
+		'update-pdi-1',
+		'update-fi-1',
+		'update-fqi-1',
+		'update-fqia-1',
+		'update-ei-1'
+	]
+};
 
 function get_loop_tag() {
 	let area_tag;
