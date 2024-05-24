@@ -371,7 +371,7 @@
 						"label": "AMBEV"
 					},
 					"basf": {
-						"class": "erpm-double",
+						"class": "rpm-double",
 						"label": "BASF"
 					},
 					"braskemunib1": {
