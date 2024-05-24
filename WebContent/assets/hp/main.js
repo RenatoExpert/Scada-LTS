@@ -297,9 +297,9 @@ async function main() {
 				}
 				template: {
 					console.log("Test");
-					console.log({ current_view });
 					let station_class = current_view.class;
 					if(station_class) {
+						console.log({ current_view, template_fields, station_class });
 						template_fields[station_class].forEach(field => {
 							let instrument_tag = get_tag(field);
 							let success;
