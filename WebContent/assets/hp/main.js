@@ -299,20 +299,22 @@ async function main() {
 					console.log("Test");
 					console.log({ current_view });
 					let station_class = current_view.class;
-					template_fields[station_class].forEach(field => {
-						let instrument_tag = get_tag(field);
-						let success;
-						tag_load_num(instrument_tag).then(value => {
-							update_display(field, value);
-							success = "\u2714";
-						}).catch(problem => {
-							//console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
-							success = "\u274c";
-						}).finally(fin => {
-							status_report[field] = { instrument_tag, success };
+					if(station_class) {
+						template_fields[station_class].forEach(field => {
+							let instrument_tag = get_tag(field);
+							let success;
+							tag_load_num(instrument_tag).then(value => {
+								update_display(field, value);
+								success = "\u2714";
+							}).catch(problem => {
+								//console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
+								success = "\u274c";
+							}).finally(fin => {
+								status_report[field] = { instrument_tag, success };
+							});
 						});
-					});
-					console.table(status_report);
+						console.table(status_report);
+					}
 				}
 			}, duration);
 		}
