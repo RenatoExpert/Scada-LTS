@@ -296,7 +296,7 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
-					let station_class = generated.current_view.class;
+					let station_class = current_view.class;
 					template_fields[station_class].forEach(field => {
 						let instrument_tag = get_tag(field);
 						let success;
