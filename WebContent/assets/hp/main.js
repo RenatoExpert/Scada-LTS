@@ -107,6 +107,7 @@ function get_current_view() {
 				view.label = reference.label;
 				view.title = process.label + "/" + view.label; 
 				view.class = reference.class;
+				view.code = reference.code;
 				console.log({ process });
 				break;
 			default:
