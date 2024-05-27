@@ -133,6 +133,14 @@ function test_url(url) {
 	});
 }
 
+function set_visibility(element, value) {
+	element.style.visibility = value;
+}
+
+function set_visible(selector, root = document) {
+	set_visibility(root.querySelector(selector), 'visible');
+}
+
 async function main() {
 	console.log(`Starting High Performance SCADA Library - version ${version_tag}`);
 
@@ -184,6 +192,9 @@ async function main() {
 				static_strings: {
 					div.querySelector("#process-title").innerHTML = current_view.title;
 					div.querySelector("#operator-name").innerHTML = "Luiz Fernando";
+					['#l1-daily', '#l1-hourly'].forEach(selector => {
+						set_visible(selector, div);
+					});
 				}
 				bind_buttons: {
 					function bind_button(id, tooltip, action) {
