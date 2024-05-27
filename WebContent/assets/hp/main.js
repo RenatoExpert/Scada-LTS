@@ -134,11 +134,11 @@ function test_url(url) {
 }
 
 function set_visibility(element, value) {
-	element.style.visibility = value;
+	element.style.display = value;
 }
 
 function set_visible(selector, root = document) {
-	set_visibility(root.querySelector(selector), 'visible');
+	set_visibility(root.querySelector(selector), '');
 }
 
 async function main() {
