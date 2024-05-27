@@ -193,7 +193,8 @@
                  id="path88" /></g></g><g
              id="l1-daily"
              inkscape:label="daily relatory"
-             transform="translate(33.455563,-0.05392882)"><rect
+             transform="translate(33.455563,-0.05392882)"
+             style="display:none"><rect
                style="fill:#c0c0c0;fill-opacity:1;stroke:#919191;stroke-width:0.264583;stroke-dasharray:none;stroke-dashoffset:1000;stroke-opacity:1"
                id="rect85-3"
                width="10.533462"
@@ -277,7 +278,8 @@
                    y="42.942886" /></g></g></g><g
              id="l1-hourly"
              inkscape:label="hourly relatory"
-             transform="translate(21.86154,-0.0353456)"><rect
+             transform="translate(21.86154,-0.0353456)"
+             style="display:none"><rect
                style="fill:#c0c0c0;fill-opacity:1;stroke:#919191;stroke-width:0.264583;stroke-dasharray:none;stroke-dashoffset:1000;stroke-opacity:1"
                id="rect85-3-6"
                width="10.533462"
