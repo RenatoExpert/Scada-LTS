@@ -350,13 +350,13 @@ function get_loop_tag() {
 	let area_tag;
 	step_a: {
 		let station_type = "ERPM";
-		let area_number = "001";
+		let area_number = generated.current_view.process.code;
 		area_tag = `${station_type}${area_number}`;
 	}
 	let eqp_id;
 	step_b: {
 		let first_letters = "FQ";
-		let equipment_suffix = "064";
+		let equipment_suffix = generated.current_view.code;
 		eqp_id = `${first_letters}${equipment_suffix}`;
 	}
 	let loop_tag = `${area_tag}-${eqp_id}`;
