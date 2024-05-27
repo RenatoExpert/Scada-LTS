@@ -192,9 +192,11 @@ async function main() {
 				static_strings: {
 					div.querySelector("#process-title").innerHTML = current_view.title;
 					div.querySelector("#operator-name").innerHTML = "Luiz Fernando";
-					['#l1-daily', '#l1-hourly'].forEach(selector => {
-						set_visible(selector, div);
-					});
+					if(current_view.level == 'l3') {
+						['#l1-daily', '#l1-hourly'].forEach(selector => {
+							set_visible(selector, div);
+						});
+					}
 				}
 				bind_buttons: {
 					function bind_button(id, tooltip, action) {
