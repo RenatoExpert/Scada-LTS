@@ -380,7 +380,7 @@ function create_hourly_relatory_table(xid) {
 		}
 		data = fakedata;
 	}
-	create_relatory_table(data, "Hora");
+	return create_relatory_table(data, "Hora");
 }
 
 function create_daily_relatory_table(xid) {
@@ -417,7 +417,7 @@ function create_daily_relatory_table(xid) {
 		}
 		data = fakedata;
 	}
-	create_relatory_table(data, "Dia");
+	return create_relatory_table(data, "Dia");
 }
 
 function create_relatory_table(data, id_col, linear = true) {
