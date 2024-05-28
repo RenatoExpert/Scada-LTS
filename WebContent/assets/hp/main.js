@@ -455,6 +455,14 @@ function create_relatory_table(data, id_col, linear = true) {
 			time.type = "time";
 			filter.append(time);
 		}
+		submit: {
+			let button = document.createElement("button");
+			button.addEventListener("click", (e) => {
+				alert("Gerando relatório...");
+			});
+			button.innerHTML = "Gerar";
+			filter.append(button);
+		}
 		root.append(filter);
 	}
 	generate_relatory: {
