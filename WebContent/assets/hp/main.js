@@ -346,6 +346,79 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
+function create_hourly_relatory_table(xid) {
+	let data;
+	get_data: {
+		//	1. Generate tags
+		//	2. Get time range filter settings
+		//	3. Get tag values for each step on time range
+		let fakedata = {
+			"00": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"01": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"02": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"03": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			}
+		}
+		data = fakedata;
+	}
+	create_relatory_table(data, "Hora");
+}
+
+function create_relatory_table(data, id_col) {
+	raw_volume_eu = linear ? 'm3' : 'kPa';
+	std_volume_eu = 'm³';
+	avg_pressure_eu = 'kgf/cm²';
+	avg_temperature_eu = 'ºC';
+	let div = document.createElement("div");
+	let table = document.createElement("table");
+	header: {
+		let row = document.createElement("tr");
+		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
+		for(header in headers) {
+			let col = tag_text("th", headers[header]);
+			row.append(col);
+		}
+		table.append(row);
+	}
+	for(frame in data) {
+		let row = document.createElement("tr");
+		{ time, raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
+		let cols = [
+			time,
+			format_var(raw_volume, raw_volume_eu),
+			format_var(std_volume, std_volume_eu),
+			format_var(avg_pressure, avg_pressure_eu),
+			format_var(avg_temperature, avg_temperature_eu)
+		];
+		for(i in cols) {
+			let col = tag_text("td", cols[i]);
+			row.append(col);
+		}
+		table.append(row);
+	}
+	div.append(table);
+	return div;
+}
+
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
 	let table = document.createElement("table");
