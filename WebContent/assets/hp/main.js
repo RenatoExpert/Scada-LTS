@@ -436,6 +436,7 @@ function create_relatory_table(data, id_col, linear = true) {
 			date.type = "date";
 			filter.append(date);
 			let time = document.createElement("input");
+			time.onchange = () { clear_minutes(this) };
 			time.id = "start-time";
 			time.type = "time";
 			filter.append(time);
@@ -446,6 +447,7 @@ function create_relatory_table(data, id_col, linear = true) {
 			date.type = "date";
 			filter.append(date);
 			let time = document.createElement("input");
+			time.onchange = () { clear_minutes(this) };
 			time.id = "end-time";
 			time.type = "time";
 			filter.append(time);
