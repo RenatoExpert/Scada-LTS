@@ -427,40 +427,68 @@ function create_daily_relatory_table(xid) {
 }
 
 function create_relatory_table(data, id_col, linear = true) {
-	raw_volume_eu = linear ? "m³" : "kPa";
-	std_volume_eu = "m³";
-	avg_pressure_eu = "kgf/cm²";
-	avg_temperature_eu = "ºC";
-	let div = document.createElement("div");
-	let table = document.createElement("table");
-	header: {
-		let row = document.createElement("tr");
-		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-		for(header in headers) {
-			let col = tag_text("th", headers[header]);
-			row.append(col);
+	let root = document.createElement("div");
+	generate_filter: {
+		let filter = document.createElement("div");
+		start: {
+			let date = document.createElement("input");
+			date.id = "start-date";
+			date.type = "date";
+			filter.append(date);
+			let time = document.createElement("input");
+			time.id = "start-time";
+			time.type = "time";
+			filter.append(time);
 		}
-		table.append(row);
-	}
-	for(time in data) {
-		let frame = data[time];
-		let row = document.createElement("tr");
-		let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
-		let cols = [
-			time,
-			format_var(raw_volume, raw_volume_eu),
-			format_var(std_volume, std_volume_eu),
-			format_var(avg_pressure, avg_pressure_eu),
-			format_var(avg_temperature, avg_temperature_eu)
-		];
-		for(i in cols) {
-			let col = tag_text("td", cols[i]);
-			row.append(col);
+		end: {
+			let date = document.createElement("input");
+			date.id = "end-date";
+			date.type = "date";
+			filter.append(date);
+			let time = document.createElement("input");
+			time.id = "end-time";
+			time.type = "time";
+			filter.append(time);
 		}
-		table.append(row);
+		root.append(filter);
 	}
-	div.append(table);
-	return div;
+	generate_relatory: {
+		raw_volume_eu = linear ? "m³" : "kPa";
+		std_volume_eu = "m³";
+		avg_pressure_eu = "kgf/cm²";
+		avg_temperature_eu = "ºC";
+		let relatory = document.createElement("div");
+		let table = document.createElement("table");
+		header: {
+			let row = document.createElement("tr");
+			let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
+			for(header in headers) {
+				let col = tag_text("th", headers[header]);
+				row.append(col);
+			}
+			table.append(row);
+		}
+		for(time in data) {
+			let frame = data[time];
+			let row = document.createElement("tr");
+			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
+			let cols = [
+				time,
+				format_var(raw_volume, raw_volume_eu),
+				format_var(std_volume, std_volume_eu),
+				format_var(avg_pressure, avg_pressure_eu),
+				format_var(avg_temperature, avg_temperature_eu)
+			];
+			for(i in cols) {
+				let col = tag_text("td", cols[i]);
+				row.append(col);
+			}
+			table.append(row);
+		}
+		relatory.append(table);
+		root.append(relatory);
+	}
+	return root;
 }
 
 function create_status_table(tree_table) {
