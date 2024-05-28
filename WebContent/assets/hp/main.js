@@ -3,6 +3,20 @@ const version_tag = "4.1.1";
 const canvas = document.getElementById("viewContent");
 const viewBackGround = document.getElementById("viewBackground");
 
+
+//	==============================================================================================
+//	URL utils
+
+function tag_text(tag, text) {
+	let element = document.createElement(tag);
+	element.innerHTML = text;
+	return element;
+}
+
+function format_var(value, eu) {
+	return `<b>${value}</b><small>${eu}</small>`;
+}
+
 function get_sublocation() {
 	let currentPath = window.location.pathname;
 	currentPath = currentPath.split('?')[0];
@@ -22,6 +36,45 @@ function assets_dir_url() {
 function asset_url(asset) {
 	return new URL(asset, assets_dir_url());
 }
+
+function test_url(url) {
+	return new Promise((resolve, reject) => {
+		fetch(url).then(response => {
+			console.log(response);
+			if(response.status == 200) {
+				resolve(true);
+			} else {
+				resolve(false);
+			}
+		}).catch(e => {
+			resolve(false);
+		});
+	});
+}
+
+async function load_svg(url) {
+	file = await fetch(url);
+	text = await file.text();
+	let div = document.createElement("div");
+	div.style.position = "relative";
+	div.innerHTML = text;
+	return div;
+}
+
+async function load_json(url) {
+	file = await fetch(url);
+	json = await file.json();
+	return json;
+}
+
+function goto_id(id, reference = generated.current_view.xid) {
+	let link = `?xid=${id}&reference=${reference}`;
+	window.location.href = link;
+}
+
+
+//	==============================================================================================
+//	SCADA API
 
 function tag_load_num(xid) {
 	return new Promise((resolve, reject) => {
@@ -52,10 +105,33 @@ function tag_load_value(xid) {
 	});
 }
 
-var sources;
-var loaded;
-var generated;
-var current_view;
+
+//	==============================================================================================
+//	HTML Utils
+
+function change_text(id, value) {
+	document.getElementById(id).innerHTML = value;
+}
+
+function change_background(src) {
+	let img_tag = document.getElementById('viewBackground');
+	img_tag.src = src;
+	img_tag.width = "1280";
+	img_tag.height = "720";
+	return
+}
+
+function replace_element_by_id(id, new_element) {
+	let old_element = document.getElementById(id);
+	let parent_element = old_element.parentNode;
+	parent_element.replaceChild(new_element, old_element);
+}
+
+function replace_background(image) {
+	bg_id = "viewBackground";
+	image.id = bg_id;
+	replace_element_by_id(bg_id, image);
+}
 
 function find_parent(view_name) {
 	let l2_list = loaded.tree.root.children;
@@ -69,6 +145,137 @@ function find_parent(view_name) {
 	}
 	console.error('L3 name not found', view_name);
 }
+
+
+//	==============================================================================================
+//	SVG utils
+
+function set_visibility(element, value) {
+	element.style.display = value;
+}
+
+function set_visible(selector, root = document) {
+	set_visibility(root.querySelector(selector), '');
+}
+
+function get_loop_tag() {
+	let area_tag;
+	step_a: {
+		let station_type = "ERPM";
+		let area_number = generated.current_view.process.code;
+		area_tag = `${station_type}${area_number}`;
+	}
+	let eqp_id;
+	step_b: {
+		let first_letters = "FQ";
+		let equipment_suffix = generated.current_view.code;
+		eqp_id = `${first_letters}${equipment_suffix}`;
+	}
+	let loop_tag = `${area_tag}-${eqp_id}`;
+	return loop_tag;
+}
+
+function get_tag(svg_id) {
+	let [algorithm, instrument_function, instrument_number] = svg_id.toUpperCase().split("-");
+	let loop_tag = get_loop_tag();
+	let tag = `${loop_tag}-${instrument_function}-${instrument_number}`;
+	//	Misses branch code suffix
+	return tag;
+}
+
+function update_display(field, value) {
+	let display;
+	get_display: {
+		let root = document.getElementById(field);
+		let whatToShow = NodeFilter.SHOW_ELEMENT;
+		let filter = node => {
+			let name = node.nodeName.toLowerCase();
+			let label = node.getAttribute("inkscape:label");
+			let name_matches = name == "g";
+			let label_matches = label == "numeric value";
+			let right_one = name_matches && label_matches;
+			if (right_one) {
+				console.debug({ name, label, name_matches, label_matches, right_one, node });
+				return NodeFilter.FILTER_ACCEPT;
+			} else {
+				return NodeFilter.FILTER_REJECT;
+			}
+		};
+		let iterator = document.createNodeIterator(root, whatToShow, filter);
+		let currentNode;
+		while ((currentNode = iterator.nextNode())) {
+			query = currentNode.querySelector("tspan");
+			if (query) {
+				display = query;
+				break;
+			}
+		}
+		console.debug({ display });
+	}
+	display.innerHTML = value.toFixed(2);
+}
+
+
+//	==============================================================================================
+//	Misc
+
+function get_date() {
+	let date = new Date();
+	let day = date.getDate();
+	let month = date.toLocaleString('pt-br', { month: 'long' });
+	let year = date.getFullYear();
+	return `${day} de ${month} de ${year}`;
+}
+
+function get_time() {
+	function two_digit(num) {
+		num = `${num}`;
+		while (num.length < 2) {
+			num = "0" + num;
+			if (num.length > 2) {
+				throw new Error(`Error while parsing number in two_digit function: ${num}`);
+			}
+		}
+		return num;
+	}
+	let date = new Date();
+	let hours = two_digit(date.getHours());
+	let minutes = two_digit(date.getMinutes());
+	let seconds = two_digit(date.getSeconds());
+	return `${hours}:${minutes}:${seconds}`;
+}
+
+
+//	==============================================================================================
+//	Static Data
+
+let status_report = {};
+template_fields = {
+	'rpm-single': [
+		'update-pi-1',
+		'update-pi-2',
+		'update-ti-1',
+		'update-pdi-1',
+		'update-fi-1',
+		'update-fqi-1',
+		'update-fqia-1',
+		'update-ei-1'
+	],
+	'rpm-double': [
+		'update-pi-1',
+		'update-pi-2',
+		'update-ti-1',
+		'update-pdi-1',
+		'update-fi-1',
+		'update-fqi-1',
+		'update-fqia-1',
+		'update-ei-1'
+	]
+};
+
+
+//	==============================================================================================
+//	Library Utils
 
 function get_current_view() {
 	let view = {};
@@ -118,28 +325,87 @@ function get_current_view() {
 	return view;
 }
 
-function test_url(url) {
-	return new Promise((resolve, reject) => {
-		fetch(url).then(response => {
-			console.log(response);
-			if(response.status == 200) {
-				resolve(true);
-			} else {
-				resolve(false);
-			}
-		}).catch(e => {
-			resolve(false);
-		});
-	});
+function create_inline_menu(table, level) {
+	let menu = document.createElement("div");
+	menu.style.display = "inline-flex";
+	menu.style.width = "1280px";
+	menu.style.flexWrap = "wrap";
+	menu.style.padding = "0px 5px";
+	for(item in table) {
+		let button = document.createElement("button");
+		button.textContent = table[item].label;
+		let xid = `${level}-${item}`;
+		button.onclick = () => {
+			goto_id(xid);
+		};
+		button.id = `${level}-button-${item}`;
+		button.style.width = "90px";
+		button.style.height = "45px";
+		menu.append(button);
+	}
+	return menu;
 }
 
-function set_visibility(element, value) {
-	element.style.display = value;
+function create_status_table(tree_table) {
+	let div = document.createElement("div");
+	let table = document.createElement("table");
+	let css = document.createElement("style");
+	css.innerHTML = `
+		tr:nth-child(even) {
+			background-color: #ddddff;
+		}
+		tr:hover {
+			background-color: #aaaadd;
+		}
+		td, th {
+			padding: 2px 7px;
+		}
+	`;
+	table.appendChild(css);
+	table.className = "summary";
+	table.style.backgroundColor = "#f1f1f1";
+	header: {
+		let row = document.createElement("tr");
+		row.style.backgroundColor = "#b4b4c4";
+		let headers = ["Estacao", "Modem", "Comunicacao", "Atualizacao", "Entrada", "Saida", "Temperatura", "Vazao", "Mes", "Anterior"];
+		for(header in headers) {
+			let col = tag_text("th", headers[header]);
+			row.append(col);
+		}
+		table.append(row);
+	}
+	for(item in tree_table) {
+		let row = document.createElement("tr");
+		let cols = [tree_table[item].label, "Conectado", "OK", "14:23",
+			format_var(22, "Kgf/cm²"),
+			format_var(12, "Kgf/cm²"),
+			format_var(28, "°C"),
+			format_var(4.792, "m3/dia"),
+			format_var(40.634, "m3"),
+			format_var(92.179, "m3")
+		];
+		for(i in cols) {
+			let col = tag_text("td", cols[i]);
+			row.append(col);
+		}
+		let xid = `l3-${item}`;
+		row.onclick = () => {
+			goto_id(xid);
+		};
+		table.append(row);
+	}
+	div.append(table);
+	return div;
 }
 
-function set_visible(selector, root = document) {
-	set_visibility(root.querySelector(selector), '');
-}
+
+//	==============================================================================================
+//	Runtime
+
+var sources;
+var loaded;
+var generated;
+var current_view;
 
 async function main() {
 	console.log(`Starting High Performance SCADA Library - version ${version_tag}`);
@@ -342,240 +608,9 @@ async function main() {
 	}
 }
 
-let status_report = {};
-template_fields = {
-	'rpm-single': [
-		'update-pi-1',
-		'update-pi-2',
-		'update-ti-1',
-		'update-pdi-1',
-		'update-fi-1',
-		'update-fqi-1',
-		'update-fqia-1',
-		'update-ei-1'
-	],
-	'rpm-double': [
-		'update-pi-1',
-		'update-pi-2',
-		'update-ti-1',
-		'update-pdi-1',
-		'update-fi-1',
-		'update-fqi-1',
-		'update-fqia-1',
-		'update-ei-1'
-	]
-};
 
-function get_loop_tag() {
-	let area_tag;
-	step_a: {
-		let station_type = "ERPM";
-		let area_number = generated.current_view.process.code;
-		area_tag = `${station_type}${area_number}`;
-	}
-	let eqp_id;
-	step_b: {
-		let first_letters = "FQ";
-		let equipment_suffix = generated.current_view.code;
-		eqp_id = `${first_letters}${equipment_suffix}`;
-	}
-	let loop_tag = `${area_tag}-${eqp_id}`;
-	return loop_tag;
-}
-
-function get_tag(svg_id) {
-	let [algorithm, instrument_function, instrument_number] = svg_id.toUpperCase().split("-");
-	let loop_tag = get_loop_tag();
-	let tag = `${loop_tag}-${instrument_function}-${instrument_number}`;
-	//	Misses branch code suffix
-	return tag;
-}
-
-function update_display(field, value) {
-	let display;
-	get_display: {
-		let root = document.getElementById(field);
-		let whatToShow = NodeFilter.SHOW_ELEMENT;
-		let filter = node => {
-			let name = node.nodeName.toLowerCase();
-			let label = node.getAttribute("inkscape:label");
-			let name_matches = name == "g";
-			let label_matches = label == "numeric value";
-			let right_one = name_matches && label_matches;
-			if (right_one) {
-				console.debug({ name, label, name_matches, label_matches, right_one, node });
-				return NodeFilter.FILTER_ACCEPT;
-			} else {
-				return NodeFilter.FILTER_REJECT;
-			}
-		};
-		let iterator = document.createNodeIterator(root, whatToShow, filter);
-		let currentNode;
-		while ((currentNode = iterator.nextNode())) {
-			query = currentNode.querySelector("tspan");
-			if (query) {
-				display = query;
-				break;
-			}
-		}
-		console.debug({ display });
-	}
-	display.innerHTML = value.toFixed(2);
-}
-
-function replace_element_by_id(id, new_element) {
-	let old_element = document.getElementById(id);
-	let parent_element = old_element.parentNode;
-	parent_element.replaceChild(new_element, old_element);
-}
-
-function replace_background(image) {
-	bg_id = "viewBackground";
-	image.id = bg_id;
-	replace_element_by_id(bg_id, image);
-}
-
-async function load_svg(url) {
-	file = await fetch(url);
-	text = await file.text();
-	let div = document.createElement("div");
-	div.style.position = "relative";
-	div.innerHTML = text;
-	return div;
-}
-
-async function load_json(url) {
-	file = await fetch(url);
-	json = await file.json();
-	return json;
-}
-
-function goto_id(id, reference = generated.current_view.xid) {
-	let link = `?xid=${id}&reference=${reference}`;
-	window.location.href = link;
-}
-
-function create_inline_menu(table, level) {
-	let menu = document.createElement("div");
-	menu.style.display = "inline-flex";
-	menu.style.width = "1280px";
-	menu.style.flexWrap = "wrap";
-	menu.style.padding = "0px 5px";
-	for(item in table) {
-		let button = document.createElement("button");
-		button.textContent = table[item].label;
-		let xid = `${level}-${item}`;
-		button.onclick = () => {
-			goto_id(xid);
-		};
-		button.id = `${level}-button-${item}`;
-		button.style.width = "90px";
-		button.style.height = "45px";
-		menu.append(button);
-	}
-	return menu;
-}
-
-function tag_text(tag, text) {
-	let element = document.createElement(tag);
-	element.innerHTML = text;
-	return element;
-}
-
-function format_var(value, eu) {
-	return `<b>${value}</b><small>${eu}</small>`;
-}
-
-function create_status_table(tree_table) {
-	let div = document.createElement("div");
-	let table = document.createElement("table");
-	let css = document.createElement("style");
-	css.innerHTML = `
-		tr:nth-child(even) {
-			background-color: #ddddff;
-		}
-		tr:hover {
-			background-color: #aaaadd;
-		}
-		td, th {
-			padding: 2px 7px;
-		}
-	`;
-	table.appendChild(css);
-	table.className = "summary";
-	table.style.backgroundColor = "#f1f1f1";
-	header: {
-		let row = document.createElement("tr");
-		row.style.backgroundColor = "#b4b4c4";
-		let headers = ["Estacao", "Modem", "Comunicacao", "Atualizacao", "Entrada", "Saida", "Temperatura", "Vazao", "Mes", "Anterior"];
-		for(header in headers) {
-			let col = tag_text("th", headers[header]);
-			row.append(col);
-		}
-		table.append(row);
-	}
-	for(item in tree_table) {
-		let row = document.createElement("tr");
-		let cols = [tree_table[item].label, "Conectado", "OK", "14:23",
-			format_var(22, "Kgf/cm²"),
-			format_var(12, "Kgf/cm²"),
-			format_var(28, "°C"),
-			format_var(4.792, "m3/dia"),
-			format_var(40.634, "m3"),
-			format_var(92.179, "m3")
-		];
-		for(i in cols) {
-			let col = tag_text("td", cols[i]);
-			row.append(col);
-		}
-		let xid = `l3-${item}`;
-		row.onclick = () => {
-			goto_id(xid);
-		};
-		table.append(row);
-	}
-	div.append(table);
-	return div;
-}
-
-//	Header labels
-function change_text(id, value) {
-	document.getElementById(id).innerHTML = value;
-}
-
-function get_date() {
-	let date = new Date();
-	let day = date.getDate();
-	let month = date.toLocaleString('pt-br', { month: 'long' });
-	let year = date.getFullYear();
-	return `${day} de ${month} de ${year}`;
-}
-
-function get_time() {
-	function two_digit(num) {
-		num = `${num}`;
-		while (num.length < 2) {
-			num = "0" + num;
-			if (num.length > 2) {
-				throw new Error(`Error while parsing number in two_digit function: ${num}`);
-			}
-		}
-		return num;
-	}
-	let date = new Date();
-	let hours = two_digit(date.getHours());
-	let minutes = two_digit(date.getMinutes());
-	let seconds = two_digit(date.getSeconds());
-	return `${hours}:${minutes}:${seconds}`;
-}
-
-function change_background(src) {
-	let img_tag = document.getElementById('viewBackground');
-	img_tag.src = src;
-	img_tag.width = "1280";
-	img_tag.height = "720";
-	return
-}
+//	==============================================================================================
+//	Boot
 
 boot: {
 	if(document.currentScript.hasAttribute("boot")) {
