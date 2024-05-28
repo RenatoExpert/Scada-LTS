@@ -109,7 +109,8 @@ function tag_load_value(xid) {
 //	==============================================================================================
 //	HTML Utils
 
-function clear_minutes(input) {
+function clear_minutes(e) {
+	let input = e.srcElement;
 	console.log(input);
 	console.log(input.value);
 	let previous = input.value;
