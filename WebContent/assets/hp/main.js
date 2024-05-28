@@ -629,6 +629,9 @@ async function main() {
 			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
 			let l3 = current_view.level == "l2" || current_view.level == "l3" ? create_inline_menu(current_view.process.children, "l3") : document.createElement("div");
 			let summary = current_view.level == "l2" ? create_status_table(current_view.process.children) : document.createElement("div");
+			let relatory =	current_view.xid == "l1-hourly" ? create_hourly_relatory_table(current_view.xid) :
+					current_view.xid == "l1-daily" ? create_daily_relatory_table(current_view.xid) :
+					null;
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
@@ -653,6 +656,8 @@ async function main() {
 				headers.appendChild(generated.l2);
 				headers.appendChild(generated.l3);
 				headers.appendChild(generated.summary);
+			} else if(current_view.xid in ["l1-hourly", "l1-daily"]) {
+				headers.appendChild(generated.relatory);
 			}
 		}
 		background: {
