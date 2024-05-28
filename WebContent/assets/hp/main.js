@@ -271,6 +271,7 @@ async function main() {
 		} else {
 			canvas.insertBefore(generated.hp_headers, viewBackground);
 			let headers = document.getElementById("hp-headers");
+			headers.style.zIndex = 1;
 			headers.appendChild(generated.l1);
 			if(current_view.level == "l2" || current_view.name == "cidades") {
 				headers.appendChild(generated.l2);
