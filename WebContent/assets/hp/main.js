@@ -450,8 +450,8 @@ async function load_json(url) {
 	return json;
 }
 
-function goto_id(id) {
-	let link = `?xid=${id}`;
+function goto_id(id, reference = generated.current_view.xid) {
+	let link = `?xid=${id}&reference=${reference}`;
 	window.location.href = link;
 }
 
