@@ -656,7 +656,7 @@ async function main() {
 				headers.appendChild(generated.l2);
 				headers.appendChild(generated.l3);
 				headers.appendChild(generated.summary);
-			} else if(current_view.xid in ["l1-hourly", "l1-daily"]) {
+			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
 			}
 		}
