@@ -383,6 +383,43 @@ function create_hourly_relatory_table(xid) {
 	create_relatory_table(data, "Hora");
 }
 
+function create_daily_relatory_table(xid) {
+	let data;
+	get_data: {
+		//	1. Generate tags
+		//	2. Get time range filter settings
+		//	3. Get tag values for each step on time range
+		let fakedata = {
+			"00": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"01": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"02": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			},
+			"03": {
+				raw_volume: "15",
+				std_volume: "17",
+				avg_pressure: "22",
+				avg_temperature: "30"
+			}
+		}
+		data = fakedata;
+	}
+	create_relatory_table(data, "Dia");
+}
+
 function create_relatory_table(data, id_col) {
 	raw_volume_eu = linear ? 'm3' : 'kPa';
 	std_volume_eu = 'm³';
