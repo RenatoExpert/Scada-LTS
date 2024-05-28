@@ -436,9 +436,10 @@ function create_relatory_table(data, id_col, linear = true) {
 		}
 		table.append(row);
 	}
-	for(frame in data) {
+	for(time in data) {
+		let frame = data[time];
 		let row = document.createElement("tr");
-		let { time, raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
+		let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
 		let cols = [
 			time,
 			format_var(raw_volume, raw_volume_eu),
