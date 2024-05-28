@@ -421,10 +421,10 @@ function create_daily_relatory_table(xid) {
 }
 
 function create_relatory_table(data, id_col, linear = true) {
-	raw_volume_eu = linear ? 'm3' : 'kPa';
-	std_volume_eu = 'm³';
-	avg_pressure_eu = 'kgf/cm²';
-	avg_temperature_eu = 'ºC';
+	raw_volume_eu = linear ? "m³" : "kPa";
+	std_volume_eu = "m³";
+	avg_pressure_eu = "kgf/cm²";
+	avg_temperature_eu = "ºC";
 	let div = document.createElement("div");
 	let table = document.createElement("table");
 	header: {
