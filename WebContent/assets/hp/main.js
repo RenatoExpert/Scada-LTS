@@ -638,7 +638,7 @@ async function main() {
 			l3.id = "header-l3";
 			summary.id = "summary";
 
-			generated = { hp_headers, l1, l2, l3, summary, current_view };
+			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory };
 		}
 	}
 
