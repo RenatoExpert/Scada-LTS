@@ -110,6 +110,8 @@ function tag_load_value(xid) {
 //	HTML Utils
 
 function clear_minutes(input) {
+	console.log(input);
+	console.log(input.value);
 	let previous = input.value;
 	let clean = previous.replace(/:../, ":00");
 	input.value = clean;
