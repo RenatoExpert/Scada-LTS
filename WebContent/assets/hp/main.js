@@ -458,7 +458,7 @@ function create_relatory_table(data, id_col, linear = true) {
 		submit: {
 			let button = document.createElement("button");
 			button.addEventListener("click", (e) => {
-				alert("Gerando relatório...");
+				console.log("Gerando relatório...");
 			});
 			button.innerHTML = "Gerar";
 			filter.append(button);
