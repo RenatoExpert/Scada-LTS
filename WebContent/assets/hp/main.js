@@ -241,6 +241,12 @@ async function main() {
 					bind_button("l1-lock", "Sair", () => {
 						window.location.href = "logout.htm";
 					});
+					bind_button("l1-daily", "Relatório Diário", () => {
+						goto_id("l1-daily");
+					});
+					bind_button("l1-hourly", "Relatório Horário", () => {
+						goto_id("l1-hourly");
+					});
 				}
 				return div;
 			})();
