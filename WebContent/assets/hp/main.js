@@ -678,14 +678,14 @@ async function main() {
 			} else {
 				prefix = cv.xid;
 				extension = "png";
+				let filename = `${prefix}.${extension}`;
+				let target_url = new URL(filename, background_url);
+				test_url(target_url).then(sucess => {
+					change_background(target_url);
+				}).catch(problem => {
+					console.warn("Background file not found");
+				});
 			}
-			let filename = `${prefix}.${extension}`;
-			let target_url = new URL(filename, background_url);
-			test_url(target_url).then(sucess => {
-				change_background(target_url);
-			}).catch(problem => {
-				console.warn("Background file not found");
-			});
 		}
 	}
 
