@@ -420,7 +420,7 @@ function create_daily_relatory_table(xid) {
 	create_relatory_table(data, "Dia");
 }
 
-function create_relatory_table(data, id_col) {
+function create_relatory_table(data, id_col, linear = true) {
 	raw_volume_eu = linear ? 'm3' : 'kPa';
 	std_volume_eu = 'm³';
 	avg_pressure_eu = 'kgf/cm²';
