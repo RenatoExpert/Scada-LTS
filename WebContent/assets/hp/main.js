@@ -156,7 +156,7 @@ function render_relatory_table(json) {
 				throw new Error(`Invalid value ${value_str} on ${row}`);
 			} else {
 				value = Number.parseFloat(value_str);
-				sum += row.value;
+				sum += value;
 			}
 		});
 		let length = filtered_list.length
