@@ -109,6 +109,21 @@ function tag_load_value(xid) {
 //	==============================================================================================
 //	HTML Utils
 
+function sum_datetime(/**/) {
+	let args = arguments;
+	let sum = 0;
+	for(let i = 0; i < args.length; i++) {
+		let element = document.getElementById(args[i]);
+		sum += element.valueAsNumber;
+	}
+	return sum;
+}
+
+function validate_filter(e) {
+	let start_ts = sum_datetime("start-date", "start-time");
+	let end_ts = sum_datetime("end-date", "end-time");
+}
+
 function clear_minutes(e) {
 	let input = e.srcElement;
 	console.log(input);
