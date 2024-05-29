@@ -160,7 +160,7 @@ function render_relatory_table(json) {
 			}
 		});
 		let avg = sum / values_in_range.length;
-		formated_table[target.getHours()] = avg;
+		formated_table[new Date(target).getHours()] = avg;
 	}
 	console.table(formated_table);
 }
