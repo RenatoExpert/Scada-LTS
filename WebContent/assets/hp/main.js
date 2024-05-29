@@ -122,6 +122,7 @@ function sum_datetime(/**/) {
 function validate_filter(e) {
 	let start_ts = sum_datetime("start-date", "start-time");
 	let end_ts = sum_datetime("end-date", "end-time");
+	console.log({ start_ts, end_ts });
 }
 
 function clear_minutes(e) {
@@ -448,36 +449,38 @@ function create_relatory_table(data, id_col, linear = true) {
 	let root = document.createElement("div");
 	generate_filter: {
 		let filter = document.createElement("div");
+		let form = document.createElement("form");
+		form.addEventListener("submit", validate_filter);
+		form.action = "javascript:;";
 		start: {
 			let date = document.createElement("input");
 			date.id = "start-date";
 			date.type = "date";
-			filter.append(date);
+			form.append(date);
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "start-time";
 			time.type = "time";
-			filter.append(time);
+			form.append(time);
 		}
 		end: {
 			let date = document.createElement("input");
 			date.id = "end-date";
 			date.type = "date";
-			filter.append(date);
+			form.append(date);
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "end-time";
 			time.type = "time";
-			filter.append(time);
+			form.append(time);
 		}
 		submit: {
-			let button = document.createElement("button");
-			button.addEventListener("click", (e) => {
-				console.log("Gerando relatório...");
-			});
-			button.innerHTML = "Gerar";
-			filter.append(button);
+			let button = document.createElement("input");
+			button.type = "submit";
+			button.value = "Gerar";
+			form.append(button);
 		}
+		filter.append(form);
 		root.append(filter);
 	}
 	generate_relatory: {
