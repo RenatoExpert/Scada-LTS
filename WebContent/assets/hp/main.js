@@ -143,7 +143,8 @@ function validate_filter(e) {
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
-		load_relatory(xid, start, end);
+		let xid = "ERPM001-FQ028-PI-1";
+		load_relatory(xid, start_ts, end_ts);
 		isValid = true;
 	} catch(e) {
 		isValid = false;
