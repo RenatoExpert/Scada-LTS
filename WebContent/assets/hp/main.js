@@ -464,12 +464,11 @@ function create_relatory_table(data, id_col, linear = true) {
 		let form = document.createElement("form");
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
-		let today = new Date();
 		start: {
 			let date = document.createElement("input");
 			date.id = "start-date";
 			date.type = "date";
-			date.valueAsDate = new Date().setDate(today.getDate() - 1);
+			date.valueAsNumber = new Date() - (1e3 * 60 * 60 * 24);
 			date.required = true;
 			form.append(date);
 			let time = document.createElement("input");
@@ -484,7 +483,7 @@ function create_relatory_table(data, id_col, linear = true) {
 			let date = document.createElement("input");
 			date.id = "end-date";
 			date.type = "date";
-			date.valueAsDate = today;
+			date.valueAsDate = new Date();
 			date.required = true;
 			form.append(date);
 			let time = document.createElement("input");
