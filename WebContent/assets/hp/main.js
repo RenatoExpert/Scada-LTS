@@ -475,6 +475,7 @@ function create_relatory_table(data, id_col, linear = true) {
 			time.addEventListener("change", clear_minutes);
 			time.id = "start-time";
 			time.type = "time";
+			time.valueAsNumber = 0;
 			form.append(time);
 		}
 		end: {
@@ -487,6 +488,7 @@ function create_relatory_table(data, id_col, linear = true) {
 			time.addEventListener("change", clear_minutes);
 			time.id = "end-time";
 			time.type = "time";
+			time.valueAsNumber = 0;
 			form.append(time);
 		}
 		submit: {
