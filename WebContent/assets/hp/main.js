@@ -165,7 +165,7 @@ function render_relatory_table(json) {
 		let hour_index = new Date(target).toLocaleTimeString();
 		let full_index = `date_index hour_index`;
 		console.log({ avg, sum, length, filtered_list, hour_index, hour_index, full_index });
-		formated_table[hour_index] = avg;
+		formated_table[full_index] = avg;
 	}
 	console.table(formated_table);
 }
