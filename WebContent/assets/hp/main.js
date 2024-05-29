@@ -143,6 +143,7 @@ function validate_filter(e) {
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
+		load_relatory(xid, start, end);
 		isValid = true;
 	} catch(e) {
 		isValid = false;
