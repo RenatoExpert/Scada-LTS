@@ -117,6 +117,7 @@ function load_relatory(xid, start, end) {
 			resolve(json);
 		}).catch(problem => {
 			console.error(problem);
+			console.error({ target_url });
 			reject("Datapoint API returned error!");
 		});
 	});
