@@ -159,8 +159,9 @@ function render_relatory_table(json) {
 				sum += row.value;
 			}
 		});
-		let avg = sum / filtered_list.length;
-		console.log({ avg, sum, filtered_list.length, filtered_list });
+		let length = filtered_list.length
+		let avg = sum / length;
+		console.log({ avg, sum, length, filtered_list });
 		formated_table[new Date(target).getHours()] = avg;
 	}
 	console.table(formated_table);
