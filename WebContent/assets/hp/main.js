@@ -107,7 +107,7 @@ function tag_load_value(xid) {
 
 function load_relatory(xid, start, end) {
 	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid", get_root_path());
-	let target_url = new URL(`${tag_url}/${start_url}/${end_url}`, base_url);
+	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
 	return new Promise((resolve, reject) => {
 		load_json(target_url).then(json => {
 			console.debug({ json });
