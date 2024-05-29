@@ -105,6 +105,21 @@ function tag_load_value(xid) {
 	});
 }
 
+function load_relatory(xid, start, end) {
+	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid", get_root_path());
+	let tag_url = new URL(tag, base_url);
+	let start_url = new URL(start, tag_url);
+	let end_url = new URL(end, start_url);
+	return new Promise((resolve, reject) => {
+		load_json(target_url).then(json => {
+			console.debug({ json });
+			resolve(json);
+		}).catch(problem => {
+			console.error(problem);
+			reject("Datapoint API returned error!");
+		});
+	});
+}
 
 //	==============================================================================================
 //	HTML Utils
