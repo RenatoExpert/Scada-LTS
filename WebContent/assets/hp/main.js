@@ -151,11 +151,16 @@ function render_relatory_table(json) {
 		});
 		let sum = 0;
 		values_in_range.forEach(row => {
-			sum += row.value;
+			let value_str = row.value;
+			if (Number.isNaN(value_str)) {
+				value = Number.parseFloat(value_str);
+				sum += row.value;
+			} else {
+				throw new Error(`Invalid value ${value_str} on ${row}`);
+			}
 		});
 		let avg = sum / values_in_range.length;
-		let hour_index = target.getHours;
-		formated_table[target.getHours] = avg;
+		formated_table[target.getHours()] = avg;
 	}
 	console.table(formated_table);
 }
