@@ -116,13 +116,25 @@ function sum_datetime(/**/) {
 		let element = document.getElementById(args[i]);
 		sum += element.valueAsNumber;
 	}
+	if(Number.isNaN(sum)) {
+		throw new Error("Empty value");
+	}
 	return sum;
 }
 
 function validate_filter(e) {
-	let start_ts = sum_datetime("start-date", "start-time");
-	let end_ts = sum_datetime("end-date", "end-time");
-	console.log({ start_ts, end_ts });
+	let start_ts, end_ts;
+	let isValid;
+	try {
+		start_ts = sum_datetime("start-date", "start-time");
+		end_ts = sum_datetime("end-date", "end-time");
+		isValid = true;
+	} catch(e) {
+		isValid = false;
+	} finally {
+		console.log({ start_ts, end_ts });
+		return isValid;
+	}
 }
 
 function clear_minutes(e) {
