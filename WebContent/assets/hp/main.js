@@ -143,7 +143,9 @@ function validate_filter(e) {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
 		let xid = "ERPM001-FQ028-PI-1";
-		load_relatory(xid, start_ts, end_ts);
+		load_relatory(xid, start_ts, end_ts).then(json => {
+			console.log(json);
+		});
 		isValid = true;
 	} catch(e) {
 		isValid = false;
