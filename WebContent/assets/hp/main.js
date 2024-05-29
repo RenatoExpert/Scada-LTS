@@ -136,6 +136,30 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
+function render_relatory_table(json) {
+	let values = json.values;
+	let from = json.fromTs;
+	let to = json.toTs;
+	let hour_in_mili = 60 * 60 * 1e3;
+	let formated_table = {};
+	for(let target = from; target <= to; target += hour_to_mili) {
+		let min_time = target;
+		let max_time = target + hour_to_mili;
+		let values_in_range = values.filter(row => {
+			time = row.ts;
+			return min_time <= time && time <= max_time;
+		});
+		let sum = 0;
+		values_in_range.forEach(row => {
+			sum += row.value;
+		});
+		let avg = sum / values_in_range.length;
+		let hour_index = target.getHours;
+		formated_table[target.getHours] = avg;
+	}
+	console.table(formated_table);
+}
+
 function validate_filter(e) {
 	let start_ts, end_ts;
 	let isValid;
@@ -143,9 +167,7 @@ function validate_filter(e) {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
 		let xid = "ERPM001-FQ028-PI-1";
-		load_relatory(xid, start_ts, end_ts).then(json => {
-			console.log(json);
-		});
+		load_relatory(xid, start_ts, end_ts).then(render_relatory_table);
 		isValid = true;
 	} catch(e) {
 		isValid = false;
