@@ -140,11 +140,11 @@ function render_relatory_table(json) {
 	let values = json.values;
 	let from = json.fromTs;
 	let to = json.toTs;
-	let hour_in_mili = 60 * 60 * 1e3;
+	let hour_in_ms = 60 * 60 * 1e3;
 	let formated_table = {};
-	for(let target = from; target <= to; target += hour_to_mili) {
+	for(let target = from; target <= to; target += hour_in_ms) {
 		let min_time = target;
-		let max_time = target + hour_to_mili;
+		let max_time = target + hour_in_ms;
 		let values_in_range = values.filter(row => {
 			time = row.ts;
 			return min_time <= time && time <= max_time;
