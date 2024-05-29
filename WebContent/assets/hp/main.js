@@ -163,7 +163,7 @@ function render_relatory_table(json) {
 		let avg = sum / length;
 		let date_index = new Date(target).toLocaleDateString();
 		let hour_index = new Date(target).toLocaleTimeString();
-		let full_index = `date_index hour_index`;
+		let full_index = `${date_index} ${hour_index}`;
 		console.log({ avg, sum, length, filtered_list, hour_index, hour_index, full_index });
 		formated_table[full_index] = avg;
 	}
