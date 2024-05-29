@@ -470,12 +470,14 @@ function create_relatory_table(data, id_col, linear = true) {
 			date.id = "start-date";
 			date.type = "date";
 			date.valueAsDate = new Date().setDate(today.getDate() - 1);
+			date.required = true;
 			form.append(date);
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "start-time";
 			time.type = "time";
 			time.valueAsNumber = 0;
+			time.required = true;
 			form.append(time);
 		}
 		end: {
@@ -483,12 +485,14 @@ function create_relatory_table(data, id_col, linear = true) {
 			date.id = "end-date";
 			date.type = "date";
 			date.valueAsDate = today;
+			date.required = true;
 			form.append(date);
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "end-time";
 			time.type = "time";
 			time.valueAsNumber = 0;
+			time.required = true;
 			form.append(time);
 		}
 		submit: {
