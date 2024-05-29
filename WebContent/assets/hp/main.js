@@ -125,7 +125,7 @@ function load_relatory(xid, start, end) {
 
 function sum_datetime(/**/) {
 	let args = arguments;
-	let sum = 0;
+	let sum = new Date().getTimezoneOffset() * 60e3;
 	for(let i = 0; i < args.length; i++) {
 		let element = document.getElementById(args[i]);
 		sum += element.valueAsNumber;
