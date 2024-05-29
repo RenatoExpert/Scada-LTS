@@ -145,12 +145,12 @@ function render_relatory_table(json) {
 	for(let target = from; target <= to; target += hour_in_ms) {
 		let min_time = target;
 		let max_time = target + hour_in_ms;
-		let values_in_range = values.filter(row => {
+		let filtered_list = values.filter(row => {
 			time = row.ts;
 			return min_time <= time && time <= max_time;
 		});
 		let sum = 0;
-		values_in_range.forEach(row => {
+		filtered_list.forEach(row => {
 			let value_str = row.value;
 			if (Number.isNaN(value_str)) {
 				throw new Error(`Invalid value ${value_str} on ${row}`);
@@ -159,7 +159,8 @@ function render_relatory_table(json) {
 				sum += row.value;
 			}
 		});
-		let avg = sum / values_in_range.length;
+		let avg = sum / filtered_list.length;
+		console.log({ avg, sum, filtered_list.length, filtered_list });
 		formated_table[new Date(target).getHours()] = avg;
 	}
 	console.table(formated_table);
