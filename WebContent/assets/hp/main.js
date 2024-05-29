@@ -153,10 +153,10 @@ function render_relatory_table(json) {
 		values_in_range.forEach(row => {
 			let value_str = row.value;
 			if (Number.isNaN(value_str)) {
+				throw new Error(`Invalid value ${value_str} on ${row}`);
+			} else {
 				value = Number.parseFloat(value_str);
 				sum += row.value;
-			} else {
-				throw new Error(`Invalid value ${value_str} on ${row}`);
 			}
 		});
 		let avg = sum / values_in_range.length;
