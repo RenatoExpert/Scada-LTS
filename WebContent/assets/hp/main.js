@@ -152,11 +152,12 @@ function relatory (area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
 	});
 	Promise.all(promises).then(results => {
 		let table = {};
+		console.log({ indexes });
 		indexes.forEach(index => {
 			console.log({ index });
 			table[index] = {};
 			results.forEach(result => {
-				console.log( {result} );
+				console.log({ result });
 				let key = result.key;
 				table[index][key] = result.table[index];
 			});
