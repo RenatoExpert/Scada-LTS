@@ -247,8 +247,10 @@ function make_relatory_indexes(from, to) {
 	let indexes = [];
 	let min = from;
 	let max = min + step;
-	while(max < to; (min = max; max += step)) {
+	while(max < to) {
 		indexes.push(min);
+		min = max;
+		max += step;
 	}
 	return indexes;
 }
