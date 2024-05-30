@@ -12,7 +12,7 @@ COPY --from=npm_build /scadalts-ui/dist /dist
 
 
 FROM alpine:20240329 as img_build
-RUN apk add --update --no-cache inkscape imagemagick
+RUN apk add --update --no-cache `#inkscape` imagemagick
 WORKDIR /img
 COPY art .
 #RUN inkscape --export-type="ico" -w 64 -h 64 favicon.svg
