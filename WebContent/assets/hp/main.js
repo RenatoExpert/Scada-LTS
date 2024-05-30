@@ -137,7 +137,7 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
-function relatory (area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
+function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
 	let indexes = make_relatory_indexes(start_ts, end_ts);
@@ -201,9 +201,9 @@ function normatize_relatory_column(json) {
 }
 
 function get_timedate(timestamp) {
-	let date = new Date(target).toLocaleDateString();
-	let hour = new Date(target).toLocaleTimeString();
-	let full = `${date_index} ${hour_index}`;
+	let date = new Date(timestamp).toLocaleDateString();
+	let hour = new Date(timestamp).toLocaleTimeString();
+	let full = `${date} ${hour}`;
 	return full;
 }
 
