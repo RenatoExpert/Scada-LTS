@@ -120,6 +120,7 @@ function load_relatory(xid, start, end) {
 	});
 }
 
+
 //	==============================================================================================
 //	HTML Utils
 
@@ -192,13 +193,18 @@ function normatize_relatory_column(json) {
 		});
 		let length = filtered_list.length
 		let avg = sum / length;
-		let date_index = new Date(target).toLocaleDateString();
-		let hour_index = new Date(target).toLocaleTimeString();
-		let full_index = `${date_index} ${hour_index}`;
-		object[full_index] = avg;
+		let index = get_timedate(target);
+		object[index] = avg;
 	}
 	console.table(object);
 	return object;
+}
+
+function get_timedate(timestamp) {
+	let date = new Date(target).toLocaleDateString();
+	let hour = new Date(target).toLocaleTimeString();
+	let full = `${date_index} ${hour_index}`;
+	return full;
 }
 
 function render_relatory(obj, id_col) {
@@ -252,7 +258,7 @@ function make_relatory_indexes(from, to) {
 	let min = from;
 	let max = min + step;
 	while(max < to) {
-		indexes.push(min);
+		indexes.push(get_timedate(min));
 		min = max;
 		max += step;
 	}
