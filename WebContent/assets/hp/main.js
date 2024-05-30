@@ -136,12 +136,12 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
-function render_relatory_table(json) {
+function prepare_relatory_tag(json) {
 	let values = json.values;
 	let from = json.fromTs;
 	let to = json.toTs;
 	let hour_in_ms = 60 * 60 * 1e3;
-	let formated_table = {};
+	let object = {};
 	for(let target = from; target <= to; target += hour_in_ms) {
 		let min_time = target;
 		let max_time = target + hour_in_ms;
@@ -164,10 +164,103 @@ function render_relatory_table(json) {
 		let date_index = new Date(target).toLocaleDateString();
 		let hour_index = new Date(target).toLocaleTimeString();
 		let full_index = `${date_index} ${hour_index}`;
-		console.log({ avg, sum, length, filtered_list, hour_index, hour_index, full_index });
-		formated_table[full_index] = avg;
+		object[full_index] = avg;
 	}
 	console.table(formated_table);
+	prepare_relatory_element(object);
+}
+
+function relatory (area_code, station_code) {
+	let tags = get_hist_tags(area_code, station_code);
+	let promises = [];
+	let indexes = make_relatory_indexes;
+	Object.getOwnPropertyNames(tags).forEach(tag => {
+		let promise = new Promise((resolve, reject) => {
+			fetch_hist(tags[tag]).then(json => {
+				let table = normatize(json, key);
+				resolve({ key, table });
+			});
+		})
+		promises.push(promise);
+	});
+	Promise.all(promises).then(results => {
+		let table = {};
+		indexes.forEach(index => {
+			table[index] = {};
+			results.forEach(result => {
+				let key = result.key;
+				table[index][key] = result.table[index];
+			});
+		});
+		generate_relatory_dom(table);
+		render_relatory(table);
+	});
+}
+
+function render_relatory(obj) {
+	let child_dom = generate_relatory_dom(obj);
+	let parent_dom = document.getElementById('relatory-table');
+	parent_dom.innerHTML = child_dom;
+}
+
+function generate_relatory_dom(obj) {
+	let relatory = document.createElement("div");
+	let table = document.createElement("table");
+	header: {
+		raw_volume_eu = linear ? "m³" : "kPa";
+		std_volume_eu = "m³";
+		avg_pressure_eu = "kgf/cm²";
+		avg_temperature_eu = "ºC";
+		let row = document.createElement("tr");
+		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
+		for(header in headers) {
+			let col = tag_text("th", headers[header]);
+			row.append(col);
+		}
+		table.append(row);
+	}
+	body: {
+		Object.getOwnPropertyNames(table).forEach(time => {
+			let frame = obj[time];
+			let row = document.createElement("tr");
+			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
+			let cols = [
+				time,
+				format_var(raw_volume, raw_volume_eu),
+				format_var(std_volume, std_volume_eu),
+				format_var(avg_pressure, avg_pressure_eu),
+				format_var(avg_temperature, avg_temperature_eu)
+			];
+			for(i in cols) {
+				let col = tag_text("td", cols[i]);
+				row.append(col);
+			}
+			table.append(row);
+		});
+	}
+	return table;
+}
+
+function make_relatory_indexes(from, to) {
+	let hour_in_ms = 60 * 60 * 1e3;
+	let step = hour_in_ms;
+	let indexes = [];
+	let min = from;
+	let max = min + step;
+	while(max < to; (min = max; max += step)) {
+		indexes.push(min);
+	}
+	return indexes;
+}
+
+function get_hist_tags(area_code, station_code) {
+	let sample = {
+		raw_volume: "ERPM001-FQ064-FQIA-1",
+		std_volume: "ERPM001-FQ064-FQI-1",
+		avg_pressure: "ERPM001-FQ064-PI-1",
+		avg_temperature: "ERPM001-FQ064-TI-1"
+	};
+	return sample;
 }
 
 function validate_filter(e) {
@@ -433,81 +526,7 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
-function create_hourly_relatory_table(xid) {
-	let data;
-	get_data: {
-		//	1. Generate tags
-		//	2. Get time range filter settings
-		//	3. Get tag values for each step on time range
-		let fakedata = {
-			"00": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"01": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"02": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"03": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			}
-		}
-		data = fakedata;
-	}
-	return create_relatory_table(data, "Hora");
-}
-
-function create_daily_relatory_table(xid) {
-	let data;
-	get_data: {
-		//	1. Generate tags
-		//	2. Get time range filter settings
-		//	3. Get tag values for each step on time range
-		let fakedata = {
-			"00": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"01": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"02": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			},
-			"03": {
-				raw_volume: "15",
-				std_volume: "17",
-				avg_pressure: "22",
-				avg_temperature: "30"
-			}
-		}
-		data = fakedata;
-	}
-	return create_relatory_table(data, "Dia");
-}
-
-function create_relatory_table(data, id_col, linear = true) {
+function create_relatory_view() {
 	let root = document.createElement("div");
 	generate_filter: {
 		let filter = document.createElement("div");
@@ -553,44 +572,12 @@ function create_relatory_table(data, id_col, linear = true) {
 		filter.append(form);
 		root.append(filter);
 	}
-	generate_relatory: {
-		raw_volume_eu = linear ? "m³" : "kPa";
-		std_volume_eu = "m³";
-		avg_pressure_eu = "kgf/cm²";
-		avg_temperature_eu = "ºC";
-		let relatory = document.createElement("div");
-		let table = document.createElement("table");
-		header: {
-			let row = document.createElement("tr");
-			let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-			for(header in headers) {
-				let col = tag_text("th", headers[header]);
-				row.append(col);
-			}
-			table.append(row);
-		}
-		for(time in data) {
-			let frame = data[time];
-			let row = document.createElement("tr");
-			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
-			let cols = [
-				time,
-				format_var(raw_volume, raw_volume_eu),
-				format_var(std_volume, std_volume_eu),
-				format_var(avg_pressure, avg_pressure_eu),
-				format_var(avg_temperature, avg_temperature_eu)
-			];
-			for(i in cols) {
-				let col = tag_text("td", cols[i]);
-				row.append(col);
-			}
-			table.append(row);
-		}
-		relatory.append(table);
-		root.append(relatory);
-	}
+	let relatory_table = document.createElement("div");
+	relatory_table.id = "relatory-table";
+	root.append(relatory_table);
 	return root;
 }
+
 
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
@@ -765,8 +752,8 @@ async function main() {
 			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
 			let l3 = current_view.level == "l2" || current_view.level == "l3" ? create_inline_menu(current_view.process.children, "l3") : document.createElement("div");
 			let summary = current_view.level == "l2" ? create_status_table(current_view.process.children) : document.createElement("div");
-			let relatory =	current_view.xid == "l1-hourly" ? create_hourly_relatory_table(current_view.xid) :
-					current_view.xid == "l1-daily" ? create_daily_relatory_table(current_view.xid) :
+			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(current_view.xid) :
+					current_view.xid == "l1-daily" ? create_relatory_view(current_view.xid) :
 					null;
 
 			l1.id = "header-l1";
