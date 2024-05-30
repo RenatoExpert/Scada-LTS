@@ -201,7 +201,7 @@ function normatize_relatory_column(json) {
 function render_relatory(obj, id_col) {
 	let child_dom = generate_relatory_dom(obj, id_col);
 	let parent_dom = document.getElementById('relatory-table');
-	parent_dom.innerHTML = child_dom;
+	parent_dom.replaceChildren([child_dom]);
 }
 
 function generate_relatory_dom(obj, id_col, linear = true) {
