@@ -230,7 +230,7 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 		table.append(row);
 	}
 	body: {
-		Object.getOwnPropertyNames(table).forEach(time => {
+		Object.getOwnPropertyNames(obj).forEach(time => {
 			let frame = obj[time];
 			let row = document.createElement("tr");
 			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
