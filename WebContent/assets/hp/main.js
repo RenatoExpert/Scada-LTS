@@ -194,7 +194,7 @@ function normatize_relatory_column(json) {
 		let full_index = `${date_index} ${hour_index}`;
 		object[full_index] = avg;
 	}
-	console.table(formated_table);
+	console.table(object);
 	prepare_relatory_element(object);
 }
 
