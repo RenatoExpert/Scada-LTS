@@ -142,7 +142,7 @@ function relatory (area_code, station_code, start_ts, end_ts) {
 	let indexes = make_relatory_indexes;
 	Object.getOwnPropertyNames(tags).forEach(tag => {
 		let promise = new Promise((resolve, reject) => {
-			fetch_hist(tags[tag]).then(json => {
+			load_relatory(tags[tag], start_ts, end_ts).then(json => {
 				let table = normatize_relatory_column(json, key);
 				resolve({ key, table });
 			});
