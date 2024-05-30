@@ -195,7 +195,7 @@ function normatize_relatory_column(json) {
 		object[full_index] = avg;
 	}
 	console.table(object);
-	prepare_relatory_element(object);
+	return object;
 }
 
 function render_relatory(obj) {
