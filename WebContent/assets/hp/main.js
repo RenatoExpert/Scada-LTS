@@ -248,7 +248,8 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 			table.append(row);
 		});
 	}
-	return table;
+	relatory.append(table);
+	return relatory;
 }
 
 function make_relatory_indexes(from, to) {
