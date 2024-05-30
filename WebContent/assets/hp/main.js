@@ -159,7 +159,7 @@ function relatory (area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
 				table[index][key] = result.table[index];
 			});
 		});
-		generate_relatory_dom(table);
+		console.log(table);
 		render_relatory(table, id_col);
 	});
 }
