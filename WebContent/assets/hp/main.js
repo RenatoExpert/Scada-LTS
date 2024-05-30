@@ -136,7 +136,7 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
-function relatory (area_code, station_code, start_ts, end_ts) {
+function relatory (area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
 	let indexes = make_relatory_indexes();
@@ -160,7 +160,7 @@ function relatory (area_code, station_code, start_ts, end_ts) {
 			});
 		});
 		generate_relatory_dom(table);
-		render_relatory(table);
+		render_relatory(table, id_col);
 	});
 }
 
@@ -198,13 +198,13 @@ function normatize_relatory_column(json) {
 	return object;
 }
 
-function render_relatory(obj) {
-	let child_dom = generate_relatory_dom(obj);
+function render_relatory(obj, id_col) {
+	let child_dom = generate_relatory_dom(obj, id_col);
 	let parent_dom = document.getElementById('relatory-table');
 	parent_dom.innerHTML = child_dom;
 }
 
-function generate_relatory_dom(obj, linear = true) {
+function generate_relatory_dom(obj, id_col, linear = true) {
 	let relatory = document.createElement("div");
 	let table = document.createElement("table");
 	header: {
