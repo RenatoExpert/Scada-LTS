@@ -204,7 +204,7 @@ function render_relatory(obj) {
 	parent_dom.innerHTML = child_dom;
 }
 
-function generate_relatory_dom(obj) {
+function generate_relatory_dom(obj, linear = true) {
 	let relatory = document.createElement("div");
 	let table = document.createElement("table");
 	header: {
