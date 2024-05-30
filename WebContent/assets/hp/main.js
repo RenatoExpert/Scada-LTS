@@ -139,7 +139,7 @@ function sum_datetime(/**/) {
 function relatory (area_code, station_code, start_ts, end_ts) {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
-	let indexes = make_relatory_indexes;
+	let indexes = make_relatory_indexes();
 	Object.getOwnPropertyNames(tags).forEach(key => {
 		let tag = tags[key];
 		let promise = new Promise((resolve, reject) => {
