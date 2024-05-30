@@ -136,7 +136,34 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
-function prepare_relatory_tag(json) {
+function relatory (area_code, station_code, start_ts, end_ts) {
+	let tags = get_hist_tags(area_code, station_code);
+	let promises = [];
+	let indexes = make_relatory_indexes;
+	Object.getOwnPropertyNames(tags).forEach(tag => {
+		let promise = new Promise((resolve, reject) => {
+			fetch_hist(tags[tag]).then(json => {
+				let table = normatize_relatory_column(json, key);
+				resolve({ key, table });
+			});
+		})
+		promises.push(promise);
+	});
+	Promise.all(promises).then(results => {
+		let table = {};
+		indexes.forEach(index => {
+			table[index] = {};
+			results.forEach(result => {
+				let key = result.key;
+				table[index][key] = result.table[index];
+			});
+		});
+		generate_relatory_dom(table);
+		render_relatory(table);
+	});
+}
+
+function normatize_relatory_column(json) {
 	let values = json.values;
 	let from = json.fromTs;
 	let to = json.toTs;
@@ -168,33 +195,6 @@ function prepare_relatory_tag(json) {
 	}
 	console.table(formated_table);
 	prepare_relatory_element(object);
-}
-
-function relatory (area_code, station_code) {
-	let tags = get_hist_tags(area_code, station_code);
-	let promises = [];
-	let indexes = make_relatory_indexes;
-	Object.getOwnPropertyNames(tags).forEach(tag => {
-		let promise = new Promise((resolve, reject) => {
-			fetch_hist(tags[tag]).then(json => {
-				let table = normatize(json, key);
-				resolve({ key, table });
-			});
-		})
-		promises.push(promise);
-	});
-	Promise.all(promises).then(results => {
-		let table = {};
-		indexes.forEach(index => {
-			table[index] = {};
-			results.forEach(result => {
-				let key = result.key;
-				table[index][key] = result.table[index];
-			});
-		});
-		generate_relatory_dom(table);
-		render_relatory(table);
-	});
 }
 
 function render_relatory(obj) {
@@ -272,7 +272,7 @@ function validate_filter(e) {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
 		let xid = "ERPM001-FQ028-PI-1";
-		load_relatory(xid, start_ts, end_ts).then(render_relatory_table);
+		relatory('001', '064', start_ts, end_ts);
 		isValid = true;
 	} catch(e) {
 		isValid = false;
