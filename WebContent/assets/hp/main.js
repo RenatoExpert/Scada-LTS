@@ -549,6 +549,12 @@ function create_relatory_view() {
 		station: {
 			let area = document.createElement("select");
 			area.id = "select-area";
+			loaded.tree.root.children.forEach(child => {
+				let option = document.createElement("option");
+				option.value = child.code;
+				option.innerText = child.label;
+				area.append(option);
+			});
 			form.append(area);
 			let station = document.createElement("select");
 			area.id = "select-station";
