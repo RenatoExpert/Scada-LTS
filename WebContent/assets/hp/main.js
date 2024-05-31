@@ -546,6 +546,14 @@ function create_relatory_view() {
 		let form = document.createElement("form");
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
+		station: {
+			let area = document.createElement("select");
+			area.id = "select-area";
+			form.append(area);
+			let station = document.createElement("select");
+			area.id = "select-station";
+			form.append(station);
+		}
 		start: {
 			let date = document.createElement("input");
 			date.id = "start-date";
