@@ -471,13 +471,24 @@ template_fields = {
 //	Library Utils
 
 function get_current_view() {
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	let xid = urlParams.get('xid') || "l0-banner";
+	let view = get_view_info(xid);
+	return view;
+}
+
+function get_reference_info() {
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	let xid = urlParams.get('reference') || "l0-banner";
+	let view = get_view_info(xid);
+	return view;
+}
+
+function get_view_info(xid) {
 	let view = {};
-	get_xid: {
-		let queryString = window.location.search;
-		let urlParams = new URLSearchParams(queryString);
-		let xid = urlParams.get('xid') || "l0-banner";
-		view.xid = xid;
-	}
+	view.xid = xid;
 	split: {
 		let split = view.xid.split("-");
 		view.level = split[0];
@@ -553,6 +564,7 @@ function create_relatory_view() {
 				let option = document.createElement("option");
 				option.value = child.code;
 				option.innerText = child.label;
+				option.selected = child.code == generated.reference.process.code ? 'selected' : '';
 				area.append(option);
 			});
 			form.append(area);
@@ -708,6 +720,7 @@ async function main() {
 			return div;
 		})();
 		current_view = get_current_view();
+		reference = get_reference_info();
 		if(current_view.level == 'l0') {
 			generated = { current_view };
 			// show banner
@@ -788,7 +801,7 @@ async function main() {
 			l3.id = "header-l3";
 			summary.id = "summary";
 
-			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory };
+			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory, reference };
 		}
 	}
 
