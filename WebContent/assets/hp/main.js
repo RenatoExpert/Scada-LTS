@@ -283,11 +283,18 @@ function validate_filter(e) {
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
-		let xid = "ERPM001-FQ028-PI-1";
-		relatory('001', '064', start_ts, end_ts);
-		isValid = true;
+		let area = document.getElementById('select-area').value;
+		let station = document.getElementById('select-station').value;
+		if(area && station) {
+			relatory(area, station, start_ts, end_ts);
+			isValid = true;
+		} else {
+			console.error({ area, station });
+			throw new Error("Error on validade_filter");
+		}
 	} catch(e) {
 		isValid = false;
+		console.error(e);
 	} finally {
 		console.log({ start_ts, end_ts });
 		return isValid;
