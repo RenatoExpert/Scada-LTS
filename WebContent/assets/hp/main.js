@@ -558,12 +558,23 @@ function get_area_by_intcode(intcode) {
 		}
 	});
 	if(area_obj) {
-		console.log(`Are found for code ${intcode}`);
-		console.log({ area_obj, intcode });
+		console.debug(`Are found for code ${intcode}`);
+		console.debug({ area_obj, intcode });
 		return area_obj;
 	} else {
 		throw new Error(`Area not found for code ${intcode}`);
 	}
+}
+
+function update_station_options(area, station_select) {
+	station_select.replaceChildren();
+	Object.values(area.children).forEach(child => {
+		let option = document.createElement("option");
+		option.value = child.code;
+		option.innerText = child.label;
+		option.selected = child.code == generated.reference.code ? 'selected' : '';
+		station_select.append(option);
+	});
 }
 
 function on_change_area(e) {
@@ -574,14 +585,7 @@ function on_change_area(e) {
 		area = get_area_by_intcode(area_code);
 	}
 	let station_select = document.getElementById('select-station');
-	station_select.replaceChildren();
-	Object.values(area.children).forEach(child => {
-		let option = document.createElement("option");
-		option.value = child.code;
-		option.innerText = child.label;
-		option.selected = child.code == generated.reference.code ? 'selected' : '';
-		station_select.append(option);
-	});
+	update_station_options(area, station_select);
 }
 
 function create_relatory_view(reference) {
@@ -605,6 +609,7 @@ function create_relatory_view(reference) {
 			form.append(area);
 			let station = document.createElement("select");
 			station.id = "select-station";
+			update_station_options(get_area_by_intcode(area.value), station);
 			form.append(station);
 		}
 		start: {
