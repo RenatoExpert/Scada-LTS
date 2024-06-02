@@ -641,7 +641,9 @@ function create_relatory_view(reference, step) {
 			let date = document.createElement("input");
 			date.id = "start-date";
 			date.type = "date";
-			date.valueAsNumber = new Date() - (1e3 * 60 * 60 * 24);
+			let days_delta = step == 'day' ? 3 : 1;
+			let ms_in_day = 1e3 * 60 * 60 * 24;
+			date.valueAsNumber = new Date() - (ms_in_day * days_delta);
 			date.required = true;
 			form.append(date);
 			let time = document.createElement("input");
