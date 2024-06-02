@@ -557,7 +557,7 @@ function create_relatory_view(reference) {
 		let form = document.createElement("form");
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
-		station: {
+		selectors: {
 			let area = document.createElement("select");
 			area.id = "select-area";
 			Object.values(loaded.tree.root.children).forEach(child => {
@@ -569,7 +569,7 @@ function create_relatory_view(reference) {
 			});
 			form.append(area);
 			let station = document.createElement("select");
-			area.id = "select-station";
+			station.id = "select-station";
 			form.append(station);
 		}
 		start: {
