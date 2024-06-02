@@ -550,7 +550,7 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
-function create_relatory_view() {
+function create_relatory_view(reference) {
 	let root = document.createElement("div");
 	generate_filter: {
 		let filter = document.createElement("div");
@@ -564,7 +564,7 @@ function create_relatory_view() {
 				let option = document.createElement("option");
 				option.value = child.code;
 				option.innerText = child.label;
-				option.selected = child.code == generated.reference.process.code ? 'selected' : '';
+				option.selected = child.code == reference.process.code ? 'selected' : '';
 				area.append(option);
 			});
 			form.append(area);
@@ -792,8 +792,8 @@ async function main() {
 			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
 			let l3 = current_view.level == "l2" || current_view.level == "l3" ? create_inline_menu(current_view.process.children, "l3") : document.createElement("div");
 			let summary = current_view.level == "l2" ? create_status_table(current_view.process.children) : document.createElement("div");
-			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(current_view.xid) :
-					current_view.xid == "l1-daily" ? create_relatory_view(current_view.xid) :
+			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference) :
+					current_view.xid == "l1-daily" ? create_relatory_view(reference) :
 					null;
 
 			l1.id = "header-l1";
