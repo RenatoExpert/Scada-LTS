@@ -587,6 +587,19 @@ function update_station_options(area, station_select, reference) {
 	});
 }
 
+function on_change_timestep(e) {
+	let timestep = document.getElementById('select-timestep');
+	let start = document.getElementById('start-time');
+	let end = document.getElementById('end-time');
+	let lock = timestep.value == 'day';
+	update_time_lock(start, end, lock);
+}
+
+function update_time_lock(start, end, lock) {
+	start.disabled = lock;
+	end.disabled = lock;
+}
+
 function on_change_area(e) {
 	let area;
 	get_area: {
@@ -637,6 +650,7 @@ function create_relatory_view(reference, step) {
 			time.type = "time";
 			time.valueAsNumber = 0;
 			time.required = true;
+			time.disabled = step == 'day';
 			form.append(time);
 		}
 		end: {
@@ -652,10 +666,12 @@ function create_relatory_view(reference, step) {
 			time.type = "time";
 			time.valueAsNumber = 0;
 			time.required = true;
+			time.disabled = step == 'day';
 			form.append(time);
 		}
 		step_type: {
 			let timestep = document.createElement("select");
+			timestep.addEventListener("change", on_change_timestep);
 			timestep.id = "select-timestep";
 			let hourly = document.createElement("option");
 			hourly.value = "hour";
