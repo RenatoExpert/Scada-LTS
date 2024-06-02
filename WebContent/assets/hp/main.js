@@ -550,6 +550,33 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
+function get_area_by_intcode(intcode) {
+	Object.values(loaded.tree.root.children).forEach(area => {
+		if(area.code == intcode) {
+			return area.code;
+		}
+	});
+	throw new Error(`Area not found for code ${intcode}`);
+}
+
+function on_change_area(e) {
+	let area;
+	get_area: {
+		let area_selector = document.getElementById('select-area');
+		let area_code = area_selector.value;
+		area = get_area_by_intcode(area_code);
+	}
+	let station_select = document.getElementById('select-station');
+	station_select.replaceChildren();
+	Object.values(area.children).forEach(child => {
+		let option = document.createElement("option");
+		option.value = child.code;
+		option.innerText = child.label;
+		option.selected = child.code == generated.reference.code ? 'selected' : '';
+		station_select.append(option);
+	});
+}
+
 function create_relatory_view(reference) {
 	let root = document.createElement("div");
 	generate_filter: {
@@ -560,6 +587,7 @@ function create_relatory_view(reference) {
 		selectors: {
 			let area = document.createElement("select");
 			area.id = "select-area";
+			area.addEventListener("change", on_change_area);
 			Object.values(loaded.tree.root.children).forEach(child => {
 				let option = document.createElement("option");
 				option.value = child.code;
