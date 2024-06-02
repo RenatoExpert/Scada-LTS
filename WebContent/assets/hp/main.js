@@ -594,6 +594,7 @@ function create_relatory_view(reference) {
 	generate_filter: {
 		let filter = document.createElement("div");
 		let form = document.createElement("form");
+		form.id = "relatory-form";
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
 		selectors: {
