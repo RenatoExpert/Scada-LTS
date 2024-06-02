@@ -279,6 +279,7 @@ function get_hist_tags(area_code, station_code) {
 function validate_filter(e) {
 	let start_ts, end_ts;
 	let isValid;
+	console.warn({ e });
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
 		end_ts = sum_datetime("end-date", "end-time");
