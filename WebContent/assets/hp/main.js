@@ -137,7 +137,7 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
-function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Dia') {
+function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora') {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
 	let indexes = make_relatory_indexes(start_ts, end_ts);
@@ -254,7 +254,9 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 
 function make_relatory_indexes(from, to) {
 	let hour_in_ms = 60 * 60 * 1e3;
-	let step = hour_in_ms;
+	let day_in_ms = hour_in_ms * 24;
+	let formstep = document.getElementById("timestep");
+	let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
 	let indexes = [];
 	let min = from;
 	let max = min + step;
