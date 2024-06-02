@@ -255,7 +255,7 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 function make_relatory_indexes(from, to) {
 	let hour_in_ms = 60 * 60 * 1e3;
 	let day_in_ms = hour_in_ms * 24;
-	let formstep = document.getElementById("timestep");
+	let formstep = document.getElementById("select-timestep");
 	let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
 	let indexes = [];
 	let min = from;
