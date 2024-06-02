@@ -566,13 +566,13 @@ function get_area_by_intcode(intcode) {
 	}
 }
 
-function update_station_options(area, station_select) {
+function update_station_options(area, station_select, reference) {
 	station_select.replaceChildren();
 	Object.values(area.children).forEach(child => {
 		let option = document.createElement("option");
 		option.value = child.code;
 		option.innerText = child.label;
-		option.selected = child.code == generated.reference.code ? 'selected' : '';
+		option.selected = child.code == reference.code ? 'selected' : '';
 		station_select.append(option);
 	});
 }
@@ -585,7 +585,8 @@ function on_change_area(e) {
 		area = get_area_by_intcode(area_code);
 	}
 	let station_select = document.getElementById('select-station');
-	update_station_options(area, station_select);
+	let reference = generated.reference;
+	update_station_options(area, station_select, reference);
 }
 
 function create_relatory_view(reference) {
@@ -609,7 +610,7 @@ function create_relatory_view(reference) {
 			form.append(area);
 			let station = document.createElement("select");
 			station.id = "select-station";
-			update_station_options(get_area_by_intcode(area.value), station);
+			update_station_options(get_area_by_intcode(area.value), station, reference);
 			form.append(station);
 		}
 		start: {
