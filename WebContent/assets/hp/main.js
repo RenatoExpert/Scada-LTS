@@ -268,10 +268,10 @@ function make_relatory_indexes(from, to) {
 
 function get_hist_tags(area_code, station_code) {
 	let sample = {
-		raw_volume: "ERPM001-FQ064-FQIA-1",
-		std_volume: "ERPM001-FQ064-FQI-1",
-		avg_pressure: "ERPM001-FQ064-PI-1",
-		avg_temperature: "ERPM001-FQ064-TI-1"
+		raw_volume: `ERPM${area_code}-FQ${station_code}-FQIA-1`,
+		std_volume: `ERPM${area_code}-FQ${station_code}-FQI-1`,
+		avg_pressure: `ERPM${area_code}-FQ${station_code}-PI-1`,
+		avg_temperature: `ERPM${area_code}-FQ${station_code}-TI-1`
 	};
 	return sample;
 }
