@@ -551,12 +551,19 @@ function create_inline_menu(table, level) {
 }
 
 function get_area_by_intcode(intcode) {
+	let area_obj;
 	Object.values(loaded.tree.root.children).forEach(area => {
 		if(area.code == intcode) {
-			return area.code;
+			area_obj = area;
 		}
 	});
-	throw new Error(`Area not found for code ${intcode}`);
+	if(area_obj) {
+		console.log(`Are found for code ${intcode}`);
+		console.log({ area_obj, intcode });
+		return area_obj;
+	} else {
+		throw new Error(`Area not found for code ${intcode}`);
+	}
 }
 
 function on_change_area(e) {
