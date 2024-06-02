@@ -597,7 +597,7 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
-function create_relatory_view(reference) {
+function create_relatory_view(reference, step) {
 	let root = document.createElement("div");
 	generate_filter: {
 		let filter = document.createElement("div");
@@ -651,6 +651,21 @@ function create_relatory_view(reference) {
 			time.valueAsNumber = 0;
 			time.required = true;
 			form.append(time);
+		}
+		step_type: {
+			let timestep = document.createElement("select");
+			timestep.id = "select-timestep";
+			let hourly = document.createElement("option");
+			hourly.value = "hour";
+			hourly.innerText = "Horário";
+			hourly.selected = step == "hour" ? 'selected' : '';
+			timestep.append(hourly);
+			let daily = document.createElement("option");
+			daily.value = "day";
+			daily.innerText = "Diário";
+			daily.selected = step == "day" ? 'selected' : '';
+			timestep.append(daily);
+			form.append(timestep);
 		}
 		submit: {
 			let button = document.createElement("input");
@@ -842,8 +857,8 @@ async function main() {
 			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
 			let l3 = current_view.level == "l2" || current_view.level == "l3" ? create_inline_menu(current_view.process.children, "l3") : document.createElement("div");
 			let summary = current_view.level == "l2" ? create_status_table(current_view.process.children) : document.createElement("div");
-			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference) :
-					current_view.xid == "l1-daily" ? create_relatory_view(reference) :
+			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
+					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
 
 			l1.id = "header-l1";
