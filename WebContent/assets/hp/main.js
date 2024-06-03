@@ -14,7 +14,7 @@ function tag_text(tag, text) {
 }
 
 function format_var(value, eu) {
-	return `<b>${value}</b><small>${eu}</small>`;
+	return `<b>${value.toFixed(2)}</b><small>${eu}</small>`;
 }
 
 function get_sublocation() {
