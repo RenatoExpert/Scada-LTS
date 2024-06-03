@@ -698,20 +698,19 @@ function create_relatory_view(reference, step) {
 			form.append(time);
 		}
 		step_type: {
-			let timestep = document.createElement("select");
-			timestep.addEventListener("change", on_change_timestep);
-			timestep.id = "select-timestep";
-			timestep.name = "select-timestep";
-			let hourly = document.createElement("option");
-			hourly.value = "hour";
-			hourly.innerText = "Horário";
-			hourly.selected = step == "hour" ? 'selected' : '';
-			timestep.append(hourly);
-			let daily = document.createElement("option");
-			daily.value = "day";
-			daily.innerText = "Diário";
-			daily.selected = step == "day" ? 'selected' : '';
-			timestep.append(daily);
+			let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
+				element.addEventListener("change", on_change_timestep);
+				let hourly = document.createElement("option");
+				hourly.value = "hour";
+				hourly.innerText = "Horário";
+				hourly.selected = step == "hour" ? 'selected' : '';
+				element.append(hourly);
+				let daily = document.createElement("option");
+				daily.value = "day";
+				daily.innerText = "Diário";
+				daily.selected = step == "day" ? 'selected' : '';
+				element.append(daily);
+			})
 			form.append(timestep);
 		}
 		submit: {
