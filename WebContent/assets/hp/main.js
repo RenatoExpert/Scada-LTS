@@ -615,6 +615,9 @@ function on_change_area(e) {
 function make_field_div(dom, id, title, callback) {
 	let div = document.createElement("div");
 	div.style.cssFloat = "left";
+	div.style.margin = "5px";
+	div.style.padding = "3px":
+	div.style.border = "1px";
 	label: {
 		let label = document.createElement("label");
 		label.innerText = title;
@@ -643,6 +646,7 @@ function create_relatory_view(reference, step) {
 		form.id = "relatory-form";
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
+		form.style.padding = "3px 15px";
 		selectors: {
 			let area_value;
 			let area = make_selector_div('select-area', "Área", element => {
@@ -717,6 +721,9 @@ function create_relatory_view(reference, step) {
 			let submit = make_field_div("input", "form-submit", "*", element => {
 				element.type = "submit";
 				element.value = "Gerar";
+				element.style.backgroundColor = "lightgray";
+				element.style.borderRadius = "5px";
+				element.style.width = "50px";
 			});
 			form.append(submit);
 		}
