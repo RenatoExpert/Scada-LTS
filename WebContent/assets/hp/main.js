@@ -618,6 +618,7 @@ function make_field_div(dom, id, title, callback) {
 	div.style.margin = "5px";
 	div.style.padding = "3px":
 	div.style.border = "1px";
+	div.style.minWidth = "100px";
 	label: {
 		let label = document.createElement("label");
 		label.innerText = title;
