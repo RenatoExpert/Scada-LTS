@@ -714,7 +714,7 @@ function create_relatory_view(reference, step) {
 			form.append(timestep);
 		}
 		submit: {
-			let submit = make_field_div("input", "form-submit", "", element => {
+			let submit = make_field_div("input", "form-submit", "*", element => {
 				element.type = "submit";
 				element.value = "Gerar";
 			});
