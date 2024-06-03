@@ -614,7 +614,7 @@ function on_change_area(e) {
 
 function make_selector_div(id, title, callback) {
 	let div = document.createElement("div");
-	div.style.display = "inline";
+	div.style.cssFloat = "left";
 	label: {
 		let label = document.createElement("label");
 		label.innerText = title;
