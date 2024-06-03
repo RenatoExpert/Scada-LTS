@@ -623,6 +623,7 @@ function create_relatory_view(reference, step) {
 		selectors: {
 			let area = document.createElement("select");
 			area.id = "select-area";
+			area.name = "select-area";
 			area.addEventListener("change", on_change_area);
 			Object.values(loaded.tree.root.children).forEach(child => {
 				let option = document.createElement("option");
@@ -634,12 +635,14 @@ function create_relatory_view(reference, step) {
 			form.append(area);
 			let station = document.createElement("select");
 			station.id = "select-station";
+			station.name = "select-station";
 			update_station_options(get_area_by_intcode(area.value), station, reference);
 			form.append(station);
 		}
 		start: {
 			let date = document.createElement("input");
 			date.id = "start-date";
+			date.name = "start-date";
 			date.type = "date";
 			let days_delta = step == 'day' ? 3 : 1;
 			let ms_in_day = 1e3 * 60 * 60 * 24;
@@ -649,6 +652,7 @@ function create_relatory_view(reference, step) {
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "start-time";
+			time.name = "start-time";
 			time.type = "time";
 			time.valueAsNumber = 0;
 			time.required = true;
@@ -658,6 +662,7 @@ function create_relatory_view(reference, step) {
 		end: {
 			let date = document.createElement("input");
 			date.id = "end-date";
+			date.name = "end-date";
 			date.type = "date";
 			date.valueAsDate = new Date();
 			date.required = true;
@@ -665,6 +670,7 @@ function create_relatory_view(reference, step) {
 			let time = document.createElement("input");
 			time.addEventListener("change", clear_minutes);
 			time.id = "end-time";
+			time.name = "end-time";
 			time.type = "time";
 			time.valueAsNumber = 0;
 			time.required = true;
@@ -675,6 +681,7 @@ function create_relatory_view(reference, step) {
 			let timestep = document.createElement("select");
 			timestep.addEventListener("change", on_change_timestep);
 			timestep.id = "select-timestep";
+			timestep.name = "select-timestep";
 			let hourly = document.createElement("option");
 			hourly.value = "hour";
 			hourly.innerText = "Horário";
