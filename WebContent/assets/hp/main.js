@@ -714,10 +714,11 @@ function create_relatory_view(reference, step) {
 			form.append(timestep);
 		}
 		submit: {
-			let button = document.createElement("input");
-			button.type = "submit";
-			button.value = "Gerar";
-			form.append(button);
+			let submit = make_field_div("input", "form-submit", "", element => {
+				element.type = "submit";
+				element.value = "Gerar";
+			});
+			form.append(submit);
 		}
 		filter.append(form);
 		root.append(filter);
