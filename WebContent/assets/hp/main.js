@@ -612,10 +612,13 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
-function make_selector_div(id, label, callback) {
+function make_selector_div(id, title, callback) {
 	let div = document.createElement("div");
+	div.style.display = "inline";
 	label: {
 		let label = document.createElement("label");
+		label.innerText = title;
+		label.style.display = "block";
 		div.append(label);
 	}
 	input: {
