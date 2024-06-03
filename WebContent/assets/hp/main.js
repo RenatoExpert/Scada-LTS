@@ -612,6 +612,22 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
+function make_selector_div(id, label, callback) {
+	let div = document.createElement("div");
+	label: {
+		let label = document.createElement("label");
+		div.append(label);
+	}
+	input: {
+		let select = document.createElement("select");
+		select.id = "select-area";
+		select.name = "select-area";
+		callback(select);
+		div.append(select);
+	}
+	return div;
+}
+
 function create_relatory_view(reference, step) {
 	let root = document.createElement("div");
 	generate_filter: {
@@ -621,22 +637,23 @@ function create_relatory_view(reference, step) {
 		form.addEventListener("submit", validate_filter);
 		form.action = "javascript:;";
 		selectors: {
-			let area = document.createElement("select");
-			area.id = "select-area";
-			area.name = "select-area";
-			area.addEventListener("change", on_change_area);
-			Object.values(loaded.tree.root.children).forEach(child => {
-				let option = document.createElement("option");
-				option.value = child.code;
-				option.innerText = child.label;
-				option.selected = child.code == reference.process.code ? 'selected' : '';
-				area.append(option);
+			let area_value;
+			let area = make_selector_div('select-area', "Área", element => {
+				element.addEventListener("change", on_change_area);
+				Object.values(loaded.tree.root.children).forEach(child => {
+					let option = document.createElement("option");
+					option.value = child.code;
+					option.innerText = child.label;
+					option.selected = child.code == reference.process.code ? 'selected' : '';
+					element.append(option);
+				});
+				area_value = element.value;
 			});
 			form.append(area);
-			let station = document.createElement("select");
-			station.id = "select-station";
-			station.name = "select-station";
-			update_station_options(get_area_by_intcode(area.value), station, reference);
+			let area_int_code = get_area_by_intcode(area_value);
+			let station = make_selector_div('select-station', "Estação", element => {
+				update_station_options(area_int_code, element, reference)
+			});
 			form.append(station);
 		}
 		start: {
