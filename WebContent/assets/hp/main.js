@@ -612,7 +612,7 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
-function make_selector_div(id, title, callback) {
+function make_field_div(dom, id, title, callback) {
 	let div = document.createElement("div");
 	div.style.cssFloat = "left";
 	label: {
@@ -622,13 +622,17 @@ function make_selector_div(id, title, callback) {
 		div.append(label);
 	}
 	input: {
-		let select = document.createElement("select");
-		select.id = "select-area";
-		select.name = "select-area";
-		callback(select);
-		div.append(select);
+		let input = document.createElement(dom);
+		input.id = "select-area";
+		input.name = "select-area";
+		callback(input);
+		div.append(input);
 	}
 	return div;
+}
+
+function make_selector_div(id, title, callback) {
+	return make_field_div("select", id, title, callback);
 }
 
 function create_relatory_view(reference, step) {
@@ -660,41 +664,37 @@ function create_relatory_view(reference, step) {
 			form.append(station);
 		}
 		start: {
-			let date = document.createElement("input");
-			date.id = "start-date";
-			date.name = "start-date";
-			date.type = "date";
-			let days_delta = step == 'day' ? 3 : 1;
-			let ms_in_day = 1e3 * 60 * 60 * 24;
-			date.valueAsNumber = new Date() - (ms_in_day * days_delta);
-			date.required = true;
+			let date = make_field_div("input", "start-date", "Data Início", element => {
+				element.type = "date";
+				let days_delta = step == 'day' ? 3 : 1;
+				let ms_in_day = 1e3 * 60 * 60 * 24;
+				element.valueAsNumber = new Date() - (ms_in_day * days_delta);
+				element.required = true;
+			});
 			form.append(date);
-			let time = document.createElement("input");
-			time.addEventListener("change", clear_minutes);
-			time.id = "start-time";
-			time.name = "start-time";
-			time.type = "time";
-			time.valueAsNumber = 0;
-			time.required = true;
-			time.disabled = step == 'day';
+			let time = make_field_div("input", "start-time", "Hora Início", element => {
+				element.addEventListener("change", clear_minutes);
+				element.type = "time";
+				element.valueAsNumber = 0;
+				element.required = true;
+				element.disabled = step == 'day';
+			});
 			form.append(time);
 		}
 		end: {
-			let date = document.createElement("input");
-			date.id = "end-date";
-			date.name = "end-date";
-			date.type = "date";
-			date.valueAsDate = new Date();
-			date.required = true;
+			let date = make_field_div("input", "end-date", "Data Final", element => {
+				element.type = "date";
+				element.valueAsDate = new Date();
+				element.required = true;
+			});
 			form.append(date);
-			let time = document.createElement("input");
-			time.addEventListener("change", clear_minutes);
-			time.id = "end-time";
-			time.name = "end-time";
-			time.type = "time";
-			time.valueAsNumber = 0;
-			time.required = true;
-			time.disabled = step == 'day';
+			let time = make_field_div("input", "end-time", "Hora Início", element => {
+				element.addEventListener("change", clear_minutes);
+				element.type = "time";
+				element.valueAsNumber = 0;
+				element.required = true;
+				element.disabled = step == 'day';
+			});
 			form.append(time);
 		}
 		step_type: {
