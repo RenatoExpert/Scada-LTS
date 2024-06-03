@@ -627,8 +627,8 @@ function make_field_div(dom, id, title, callback) {
 	}
 	input: {
 		let input = document.createElement(dom);
-		input.id = "select-area";
-		input.name = "select-area";
+		input.id = id;
+		input.name = id;
 		callback(input);
 		div.append(input);
 	}
