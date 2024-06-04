@@ -215,6 +215,7 @@ function render_relatory(obj, id_col) {
 
 function generate_relatory_dom(obj, id_col, linear = true) {
 	let relatory = document.createElement("div");
+	relatory.style.padding = "3px 15px";
 	let table = document.createElement("table");
 	header: {
 		raw_volume_eu = linear ? "m³" : "kPa";
@@ -225,6 +226,7 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
 		for(header in headers) {
 			let col = tag_text("th", headers[header]);
+			col.style.padding = "2px 15px";
 			row.append(col);
 		}
 		table.append(row);
@@ -243,6 +245,8 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 			];
 			for(i in cols) {
 				let col = tag_text("td", cols[i]);
+				col.style.padding = "2px 15px";
+				col.style.textAlign = "right";
 				row.append(col);
 			}
 			table.append(row);
