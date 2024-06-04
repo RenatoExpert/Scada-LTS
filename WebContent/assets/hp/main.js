@@ -738,6 +738,8 @@ function create_relatory_view(reference, step) {
 	}
 	let relatory_table = document.createElement("div");
 	relatory_table.id = "relatory-table";
+	relatory_table.style.height = "550px";
+	relatory_table.style.overflowY = "scroll";
 	root.append(relatory_table);
 	return root;
 }
