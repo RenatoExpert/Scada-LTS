@@ -643,6 +643,7 @@ function create_relatory_view(reference, step) {
 	let root = document.createElement("div");
 	generate_filter: {
 		let filter = document.createElement("div");
+		filter.style.display = "grid";
 		let form = document.createElement("form");
 		form.id = "relatory-form";
 		form.addEventListener("submit", validate_filter);
