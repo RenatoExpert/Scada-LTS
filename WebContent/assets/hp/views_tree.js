@@ -8,6 +8,12 @@
 			},
 			"estatisticas": {
 				"label": "Estatisticas"
+			},
+			"hourly": {
+				"label": "Relatório Horário"
+			},
+			"daily": {
+				"label": "Relatório Diário"
 			}
 		},
 
