@@ -1,17 +1,35 @@
 services: 
     database:
-        container_name: mysql
+        extends:
+            file: compose-base.yml
+            service: database
+        container_name: mysql-prod
         ports:
             - "3306:3306"
         expose: ["3306"]
+
     scadalts:
-        container_name: scadalts
+        extends:
+            file: compose-base.yml
+            service: scadalts
+        container_name: scadalts-prod
+        links:
+            - database:database
+        depends_on:
+            opcuaserver:
+              condition: service_healthy
+            database:
+              condition: service_healthy
         ports: 
             - "8080:8080"
         expose: ["8080", "8000"]
+
     opcuaserver:
-        container_name: opcuaserver
+        extends:
+            file: compose-base.yml
+            service: opcuaserver
+        container_name: opcuaserver-prod
         ports:
-          - 4840:4840
+            - "4840:4840"
         expose: ["4840"]
 
