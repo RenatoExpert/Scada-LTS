@@ -13,6 +13,7 @@
 
 		"children": {
 			"alagoinhas": {
+				"code": "005",
 				"label": "Alagoinhas",
 				"children": {
 					"edalagoinhas": {
@@ -43,6 +44,7 @@
 			},
 
 			"camacari": {
+				"code": "008",
 				"label": "Camaçari",
 				"children": {
 					"imetame": {
@@ -88,7 +90,8 @@
 			},
 
 			"candeias": {
-					"label": "Candeias",
+				"code": "002",
+				"label": "Candeias",
 				"children": {
 					"etccandeias": {
 						"label": "ETC Candeias"
@@ -127,6 +130,7 @@
 			},
 
 			"catu": {
+				"code": "004",
 				"label": "Catu",
 				"children": {
 					"etccatu": {
@@ -142,6 +146,7 @@
 			},
 
 			"diasdavila": {
+				"code": "009",
 				"label": "Dias Davila",
 				"children": {
 					"incenor": {
@@ -158,6 +163,7 @@
 
 
 			"eunapolis": {
+				"code": "033",
 				"label": "Eunápolis",
 				"children": {
 					"veracel": {
@@ -167,6 +173,7 @@
 			},
 
 			"feiradesantana": {
+				"code": "010",
 				"label": "Feira de Santana",
 				"children": {
 					"erpbr324": {
@@ -254,7 +261,8 @@
 			},
 
 			"ilheus": {
-					"label": "Ilhéus",
+				"code": "029",
+				"label": "Ilhéus",
 				"children": {
 					"barrycallebautilheus": {
 						"label": "Barry Callebaut Ilhéus"
@@ -275,6 +283,7 @@
 			},
 
 			"itabuna": {
+				"code": "028",
 				"label": "Itabuna",
 				"children": {
 					"barrycallebautitabuna": {
@@ -296,6 +305,7 @@
 			},
 
 			"laurodefreitas": {
+				"code": "017",
 				"label": "Lauro de Freitas",
 				"children": {
 					"postodasmangueiras": {
@@ -311,6 +321,7 @@
 			},
 
 			"matadesaojoao": {
+				"code": "018",
 				"label": "Mata de São João",
 				"children": {
 					"etcmatadesaojoao1": {
@@ -329,6 +340,7 @@
 			},
 
 			"mucuri": {
+				"code": "030",
 				"label": "Mucuri",
 				"children": {
 					"etcmucuri": {
@@ -344,6 +356,7 @@
 			},
 
 			"polopetroquimico": {
+				"code": "001",
 				"label": "Pólo Petroquímico",
 				"children": {
 					"etccamacari1": {
@@ -371,6 +384,8 @@
 						"label": "AMBEV"
 					},
 					"basf": {
+						"code": "028",
+						"class": "rpm-double",
 						"label": "BASF"
 					},
 					"braskemunib1": {
@@ -440,6 +455,7 @@
 						"label": "Peroxy"
 					},
 					"postotrevo": {
+						"code": "064",
 						"class": "erpm-single",
 						"label": "Posto Trevo"
 					},
@@ -459,6 +475,7 @@
 			},
 
 			"salvador": {
+				"code": "007",
 				"label": "Salvador",
 				"children": {
 					"edstiep": {
@@ -636,6 +653,7 @@
 			},
 
 			"santoamaro": {
+				"code": "006",
 				"label": "Santo Amaro",
 				"children": {
 					"edsantoamaro": {
@@ -645,6 +663,7 @@
 			},
 
 			"simoesfilho": {
+				"code": "003",
 				"label": "Simões Filho",
 				"children": {
 					"etcmapele": {
