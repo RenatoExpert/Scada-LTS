@@ -7,8 +7,12 @@ COPY ./scadalts-ui /scadalts-ui
 RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 	npm run build
 
+FROM scratch as npm_package
+COPY --from=npm_build /scadalts-ui/dist /dist
+
+
 FROM alpine:20240329 as img_build
-RUN apk add --update --no-cache inkscape imagemagick
+RUN apk add --update --no-cache `#inkscape` imagemagick
 WORKDIR /img
 COPY art .
 #RUN inkscape --export-type="ico" -w 64 -h 64 favicon.svg
@@ -46,7 +50,7 @@ RUN mv /tmp/lib/* WebContent/WEB-INF/lib/
 RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
-COPY --from=npm_build /scadalts-ui/dist dist
+COPY --from=npm_package /dist dist
 RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/css						WebContent/resources/js-ui/app/css		&& \
 	mkdir -p WebContent/resources/js-ui/app/js								&& \
