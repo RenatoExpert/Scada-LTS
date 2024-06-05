@@ -5,6 +5,7 @@ import sys
 import time
 sys.path.insert(0, "..")
 from lib.station.Singlebranch import Singlebranch
+from lib.station.Doublebranch import Doublebranch
 
 if __name__ == "__main__":
     # setup our server
@@ -27,12 +28,17 @@ if __name__ == "__main__":
     super_connect = objects.add_folder(namespace, "SuperConnect")
     bahiagas = super_connect.add_folder(namespace, "BrahmaGet")
     stations = []
-    def add_station(region_code, station_code):
+    def add_station(region_code, station_code, station_type):
         code_tuple = (region_code, station_code)
-        station = Singlebranch(code_tuple, namespace, bahiagas)
+        station = None
+        match station_type:
+            case 'singlebranch':
+                station = Singlebranch(code_tuple, namespace, bahiagas)
+            case 'doublebranch':
+                station = Doublebranch(code_tuple, namespace, bahiagas)
         stations.append(station)
-    add_station('001', '064')
-    # starting!
+    add_station('001', '064', 'singlebranch')   #   Posto Trevo
+    add_station('057', '001', 'doublebranch')   #   Etc Camaçari 2
     server.start()
     try:
         count = 0
@@ -41,5 +47,4 @@ if __name__ == "__main__":
             [station.agitate() for station in stations]
     finally:
         server.stop()
-
 
