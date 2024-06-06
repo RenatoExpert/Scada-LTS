@@ -34,7 +34,7 @@ services:
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
         volumes:
-            - ./volumes/tomcat_log:/usr/local/tomcat/logs:rw
+            - ./volumes/tomcat:/usr/local/tomcat:rw
         deploy:
           resources:
             limits:
