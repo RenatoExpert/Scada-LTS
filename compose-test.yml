@@ -21,6 +21,8 @@ services:
               condition: service_healthy
             database:
               condition: service_healthy
+        volumes:
+            - ./volumes/test/tomcat:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:

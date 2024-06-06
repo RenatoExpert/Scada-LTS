@@ -33,8 +33,6 @@ services:
           target: war_deploy
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
-        volumes:
-            - ./volumes/tomcat:/usr/local/tomcat:rw
         deploy:
           resources:
             limits:

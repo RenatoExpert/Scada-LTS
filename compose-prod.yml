@@ -23,6 +23,8 @@ services:
         ports: 
             - "8080:8080"
         expose: ["8080", "8000"]
+        volumes:
+            - ./volumes/prod/tomcat:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:
