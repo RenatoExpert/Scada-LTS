@@ -6,6 +6,9 @@ services:
         container_name: mysql-test
         ports:
             - "3307:3306"
+        volumes:
+            - ./volumes/test/database/data:/var/lib/mysql:rw
+            - ./volumes/test/database/config:/etc/mysql:ro
 
     scadalts:
         extends:
@@ -22,7 +25,7 @@ services:
             database:
               condition: service_healthy
         volumes:
-            - ./volumes/test/tomcat:/usr/local/tomcat:rw
+            - ./volumes/test/webserver:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:

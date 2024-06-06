@@ -7,9 +7,6 @@ services:
             - MYSQL_USER=root
             - MYSQL_PASSWORD=root
             - MYSQL_DATABASE=scadalts
-        volumes:
-            - ./volumes/database/data:/var/lib/mysql:rw
-            - ./volumes/database/config:/etc/mysql:ro
         command: --log_bin_trust_function_creators=1
         deploy:
           resources:
