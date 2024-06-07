@@ -771,6 +771,8 @@ function create_graphics_view(reference) {
 	let start_ts = 0;
 	let end_ts = new Date().valueOf();
 	load_tag_history(tag, start_ts, end_ts).then(json => {
+		let labels = [];
+		let raw_data = [];
 		json.values.forEach(row => {
 			labels.push(row.ts);
 			raw_data.push({ x: row.ts, pi: row.value });
