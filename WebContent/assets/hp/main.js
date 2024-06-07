@@ -771,7 +771,12 @@ function create_graphics_view(reference) {
 	let start_ts = 0;
 	let end_ts = new Date().valueOf();
 	load_tag_history(tag, start_ts, end_ts).then(json => {
+		json.values.forEach(row => {
+			labels.push(row.ts);
+			raw_data.push({ x: row.ts, pi: row.value });
+		});
 		console.log(json);
+		/*
 		const raw_data = [
 			{ x: "07/06", pi: "30", ti: "27" },
 			{ x: "08/06", pi: "32", ti: "26" },
@@ -779,18 +784,22 @@ function create_graphics_view(reference) {
 			{ x: "10/06", pi: "33", ti: "26" },
 			{ x: "11/06", pi: "34", ti: "25" }
 		];
+		*/
 		const data = {
-			labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
+			//labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
+			labels,
 			datasets: [
 				{
 					label: "Pressure",
 					data: raw_data,
 					parsing: { yAxisKey: "pi" }
+					/*
 				},
 				{
 					label: "Temperature",
 					data: raw_data,
 					parsing: { yAxisKey: "ti" }
+					*/
 				}
 			]
 		};
