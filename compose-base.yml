@@ -21,7 +21,7 @@ services:
           start_interval: 5s
 
     argos:
-        image: scadalts:latest
+        image: argos:latest
         build:
           context: .
           dockerfile: Dockerfile
