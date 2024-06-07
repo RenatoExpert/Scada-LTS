@@ -745,29 +745,38 @@ function create_relatory_view(reference, step) {
 }
 
 function render_graphics(canvas) {
-	const data = [
+	const raw_data = [
 		{ x: "07/06", pi: "30", ti: "27" },
 		{ x: "08/06", pi: "32", ti: "26" },
 		{ x: "09/06", pi: "35", ti: "25" },
 		{ x: "10/06", pi: "33", ti: "26" },
 		{ x: "11/06", pi: "34", ti: "25" }
 	];
+	const data = {
+		labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
+		datasets: [
+			{
+				label: "Pressure",
+				data: raw_data,
+				parsing: { yAxisKey: "pi" }
+			},
+			{
+				label: "Temperature",
+				data: raw_data,
+				parsing: { yAxisKey: "ti" }
+			}
+		]
+	};
 	const config = {
 		type: "line",
-		data: {
-			labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
-			datasets: [
-				{
-					label: "Pressure",
-					data: data,
-					parsing: { yAxisKey: "pi" }
-				},
-				{
-					label: "Temperature",
-					data: data,
-					parsing: { yAxisKey: "ti" }
+		data,
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: "Visualizador gráfico"
 				}
-			]
+			}
 		}
 	}
 	return new Chart(canvas, config);
