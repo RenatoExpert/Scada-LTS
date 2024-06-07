@@ -9,6 +9,9 @@
 			"estatisticas": {
 				"label": "Estatisticas"
 			},
+			"graphics": {
+				"label": "Gráfico ao vivo"
+			},
 			"hourly": {
 				"label": "Relatório Horário"
 			},
