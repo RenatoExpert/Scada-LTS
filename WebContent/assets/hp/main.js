@@ -780,6 +780,7 @@ function create_graphics_view(reference) {
 		let labels = [];
 		let pre_data = {};
 		jsons.forEach(json => {
+			let tag = json.xid;
 			json.values.forEach(row => {
 				let ts = row.ts;
 				labels.push(ts);
