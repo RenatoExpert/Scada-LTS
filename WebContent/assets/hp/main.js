@@ -751,6 +751,7 @@ function update_graphics(chart, data) {
 
 function create_graphics_view(reference) {
 	let div = document.createElement("div");
+	div.styles.padding = "5px";
 	let canvas = document.createElement("canvas");
 	canvas.id = "graphics-canvas";
 	canvas.width = "350";
@@ -767,41 +768,42 @@ function create_graphics_view(reference) {
 		}
 	}
 	let chart = new Chart(canvas, config);
-	let tag = "rd_1";
 	let start_ts = 0;
 	let end_ts = new Date().valueOf();
-	load_tag_history(tag, start_ts, end_ts).then(json => {
+	let tags = ["rd_1", "rd_2"];
+	let promises = [];
+	tags.forEach(tag => {
+		let promise = load_tag_history(tag, start_ts, end_ts);
+		promises.push(promise);
+	});
+	Promise.all(promises).then(jsons => {
 		let labels = [];
-		let raw_data = [];
-		json.values.forEach(row => {
-			labels.push(row.ts);
-			raw_data.push({ x: row.ts, pi: row.value });
+		let pre_data = {};
+		jsons.forEach(json => {
+			json.values.forEach(row => {
+				let ts = row.ts;
+				labels.push(ts);
+				if(pre_data[ts] == undefined) {
+					pre_data[ts] = { x: ts };
+				}
+				pre_data[ts][tag] = row.value;
+				pre_data.push({ x: row.ts, pi: row.value });
+			});
 		});
-		console.log(json);
-		/*
-		const raw_data = [
-			{ x: "07/06", pi: "30", ti: "27" },
-			{ x: "08/06", pi: "32", ti: "26" },
-			{ x: "09/06", pi: "35", ti: "25" },
-			{ x: "10/06", pi: "33", ti: "26" },
-			{ x: "11/06", pi: "34", ti: "25" }
-		];
-		*/
+		let raw_data = [];
+		Object.values(pre_data).forEach(row => { raw_data.push(row) });
 		const data = {
-			//labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
 			labels,
 			datasets: [
 				{
 					label: "Pressure",
 					data: raw_data,
-					parsing: { yAxisKey: "pi" }
-					/*
+					parsing: { yAxisKey: "rd_1" }
 				},
 				{
 					label: "Temperature",
 					data: raw_data,
-					parsing: { yAxisKey: "ti" }
-					*/
+					parsing: { yAxisKey: "rd_2" }
 				}
 			]
 		};
