@@ -757,7 +757,6 @@ function create_graphics_view(reference) {
 	canvas.height = "100";
 	const config = {
 		type: "line",
-		data,
 		options: {
 			plugins: {
 				title: {
