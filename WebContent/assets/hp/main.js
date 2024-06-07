@@ -767,6 +767,9 @@ function create_graphics_view(reference) {
 	canvas.width = "350";
 	canvas.height = "100";
 	render_graphics(canvas);
+	let tag = "pressure";
+	let start_ts = 0;
+	let end_ts = new Date().valueOf();
 	load_tag_history(tag, start_ts, end_ts).then(json => {
 		console.log(json);
 		const raw_data = [
