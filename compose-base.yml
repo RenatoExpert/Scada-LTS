@@ -1,6 +1,5 @@
 services: 
     database:
-        container_name: mysql
         image: mysql/mysql-server:8.0.32
         environment: 
             - MYSQL_ROOT_PASSWORD=root
@@ -21,8 +20,7 @@ services:
           start_period: 5s
           start_interval: 5s
 
-    scadalts:
-        container_name: scadalts
+    argos:
         image: scadalts:latest
         build:
           context: .
@@ -37,7 +35,6 @@ services:
               memory: 1.2G
 
     opcuaserver:
-        container_name: opcuaserver
         image: opcua_server:latest
         build: ./opcua_server
         healthcheck:
