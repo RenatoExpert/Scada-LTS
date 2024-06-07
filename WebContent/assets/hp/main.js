@@ -744,7 +744,17 @@ function create_relatory_view(reference, step) {
 	return root;
 }
 
-function render_graphics(canvas, data) {
+function update_graphics(chart, data) {
+	chart.data = data;
+	chart.update();
+}
+
+function create_graphics_view(reference) {
+	let div = document.createElement("div");
+	let canvas = document.createElement("canvas");
+	canvas.id = "graphics-canvas";
+	canvas.width = "350";
+	canvas.height = "100";
 	const config = {
 		type: "line",
 		data,
@@ -757,16 +767,7 @@ function render_graphics(canvas, data) {
 			}
 		}
 	}
-	return new Chart(canvas, config);
-}
-
-function create_graphics_view(reference) {
-	let div = document.createElement("div");
-	let canvas = document.createElement("canvas");
-	canvas.id = "graphics-canvas";
-	canvas.width = "350";
-	canvas.height = "100";
-	render_graphics(canvas);
+	let chart = new Chart(canvas, config);
 	let tag = "rd_1";
 	let start_ts = 0;
 	let end_ts = new Date().valueOf();
@@ -794,7 +795,7 @@ function create_graphics_view(reference) {
 				}
 			]
 		};
-		render_graphics(canvas, data);
+		update_graphics(chart, data);
 	});
 	div.append(canvas);
 	return div;
