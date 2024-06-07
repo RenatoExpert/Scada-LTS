@@ -751,7 +751,7 @@ function update_graphics(chart, data) {
 
 function create_graphics_view(reference) {
 	let div = document.createElement("div");
-	div.styles.padding = "5px";
+	div.style.padding = "5px";
 	let canvas = document.createElement("canvas");
 	canvas.id = "graphics-canvas";
 	canvas.width = "350";
