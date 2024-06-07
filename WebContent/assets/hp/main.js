@@ -788,7 +788,6 @@ function create_graphics_view(reference) {
 					pre_data[ts] = { x: ts };
 				}
 				pre_data[ts][tag] = row.value;
-				pre_data.push({ x: row.ts, pi: row.value });
 			});
 		});
 		let raw_data = [];
