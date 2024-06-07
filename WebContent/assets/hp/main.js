@@ -105,7 +105,7 @@ function tag_load_value(xid) {
 	});
 }
 
-function load_relatory(xid, start, end) {
+function load_tag_history(xid, start, end) {
 	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid/", get_root_path());
 	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
 	return new Promise((resolve, reject) => {
@@ -144,7 +144,7 @@ function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora
 	Object.getOwnPropertyNames(tags).forEach(key => {
 		let tag = tags[key];
 		let promise = new Promise((resolve, reject) => {
-			load_relatory(tag, start_ts, end_ts).then(json => {
+			load_tag_history(tag, start_ts, end_ts).then(json => {
 				let table = normatize_relatory_column(json, key);
 				resolve({ key, table });
 			});
@@ -744,29 +744,7 @@ function create_relatory_view(reference, step) {
 	return root;
 }
 
-function render_graphics(canvas) {
-	const raw_data = [
-		{ x: "07/06", pi: "30", ti: "27" },
-		{ x: "08/06", pi: "32", ti: "26" },
-		{ x: "09/06", pi: "35", ti: "25" },
-		{ x: "10/06", pi: "33", ti: "26" },
-		{ x: "11/06", pi: "34", ti: "25" }
-	];
-	const data = {
-		labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
-		datasets: [
-			{
-				label: "Pressure",
-				data: raw_data,
-				parsing: { yAxisKey: "pi" }
-			},
-			{
-				label: "Temperature",
-				data: raw_data,
-				parsing: { yAxisKey: "ti" }
-			}
-		]
-	};
+function render_graphics(canvas, data) {
 	const config = {
 		type: "line",
 		data,
@@ -789,6 +767,32 @@ function create_graphics_view(reference) {
 	canvas.width = "350";
 	canvas.height = "100";
 	render_graphics(canvas);
+	load_tag_history(tag, start_ts, end_ts).then(json => {
+		console.log(json);
+		const raw_data = [
+			{ x: "07/06", pi: "30", ti: "27" },
+			{ x: "08/06", pi: "32", ti: "26" },
+			{ x: "09/06", pi: "35", ti: "25" },
+			{ x: "10/06", pi: "33", ti: "26" },
+			{ x: "11/06", pi: "34", ti: "25" }
+		];
+		const data = {
+			labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
+			datasets: [
+				{
+					label: "Pressure",
+					data: raw_data,
+					parsing: { yAxisKey: "pi" }
+				},
+				{
+					label: "Temperature",
+					data: raw_data,
+					parsing: { yAxisKey: "ti" }
+				}
+			]
+		};
+		render_graphics(canvas, data);
+	});
 	div.append(canvas);
 	return div;
 }
