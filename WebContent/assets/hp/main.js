@@ -929,7 +929,7 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
-			let graphics = current_view.xid == "l1-graphics" ? create_graphics_view(reference);
+			let graphics = current_view.xid == "l1-graphics" ? create_graphics_view(reference) : null;
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
