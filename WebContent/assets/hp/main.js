@@ -779,6 +779,7 @@ function create_graphics_view(reference) {
 	canvas.id = "graphics-canvas";
 	canvas.width = "350";
 	canvas.height = "100";
+	render_graphics(canvas);
 	div.append(canvas);
 	return div;
 }
