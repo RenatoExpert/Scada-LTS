@@ -10,11 +10,11 @@ services:
             - /volumes/test/database/data:/var/lib/mysql:rw
             - /volumes/test/database/config:/etc/mysql:ro
 
-    scadalts:
+    argos:
         extends:
             file: compose-base.yml
-            service: scadalts
-        container_name: scadalts-test
+            service: argos
+        container_name: argos-test
         ports: 
             - "8081:8080"
         links:
@@ -25,7 +25,7 @@ services:
             database:
               condition: service_healthy
         volumes:
-            - /volumes/test/webserver:/usr/local/tomcat:rw
+            - /volumes/test/argos:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:
