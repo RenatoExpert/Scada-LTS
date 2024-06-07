@@ -92,6 +92,7 @@ WORKDIR /output
 COPY --from=war_build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk11-corretto-al2 as war_deploy
+RUN echo hello
 WORKDIR /usr/local/tomcat/
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
