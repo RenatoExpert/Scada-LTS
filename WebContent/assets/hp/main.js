@@ -744,10 +744,41 @@ function create_relatory_view(reference, step) {
 	return root;
 }
 
+function render_graphics(canvas) {
+	const data = [
+		{ x: "07/06", pi: "30", ti: "27" },
+		{ x: "08/06", pi: "32", ti: "26" },
+		{ x: "09/06", pi: "35", ti: "25" },
+		{ x: "10/06", pi: "33", ti: "26" },
+		{ x: "11/06", pi: "34", ti: "25" }
+	];
+	const config = {
+		type: "line",
+		data: {
+			labels: ["07/06", "08/06", "09/06", "10/06", "11/06"],
+			datasets: [
+				{
+					label: "Pressure",
+					data: data,
+					parsing: { yAxisKey: "pi" }
+				},
+				{
+					label: "Temperature",
+					data: data,
+					parsing: { yAxisKey: "ti" }
+				}
+			]
+		}
+	}
+	return new Chart(canvas, config);
+}
+
 function create_graphics_view(reference) {
 	let div = document.createElement("div");
 	let canvas = document.createElement("canvas");
 	canvas.id = "graphics-canvas";
+	canvas.width = "350";
+	canvas.height = "100";
 	div.append(canvas);
 	return div;
 }
