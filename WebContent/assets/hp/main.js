@@ -744,6 +744,13 @@ function create_relatory_view(reference, step) {
 	return root;
 }
 
+function create_graphics_view(reference) {
+	let div = document.createElement("div");
+	let canvas = document.createElement("canvas");
+	canvas.id = "graphics-canvas";
+	div.append(canvas);
+	return div;
+}
 
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
@@ -922,13 +929,14 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
+			let graphics = current_view.xid == "l1-graphics" ? create_graphics_view(reference);
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
 			l3.id = "header-l3";
 			summary.id = "summary";
 
-			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory, reference };
+			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory, reference, graphics };
 		}
 	}
 
@@ -948,6 +956,8 @@ async function main() {
 				headers.appendChild(generated.summary);
 			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
+			} else if(current_view.xid == "l1-graphics") {
+				headers.appendChild(generated.graphics);
 			}
 		}
 		background: {
