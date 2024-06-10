@@ -777,7 +777,10 @@ function create_graphics_view(reference) {
 		options: {
 			scales: {
 				xAxis: {
-					type: 'time'
+					type: 'time',
+					time: {
+						unit: 'hour'
+					}
 				}
 			},
 			plugins: {
