@@ -807,7 +807,8 @@ function create_graphics_view(reference) {
 			let tag = json.xid;
 			json.values.forEach(row => {
 				let ts = row.ts;
-				let tl = new Date(ts).toLocaleString();
+				//let tl = new Date(ts).toLocaleString();
+				let tl = ts;
 				pre_labels.push(tl);
 				if(pre_data[tl] == undefined) {
 					pre_data[tl] = { x: tl };
