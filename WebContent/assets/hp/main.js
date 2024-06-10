@@ -783,11 +783,12 @@ function create_graphics_view(reference) {
 			let tag = json.xid;
 			json.values.forEach(row => {
 				let ts = row.ts;
-				labels.push(ts);
-				if(pre_data[ts] == undefined) {
-					pre_data[ts] = { x: ts };
+				let tl = new Date(ts).toLocaleString();
+				labels.push(tl);
+				if(pre_data[tl] == undefined) {
+					pre_data[tl] = { x: tl };
 				}
-				pre_data[ts][tag] = row.value;
+				pre_data[tl][tag] = row.value;
 			});
 		});
 		let raw_data = [];
