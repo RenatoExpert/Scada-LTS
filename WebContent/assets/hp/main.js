@@ -745,7 +745,7 @@ function create_relatory_view(reference, step) {
 }
 
 function update_graphics(chart, data) {
-	chart.data.datasets = data;
+	chart.data.datasets = data.datasets;
 	chart.update();
 }
 
@@ -844,7 +844,7 @@ function create_graphics_view(reference) {
 				}
 			]
 		};
-		update_graphics(chart, datasets);
+		update_graphics(chart, data);
 	});
 	div.append(canvas);
 	return div;
