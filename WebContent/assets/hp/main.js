@@ -745,7 +745,7 @@ function create_relatory_view(reference, step) {
 }
 
 function update_graphics(chart, data) {
-	chart.data = data;
+	chart.data.datasets = data;
 	chart.update();
 }
 
@@ -830,7 +830,7 @@ function create_graphics_view(reference) {
 		}
 		console.log({ pre_labels, labels });
 		const data = {
-			pre_labels,
+			//pre_labels,
 			datasets: [
 				{
 					label: "Pressure",
@@ -844,7 +844,7 @@ function create_graphics_view(reference) {
 				}
 			]
 		};
-		update_graphics(chart, data);
+		update_graphics(chart, datasets);
 	});
 	div.append(canvas);
 	return div;
