@@ -752,6 +752,21 @@ function update_graphics(chart, data) {
 function create_graphics_view(reference) {
 	let div = document.createElement("div");
 	div.style.padding = "5px";
+	controllers: {
+		let controllers = document.createElement("div");
+		let reverse = document.createElement("button");
+		reverse.innerText = "Reverse";					//	U+23EA
+		controllers.append(reverse);
+		let play_pause = document.createElement("button");
+		play_pause.innerText = "&#x25B6";				//	Pause U+23EF U+FE0F Play
+		controllers.append(play_pause);
+		//	Pause	U+23F8 U+FE0F
+		//	Play	U+25B6 U+FE0F
+		let forward = document.createElement("button");
+		forward.innerText = "Forward";					// 	U+23E9
+		controllers.append(forward);
+		div.append(controllers);
+	}
 	let canvas = document.createElement("canvas");
 	canvas.id = "graphics-canvas";
 	canvas.width = "350";
