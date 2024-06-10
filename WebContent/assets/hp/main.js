@@ -819,6 +819,7 @@ function create_graphics_view(reference) {
 				labels.push(label);
 			}
 		}
+		console.log({ pre_labels, labels });
 		const data = {
 			labels,
 			datasets: [
