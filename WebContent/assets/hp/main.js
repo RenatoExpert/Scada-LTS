@@ -755,15 +755,15 @@ function create_graphics_view(reference) {
 	controllers: {
 		let controllers = document.createElement("div");
 		let reverse = document.createElement("button");
-		reverse.innerText = "Reverse";					//	U+23EA
+		reverse.innerText = "\u23ea";					//	U+23EA
 		controllers.append(reverse);
 		let play_pause = document.createElement("button");
-		play_pause.innerText = "&#x25B6";				//	Pause U+23EF U+FE0F Play
+		play_pause.innerText = "\u23ef";				//	Pause U+23EF U+FE0F Play
 		controllers.append(play_pause);
 		//	Pause	U+23F8 U+FE0F
 		//	Play	U+25B6 U+FE0F
 		let forward = document.createElement("button");
-		forward.innerText = "Forward";					// 	U+23E9
+		forward.innerText = "\u23e9";					// 	U+23E9
 		controllers.append(forward);
 		div.append(controllers);
 	}
