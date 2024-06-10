@@ -744,112 +744,6 @@ function create_relatory_view(reference, step) {
 	return root;
 }
 
-function update_graphics(chart, data) {
-	chart.data.datasets = data.datasets;
-	chart.update();
-}
-
-function create_graphics_view(reference) {
-	let div = document.createElement("div");
-	div.style.padding = "5px";
-	controllers: {
-		let controllers = document.createElement("div");
-		let reverse = document.createElement("button");
-		reverse.innerText = "\u23ea";
-		controllers.append(reverse);
-		let play = document.createElement("button");
-		play.innerText = "\u25b6";
-		controllers.append(play);
-		let pause = document.createElement("button");
-		pause.innerText = "\u23f8";
-		controllers.append(pause);
-		let forward = document.createElement("button");
-		forward.innerText = "\u23e9";
-		controllers.append(forward);
-		div.append(controllers);
-	}
-	let canvas = document.createElement("canvas");
-	canvas.id = "graphics-canvas";
-	canvas.width = "350";
-	canvas.height = "100";
-	const config = {
-		type: "line",
-		options: {
-			scales: {
-				xAxis: {
-					type: 'time',
-					time: {
-						unit: 'hour'
-					}
-				}
-			},
-			plugins: {
-				title: {
-					display: true,
-					text: "Visualizador gráfico"
-				}
-			}
-		}
-	}
-	let chart = new Chart(canvas, config);
-	let start_ts = 0;
-	let end_ts = new Date().valueOf();
-	let tags = ["rd_1", "rd_2"];
-	let promises = [];
-	tags.forEach(tag => {
-		let promise = load_tag_history(tag, start_ts, end_ts);
-		promises.push(promise);
-	});
-	Promise.all(promises).then(jsons => {
-		let pre_labels = [];
-		let pre_data = {};
-		jsons.forEach(json => {
-			let tag = json.xid;
-			json.values.forEach(row => {
-				let ts = row.ts;
-				//let tl = new Date(ts).toLocaleString();
-				let tl = ts;
-				pre_labels.push(tl);
-				if(pre_data[tl] == undefined) {
-					pre_data[tl] = { x: tl };
-				}
-				pre_data[tl][tag] = row.value;
-			});
-		});
-		let raw_data = [];
-		Object.values(pre_data).forEach(row => { raw_data.push(row) });
-		let labels = [];
-		const label_limit = 10;
-		for(let i in pre_labels) {
-			let length = pre_labels.length;
-			let ratio = Math.round(length / (label_limit - 1));
-			let label = pre_labels[i];
-			if(i % ratio == 0 || i == 0) {
-				labels.push(label);
-			}
-		}
-		console.log({ pre_labels, labels });
-		const data = {
-			//pre_labels,
-			datasets: [
-				{
-					label: "Pressure",
-					data: raw_data,
-					parsing: { yAxisKey: "rd_1" }
-				},
-				{
-					label: "Temperature",
-					data: raw_data,
-					parsing: { yAxisKey: "rd_2" }
-				}
-			]
-		};
-		update_graphics(chart, data);
-	});
-	div.append(canvas);
-	return div;
-}
-
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
 	let table = document.createElement("table");
@@ -1123,6 +1017,116 @@ async function main() {
 
 
 //	==============================================================================================
+//	Graphics
+
+function update_graphics(chart, data) {
+	chart.data.datasets = data.datasets;
+	chart.update();
+}
+
+var graphics_memory = {
+	storage: {},
+	time_range: {
+		start: 0,
+		end: new Date().valueOf()
+	}
+};
+
+function create_graphics_view(reference) {
+	let div = document.createElement("div");
+	div.style.padding = "5px";
+	controllers: {
+		let controllers = document.createElement("div");
+		let reverse = document.createElement("button");
+		reverse.innerText = "\u23ea";
+		controllers.append(reverse);
+		let play = document.createElement("button");
+		play.innerText = "\u25b6";
+		controllers.append(play);
+		let pause = document.createElement("button");
+		pause.innerText = "\u23f8";
+		controllers.append(pause);
+		let forward = document.createElement("button");
+		forward.innerText = "\u23e9";
+		controllers.append(forward);
+		div.append(controllers);
+	}
+	let canvas = document.createElement("canvas");
+	canvas.id = "graphics-canvas";
+	canvas.width = "350";
+	canvas.height = "100";
+	const config = {
+		type: "line",
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: "Visualizador gráfico"
+				}
+			}
+		}
+	}
+	let chart = new Chart(canvas, config);
+	let tags = ["rd_1", "rd_2"];
+	let promises = [];
+	tags.forEach(tag => {
+		let start = graphics_memory.time_range.start;
+		let end = graphics_memory.time_range.end;
+		let promise = load_tag_history(tag, start, end);
+		promises.push(promise);
+	});
+	Promise.all(promises).then(jsons => {
+		let pre_labels = [];
+		let pre_data = {};
+		jsons.forEach(json => {
+			let tag = json.xid;
+			json.values.forEach(row => {
+				let ts = row.ts;
+				//let tl = new Date(ts).toLocaleString();
+				let tl = ts;
+				pre_labels.push(tl);
+				if(pre_data[tl] == undefined) {
+					pre_data[tl] = { x: tl };
+				}
+				pre_data[tl][tag] = row.value;
+			});
+		});
+		let raw_data = [];
+		Object.values(pre_data).forEach(row => { raw_data.push(row) });
+		let labels = [];
+		const label_limit = 10;
+		for(let i in pre_labels) {
+			let length = pre_labels.length;
+			let ratio = Math.round(length / (label_limit - 1));
+			let label = pre_labels[i];
+			if(i % ratio == 0 || i == 0) {
+				labels.push(label);
+			}
+		}
+		console.log({ pre_labels, labels });
+		const data = {
+			//pre_labels,
+			datasets: [
+				{
+					label: "Pressure",
+					data: raw_data,
+					parsing: { yAxisKey: "rd_1" }
+				},
+				{
+					label: "Temperature",
+					data: raw_data,
+					parsing: { yAxisKey: "rd_2" }
+				}
+			]
+		};
+		update_graphics(chart, data);
+	});
+	div.append(canvas);
+	return div;
+}
+
+
+//	==============================================================================================
 //	Boot
 
 boot: {
@@ -1130,4 +1134,5 @@ boot: {
 		main();
 	}
 }
+
 
