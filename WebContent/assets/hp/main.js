@@ -793,14 +793,14 @@ function create_graphics_view(reference) {
 		promises.push(promise);
 	});
 	Promise.all(promises).then(jsons => {
-		let labels = [];
+		let pre_labels = [];
 		let pre_data = {};
 		jsons.forEach(json => {
 			let tag = json.xid;
 			json.values.forEach(row => {
 				let ts = row.ts;
 				let tl = new Date(ts).toLocaleString();
-				labels.push(tl);
+				pre_labels.push(tl);
 				if(pre_data[tl] == undefined) {
 					pre_data[tl] = { x: tl };
 				}
@@ -809,6 +809,16 @@ function create_graphics_view(reference) {
 		});
 		let raw_data = [];
 		Object.values(pre_data).forEach(row => { raw_data.push(row) });
+		let labels = [];
+		const label_limit = 10;
+		for(let i in pre_labels) {
+			let length = pre_labels.length;
+			let ratio = length;
+			let label = pre_labels[i];
+			if(length % ratio == 0) {
+				labels.push(label);
+			}
+		}
 		const data = {
 			labels,
 			datasets: [
