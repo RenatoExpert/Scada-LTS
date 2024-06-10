@@ -813,9 +813,9 @@ function create_graphics_view(reference) {
 		const label_limit = 10;
 		for(let i in pre_labels) {
 			let length = pre_labels.length;
-			let ratio = length;
+			let ratio = Math.round(length / (label_limit - 1));
 			let label = pre_labels[i];
-			if(length % ratio == 0) {
+			if(i % ratio == 0 || i == 0) {
 				labels.push(label);
 			}
 		}
