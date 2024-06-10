@@ -1105,7 +1105,7 @@ function create_graphics_view(reference) {
 		}
 		console.log({ pre_labels, labels });
 		const data = {
-			//pre_labels,
+			pre_labels,
 			datasets: [
 				{
 					label: "Pressure",
