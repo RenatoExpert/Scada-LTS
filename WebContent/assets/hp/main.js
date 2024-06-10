@@ -1082,8 +1082,7 @@ function create_graphics_view(reference) {
 			let tag = json.xid;
 			json.values.forEach(row => {
 				let ts = row.ts;
-				//let tl = new Date(ts).toLocaleString();
-				let tl = ts;
+				let tl = new Date(ts).toLocaleString();
 				pre_labels.push(tl);
 				if(pre_data[tl] == undefined) {
 					pre_data[tl] = { x: tl };
@@ -1104,8 +1103,9 @@ function create_graphics_view(reference) {
 			}
 		}
 		console.log({ pre_labels, labels });
+		labels = pre_labels;
 		const data = {
-			pre_labels,
+			labels,
 			datasets: [
 				{
 					label: "Pressure",
