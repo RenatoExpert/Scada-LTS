@@ -775,6 +775,11 @@ function create_graphics_view(reference) {
 	const config = {
 		type: "line",
 		options: {
+			scales: {
+				xAxis: {
+					type: 'time'
+				}
+			},
 			plugins: {
 				title: {
 					display: true,
