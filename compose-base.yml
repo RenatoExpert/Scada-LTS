@@ -1,15 +1,11 @@
 services: 
     database:
-        container_name: mysql
         image: mysql/mysql-server:8.0.32
         environment: 
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=root
             - MYSQL_PASSWORD=root
             - MYSQL_DATABASE=scadalts
-        volumes:
-            - ./volumes/database/data:/var/lib/mysql:rw
-            - ./volumes/database/config:/etc/mysql:ro
         command: --log_bin_trust_function_creators=1
         deploy:
           resources:
@@ -24,17 +20,14 @@ services:
           start_period: 5s
           start_interval: 5s
 
-    scadalts:
-        container_name: scadalts
-        image: scadalts:latest
+    argos:
+        image: argos:latest
         build:
           context: .
           dockerfile: Dockerfile
           target: war_deploy
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
-        volumes:
-            - ./volumes/tomcat:/usr/local/tomcat:rw
         deploy:
           resources:
             limits:
@@ -42,7 +35,6 @@ services:
               memory: 1.2G
 
     opcuaserver:
-        container_name: opcuaserver
         image: opcua_server:latest
         build: ./opcua_server
         healthcheck:

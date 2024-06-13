@@ -6,12 +6,15 @@ services:
         container_name: mysql-test
         ports:
             - "3307:3306"
+        volumes:
+            - /volumes/test/database/data:/var/lib/mysql:rw
+            - /volumes/test/database/config:/etc/mysql:ro
 
-    scadalts:
+    argos:
         extends:
             file: compose-base.yml
-            service: scadalts
-        container_name: scadalts-test
+            service: argos
+        container_name: argos-test
         ports: 
             - "8081:8080"
         links:

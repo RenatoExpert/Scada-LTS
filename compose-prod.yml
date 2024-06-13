@@ -8,11 +8,11 @@ services:
             - "3306:3306"
         expose: ["3306"]
 
-    scadalts:
+    argos:
         extends:
             file: compose-base.yml
-            service: scadalts
-        container_name: scadalts-prod
+            service: argos
+        container_name: argos-prod
         links:
             - database:database
         depends_on:
@@ -23,6 +23,8 @@ services:
         ports: 
             - "8080:8080"
         expose: ["8080", "8000"]
+        volumes:
+            - ./volumes/prod/tomcat:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:
