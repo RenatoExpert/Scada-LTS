@@ -462,7 +462,7 @@
 					},
 					"postotrevo": {
 						"code": "064",
-						"class": "erpm-single",
+						"class": "rpm-single",
 						"label": "Posto Trevo"
 					},
 					"saintgobain": {
