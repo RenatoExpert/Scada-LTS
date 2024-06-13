@@ -6,13 +6,17 @@ services:
         container_name: mysql-prod
         ports:
             - "3306:3306"
-        expose: ["3306"]
+        volumes:
+            - /volumes/test/database/data:/var/lib/mysql:rw
+            - /volumes/test/database/config:/etc/mysql:ro
 
     argos:
         extends:
             file: compose-base.yml
             service: argos
         container_name: argos-prod
+        ports:
+            - "8080:8080"
         links:
             - database:database
         depends_on:
@@ -20,11 +24,6 @@ services:
               condition: service_healthy
             database:
               condition: service_healthy
-        ports: 
-            - "8080:8080"
-        expose: ["8080", "8000"]
-        volumes:
-            - ./volumes/prod/tomcat:/usr/local/tomcat:rw
 
     opcuaserver:
         extends:
@@ -33,5 +32,4 @@ services:
         container_name: opcuaserver-prod
         ports:
             - "4840:4840"
-        expose: ["4840"]
 
