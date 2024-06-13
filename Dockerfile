@@ -71,6 +71,7 @@ RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/js/ph.js					WebContent/resources/js-ui/pointHierarchy/js	&& \
 	cp -r dist/fonts					WebContent/resources/js-ui/app/fonts		&& \
 	cp -r dist/img						WebContent/img					;
+ADD https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.js WebContent/assets/hp
 COPY --from=img_build /output/logo.png WebContent/assets/logo.png
 COPY --from=img_build /output/favicon.ico WebContent/images/favicon.ico
 RUN --mount=type=cache,target=/root/.gradle			\

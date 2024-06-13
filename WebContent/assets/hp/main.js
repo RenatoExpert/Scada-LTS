@@ -105,7 +105,7 @@ function tag_load_value(xid) {
 	});
 }
 
-function load_relatory(xid, start, end) {
+function load_tag_history(xid, start, end) {
 	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid/", get_root_path());
 	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
 	return new Promise((resolve, reject) => {
@@ -113,8 +113,7 @@ function load_relatory(xid, start, end) {
 			console.debug({ json });
 			resolve(json);
 		}).catch(problem => {
-			console.error(problem);
-			console.error({ target_url });
+			console.error({ problem, target_url, xid });
 			reject("Datapoint API returned error!");
 		});
 	});
@@ -137,6 +136,8 @@ function sum_datetime(/**/) {
 	return sum;
 }
 
+var relatory_memory = {};
+
 function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora') {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
@@ -144,7 +145,7 @@ function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora
 	Object.getOwnPropertyNames(tags).forEach(key => {
 		let tag = tags[key];
 		let promise = new Promise((resolve, reject) => {
-			load_relatory(tag, start_ts, end_ts).then(json => {
+			load_tag_history(tag, start_ts, end_ts).then(json => {
 				let table = normatize_relatory_column(json, key);
 				resolve({ key, table });
 			});
@@ -163,7 +164,8 @@ function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora
 				table[index][key] = result.table[index];
 			});
 		});
-		console.log(table);
+		console.log({ table });
+		relatory_memory = table;
 		render_relatory(table, id_col);
 	});
 }
@@ -208,8 +210,9 @@ function get_timedate(timestamp) {
 }
 
 function render_relatory(obj, id_col) {
+	let iframe = document.getElementById("relatory-iframe");
+	parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
 	let child_dom = generate_relatory_dom(obj, id_col);
-	let parent_dom = document.getElementById('relatory-table');
 	parent_dom.replaceChildren(child_dom);
 }
 
@@ -282,6 +285,8 @@ function get_hist_tags(area_code, station_code) {
 	return sample;
 }
 
+var generated_relatory = false;
+
 function validate_filter(e) {
 	let start_ts, end_ts;
 	let isValid;
@@ -293,6 +298,7 @@ function validate_filter(e) {
 		let station = document.getElementById('select-station').value;
 		if(area && station) {
 			relatory(area, station, start_ts, end_ts);
+			generated_relatory = true;
 			isValid = true;
 		} else {
 			console.error({ area, station });
@@ -622,7 +628,7 @@ function make_field_div(dom, id, title, callback) {
 	div.style.margin = "5px";
 	div.style.padding = "3px";
 	div.style.border = "1px";
-	div.style.minWidth = "100px";
+	div.style.minWidth = "60px";
 	label: {
 		let label = document.createElement("label");
 		label.innerText = title;
@@ -643,11 +649,55 @@ function make_selector_div(id, title, callback) {
 	return make_field_div("select", id, title, callback);
 }
 
+function save_file(data, filename, type) {
+	let file = new Blob([data], { type });
+	console.log({ file });
+	let anchor = document.createElement("a");
+	let url = URL.createObjectURL(file);
+	anchor.href = url;
+	anchor.download = filename;
+	document.body.appendChild(anchor);
+	anchor.click();
+	console.log({ anchor, url, filename, data, file });
+	cleaning: {
+		document.body.removeChild(anchor);
+		window.URL.revokeObjectURL(url);
+	}
+}
+
+function check_relatory_then_save(data, filename, type) {
+	if(generated_relatory) {
+		save_file(data, filename, type);
+	} else {
+		throw new Error("No relatory generated to be saved!");
+	}
+}
+
+function download_pdf() {
+	let iframe = document.getElementById('relatory-iframe');
+	iframe.contentWindow.print();
+}
+
+function download_csv() {
+	console.log("csv");
+	let memory = relatory_memory;
+	let csv_content = "Data-hora;Pressão média;Temperatura média;Volume não-corrigido;Volume corrigido\n";
+	Object.getOwnPropertyNames(relatory_memory).forEach(datetime => {
+		let { avg_pressure, avg_temperature, raw_volume, std_volume } = memory[datetime];
+		csv_content += `${datetime};${avg_pressure};${avg_temperature};${raw_volume};${std_volume}\n`;
+	});
+	check_relatory_then_save(csv_content, "relatory.csv", "text/plain");
+}
+
+function download_xlsx() {
+	console.log("xlsx");
+}
+
 function create_relatory_view(reference, step) {
 	let root = document.createElement("div");
+	root.style.display = "grid";
 	generate_filter: {
 		let filter = document.createElement("div");
-		filter.style.display = "grid";
 		let form = document.createElement("form");
 		form.id = "relatory-form";
 		form.addEventListener("submit", validate_filter);
@@ -734,16 +784,51 @@ function create_relatory_view(reference, step) {
 			form.append(submit);
 		}
 		filter.append(form);
+		file_export: {
+			let export_menu = document.createElement("div");
+			let pdf = make_field_div("button", "export-pdf", "Export as", element => {
+				element.innerText = "PDF";
+				element.onclick = download_pdf;
+			});
+			export_menu.append(pdf);
+			let csv = make_field_div("button", "export-csv", "Export as", element => {
+				element.innerText = "csv";
+				element.onclick = download_csv;
+			});
+			export_menu.append(csv);
+			let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
+				element.innerText = "xlsx";
+				element.onclick = download_xlsx;
+			});
+			export_menu.append(xlsx);
+			filter.append(export_menu);
+		}
 		root.append(filter);
 	}
-	let relatory_table = document.createElement("div");
-	relatory_table.id = "relatory-table";
-	relatory_table.style.height = "550px";
-	relatory_table.style.overflowY = "scroll";
-	root.append(relatory_table);
+	let iframe_parent = document.createElement("div");
+	iframe_parent.style.padding = "15px 30px";
+	let relatory_iframe = document.createElement("IFRAME");
+	relatory_iframe.id = "relatory-iframe";
+	relatory_iframe.height = "500";
+	relatory_iframe.width = "1150";
+	iframe_parent.append(relatory_iframe);
+	root.append(iframe_parent);
+	after_dom: {
+		let relatory_table = document.createElement("div");
+		relatory_table.id = "relatory-table";
+		let observer = new MutationObserver((mutationList, observer) => {
+			for (let mutation in mutationList) {
+				console.log({ mutation });
+				if (document.getElementById("relatory-iframe")) {
+					relatory_iframe.contentWindow.document.body.append(relatory_table);
+					observer.disconnect();
+				}
+			}
+		});
+		observer.observe(document.getElementById("viewContent"), { childList: true });
+	}
 	return root;
 }
-
 
 function create_status_table(tree_table) {
 	let div = document.createElement("div");
@@ -922,13 +1007,14 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
+			let graphics = current_view.xid == "l1-graphics" ? create_graphics_view(reference) : null;
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
 			l3.id = "header-l3";
 			summary.id = "summary";
 
-			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory, reference };
+			generated = { hp_headers, l1, l2, l3, summary, current_view, relatory, reference, graphics };
 		}
 	}
 
@@ -948,6 +1034,8 @@ async function main() {
 				headers.appendChild(generated.summary);
 			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
+			} else if(current_view.xid == "l1-graphics") {
+				headers.appendChild(generated.graphics);
 			}
 		}
 		background: {
@@ -1015,6 +1103,162 @@ async function main() {
 
 
 //	==============================================================================================
+//	Graphics
+
+function update_graphics(chart, data) {
+	chart.data.datasets = data.datasets;
+	chart.update();
+}
+
+var graphics_memory = {
+	chart: null,
+	player_mode: 'stopped',
+	storage: {
+		raw: {
+			datasets: {},
+			labels: []
+		},
+		filtered: {
+			datasets: {},
+			labels: []
+		},
+		current_data: {}
+	},
+	time_range: {
+		start: new Date().valueOf() - (1e3 * 60 * 60 * 24),
+		end: new Date().valueOf()
+	}
+};
+
+function render_time() {
+	if(graphics_memory.player_mode == "running") {
+		graphics_memory.time_range.end += 100;
+		graphics_memory.time_range.start += 100;
+	}
+	let current = document.getElementById("graphics-timer");
+	let time_ms = graphics_memory.time_range.end;
+	let time_string = new Date(time_ms).toLocaleString();
+	current.innerText = time_string;
+}
+
+function render_frame(chart, raw_labels, raw_datasets, limit = 100) {
+	graphics_memory.storage.raw.datasets = raw_datasets;
+	graphics_memory.storage.raw.labels = raw_labels;
+	let labels = [];
+	let mixed_datasets = {};
+	for(let i in raw_labels) {
+		let length = raw_labels.length;
+		let ratio = Math.round(length / (limit - 1));
+		if(i % ratio == 0 || i == 0) {
+			let label = raw_labels[i];
+			labels.push(label);
+			mixed_datasets[label] = raw_datasets[label];
+		}
+	}
+	graphics_memory.storage.filtered.datasets = mixed_datasets;
+	graphics_memory.storage.filtered.labels = labels;
+	const data = {
+		labels,
+		datasets: [
+			{
+				label: "Pressure",
+				data: mixed_datasets,
+				parsing: { yAxisKey: "rd_1" }
+			},
+			{
+				label: "Temperature",
+				data: mixed_datasets,
+				parsing: { yAxisKey: "rd_2" }
+			}
+		]
+	};
+	graphics_memory.storage.current_data = data;
+	update_graphics(chart, data);
+}
+
+function create_graphics_view(reference) {
+	let div = document.createElement("div");
+	div.style.padding = "5px";
+	controllers: {
+		let controllers = document.createElement("div");
+		let reverse = document.createElement("button");
+		reverse.innerText = "\u23ea";
+		controllers.append(reverse);
+		let play = document.createElement("button");
+		play.innerText = "\u25b6";
+		play.onclick = () => {
+			graphics_memory.player_mode = "running";
+		};
+		controllers.append(play);
+		let pause = document.createElement("button");
+		pause.innerText = "\u23f8";
+		pause.onclick = () => {
+			graphics_memory.player_mode = "stopped";
+		};
+		controllers.append(pause);
+		let forward = document.createElement("button");
+		forward.innerText = "\u23e9";
+		controllers.append(forward);
+		let timer = document.createElement("button");
+		let timer_span = document.createElement("span");
+		timer_span.id = "graphics-timer";
+		timer.append(timer_span);
+		setInterval(render_time, 100);
+		controllers.append(timer);
+		div.append(controllers);
+	}
+	let canvas = document.createElement("canvas");
+	canvas.id = "graphics-canvas";
+	canvas.width = "350";
+	canvas.height = "100";
+	const config = {
+		type: "line",
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: "Visualizador gráfico"
+				}
+			}
+		}
+	}
+	let chart = new Chart(canvas, config);
+	graphics_memory.chart = chart;
+	load_to_render();
+	div.append(canvas);
+	return div;
+}
+
+function load_to_render() {
+	let tags = ["rd_1", "rd_2"];
+	let promises = [];
+	tags.forEach(tag => {
+		let start = graphics_memory.time_range.start;
+		let end = graphics_memory.time_range.end;
+		let promise = load_tag_history(tag, start, end);
+		promises.push(promise);
+	});
+	Promise.all(promises).then(jsons => {
+		let labels = [];
+		let data = {};
+		jsons.forEach(json => {
+			let tag = json.xid;
+			json.values.forEach(row => {
+				let ts = row.ts;
+				let tl = new Date(ts).toLocaleString();
+				labels.push(tl);
+				if(data[tl] == undefined) {
+					data[tl] = { x: tl };
+				}
+				data[tl][tag] = row.value;
+			});
+		});
+		render_frame(graphics_memory.chart, labels, data);
+	});
+}
+
+
+//	==============================================================================================
 //	Boot
 
 boot: {
@@ -1022,4 +1266,5 @@ boot: {
 		main();
 	}
 }
+
 
