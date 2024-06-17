@@ -26,3 +26,7 @@
 --%><%@ taglib prefix="sst" uri="/WEB-INF/tld/escape.tld" %><%--
 --%><%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %><%--
 --%><%@ taglib prefix="mobileTag" tagdir="/WEB-INF/tags/mobile" %>
+<link rel="stylesheet" href="assets/lib/bootstrap-5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/lib/bootstrap-5.3.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+<script src="assets/lib/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
+
