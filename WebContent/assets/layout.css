@@ -356,13 +356,13 @@ html > body .dojoFloatingPaneClient img, #help img {
 }
 
 /* To fix new css changees */
-.form-box {
+/* .form-box {
     width: 20px;
 }
 .login-button {
 	padding: 10px 0px;
 	width: 100%;
-}
+} */
 
 /* *** Main *** */
 #instanceDescription {
@@ -371,13 +371,13 @@ html > body .dojoFloatingPaneClient img, #help img {
 }
 
 /* Login form */
-.login-container {
+/* .login-container {
 	margin: 100px auto 10px auto;
 	background-color: #eeedff;
 	width: 290px;
 	border-radius: 10px;
 	padding: 20px;
-}
+} */
 .login-browser {
 	text-align: center;
 	padding-top: 10px;
@@ -390,29 +390,29 @@ html > body .dojoFloatingPaneClient img, #help img {
 	width: auto;
 }
 
-.login-box > form {
+/* .login-box > form {
 	margin: 0 auto;
 	width: 200px;
 	padding: 20px;
-}
+} */
 
-.login-logo {
+/* .login-logo {
 	text-align: center;
 }
 
 .login-logo > img {
 	width: 80%;
-}
+} */
 
-.login-box .form-box > .formField > input {
+/* .login-box .form-box > .formField > input {
 	width: 200px;
 	height: 30px;
 	border: solid 0.1rem #888888;
 	background-color: #fafafa;
 	border-radius: 0.6rem;
-}
+} */
 
-.login-box .login-button > input {
+/* .login-box .login-button > input {
     width: 150px;
     height: 50px;
     font-size: 15px;
@@ -427,7 +427,7 @@ html > body .dojoFloatingPaneClient img, #help img {
     background-color: #0050d3;
     border-radius: 10rem;
     flex-shrink: 0;
-}
+} */
 
 /* Fixed styles */
 /* Main Header */

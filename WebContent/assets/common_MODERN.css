@@ -295,6 +295,7 @@ img[src^="images/"]:not(#viewBackground) {
   transform: translateX(-16px) translateY(48px);
 }
 
+/*
 .login-container {
   display: flex;
   justify-items: center;
@@ -386,6 +387,8 @@ img[src^="images/"]:not(#viewBackground) {
     width: 20%;
   }
 }
+
+*/
 .dojoSplitPane {
   overflow-y: visible;
   height: 100%;

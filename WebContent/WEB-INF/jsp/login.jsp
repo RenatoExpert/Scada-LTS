@@ -1,63 +1,39 @@
-<%--
-    Mango - Open Source M2M - http://mango.serotoninsoftware.com
-    Copyright (C) 2006-2011 Serotonin Software Technologies Inc.
-    @author Matthew Lohbihler
-    
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses/.
---%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400%2C500%2C600">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600">
+<style>
+	.login-access { width: 100%; margin: 0 auto; }
+</style>
 
 <tag:page onload="setFocus">
-	<div class="login-container">
-		<div class="login-logo">
-			<img src="/Scada-LTS/assets/logo.png" />
-		</div>
-		<div class="login-box">
-			<form name="f" action="login.htm" method="post" onclick="nag()">
-				<div class="form-box">
-					<div class="formLabelRequired">
-						<fmt:message key="login.userId"/>
-					</div>
-					<div class="formField">
-						<input id="username" type="text" name="username" value="${login.username}" maxlength="40"/>
-					</div>
-				</div>
 
-				<div class="form-box">
-					<div class="formLabelRequired">
-						<fmt:message key="login.password"/>
-					</div>
-					<div class="formField">
-						<input id="password" type="password" name="password" value="${login.password}" maxlength="20"/>
-					</div>
-				</div>
+	<div class="login-access p-15 m-0">
+		<div class="row">
+			<div class="col-12 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+			<div class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3 ">
+				<div class="row">
+					<img class="mb-4" src="/Scada-LTS/assets/logo.png" alt="">
 
-				<div class="formError">
-					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
-						<div class="error">
-							<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+					<form name="f" action="login.htm" method="post" onclick="nag()">
+						<label for="username" class="h6 font-weight-normal"><fmt:message key="login.userId"/></label>
+						<input class="form-control" id="username" type="text" name="username" value="${login.username}" maxlength="40">
+
+						<label for="password" class="mt-4 h6 font-weight-normal"><fmt:message key="login.password"/></label>
+						<input type="password" id="password" class="form-control" name="password" value="${login.password}" maxlength="20">
+
+						<div class="formError">
+							<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+								<div class="error">
+									<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+								</div>
+							</c:if>
 						</div>
-					</c:if>
+						<div class="text-center">
+							<input type="submit" class="btn btn-primary btn-lg rounded-pill mt-4" value="<fmt:message key="login.loginButton"/>"/>
+						</div>
+					</form>
 				</div>
-
-				<div class="login-button" align="center">
-					<input type="submit" value="<fmt:message key="login.loginButton"/>"/>
-				</div>
-			</form>
+			</div>
+			<div class="col-12 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
 		</div>
 	</div>
 </tag:page>
