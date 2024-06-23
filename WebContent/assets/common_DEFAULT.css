@@ -16,6 +16,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+
+@font-face {
+	font-family:"OpenSans-Bold";
+	src: url("fonts/open_sans/OpenSans-Bold.ttf") format("truetype");
+}
+@font-face {
+	font-family:"OpenSans-Medium";
+	src: url("fonts/open_sans/OpenSans-Medium.ttf") format("truetype");
+}
+@font-face {
+	font-family:"OpenSans-Light";
+	src: url("fonts/open_sans/OpenSans-Light.ttf") format("truetype");
+}
+
 :root {
 	--slts-color-primary: #ab97f5;
 	--slts-color-primary-text: #555555;
@@ -31,7 +46,9 @@
 	--slts-font-size--section-title: 14px;
 	--slts-font-size--subtitle: 16px;
 	--slts-font-size--title: 18px;
-	--slts-font-family: Verdana, Arial, Helvetica, sans-serif;
+	--slts-font-family: OpenSans-Medium;
+	--slts-font-family-bold: OpenSans-Bold;
+	--slts-font-family-light: OpenSans-Light;
 
 	--color-success: #39B54A;
 	--color-warning: #FF9D2E;
