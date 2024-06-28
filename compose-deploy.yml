@@ -3,20 +3,20 @@ services:
         extends:
             file: compose-base.yml
             service: database
-        container_name: mysql-prod
+        container_name: mysql-${BRANCH}
         ports:
-            - "3306:3306"
+            - "${PORT_DB}:3306"
         volumes:
-            - /volumes/test/database/data:/var/lib/mysql:rw
-            - /volumes/test/database/config:/etc/mysql:ro
+            - /volumes/${BRANCH}/database/data:/var/lib/mysql:rw
+            - /volumes/${BRANCH}/database/config:/etc/mysql:ro
 
     argos:
         extends:
             file: compose-base.yml
             service: argos
-        container_name: argos-prod
-        ports:
-            - "8080:8080"
+        container_name: argos-${BRANCH}
+        ports: 
+            - "${PORT_WEB}:8080"
         links:
             - database:database
         depends_on:
@@ -29,7 +29,7 @@ services:
         extends:
             file: compose-base.yml
             service: opcuaserver
-        container_name: opcuaserver-prod
+        container_name: opcuaserver-${BRANCH}
         ports:
-            - "4840:4840"
+            - "${PORT_OPC}:4840"
 
