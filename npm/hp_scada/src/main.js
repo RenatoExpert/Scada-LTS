@@ -1,123 +1,18 @@
+import utils from './utils/utils.js';
+//	Not in use
+//		utils.get_sublocation
+//		assets_dir_url
+
+import api from './api/api.js';
+
+import Graphic_component from './graphic_component/graphic_component.js';
+
+import * as views_tree from 'views_tree.json';
+
 const version_tag = "4.1.1";
 
 const canvas = document.getElementById("viewContent");
 const viewBackGround = document.getElementById("viewBackground");
-
-
-//	==============================================================================================
-//	URL utils
-
-function tag_text(tag, text) {
-	let element = document.createElement(tag);
-	element.innerHTML = text;
-	return element;
-}
-
-function format_var(value, eu) {
-	return `<b>${value.toFixed(2)}</b><small>${eu}</small>`;
-}
-
-function get_sublocation() {
-	let currentPath = window.location.pathname;
-	currentPath = currentPath.split('?')[0];
-	let pathSegments = currentPath.split('/');
-	let rootPath = '/' + pathSegments[1] + "/";
-	return rootPath;
-}
-
-function get_root_path() {
-	return new URL(get_sublocation(), window.location.origin);
-}
-
-function assets_dir_url() {
-	return new URL("assets/", get_root_path());
-}
-
-function asset_url(asset) {
-	return new URL(asset, assets_dir_url());
-}
-
-function test_url(url) {
-	return new Promise((resolve, reject) => {
-		fetch(url).then(response => {
-			console.log(response);
-			if(response.status == 200) {
-				resolve(true);
-			} else {
-				resolve(false);
-			}
-		}).catch(e => {
-			resolve(false);
-		});
-	});
-}
-
-async function load_svg(url) {
-	file = await fetch(url);
-	text = await file.text();
-	let div = document.createElement("div");
-	div.style.position = "relative";
-	div.innerHTML = text;
-	return div;
-}
-
-async function load_json(url) {
-	file = await fetch(url);
-	json = await file.json();
-	return json;
-}
-
-function goto_id(id, reference = generated.current_view.xid) {
-	let link = `?xid=${id}&reference=${reference}`;
-	window.location.href = link;
-}
-
-
-//	==============================================================================================
-//	SCADA API
-
-function tag_load_num(xid) {
-	return new Promise((resolve, reject) => {
-	tag_load_value(xid).then(string => {
-			resolve(Number(string));
-		}).catch(problem => {
-			reject(problem);
-		});
-	});
-}
-
-function tag_load_value(xid) {
-	let base_url = new URL("api/point_value/getValue/", get_root_path());
-	let target_url = new URL(xid, base_url);
-	return new Promise((resolve, reject) => {
-		load_json(target_url).then(json => {
-			if("value" in json) {
-				let value = json["value"];
-				console.debug({ xid, value });
-				resolve(value);
-			} else {
-				reject("Bad return on Datapoint API! No value Field found");
-			}
-		}).catch(problem => {
-			console.error(problem);
-			reject("Datapoint API returned error!");
-		});
-	});
-}
-
-function load_tag_history(xid, start, end) {
-	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid/", get_root_path());
-	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
-	return new Promise((resolve, reject) => {
-		load_json(target_url).then(json => {
-			console.debug({ json });
-			resolve(json);
-		}).catch(problem => {
-			console.error({ problem, target_url, xid });
-			reject("Datapoint API returned error!");
-		});
-	});
-}
 
 
 //	==============================================================================================
@@ -145,7 +40,7 @@ function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora
 	Object.getOwnPropertyNames(tags).forEach(key => {
 		let tag = tags[key];
 		let promise = new Promise((resolve, reject) => {
-			load_tag_history(tag, start_ts, end_ts).then(json => {
+			api.load_tag_history(tag, start_ts, end_ts).then(json => {
 				let table = normatize_relatory_column(json, key);
 				resolve({ key, table });
 			});
@@ -227,8 +122,8 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 		avg_temperature_eu = "ºC";
 		let row = document.createElement("tr");
 		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-		for(header in headers) {
-			let col = tag_text("th", headers[header]);
+		for(let header in headers) {
+			let col = utils.tag_text("th", headers[header]);
 			col.style.padding = "2px 15px";
 			row.append(col);
 		}
@@ -241,13 +136,13 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
 			let cols = [
 				time,
-				format_var(raw_volume, raw_volume_eu),
-				format_var(std_volume, std_volume_eu),
-				format_var(avg_pressure, avg_pressure_eu),
-				format_var(avg_temperature, avg_temperature_eu)
+				utils.format_var(raw_volume, raw_volume_eu),
+				utils.format_var(std_volume, std_volume_eu),
+				utils.format_var(avg_pressure, avg_pressure_eu),
+				utils.format_var(avg_temperature, avg_temperature_eu)
 			];
-			for(i in cols) {
-				let col = tag_text("td", cols[i]);
+			for(let i in cols) {
+				let col = utils.tag_text("td", cols[i]);
 				col.style.padding = "2px 15px";
 				col.style.textAlign = "right";
 				row.append(col);
@@ -463,7 +358,7 @@ function get_time() {
 //	Static Data
 
 let status_report = {};
-template_fields = {
+let template_fields = {
 	'rpm-single': [
 		'update-pi-1',
 		'update-pi-2',
@@ -514,6 +409,7 @@ function get_view_info(xid) {
 		view.level = split[0];
 		view.name = split[1];
 	}
+	let process;
 	from_tree: {
 		switch(view.level) {
 			case 'l0':
@@ -555,12 +451,12 @@ function create_inline_menu(table, level) {
 	menu.style.width = "1280px";
 	menu.style.flexWrap = "wrap";
 	menu.style.padding = "0px 5px";
-	for(item in table) {
+	for(let item in table) {
 		let button = document.createElement("button");
 		button.textContent = table[item].label;
 		let xid = `${level}-${item}`;
 		button.onclick = () => {
-			goto_id(xid);
+			utils.goto_id(xid);
 		};
 		button.id = `${level}-button-${item}`;
 		button.style.width = "90px";
@@ -852,29 +748,29 @@ function create_status_table(tree_table) {
 		let row = document.createElement("tr");
 		row.style.backgroundColor = "#b4b4c4";
 		let headers = ["Estacao", "Modem", "Comunicacao", "Atualizacao", "Entrada", "Saida", "Temperatura", "Vazao", "Mes", "Anterior"];
-		for(header in headers) {
-			let col = tag_text("th", headers[header]);
+		for(let header in headers) {
+			let col = utils.tag_text("th", headers[header]);
 			row.append(col);
 		}
 		table.append(row);
 	}
-	for(item in tree_table) {
+	for(let item in tree_table) {
 		let row = document.createElement("tr");
 		let cols = [tree_table[item].label, "Conectado", "OK", "14:23",
-			format_var(22, "Kgf/cm²"),
-			format_var(12, "Kgf/cm²"),
-			format_var(28, "°C"),
-			format_var(4.792, "m3/dia"),
-			format_var(40.634, "m3"),
-			format_var(92.179, "m3")
+			utils.format_var(22, "Kgf/cm²"),
+			utils.format_var(12, "Kgf/cm²"),
+			utils.format_var(28, "°C"),
+			utils.format_var(4.792, "m3/dia"),
+			utils.format_var(40.634, "m3"),
+			utils.format_var(92.179, "m3")
 		];
-		for(i in cols) {
-			let col = tag_text("td", cols[i]);
+		for(let i in cols) {
+			let col = utils.tag_text("td", cols[i]);
 			row.append(col);
 		}
 		let xid = `l3-${item}`;
 		row.onclick = () => {
-			goto_id(xid);
+			utils.goto_id(xid);
 		};
 		table.append(row);
 	}
@@ -901,14 +797,14 @@ async function main() {
 		sources = {
 			localhost: localhost_path,
 			preferred: preferred_path,
-			l1: asset_url("hp/header_L1.svg"),
-			tree: asset_url("hp/views_tree.js")
+			l1: utils.asset_url("hp/header_L1.svg"),
+			tree: utils.asset_url("hp/views_tree.js")
 		};
 		console.log(sources);
 
-		[l1_svg, tree] = await Promise.all([ 
-			load_svg(sources.l1),
-			load_json(sources.tree)
+		let [l1_svg, tree] = await Promise.all([
+			utils.load_svg(sources.l1),
+			utils.load_json(sources.tree)
 		]);
 		loaded = { l1_svg, tree };
 	}
@@ -932,7 +828,7 @@ async function main() {
 			return div;
 		})();
 		current_view = get_current_view();
-		reference = get_reference_info();
+		let reference = get_reference_info();
 		if(current_view.level == 'l0') {
 			generated = { current_view };
 			// show banner
@@ -965,7 +861,7 @@ async function main() {
 						if (desc) {
 							//var bounds = getAbsoluteNodeBounds(source);
 							let bounds = source.getBoundingClientRect();
-							console.log(bounds);
+							console.debug(bounds);
 							c.innerHTML = desc;
 							c.style.left = (bounds.x + 16) +"px";
 							c.style.top = (bounds.y - 150) +"px";
@@ -975,10 +871,10 @@ async function main() {
 						}
 					}
 					bind_button("l1-map", "Mapa das estacoes", () => {
-						goto_id("l1-cidades");
+						utils.goto_id("l1-cidades");
 					});
 					bind_button("l1-system", "Status do sistema",() => {
-						goto_id("l1-estatisticas");
+						utils.goto_id("l1-estatisticas");
 					});
 					bind_button("l1-refresh", "Atualizar tela", () => {
 						location.reload();
@@ -993,10 +889,10 @@ async function main() {
 						window.location.href = "logout.htm";
 					});
 					bind_button("l1-daily", "Relatório Diário", () => {
-						goto_id("l1-daily");
+						utils.goto_id("l1-daily");
 					});
 					bind_button("l1-hourly", "Relatório Horário", () => {
-						goto_id("l1-hourly");
+						utils.goto_id("l1-hourly");
 					});
 				}
 				return div;
@@ -1007,7 +903,7 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
-			let graphics = current_view.xid == "l1-graphics" ? create_graphics_view(reference) : null;
+			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
@@ -1021,7 +917,7 @@ async function main() {
 	render: {
 		if(current_view.level == "l0") {
 			setTimeout(() => {
-				goto_id("l1-estatisticas");
+				utils.goto_id("l1-estatisticas");
 			}, 10e3);
 		} else {
 			canvas.insertBefore(generated.hp_headers, viewBackground);
@@ -1040,14 +936,14 @@ async function main() {
 		}
 		background: {
 			let cv = generated.current_view;
-			let background_url = asset_url("hp_bg/");
+			let background_url = utils.asset_url("hp_bg/");
 			let prefix = cv.class;
 			let extension;
 			if(prefix) {
 				extension = "svg";
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
-				load_svg(target_url).then(image => {
+				utils.load_svg(target_url).then(image => {
 					replace_background(image);
 				}).catch(problem => {
 					console.error("Error on loading background SVG file");
@@ -1058,7 +954,7 @@ async function main() {
 				extension = "png";
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
-				test_url(target_url).then(sucess => {
+				utils.test_url(target_url).then(sucess => {
 					change_background(target_url);
 				}).catch(problem => {
 					console.warn("Background file not found");
@@ -1079,11 +975,11 @@ async function main() {
 					console.log("Test");
 					let station_class = current_view.class;
 					if(station_class) {
-						console.log({ current_view, template_fields, station_class });
+						console.debug({ current_view, template_fields, station_class });
 						template_fields[station_class].forEach(field => {
 							let instrument_tag = get_tag(field);
 							let success;
-							tag_load_num(instrument_tag).then(value => {
+							api.tag_load_num(instrument_tag).then(value => {
 								update_display(field, value);
 								success = "\u2714";
 							}).catch(problem => {
@@ -1101,170 +997,13 @@ async function main() {
 	}
 }
 
-
-//	==============================================================================================
-//	Graphics
-
-function update_graphics(chart, data) {
-	chart.data.datasets = data.datasets;
-	chart.update();
-}
-
-var graphics_memory = {
-	chart: null,
-	player_mode: 'stopped',
-	storage: {
-		raw: {
-			datasets: {},
-			labels: []
-		},
-		filtered: {
-			datasets: {},
-			labels: []
-		},
-		current_data: {}
-	},
-	time_range: {
-		start: new Date().valueOf() - (1e3 * 60 * 60 * 24),
-		end: new Date().valueOf()
-	}
-};
-
-function render_time() {
-	if(graphics_memory.player_mode == "running") {
-		graphics_memory.time_range.end += 100;
-		graphics_memory.time_range.start += 100;
-	}
-	let current = document.getElementById("graphics-timer");
-	let time_ms = graphics_memory.time_range.end;
-	let time_string = new Date(time_ms).toLocaleString();
-	current.innerText = time_string;
-}
-
-function render_frame(chart, raw_labels, raw_datasets, limit = 100) {
-	graphics_memory.storage.raw.datasets = raw_datasets;
-	graphics_memory.storage.raw.labels = raw_labels;
-	let labels = [];
-	let mixed_datasets = {};
-	for(let i in raw_labels) {
-		let length = raw_labels.length;
-		let ratio = Math.round(length / (limit - 1));
-		if(i % ratio == 0 || i == 0) {
-			let label = raw_labels[i];
-			labels.push(label);
-			mixed_datasets[label] = raw_datasets[label];
-		}
-	}
-	graphics_memory.storage.filtered.datasets = mixed_datasets;
-	graphics_memory.storage.filtered.labels = labels;
-	const data = {
-		labels,
-		datasets: [
-			{
-				label: "Pressure",
-				data: mixed_datasets,
-				parsing: { yAxisKey: "rd_1" }
-			},
-			{
-				label: "Temperature",
-				data: mixed_datasets,
-				parsing: { yAxisKey: "rd_2" }
-			}
-		]
-	};
-	graphics_memory.storage.current_data = data;
-	update_graphics(chart, data);
-}
-
-function create_graphics_view(reference) {
-	let div = document.createElement("div");
-	div.style.padding = "5px";
-	controllers: {
-		let controllers = document.createElement("div");
-		let reverse = document.createElement("button");
-		reverse.innerText = "\u23ea";
-		controllers.append(reverse);
-		let play = document.createElement("button");
-		play.innerText = "\u25b6";
-		play.onclick = () => {
-			graphics_memory.player_mode = "running";
-		};
-		controllers.append(play);
-		let pause = document.createElement("button");
-		pause.innerText = "\u23f8";
-		pause.onclick = () => {
-			graphics_memory.player_mode = "stopped";
-		};
-		controllers.append(pause);
-		let forward = document.createElement("button");
-		forward.innerText = "\u23e9";
-		controllers.append(forward);
-		let timer = document.createElement("button");
-		let timer_span = document.createElement("span");
-		timer_span.id = "graphics-timer";
-		timer.append(timer_span);
-		setInterval(render_time, 100);
-		controllers.append(timer);
-		div.append(controllers);
-	}
-	let canvas = document.createElement("canvas");
-	canvas.id = "graphics-canvas";
-	canvas.width = "350";
-	canvas.height = "100";
-	const config = {
-		type: "line",
-		options: {
-			plugins: {
-				title: {
-					display: true,
-					text: "Visualizador gráfico"
-				}
-			}
-		}
-	}
-	let chart = new Chart(canvas, config);
-	graphics_memory.chart = chart;
-	load_to_render();
-	div.append(canvas);
-	return div;
-}
-
-function load_to_render() {
-	let tags = ["rd_1", "rd_2"];
-	let promises = [];
-	tags.forEach(tag => {
-		let start = graphics_memory.time_range.start;
-		let end = graphics_memory.time_range.end;
-		let promise = load_tag_history(tag, start, end);
-		promises.push(promise);
-	});
-	Promise.all(promises).then(jsons => {
-		let labels = [];
-		let data = {};
-		jsons.forEach(json => {
-			let tag = json.xid;
-			json.values.forEach(row => {
-				let ts = row.ts;
-				let tl = new Date(ts).toLocaleString();
-				labels.push(tl);
-				if(data[tl] == undefined) {
-					data[tl] = { x: tl };
-				}
-				data[tl][tag] = row.value;
-			});
-		});
-		render_frame(graphics_memory.chart, labels, data);
-	});
-}
-
-
 //	==============================================================================================
 //	Boot
+
 
 boot: {
 	if(document.currentScript.hasAttribute("boot")) {
 		main();
 	}
 }
-
 

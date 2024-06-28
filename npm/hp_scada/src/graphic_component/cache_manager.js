@@ -1,0 +1,97 @@
+
+function is_between (x, min, max) {
+	return x > min && x < max;
+}
+
+function is_inside (min_i, max_i, min_j, max_j) {
+	return is_between(min_i, min_j, max_j) && is_between(max_i, min_j, max_j);
+}
+
+function do_collides (min_i, max_i, min_j, max_j) {
+	return is_between(min_i, min_j, max_j) || is_between(max_i, min_j, max_j);
+}
+
+function subtract_list (input_list, subtrahend) {
+	let output_list = [];
+	subtract_range(input_list, subtrahend).forEach(missing_range => {
+		output_list.push(missing_range);
+	});
+	return output_list;
+}
+
+function subtract_range (minuend, subtrahend) {
+	let output_list = [];
+	if (collision) {
+		if (inside) {
+			output_list = [
+				[minuend[0], subtrahend[0]],
+				[subtrahend[1], minuend[1]]
+			];
+		} else {
+			if (minuend[0] < subtrahend[0]) {
+				output_list = [
+					[minuend[0], subtrahend[0]]
+				];
+			} else {
+				output_list = [
+					[subtrahend[1], minuend[1]]
+				];
+			}
+		}
+	} else {
+		output_list = [minuend];
+	}
+	return output_list;
+}
+
+class Cache_manager {
+	constructor () {
+		this.loaded_ranges = [];
+		this.data = {};
+	}
+	consult_range (range) {
+	}
+	_get_missing_parts (selected_range) {
+		let missing = [selected_range];
+		this.loaded_ranges.forEach(loaded_range => {
+			let missing = subtract_range(missing, loaded_range);
+		});
+		return missing;
+	}
+	register_range (range, frames) {
+		frames.forEach(frame => {
+			this.data[frame.label] = frame.values;
+		});
+		this.loaded_ranges.push(range);
+		this.check_and_merge_collisions();
+	}
+	check_and_merge_collisions () {
+		//      Create merges
+		let original = this.loaded_ranges;
+		let merges = [];
+		for(let i = 0; i < original.length - 1; i++) {
+			let [min_i, max_i] = original[i];
+			for(let j = i + 1; j < original.length; j++) {
+				let [min_j, max_j] = original[j];
+				let merge = merge(min_i, max_i, min_j, max_j);
+				if (merge) {
+					merges.push(merge);
+				}
+			}
+		}
+		//      Clear redundancies
+		let cleaned = original.filter(range => {
+			let filter_flag = true;
+			merges.forEach(merge => {
+				if (do_collides(range[0], range[1], merge[0], merge[1])) {
+					filter_flag = false;
+				}
+			});
+			return filter_flag;
+		});
+		let result = cleaned.concat(merges);
+		this.loaded_ranges = result;
+	}
+}
+
+export default Cache_manager;

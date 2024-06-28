@@ -10,6 +10,16 @@ RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
 FROM scratch as npm_package
 COPY --from=npm_build /scadalts-ui/dist /dist
 
+FROM node:22.3.0-alpine3.20 as newnpm_build
+WORKDIR /package
+COPY npm/hp_scada/package.json .
+RUN npm install
+COPY npm/hp_scada .
+RUN npm run build
+CMD cat dist/hp.umd.js
+
+FROM scratch as newnpm_package
+COPY --from=newnpm_build /package/dist/hp.umd.js /dist/hp.umd.js
 
 FROM alpine:20240329 as img_build
 RUN apk add --update --no-cache `#inkscape` imagemagick
@@ -51,6 +61,7 @@ RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
 COPY --from=npm_package /dist dist
+COPY --from=newnpm_package /dist/hp.umd.js WebContent/assets/hp/hp.umd.js
 RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/css						WebContent/resources/js-ui/app/css		&& \
 	mkdir -p WebContent/resources/js-ui/app/js								&& \
@@ -101,7 +112,7 @@ COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180
 COPY docker/config/context.xml conf/context.xml
 COPY --from=war_package /output /tmp
 WORKDIR webapps/Scada-LTS
-RUN jar -xvf /tmp/Scada-LTS.war && rm /tmp/Scada-LTS.war
+RUN jar -xf /tmp/Scada-LTS.war && rm /tmp/Scada-LTS.war
 
 FROM debian:stable-20240408 as deb_build
 RUN apt update
