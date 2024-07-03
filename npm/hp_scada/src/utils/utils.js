@@ -38,10 +38,10 @@ function test_url(url) {
 			if(response.status == 200) {
 				resolve(true);
 			} else {
-				resolve(false);
+				reject(false);
 			}
 		}).catch(e => {
-			resolve(false);
+			reject(false);
 		});
 	});
 }

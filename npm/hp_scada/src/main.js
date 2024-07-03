@@ -903,7 +903,9 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
-			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
+			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component().get_dom_element() : null;
+			console.log({ graphics });
+			console.log(graphics);
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
@@ -944,6 +946,7 @@ async function main() {
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
 				utils.load_svg(target_url).then(image => {
+					console.log("Background with prefix goes fine");
 					replace_background(image);
 				}).catch(problem => {
 					console.error("Error on loading background SVG file");
@@ -955,6 +958,7 @@ async function main() {
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
 				utils.test_url(target_url).then(sucess => {
+					console.log("Background without prefix goes fine");
 					change_background(target_url);
 				}).catch(problem => {
 					console.warn("Background file not found");

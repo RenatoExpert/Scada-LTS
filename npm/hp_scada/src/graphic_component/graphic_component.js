@@ -16,8 +16,12 @@ class Graphic_component {
 
 	create_dom_element () {
 		let div = document.createElement("div");
+		div.addEventListener("start", () => {
+			console.log("inside parent div event listener to start");
+		});
 		div.style.border = '1px solid gray';
-		div.style.padding = "5px";
+		div.style.padding = "5px 15px 15px 15px";
+		div.style.width = "100%";
 		div.id = "graphic-div";
 		div.append(this.chart_handler.get_dom_element());
 		div.append(this.time_controller.get_dom_element());
@@ -29,20 +33,9 @@ class Graphic_component {
 	}
 
 	start () {
-		if (this.interval) {
-			console.error("Graphic Controller is already running");
-		} else {
-			this.interval = setInterval(this.routine, 1e3);
-			//	Maybe need to pass this on 3rd parameter, to be used as 'self'
-		}
 	}
 
 	stop () {
-		if (this.interval) {
-			clearInterval(this.interval);
-		} else {
-			console.error("Graphic Controller is already stopped!");
-		}
 	}
 
 	loop () {
@@ -50,6 +43,7 @@ class Graphic_component {
 		let data = this.cache_manager.consult_range(selected_range);
 		this.chart_handler.update(data);
 	}
+
 
 }
 
