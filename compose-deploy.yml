@@ -20,16 +20,6 @@ services:
         links:
             - database:database
         depends_on:
-            opcuaserver:
-              condition: service_healthy
             database:
               condition: service_healthy
-
-    opcuaserver:
-        extends:
-            file: compose-base.yml
-            service: opcuaserver
-        container_name: opcuaserver-${BRANCH}
-        ports:
-            - "${PORT_OPC}:4840"
 
