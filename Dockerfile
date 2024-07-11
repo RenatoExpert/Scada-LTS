@@ -62,6 +62,8 @@ RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
 COPY --from=npm_package /dist dist
 COPY --from=newnpm_package /dist/hp.umd.js WebContent/assets/hp/hp.umd.js
+COPY --from=newnpm_build /package/src/header_L1.svg WebContent/assets/hp/header_L1.svg
+COPY --from=newnpm_build /package/bg WebContent/assets/hp/bg
 RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/css						WebContent/resources/js-ui/app/css		&& \
 	mkdir -p WebContent/resources/js-ui/app/js								&& \

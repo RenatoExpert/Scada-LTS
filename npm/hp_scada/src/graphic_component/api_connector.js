@@ -5,14 +5,18 @@ class Api_connector {
 		this.datapoints = datapoints;
 	}
 	download (range, datapoints = this.datapoints) {
+		let [start_ts, end_ts] = range;
+		console.log({ range, start_ts, end_ts });
 		return new Promise((resolve, reject) => {
+			let promises = [];
 			datapoints.forEach(datapoint => {
-				api.load_tag_history(tag, start_ts, end_ts).then(json => {
-					resolve(json);
-				}).catch(e => {
-					console.error(e);
-					reject(e);
-				});
+				let promise = api.load_tag_history(datapoint, start_ts, end_ts);
+				promises.push(promise);
+			});
+			Promise.all(promises).then(results => {
+				resolve(results);
+			}).catch(e => {
+				reject(e);
 			});
 		});
 	}

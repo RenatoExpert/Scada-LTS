@@ -28,10 +28,17 @@ class Time_controller {
 		this.spam = 0;
 		this.ts_start = 0;
 		this.ts_end = 0;
-		this.set_spam(1e3 * 60 * 60 * 24); //	A day
+		//this.set_spam(1e3 * 60 * 60 * 24); //	A day
+		this.set_spam(1e3 * 60); //	A minute
 		this.set_end(new Date().valueOf());
 		this.state = 'stop';
 		this.children = this.dom_element.children;
+	}
+
+	on_new_frame (callback) {
+		this.new_frame_callback = callback;
+		this.update_display();
+		return this;
 	}
 
 	create_dom_element () {
@@ -233,6 +240,17 @@ class Time_controller {
 	}
 
 	update_display () {
+		this.update_time_display();
+		try {
+			console.log({ ts_start: this.ts_start, ts_end: this.ts_end });
+			this.new_frame_callback(this.ts_start, this.ts_end);
+		} catch (e) {
+			console.error("Error while calling new_frame_callback");
+			console.error(e);
+		}
+	}
+
+	update_time_display () {
 		console.log('update_display');
 		Array.from(this.dom_element.children).forEach(child => {
 			let id = child.id;

@@ -1,3 +1,4 @@
+import Api_connector from './api_connector.js';
 
 function is_between (x, min, max) {
 	return x > min && x < max;
@@ -44,13 +45,63 @@ function subtract_range (minuend, subtrahend) {
 	return output_list;
 }
 
+function int_seconds (ts) {
+	let ms = ts % 1000;
+	let cleaned = ts - ms; 
+	return cleaned;
+}
+
 class Cache_manager {
 	constructor () {
 		this.loaded_ranges = [];
 		this.data = {};
+		this.connector = new Api_connector();
 	}
-	consult_range (range) {
+
+	query (range, datapoints) {
+		return new Promise((resolve, reject) => {
+			this.connector.download(range, datapoints).then(results => {
+				let memory = {};
+				results.forEach(result => {
+					let xid = result.name;
+					result.values.forEach(point => {
+						let ts = int_seconds(point.ts);
+						memory[ts] = memory[ts] ? memory[ts] : {};
+						memory[ts][xid] = point.value;
+					});
+				});
+				let mixed = [];
+				let labels = [];
+				Object.keys(memory).forEach(ts => {
+					labels.push(ts);
+					let frame = memory[ts];
+					frame.time = ts;
+					mixed.push(frame);
+				});
+				let datasets = [];
+				results.forEach(result => {
+					let xid = result.name;
+					let dataset = {
+						label: xid,
+						data: mixed,
+						parsing: {
+							yAxisKey: xid,
+							xAxisKey: "time"
+						}
+					};
+					datasets.push(dataset);
+				});
+				let data = {
+					labels,
+					datasets
+				};
+				resolve(data);
+			}).catch(e => {
+				reject(e);
+			});
+		});
 	}
+
 	_get_missing_parts (selected_range) {
 		let missing = [selected_range];
 		this.loaded_ranges.forEach(loaded_range => {
@@ -58,6 +109,7 @@ class Cache_manager {
 		});
 		return missing;
 	}
+
 	register_range (range, frames) {
 		frames.forEach(frame => {
 			this.data[frame.label] = frame.values;
@@ -65,6 +117,7 @@ class Cache_manager {
 		this.loaded_ranges.push(range);
 		this.check_and_merge_collisions();
 	}
+
 	check_and_merge_collisions () {
 		//      Create merges
 		let original = this.loaded_ranges;

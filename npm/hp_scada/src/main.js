@@ -236,7 +236,7 @@ function replace_element_by_id(id, new_element) {
 }
 
 function replace_background(image) {
-	bg_id = "viewBackground";
+	let bg_id = "viewBackground";
 	image.id = bg_id;
 	replace_element_by_id(bg_id, image);
 }
@@ -312,7 +312,7 @@ function update_display(field, value) {
 		let iterator = document.createNodeIterator(root, whatToShow, filter);
 		let currentNode;
 		while ((currentNode = iterator.nextNode())) {
-			query = currentNode.querySelector("tspan");
+			let query = currentNode.querySelector("tspan");
 			if (query) {
 				display = query;
 				break;
@@ -840,7 +840,7 @@ async function main() {
 					div.querySelector("#process-title").innerHTML = current_view.title;
 					div.querySelector("#operator-name").innerHTML = "Luiz Fernando";
 					if(current_view.level == 'l3') {
-						['#l1-daily', '#l1-hourly'].forEach(selector => {
+						['#l1-daily', '#l1-hourly', '#l1-graphics'].forEach(selector => {
 							set_visible(selector, div);
 						});
 					}
@@ -887,6 +887,9 @@ async function main() {
 					});
 					bind_button("l1-lock", "Sair", () => {
 						window.location.href = "logout.htm";
+					});
+					bind_button("l1-graphics", "Gráficos", () => {
+						utils.goto_id("l1-graphics");
 					});
 					bind_button("l1-daily", "Relatório Diário", () => {
 						utils.goto_id("l1-daily");
@@ -938,7 +941,7 @@ async function main() {
 		}
 		background: {
 			let cv = generated.current_view;
-			let background_url = utils.asset_url("hp_bg/");
+			let background_url = utils.asset_url("hp/bg/");
 			let prefix = cv.class;
 			let extension;
 			if(prefix) {
@@ -950,6 +953,7 @@ async function main() {
 					replace_background(image);
 				}).catch(problem => {
 					console.error("Error on loading background SVG file");
+					console.error({ target_url, filename, extension });
 					console.error(problem);
 				});
 			} else {
@@ -989,6 +993,7 @@ async function main() {
 							}).catch(problem => {
 								//console.error(`Error on field ${field}, expected tag ${instrument_tag}`);
 								success = "\u274c";
+								console.error({ instrument_tag, field, problem });
 							}).finally(fin => {
 								status_report[field] = { instrument_tag, success };
 							});
