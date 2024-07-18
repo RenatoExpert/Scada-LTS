@@ -5,9 +5,11 @@ import Id_handler from './id_handler.js';
 import Api_connector from './api_connector.js';
 
 class Graphic_component {
-	constructor (reference) {
+	constructor (current_view) {
+		console.log({ current_view });
+		let reference = null;
 		this.chart_handler = new Chart_handler();
-		this.id_handler = new Id_handler(reference);
+		this.id_handler = new Id_handler(current_view);
 		this.api_connector = new Api_connector(this.id_handler.datapoints);
 		this.cache_manager = new Cache_manager();
 		this.time_controller = new Time_controller().on_new_frame((ts_start, ts_end) => {
@@ -17,6 +19,8 @@ class Graphic_component {
 	}
 
 	new_frame (ts_init, ts_end) {
+		let datapoints = this.id_handler.datapoints;
+		/*
 		let datapoints = [
 			"ERPM001-FQ064-TI-1",
 			"ERPM001-FQ064-PI-1",
@@ -27,6 +31,7 @@ class Graphic_component {
 			"ERPM001-FQ064-FQIA-1",
 			"ERPM001-FQ064-EI-1"
 		];
+		*/
 		let range = [ts_init, ts_end];
 		console.log({ ts_init, ts_end, range, datapoints });
 		this.cache_manager.query(range, datapoints).then(result => {

@@ -906,7 +906,7 @@ async function main() {
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
-			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component().get_dom_element() : null;
+			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 			console.log({ graphics });
 			console.log(graphics);
 
