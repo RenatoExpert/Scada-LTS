@@ -65,7 +65,8 @@ class Cache_manager {
 				results.forEach(result => {
 					let xid = result.name;
 					result.values.forEach(point => {
-						let ts = int_seconds(point.ts);
+						let int_ts = int_seconds(point.ts);
+						let ts = new Date(int_ts).toLocaleString();
 						memory[ts] = memory[ts] ? memory[ts] : {};
 						memory[ts][xid] = point.value;
 					});

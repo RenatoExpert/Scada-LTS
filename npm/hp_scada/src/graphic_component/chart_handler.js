@@ -1,7 +1,7 @@
 import Chart from 'chart.js/auto';
 
 class Chart_handler {
-	constructor () {
+	constructor (graphic_title) {
 		this.config = {
 			type: "line",
 			options: {
@@ -26,7 +26,7 @@ class Chart_handler {
 				plugins: {
 					title: {
 						display: true,
-						text: "Posto trevo"
+						text: graphic_title
 					}
 				}
 			}

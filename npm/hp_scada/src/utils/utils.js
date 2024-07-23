@@ -61,9 +61,10 @@ async function load_json(url) {
 	return json;
 }
 
-function goto_id(id, reference) {
+function goto_id(id, reference, viewId) {
 	reference = reference || new URLSearchParams(window.location.search).get("xid");
-	let link = `?xid=${id}&reference=${reference}`;
+	viewId = viewId || new URLSearchParams(window.location.search).get("viewId");
+	let link = `?xid=${id}&reference=${reference}&viewId=${viewId}`;
 	window.location.href = link;
 }
 

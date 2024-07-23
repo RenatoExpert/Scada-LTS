@@ -8,7 +8,8 @@ class Graphic_component {
 	constructor (current_view) {
 		console.log({ current_view });
 		let reference = null;
-		this.chart_handler = new Chart_handler();
+		let graphic_title = current_view.label;
+		this.chart_handler = new Chart_handler(graphic_title);
 		this.id_handler = new Id_handler(current_view);
 		this.api_connector = new Api_connector(this.id_handler.datapoints);
 		this.cache_manager = new Cache_manager();

@@ -75,7 +75,7 @@ function normatize_relatory_column(json) {
 		let min_time = target;
 		let max_time = target + hour_in_ms;
 		let filtered_list = values.filter(row => {
-			time = row.ts;
+			let time = row.ts;
 			return min_time <= time && time <= max_time;
 		});
 		let sum = 0;
@@ -84,7 +84,7 @@ function normatize_relatory_column(json) {
 			if (Number.isNaN(value_str)) {
 				throw new Error(`Invalid value ${value_str} on ${row}`);
 			} else {
-				value = Number.parseFloat(value_str);
+				let value = Number.parseFloat(value_str);
 				sum += value;
 			}
 		});
@@ -106,7 +106,7 @@ function get_timedate(timestamp) {
 
 function render_relatory(obj, id_col) {
 	let iframe = document.getElementById("relatory-iframe");
-	parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
+	let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
 	let child_dom = generate_relatory_dom(obj, id_col);
 	parent_dom.replaceChildren(child_dom);
 }
@@ -116,10 +116,6 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 	relatory.style.padding = "3px 15px";
 	let table = document.createElement("table");
 	header: {
-		raw_volume_eu = linear ? "m³" : "kPa";
-		std_volume_eu = "m³";
-		avg_pressure_eu = "kgf/cm²";
-		avg_temperature_eu = "ºC";
 		let row = document.createElement("tr");
 		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
 		for(let header in headers) {
@@ -130,6 +126,10 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 		table.append(row);
 	}
 	body: {
+		let raw_volume_eu = linear ? "m³" : "kPa";
+		let std_volume_eu = "m³";
+		let avg_pressure_eu = "kgf/cm²";
+		let avg_temperature_eu = "ºC";
 		Object.getOwnPropertyNames(obj).forEach(time => {
 			let frame = obj[time];
 			let row = document.createElement("tr");
