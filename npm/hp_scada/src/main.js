@@ -973,7 +973,7 @@ async function main() {
 
 	loop: {
 		if (current_view.level != "l0") {
-			let duration = 10e3;
+			let duration = 1e3;
 			setInterval(() => {
 				clock_update: {
 					change_text("date", get_date());
