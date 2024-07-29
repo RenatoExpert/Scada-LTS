@@ -37,6 +37,10 @@ class Chart_handler {
 
 	create_dom_element() {
 		let canvas = document.createElement("canvas");
+		canvas.addEventListener("click", () => {
+			console.log({ chart: this.chart, data: this.chart.data });
+			console.log({ hidden: detect_hidden(this.chart) });
+		});
 		canvas.id = "graphic-canvas";
 		canvas.id = "graphics-canvas";
 		canvas.width = "350";
