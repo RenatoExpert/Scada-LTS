@@ -54,9 +54,31 @@ class Chart_handler {
 
 	render (data) {
 		this.chart.data = data;
-		this.chart.update();
+		let hidden_list = detect_hidden(this.chart);
+		apply_hidden(this.chart, hidden_list);
+		this.chart.update('active');
 	}
 }
+
+function detect_hidden (chart) {
+	let list = [];
+	chart.legend.legendItems.forEach(item => {
+		if (item.hidden) {
+			list.push(item.text);
+		}
+	});
+	return list;
+}
+
+function apply_hidden (chart, hidden_list) {
+	chart.data.datasets.forEach(dataset => {
+		let label = dataset.label;
+		if (hidden_list.includes(label)) {
+			dataset.hidden = true;
+		}
+	});
+}
+
 
 export default Chart_handler;
 
