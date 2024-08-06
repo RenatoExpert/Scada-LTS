@@ -20,7 +20,7 @@ function tag_load_value(xid) {
 		utils.load_json(target_url).then(json => {
 			if("value" in json) {
 				let value = json["value"];
-				console.debug({ xid, value });
+				//console.debug({ xid, value });
 				resolve(value);
 			} else {
 				reject("Bad return on Datapoint API! No value Field found");

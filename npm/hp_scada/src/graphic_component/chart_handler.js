@@ -54,6 +54,7 @@ class Chart_handler {
 
 	render (data) {
 		this.chart.data = data;
+		//this.chart.data.datasets[0].hidden = true;
 		let hidden_list = detect_hidden(this.chart);
 		apply_hidden(this.chart, hidden_list);
 		this.chart.update('active');
@@ -67,6 +68,7 @@ function detect_hidden (chart) {
 			list.push(item.text);
 		}
 	});
+	console.log({ list });
 	return list;
 }
 
@@ -77,6 +79,7 @@ function apply_hidden (chart, hidden_list) {
 			dataset.hidden = true;
 		}
 	});
+	console.log({ after_apply: chart });
 }
 
 

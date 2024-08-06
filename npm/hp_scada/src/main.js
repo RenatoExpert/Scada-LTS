@@ -6,6 +6,7 @@ import utils from './utils/utils.js';
 import api from './api/api.js';
 
 import Graphic_component from './graphic_component/graphic_component.js';
+import Summary_component from './summary_component/summary_component.js';
 
 import * as views_tree from 'views_tree.json';
 
@@ -14,6 +15,44 @@ const version_tag = "4.1.1";
 const canvas = document.getElementById("viewContent");
 const viewBackGround = document.getElementById("viewBackground");
 
+
+class Map {
+	constructor (tree) {
+		this.full_tree = tree;
+		this.get_current_view();
+		this.get_reference_info();
+		this.get_current_page();
+	}
+
+	get_current_page () {
+		let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let page = parseInt(urlParams.get('page')) || 1;
+		this.current_page = page;
+	}
+
+	get_current_view () {
+		let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let xid = urlParams.get('xid') || "l0-banner";
+		let view = get_view_info(xid);
+		this.current_view = view;
+	}
+
+	get_reference_info () {
+		let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let xid = urlParams.get('reference') || "l0-banner";
+		let view = get_view_info(xid);
+		return view;
+	}
+
+	gen_page_url (page) {
+		let url = new URL(window.location.href);
+		url.searchParams.set("page", page);
+		return url;
+	}
+}
 
 //	==============================================================================================
 //	HTML Utils
@@ -473,6 +512,7 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
+
 function get_area_by_intcode(intcode) {
 	let area_obj;
 	Object.values(loaded.tree.root.children).forEach(area => {
@@ -739,90 +779,6 @@ function page_url(page) {
 	return url;
 }
 
-function create_status_table(tree_table, items_per_page = 20) {
-	const current_page = get_current_page();
-	const last_page = Math.floor(Object.keys(tree_table).length / items_per_page) + 1;
-	console.log(current_page, items_per_page, last_page);
-	let div = document.createElement("div");
-	nav_gen: {
-		let nav = document.createElement("nav");
-		let page_display = document.createElement("spam");
-		page_display.innerText = `Página ${current_page} de ${last_page}`;
-		nav.append(page_display);
-		let previous = document.createElement("a");
-		previous.innerText = "retroceder";
-		previous.style.display = current_page > 1 ? 'inline' : 'none';
-		previous.href = page_url(current_page - 1);
-		nav.append(previous);
-		let next = document.createElement("a");
-		next.innerText = "avançar";
-		next.style.display = current_page < last_page ? 'inline' : 'none';
-		next.href = page_url(current_page + 1);
-		nav.append(next);
-		Array.prototype.slice.call(nav.children).forEach(child => {
-			child.style.paddingLeft = "20px";
-		});
-		div.appendChild(nav);
-	}
-	let table = document.createElement("table");
-	let css = document.createElement("style");
-	css.innerHTML = `
-		tr:nth-child(even) {
-			background-color: #ddddff;
-		}
-		tr:hover {
-			background-color: #aaaadd;
-		}
-		td, th {
-			padding: 2px 7px;
-		}
-	`;
-	table.appendChild(css);
-	table.className = "summary";
-	table.style.backgroundColor = "#f1f1f1";
-	header: {
-		let row = document.createElement("tr");
-		row.style.backgroundColor = "#b4b4c4";
-		let headers = ["Estacao", "Modem", "Comunicacao", "Atualizacao", "Entrada", "Saida", "Temperatura", "Vazao", "Mes", "Anterior"];
-		for(let header in headers) {
-			let col = utils.tag_text("th", headers[header]);
-			row.append(col);
-		}
-		table.append(row);
-	}
-	let index_number = 0;
-	for(let item in tree_table) {
-		console.log({ item });
-		if(index_number < (current_page * items_per_page) && index_number >= (current_page - 1) * items_per_page) {
-			let row = document.createElement("tr");
-			let cols = [
-				tree_table[item].label,
-				"Conectado",
-				"OK",
-				"14:23",
-				utils.format_var(22, "Kgf/cm²"),
-				utils.format_var(12, "Kgf/cm²"),
-				utils.format_var(28, "°C"),
-				utils.format_var(4.792, "m3/dia"),
-				utils.format_var(40.634, "m3"),
-				utils.format_var(92.179, "m3")
-			];
-			for(let i in cols) {
-				let col = utils.tag_text("td", cols[i]);
-				row.append(col);
-			}
-			let xid = `l3-${item}`;
-			row.onclick = () => {
-				utils.goto_id(xid);
-			};
-			table.append(row);
-		}
-		index_number++;
-	}
-	div.append(table);
-	return div;
-}
-
 
 //	==============================================================================================
 //	Runtime
@@ -945,7 +901,8 @@ async function main() {
 				}
 				return div;
 			})();
-			let summary = current_view.level == "l2" ? create_status_table(current_view.process.children) : document.createElement("div");
+			let map = new Map(loaded.tree);
+			let summary = current_view.level == "l2" ? new Summary_component(map).get_dom_element() : null
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
@@ -955,7 +912,6 @@ async function main() {
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
-			summary.id = "summary";
 
 			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics };
 		}
@@ -1022,7 +978,6 @@ async function main() {
 					change_text("time", get_time());
 				}
 				template: {
-					console.log("Test");
 					let station_class = current_view.class;
 					if(station_class) {
 						console.debug({ current_view, template_fields, station_class });
