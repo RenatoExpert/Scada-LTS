@@ -1,5 +1,9 @@
+const HOUR_IN_MS = 60 * 60 * 1e3;
+const DAY_IN_MS = 24 * HOUR_IN_MS;
+
 class Time_controller {
 	constructor () {
+		this.edit_mode = false;
 		this.forward_speed = 10e3;
 		this.reverse_speed = -10e3;
 		this.normal_speed = 1e3;
@@ -20,17 +24,14 @@ class Time_controller {
 			bubbles: true,
 			cancelable: true
 		});
-		this.after_selection_event = new Event("change_after_selection", {
+		this.change_lock_event = new Event("change_lock", {
 			bubbles: true,
 			cancelable: true
 		});
 		this.create_dom_element();
 		this.spam = 0;
-		this.ts_start = 0;
-		this.ts_end = 0;
-		//this.set_spam(1e3 * 60 * 60 * 24); //	A day
-		this.set_spam(1e3 * 60); //	A minute
-		this.set_end(new Date().valueOf());
+		this.ts_start = new Date().valueOf() - DAY_IN_MS;
+		this.ts_end = new Date().valueOf();
 		this.state = 'stop';
 		this.children = this.dom_element.children;
 	}
@@ -60,8 +61,8 @@ class Time_controller {
 			console.log("inside controllers event listener to stop");
 			this.reverse();
 		});
-		controllers.addEventListener("change_after_selection", () => {
-			this.set_after_selection();
+		controllers.addEventListener("change_lock", () => {
+			this.change_edit_lock();
 		});
 		controllers.id = "graphic-controllers-div";
 		controllers.style.border = "1px solid gray";
@@ -120,6 +121,7 @@ class Time_controller {
 				after_date.type = "date";
 				after_date.valueAsDate = new Date();
 				after_date.required = true;
+				after_date.disabled = true;
 				after_date.addEventListener("change", pointer_event => {
 					after_date.dispatchEvent(controller_obj.after_selection_event);
 				});
@@ -132,6 +134,7 @@ class Time_controller {
 				after_time.type = "time";
 				after_time.valueAsNumber = 0;
 				after_time.required = true;
+				after_time.disabled = true;
 				after_time.addEventListener("change", pointer_event => {
 					after_time.dispatchEvent(controller_obj.after_selection_event);
 				});
@@ -142,6 +145,22 @@ class Time_controller {
 			time_spam.innerText = "1d";
 			controllers.append(time_spam);
 		}
+		let editLabel = document.createElement("label");
+			editLabel.id = "lockLabel";
+			let lockIcon = document.createElement("i");
+				lockIcon.id = "lockIcon";
+				lockIcon.className = "glyphicon glyphicon-pencil";
+			editLabel.append(lockIcon);
+			let editButton = document.createElement("input");
+				editButton.type = "checkbox";
+				editButton.id = "editSwitch";
+				editButton.style.display = "none";
+				editButton.addEventListener("change", () => {
+					console.log("hohoho and a bottle of run!");
+					editButton.dispatchEvent(controller_obj.change_lock_event);
+				});
+				editLabel.append(editButton);
+			controllers.append(editLabel);
 		Array.from(controllers.children).forEach(child => {
 			child.style.height = "30px";
 			child.style.width = "100px";
@@ -213,15 +232,6 @@ class Time_controller {
 		return ['after-time', 'after-date', 'before-time', 'before-date', 'time-spam'].includes(document.activeElement.id);
 	}
 
-	set_after_selection () {
-		let time = this.get_dom_element().querySelector("#after-time").valueAsNumber;
-		let date = this.get_dom_element().querySelector("#after-date").valueAsNumber;
-		let fix = 6 * 60 * 60 * 1e3;
-		let sum = date + time + fix;
-		console.log({ fn: "set_after_selection()", time, date, sum });
-		this.set_end(sum);
-	}
-
 	set_end (new_end) {
 		let now = new Date().valueOf();
 		console.log({ fn: "set_end()", new_end, now });
@@ -229,24 +239,19 @@ class Time_controller {
 			console.error("Trying to get future!");
 		} else {
 			this.ts_end = new_end;
-			this.update_start();
 		}
 	}
 
-	update_start () {
-		this.ts_start = this.ts_end - this.spam;
-		console.log({ fn: "update_start", start: this.ts_start, end: this.ts_end, spam: this.spam });
-		this.update_display();
-	}
-
 	update_display () {
-		this.update_time_display();
-		try {
-			console.log({ ts_start: this.ts_start, ts_end: this.ts_end });
-			this.new_frame_callback(this.ts_start, this.ts_end);
-		} catch (e) {
-			console.error("Error while calling new_frame_callback");
-			console.error(e);
+		if (!this.edit_mode) {
+			this.update_time_display();
+			try {
+				console.log({ ts_start: this.ts_start, ts_end: this.ts_end });
+				this.new_frame_callback(this.ts_start, this.ts_end);
+			} catch (e) {
+				console.error("Error while calling new_frame_callback");
+				console.error(e);
+			}
 		}
 	}
 
@@ -273,10 +278,55 @@ class Time_controller {
 			} else if (id == "pause") {
 			} else if (id == "forward") {
 			} else if (id == "reverse") {
+			} else if (id == "lockLabel") {
+			} else if (id == "editSwitch") {
 			} else {
 				console.error(`id not found for child ${child}`);
 			}
 		});
+	}
+
+	change_edit_lock () {
+		let isEditMode = document.getElementById("editSwitch").checked;
+		console.log({ isEditMode });
+		if (isEditMode) {
+			this.enable_edit();
+		} else {
+			this.disable_edit();
+			this.save_values();
+			this.update_display();
+		}
+	}
+
+	enable_edit () {
+		this.edit_mode = true;
+		document.getElementById("before-date").disabled = false;
+		document.getElementById("before-time").disabled = false;
+		document.getElementById("after-date").disabled = false;
+		document.getElementById("after-time").disabled = false;
+		document.getElementById("time-spam").disabled = false;
+		console.log("Inside enable_edit()");
+		document.getElementById('lockIcon').className = "bi bi-pencil";
+	}
+
+	disable_edit () {
+		this.edit_mode = false;
+		document.getElementById("before-date").disabled = true;
+		document.getElementById("before-time").disabled = true;
+		document.getElementById("after-date").disabled = true;
+		document.getElementById("after-time").disabled = true;
+		document.getElementById("time-spam").disabled = true;
+		console.log("Inside disable_edit()");
+		document.getElementById('lockIcon').className = "bi bi-pencil-fill";
+	}
+
+	save_values () {
+		let bf_date = document.getElementById("before-date").valueAsNumber;
+		let bf_time = document.getElementById("before-time").valueAsNumber;
+		this.ts_start = bf_date + bf_time + (3 * HOUR_IN_MS);
+		let at_date = document.getElementById("after-date").valueAsNumber;
+		let at_time = document.getElementById("after-time").valueAsNumber;
+		this.ts_end = at_date + at_time + (3 * HOUR_IN_MS);
 	}
 
 	set_spam (new_spam) {
@@ -291,7 +341,6 @@ class Time_controller {
 	get_end () {
 		return this.ts_end;
 	}
-
 }
 
 export default Time_controller;
