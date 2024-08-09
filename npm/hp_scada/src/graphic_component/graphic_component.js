@@ -1,6 +1,6 @@
 import Chart_handler from './chart_handler.js';
 import Cache_manager from './cache_manager.js';
-import Time_controller from './time_controller.js';
+import Time_controller from './time_controller/time_controller.js';
 import Id_handler from './id_handler.js';
 import Api_connector from './api_connector.js';
 
@@ -69,8 +69,6 @@ class Graphic_component {
 		let data = this.cache_manager.consult_range(selected_range);
 		this.chart_handler.update(data);
 	}
-
-
 }
 
 export default Graphic_component;
