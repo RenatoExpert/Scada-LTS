@@ -6,18 +6,20 @@ class Id_handler {
 		this.station_suffix = `FQ${current_view.code}`;
 		this.station_tag = `${this.area_tag}-${this.station_suffix}`;
 		this.dp_suffixes = [
-			"PI-1",
-			"TI-1",
-			"EI-1"
+			["PI-1", "Pressão"],
+			["TI-1", "Temperatura"],
+			["EI-1", "Tensão"]
 		];
 		this.estimate_datapoints();
 	}
 
 	estimate_datapoints () {
 		let datapoints = [];
-		this.dp_suffixes.forEach(suffix => {
+		this.dp_suffixes.forEach(meta_dp => {
+			let suffix = meta_dp[0];
 			let datapoint = `${this.station_tag}-${suffix}`;
-			datapoints.push(datapoint);
+			let description = meta_dp[1];
+			datapoints.push([datapoint, description]);
 		});
 		this.datapoints = datapoints;
 	}

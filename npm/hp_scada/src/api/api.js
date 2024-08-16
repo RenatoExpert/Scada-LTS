@@ -32,12 +32,15 @@ function tag_load_value(xid) {
 	});
 }
 
-function load_tag_history(xid, start, end) {
+function load_tag_history(datapoint, start, end) {
+	let xid = datapoint[0];
+	let description = datapoint[1];
 	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid/", utils.get_root_path());
 	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
 	return new Promise((resolve, reject) => {
 		utils.load_json(target_url).then(json => {
-			console.debug({ json });
+			json.name = `${json.name} (${description})`;
+			//console.debug({ json });
 			resolve(json);
 		}).catch(problem => {
 			console.error({ problem, target_url, xid });

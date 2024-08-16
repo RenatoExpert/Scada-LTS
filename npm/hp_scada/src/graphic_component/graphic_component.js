@@ -14,9 +14,13 @@ class Graphic_component {
 		this.api_connector = new Api_connector(this.id_handler.datapoints);
 		this.cache_manager = new Cache_manager();
 		this.time_controller = new Time_controller().on_new_frame((ts_start, ts_end) => {
-			this.new_frame(ts_start, ts_end);
+			return this.new_frame(ts_start, ts_end);
 		});
 		this.dom_element = this.create_dom_element();
+		this.dom_element.addEventListener("move_time", () => {
+			console.log("inside controllers event listener to move time");
+			this.time_controller.move_time();
+		});
 	}
 
 	new_frame (ts_init, ts_end) {
@@ -34,8 +38,8 @@ class Graphic_component {
 		];
 		*/
 		let range = [ts_init, ts_end];
-		console.log({ ts_init, ts_end, range, datapoints });
-		this.cache_manager.query(range, datapoints).then(result => {
+		//console.log({ ts_init, ts_end, range, datapoints });
+		return this.cache_manager.query(range, datapoints).then(result => {
 			this.chart_handler.render(result);
 		});
 	}
