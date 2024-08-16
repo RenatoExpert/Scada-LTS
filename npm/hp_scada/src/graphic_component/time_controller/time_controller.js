@@ -30,10 +30,11 @@ class Time_controller {
 		});
 		this.create_dom_element();
 		this.spam = 0;
-		this.ts_start = new Date().valueOf() - DAY_IN_MS;
+		this.ts_start = new Date().valueOf() - HOUR_IN_MS;
 		this.ts_end = new Date().valueOf();
 		this.state = 'stop';
 		this.children = this.dom_element.children;
+		this.start();
 	}
 
 	on_new_frame (callback) {
@@ -42,27 +43,31 @@ class Time_controller {
 		return this;
 	}
 
+	move_time (amount) {
+		console.log({ fn: "move_time", amount });
+	}
+
 	create_dom_element () {
 		let controller_obj = this;
 		let controllers = document.createElement("div");
 		controllers.addEventListener("start", () => {
 			console.log("inside controllers event listener to start");
-			this.start();
+			controller_obj.start();
 		});
 		controllers.addEventListener("stop", () => {
 			console.log("inside controllers event listener to stop");
-			this.stop();
+			controller_obj.stop();
 		});
 		controllers.addEventListener("forward", () => {
 			console.log("inside controllers event listener to stop");
-			this.forward();
+			controller_obj.forward();
 		});
 		controllers.addEventListener("reverse", () => {
 			console.log("inside controllers event listener to stop");
-			this.reverse();
+			controller_obj.reverse();
 		});
 		controllers.addEventListener("change_lock", () => {
-			this.change_edit_lock();
+			controller_obj.change_edit_lock();
 		});
 		controllers.id = "graphic-controllers-div";
 		controllers.style.border = "1px solid gray";
@@ -226,6 +231,8 @@ class Time_controller {
 
 	increment_time () {
 		this.set_end(this.ts_end + this.current_speed);
+		this.ts_start = this.ts_start + this.current_speed;
+		this.update_display();
 	}
 
 	hasFocus () {
@@ -234,7 +241,7 @@ class Time_controller {
 
 	set_end (new_end) {
 		let now = new Date().valueOf();
-		console.log({ fn: "set_end()", new_end, now });
+		//console.log({ fn: "set_end()", new_end, now });
 		if(new_end > now) {
 			console.error("Trying to get future!");
 		} else {
@@ -243,11 +250,14 @@ class Time_controller {
 	}
 
 	update_display () {
+		document.body.style.cursor = "wait";
 		if (!this.edit_mode) {
 			this.update_time_display();
 			try {
-				console.log({ ts_start: this.ts_start, ts_end: this.ts_end });
-				this.new_frame_callback(this.ts_start, this.ts_end);
+				//console.log({ ts_start: this.ts_start, ts_end: this.ts_end });
+				this.new_frame_callback(this.ts_start, this.ts_end).then(() => {
+					document.body.style.cursor = "auto";
+				});
 			} catch (e) {
 				console.error("Error while calling new_frame_callback");
 				console.error(e);
