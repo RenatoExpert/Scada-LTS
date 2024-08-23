@@ -227,7 +227,8 @@ function validate_filter(e) {
 	console.warn({ e });
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
-		end_ts = sum_datetime("end-date", "end-time");
+		let TWO_HOURS = 2 * 60 * 60 * 1e3;
+		end_ts = sum_datetime("end-date", "end-time") + TWO_HOURS;
 		let area = document.getElementById('select-area').value;
 		let station = document.getElementById('select-station').value;
 		if(area && station) {
