@@ -394,10 +394,8 @@ public class PointValueAPI {
     @RequestMapping(value = "/api/point_value/getValue/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> getValue(@PathVariable("id") int id, HttpServletRequest request) {
         LOG.info("/api/point_value/getValue/id/{id} id:" + id);
-
         try {
             User user = Common.getUser(request);
-
             if (user != null) {
                 DataPointVO dpvo = dataPointService.getDataPoint(id);
                 PointValueTime pvt = pointValueService.getLatestPointValue(dpvo.getId());
@@ -601,6 +599,95 @@ public class PointValueAPI {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
     }
+
+	/**
+		* @param xid id of datapoint
+		* @param sts start timestamp
+		* @param ets end timestamp
+		* @param request
+		* @return
+	*/
+	@RequestMapping(value = "/api/point_value/getDistributedPointValues/{xid}/{from}/{to}/{amount}", method = RequestMethod.GET)
+	public ResponseEntity<String> getDistributedPointValues(@PathVariable("xid") String xid, @PathVariable("from") long from, @PathVariable("to") long to, @PathVariable("amount") long amount, HttpServletRequest request) {
+		LOG.info("/api/point_value/getFirstValueFromTimePeriod/{id}/{from}/{to} id: " + xid + " from: " + from + " to: " + to);
+		long full_range = to - from;
+		long split_range = full_range / amount;
+		try {
+			User user = Common.getUser(request);
+			DataPointVO dataPoint = dataPointService.getDataPoint(xid);
+			if (user != null) {
+				int dataPointId = dataPoint.getId();
+				String type = "Numeric";
+				List<ValueTime> values = new ArrayList<ValueTime>();
+				for (long i = 0; i < amount; i++) {
+					long from_i = from + (i * split_range);
+					long to_i = from_i + split_range;
+					List<PointValueTime> datapointHistory = pointValueService.getDistributedPointValuesBetween(dataPointId, from_i, to_i);
+					for (PointValueTime pointValueTime: datapointHistory) {
+						String value = getValue(pointValueTime.getValue(), type);
+						long time = pointValueTime.getTime();
+						ValueTime valueTime = new ValueTime(value, time);
+						values.add(valueTime);
+					}
+				}
+				ValuesToJSON protoJson = new ValuesToJSON(values, dataPoint, type, from, to);
+				ObjectMapper mapper = new ObjectMapper();
+				String jsonString = mapper.writeValueAsString(protoJson);
+				return new ResponseEntity<String>(jsonString, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			}
+		} catch (Exception e) {
+			LOG.error(e);
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+		* @param xid id of datapoint
+		* @param sts start timestamp
+		* @param ets end timestamp
+		* @param request
+		* @return
+	*/
+	@RequestMapping(value = "/api/point_value/getFirstValueFromTimePeriod/{xid}/{sts}/{ets}", method = RequestMethod.GET)
+	public ResponseEntity<String> getFirstValueFromTimePeriod(@PathVariable("xid") String xid, @PathVariable("sts") long sts, @PathVariable("ets") long ets, HttpServletRequest request) {
+		LOG.info("/api/point_value/getFirstValueFromTimePeriod/{id}/{sts}/{ets} id: " + xid + " sts: " + sts + " ets: " + ets);
+		try {
+			User user = Common.getUser(request);
+			DataPointVO dpvo = dataPointService.getDataPoint(xid);
+			if (user != null) {
+				List<PointValueTime> pvts = pointValueService.getFirstPointValueBetween(dpvo.getId(), sts, ets);
+				String json = null;
+				ObjectMapper mapper = new ObjectMapper();
+				List<ValueTime> values = new ArrayList<ValueTime>();
+				String type = null;
+				if(pvts.size() > 0) {
+					MangoValue value = pvts.get(0).getValue();
+					if (value instanceof AlphanumericValue) {
+						type = "Alphanumeric";
+					} else if (value instanceof BinaryValue) {
+						type = "Binary";
+					} else if (value instanceof MultistateValue) {
+						type = "Multistate";
+					} else if (value instanceof NumericValue) {
+						type = "Numeric";
+					}
+				}
+				for (PointValueTime pvt : pvts) {
+					values.add(new ValueTime(getValue(pvt.getValue(), type), pvt.getTime()));
+				}
+				ValuesToJSON v = new ValuesToJSON(values, dpvo, type, sts, ets);
+				json = mapper.writeValueAsString(v);
+				return new ResponseEntity<String>(json, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			}
+		} catch (Exception e) {
+			LOG.error(e);
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
     /**
      * @param xid id of datapoint

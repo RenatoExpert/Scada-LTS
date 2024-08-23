@@ -333,6 +333,24 @@ public class PointValueService implements MangoPointValues, MangoPointValuesWith
         return getLstPointValueTime(lst);
     }
 
+	public List<PointValueTime> getFirstPointValueBetween (int dataPointId, long from, long to) {
+		String filter = PointValueDAO.POINT_VALUE_FILTER_BASE_ON_DATA_POINT_ID_AND_TIME_STAMP_FROM_TO;
+		Object[] parameters = new Object[]{ dataPointId, from, to };
+		int limit = 1;
+		List<PointValue> last = PointValueDAO.getInstance().filtered(filter, parameters, limit);
+		List<PointValueTime> lastPointValueTime = getLstPointValueTime(last);
+		return lastPointValueTime;
+	}
+
+	public List<PointValueTime> getDistributedPointValuesBetween (int dataPointId, long from, long to) {
+		String filter = PointValueDAO.POINT_VALUE_FILTER_BASE_ON_DATA_POINT_ID_AND_TIME_STAMP_FROM_TO;
+		Object[] parameters = new Object[]{ dataPointId, from, to };
+		int limit = 1;
+		List<PointValue> last = PointValueDAO.getInstance().filtered(filter, parameters, limit);
+		List<PointValueTime> lastPointValueTime = getLstPointValueTime(last);
+		return lastPointValueTime;
+	}
+
     public List<PointValueTime> getPointValuesBetween(int dataPointId,
                                                       long from, long to) {
         List<PointValue> lst = PointValueDAO.getInstance().filtered(
