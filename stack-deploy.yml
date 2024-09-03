@@ -1,0 +1,67 @@
+# docker stack deploy --compose-file compose-deploy.yml tree-renato
+services:
+    database:
+        image: mysql/mysql-server:8.0.32
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_DATABASE=scadalts
+        command: --log_bin_trust_function_creators=1
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: 768M
+            restart_policy:
+                condition: on-failure
+                max_attempts: 15
+                delay: 3s
+        healthcheck:
+            test: mysqladmin ping -h localhost
+            interval: 5s
+            timeout: 10s
+            retries: 10
+            start_period: 5s
+            start_interval: 5s
+        ports:
+            - target: 3306
+              published: 8731
+              mode: host
+        volumes:
+            - /volumes/${BRANCH}/database/data:/var/lib/mysql:rw
+            - /volumes/${BRANCH}/database/config:/etc/mysql:ro
+        networks:
+            - scadanet
+
+    argos:
+        image: 127.0.0.1:5000/argos:${BRANCH}
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: war_deploy
+        environment:
+            - CATALINA_OPTS=-Xmx512m -Xms512m
+        deploy:
+          resources:
+            limits:
+              cpus: '2'
+              memory: 1.2G
+            restart_policy:
+                condition: on-failure
+                max_attempts: 15
+                delay: 3s
+        ports:
+            - target: 8080
+              published: 8730
+              mode: host
+        depends_on:
+            - database
+        extra_hosts:
+            - "linuxhost:host-gateway"
+        networks:
+            - scadanet
+
+networks:
+    scadanet:
+        name: ${BRANCH}_network
