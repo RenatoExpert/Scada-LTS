@@ -43,10 +43,10 @@ services:
         environment:
             - CATALINA_OPTS=-Xmx512m -Xms512m
         deploy:
-          resources:
-            limits:
-              cpus: '2'
-              memory: 1.2G
+            resources:
+                limits:
+                    cpus: '2'
+                    memory: 1.2G
             restart_policy:
                 condition: on-failure
                 max_attempts: 15
