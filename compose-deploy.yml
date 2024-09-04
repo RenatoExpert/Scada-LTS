@@ -22,4 +22,5 @@ services:
         depends_on:
             database:
               condition: service_healthy
-
+        extra_hosts:
+            - "linuxhost:host-gateway"

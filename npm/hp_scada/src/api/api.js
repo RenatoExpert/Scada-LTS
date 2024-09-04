@@ -32,12 +32,32 @@ function tag_load_value(xid) {
 	});
 }
 
-function load_tag_history(xid, start, end) {
+function load_tag_history(datapoint, start, end) {
+	let xid = datapoint[0];
+	let description = datapoint[1];
 	let base_url = new URL("api/point_value/getValuesFromTimePeriod/xid/", utils.get_root_path());
 	let target_url = new URL(`${xid}/${start}/${end}`, base_url);
 	return new Promise((resolve, reject) => {
 		utils.load_json(target_url).then(json => {
-			console.debug({ json });
+			json.name = `${json.name} (${description})`;
+			//console.debug({ json });
+			resolve(json);
+		}).catch(problem => {
+			console.error({ problem, target_url, xid });
+			reject("Datapoint API returned error!");
+		});
+	});
+}
+
+function load_tag_history_compress (datapoint, start, end, points=50) {
+	let xid = datapoint[0];
+	let description = datapoint[1];
+	let base_url = new URL("api/point_value/getDistributedPointValues/", utils.get_root_path());
+	let target_url = new URL(`${xid}/${start}/${end}/${points}`, base_url);
+	return new Promise((resolve, reject) => {
+		utils.load_json(target_url).then(json => {
+			json.name = `${json.name} (${description})`;
+			//console.debug({ json });
 			resolve(json);
 		}).catch(problem => {
 			console.error({ problem, target_url, xid });
@@ -49,6 +69,7 @@ function load_tag_history(xid, start, end) {
 const api = {
 	tag_load_num,
 	tag_load_value,
+	load_tag_history_compress,
 	load_tag_history
 };
 

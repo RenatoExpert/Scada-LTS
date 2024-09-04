@@ -21,7 +21,7 @@ services:
           start_interval: 5s
 
     argos:
-        image: argos:latest
+        image: 127.0.0.1:5000/argos:latest
         build:
           context: .
           dockerfile: Dockerfile

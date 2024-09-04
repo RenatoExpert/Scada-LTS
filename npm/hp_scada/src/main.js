@@ -211,10 +211,10 @@ function make_relatory_indexes(from, to) {
 
 function get_hist_tags(area_code, station_code) {
 	let sample = {
-		raw_volume: `ERPM${area_code}-FQ${station_code}-FQIA-1`,
-		std_volume: `ERPM${area_code}-FQ${station_code}-FQI-1`,
-		avg_pressure: `ERPM${area_code}-FQ${station_code}-PI-1`,
-		avg_temperature: `ERPM${area_code}-FQ${station_code}-TI-1`
+		raw_volume: [`ERPM${area_code}-FQ${station_code}-FQIA-1`, "Contagem anterior"],
+		std_volume: [`ERPM${area_code}-FQ${station_code}-FQI-1`, "Contagem atual"],
+		avg_pressure: [`ERPM${area_code}-FQ${station_code}-PI-1`, "Pressão"],
+		avg_temperature: [`ERPM${area_code}-FQ${station_code}-TI-1`, "Temperatura"]
 	};
 	return sample;
 }
@@ -227,7 +227,8 @@ function validate_filter(e) {
 	console.warn({ e });
 	try {
 		start_ts = sum_datetime("start-date", "start-time");
-		end_ts = sum_datetime("end-date", "end-time");
+		let TWO_HOURS = 2 * 60 * 60 * 1e3;
+		end_ts = sum_datetime("end-date", "end-time") + TWO_HOURS;
 		let area = document.getElementById('select-area').value;
 		let station = document.getElementById('select-station').value;
 		if(area && station) {
@@ -852,10 +853,12 @@ async function main() {
 						btn.onclick = action;
 						btn.onmouseover = () => {
 							subtitle(tooltip, btn);
+
 						};
 						btn.onmouseout = () => {
 							subtitle();
 						};
+						btn.style.cursor = "pointer";
 					}
 					function subtitle(desc, source) {
 						var c = document.getElementById("hp-headers-subtitle");
@@ -871,6 +874,12 @@ async function main() {
 							hide(c);
 						}
 					}
+					bind_button("l1-back", "Retroceder", () => {
+						history.back();
+					});
+					bind_button("l1-forward", "Avançar", () => {
+						history.forward();
+					});
 					bind_button("l1-map", "Mapa das estacoes", () => {
 						utils.goto_id("l1-cidades");
 					});
