@@ -35,7 +35,7 @@ services:
             - scadanet
 
     argos:
-        image: 127.0.0.1:5000/argos:${BRANCH}
+        image: scada-argos.eastus2.cloudapp.azure.com:8793/argos:${BRANCH}
         build:
             context: .
             dockerfile: Dockerfile
