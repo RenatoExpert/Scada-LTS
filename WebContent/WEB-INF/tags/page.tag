@@ -313,42 +313,81 @@
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<tag:menuItem href="watch_list.shtm" png="eye" key="header.watchlist"/>
-									<tag:menuItem href="views.shtm" png="icon_view" key="header.views"/>
-									<tag:menuItem href="events.shtm" png="flag_white" key="header.alarms"/>
-									<tag:menuItem href="reports.shtm" png="report" key="header.reports"/>
+                  <div class="horizontal-menu">
+                      <a href="watch_list.shtm" class="nav-link" title="Listas de Observações">
+                          <i class="bi bi-layout-text-window-reverse"></i> 
+                      </a>
+                      <a href="views.shtm" class="nav-link" title="Representação gráfica">
+                          <i class="bi bi-diagram-3"></i> 
+                      </a>
+                      <a href="events.shtm" class="nav-link" title="Alarmes">
+                          <i class="bi bi-flag"></i> 
+                      </a>
+                      <a href="reports.shtm" class="nav-link" title="Relatórios">
+                          <i class="bi bi-clipboard2-pulse"></i> 
+                      </a>
+                  </div>
 								</c:otherwise>
 							</c:choose>
 						</div>
 
 						<c:if test="${sessionUser.admin}">
-							<div class="spacer">
-								<img src="./images/menu_separator.png" class="separator"/>
-								<tag:menuItem href="event_handlers.shtm" png="cog" key="header.eventHandlers"/>
-								<tag:menuItem href="data_sources.shtm" png="icon_ds" key="header.dataSources"/>
-								<tag:menuItem href="scheduled_events.shtm" png="clock" key="header.scheduledEvents"/>
-								<tag:menuItem href="compound_events.shtm" png="multi_bell" key="header.compoundEvents"/>
-								<tag:menuItem href="point_links.shtm" png="link" key="header.pointLinks"/>
-								<tag:menuItem href="scripting.shtm" png="script_gear" key="header.scripts"/>
-							</div>
-						</c:if>
-
-						<div class="spacer">
 							<img src="./images/menu_separator.png" class="separator"/>
-							<tag:menuItem href="users.shtm" png="user" key="header.users"/>
-						</div>
+              <div class="horizontal-menu">
+                      <a href="event_handlers.shtm" class="nav-link" title="Tratadores de Eventos">
+                          <i class="bi bi-gear"></i> 
+                      </a>
+                      <a href="data_sources.shtm"" class="nav-link" title="Data sources">
+                          <i class="bi bi-database-add"></i> 
+                      </a>
+                      <a href="scheduled_events.shtm" class="nav-link" title="Eventos Agendados">
+                          <i class="bi bi-calendar-check"></i> 
+                      </a>
+                      <a href="compound_events.shtm" class="nav-link" title="Eventos Compostos">
+                          <i class="bi bi-calendar-week"></i> 
+                      </a>
+                      <a href="point_links.shtm" class="nav-link" title="Point Links">
+                          <i class="bi bi-arrow-left-right"></i> 
+                      </a>
+                      <a href="scripting.shtm" class="nav-link" title="Scripting">
+                          <i class="bi bi-journal-code"></i> 
+                      </a>
+              </div>
+						</c:if>
+							<img src="./images/menu_separator.png" class="separator"/>
+              <div class="horizontal-menu">
+                      <a href="users.shtm" class="nav-link" title="Usuários">
+                          <i class="bi bi-people"></i> 
+                      </a>
+						  </div>
 
 						<c:if test="${sessionUser.admin}">
-							<div class="spacer">
-								<tag:menuItem href="usersProfiles.shtm" png="user_ds" key="header.usersProfiles"/>
-								<tag:menuItem href="pointHierarchySLTS" png="folder_brick" key="header.pointHierarchy"/>
-								<tag:menuItem href="mailing_lists.shtm" png="book" key="header.mailingLists"/>
-								<tag:menuItem href="publishers.shtm" png="transmit" key="header.publishers"/>
-								<tag:menuItem href="maintenance_events.shtm" png="hammer" key="header.maintenanceEvents"/>
-								<tag:menuItem href="system_settings.shtm" png="application_form" key="header.systemSettings"/>
-								<tag:menuItem href="emport.shtm" png="script_code" key="header.emport"/>
-								<tag:menuItem href="sql.shtm" png="script" key="header.sql"/>
-							</div>
+              <div class="horizontal-menu">
+                      <a href="usersProfiles.shtm" class="nav-link" title="Perfis de Usuários">
+                          <i class="bi bi-person-vcard"></i> 
+                      </a>
+                      <a href="pointHierarchySLTS"" class="nav-link" title="Hierarquia">
+                          <i class="bi bi-menu-app"></i> 
+                      </a>
+                      <a href="mailing_lists.shtm" class="nav-link" title="Listas de envio">
+                          <i class="bi bi-journal-arrow-up"></i> 
+                      </a>
+                      <a href="publishers.shtm" class="nav-link" title="Publishers">
+                          <i class="bi bi-arrow-up-square"></i> 
+                      </a>
+                      <a href="maintenance_events.shtm" class="nav-link" title="Eventos de manutenção">
+                          <i class="bi bi-wrench-adjustable-circle"></i> 
+                      </a>
+                      <a href="system_settings.shtm" class="nav-link" title="Configuração do sistema">
+                          <i class="bi bi-sliders"></i> 
+                      </a>
+                      <a href="emport.shtm" class="nav-link" title="Importar/Exportar">
+                          <i class="bi bi-floppy"></i> 
+                      </a>
+                      <a href="sql.shtm" class="nav-link" title="SQL">
+                          <i class="bi bi-filetype-sql"></i> 
+                      </a>
+              </div>
 						</c:if>
 
 						<div class="spacer">

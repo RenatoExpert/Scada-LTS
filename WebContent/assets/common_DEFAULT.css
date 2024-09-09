@@ -311,3 +311,28 @@ html > body .dojoTreeNodeLabelTitle {
 #hp-headers > div {
 	margin-bottom: 15px;
 }
+
+/* teste */
+.horizontal-menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f8f9fa; /* Cor de fundo do menu */
+    padding: 10px 0; /* Espaçamento vertical */
+    border-bottom: 1px solid #dee2e6; /* Linha inferior */
+}
+
+.horizontal-menu a {
+    text-decoration: none;
+    color: #343a40; /* Cor do texto */
+    font-size: 16px; /* Tamanho da fonte */
+    padding: 7px 7px; /* Espaçamento interno */
+    transition: color 0.3s ease; /* Transição suave para a cor */
+}
+
+.horizontal-menu a:hover {
+    color: #007bff; /* Cor do texto ao passar o mouse */
+}
+
+.horizontal-menu i {
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+}
