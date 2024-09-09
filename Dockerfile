@@ -1,14 +1,6 @@
-FROM node:14.21.3-bullseye as npm_build
-WORKDIR /scadalts-ui
-COPY ./scadalts-ui/package.json ./scadalts-ui/node_modules /scadalts-ui
-RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
-	npm install
-COPY ./scadalts-ui /scadalts-ui
-RUN --mount=type=cache,target=/src/scadalts-ui/node_modules	\
-	npm run build
-
-FROM scratch as npm_package
-COPY --from=npm_build /scadalts-ui/dist /dist
+FROM renatoexpert/scadalts_npm_package as npm_package
+FROM renatoexpert/scadalts_npm_build as npm_build
+FROM renatoexpert/scadalts_npm_src as npm_src
 
 FROM node:22.3.0-alpine3.20 as newnpm_build
 WORKDIR /package
@@ -47,7 +39,7 @@ COPY build.gradle .
 COPY src src
 COPY WebContent WebContent
 COPY webapp-resources webapp-resources
-COPY scadalts-ui scadalts-ui
+COPY --from=npm_src /scadalts-ui scadalts-ui
 COPY templates templates
 COPY test test
 COPY modbus modbus
