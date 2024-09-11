@@ -235,7 +235,7 @@
         }
 
         function setAlarmLevelText(alarmLevel, textNode) {
-            textNode = document.getElementById(textNode);
+            textNode = document.getElementB-yId(textNode);
             if (alarmLevel == 0)
                 textNode.innerHTML = "";
             else if (alarmLevel == 1)
@@ -264,7 +264,39 @@
             else
                 updateImg(imgNode, "(unknown)", "(unknown)", true, "visible");
         }
+        // teste setAlarmLevelImg claudio - 11-09-24
+        /* function setAlarmLevelImg(alarmLevel, iconNode) {
+            if (alarmLevel == 0)
+                updateIcon(iconNode, "bi bi-flag-fill text-success", "Green Flag", false, "none");
+            else if (alarmLevel == 1)
+                updateIcon(iconNode, "bi bi-flag-fill text-primary", "Blue Flag", true, "visible");
+            else if (alarmLevel == 2)
+                updateIcon(iconNode, "bi bi-flag-fill text-warning", "Yellow Flag", true, "visible");
+            else if (alarmLevel == 3)
+                updateIcon(iconNode, "bi bi-flag-fill text-orange", "Orange Flag", true, "visible"); // text-orange is not a default Bootstrap class, you might need to define it
+            else if (alarmLevel == 4)
+                updateIcon(iconNode, "bi bi-flag-fill text-danger", "Red Flag", true, "visible");
+            else
+                updateIcon(iconNode, "bi bi-question-circle-fill", "(unknown)", true, "visible");
+        }
 
+        function updateIcon(imgNode, className, text, visible, styleType) {
+            if (visible) {
+                if (imgNode != null) {
+                    imgNode = getNodeIfString(imgNode);
+                    show(imgNode, styleType);
+                    if (className)
+                        imgNode.className = className;
+                    if (text) {
+                        imgNode.title = text;
+                        imgNode.alt = text;
+                    }
+                }
+            }
+            else
+                hide(imgNode);
+        } */
+    
         window.addEventListener('beforeunload', (event) => {
             try {
                 disconnect();
@@ -313,89 +345,92 @@
 									</c:if>
 								</c:when>
 								<c:otherwise>
-                  <div class="horizontal-menu">
-                      <a href="watch_list.shtm" class="nav-link" title="Listas de Observações">
-                          <i class="bi bi-layout-text-window-reverse"></i> 
-                      </a>
-                      <a href="views.shtm" class="nav-link" title="Representação gráfica">
-                          <i class="bi bi-diagram-3"></i> 
-                      </a>
-                      <a href="events.shtm" class="nav-link" title="Alarmes">
-                          <i class="bi bi-flag"></i> 
-                      </a>
-                      <a href="reports.shtm" class="nav-link" title="Relatórios">
-                          <i class="bi bi-clipboard2-pulse"></i> 
-                      </a>
-                  </div>
+                                    <div class="horizontal-menu">
+                                            <a href="watch_list.shtm" class="nav-link" title="<fmt:message key='header.watchlist'/>">
+                                                <i class="bi bi-layout-text-window-reverse"></i>
+                                            </a>
+                                            <a href="views.shtm" class="nav-link" title="<fmt:message key='header.views'/>">
+                                                <i class="bi bi-diagram-3"></i> 
+                                            </a>
+                                            <a href="events.shtm" class="nav-link" title="<fmt:message key='header.alarms'/>">
+                                                <i class="bi bi-flag"></i> 
+                                            </a>
+                                            <a href="reports.shtm" class="nav-link" title="<fmt:message key='header.reports'/>">
+                                                <i class="bi bi-clipboard2-pulse"></i> 
+                                            </a>
+                                    </div>
 								</c:otherwise>
 							</c:choose>
 						</div>
 
 						<c:if test="${sessionUser.admin}">
-							<img src="./images/menu_separator.png" class="separator"/>
               <div class="horizontal-menu">
-                      <a href="event_handlers.shtm" class="nav-link" title="Tratadores de Eventos">
+                      <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
                           <i class="bi bi-gear"></i> 
                       </a>
-                      <a href="data_sources.shtm"" class="nav-link" title="Data sources">
+                      <a href="data_sources.shtm"" class="nav-link" title="<fmt:message key='header.dataSources'/>">
                           <i class="bi bi-database-add"></i> 
                       </a>
-                      <a href="scheduled_events.shtm" class="nav-link" title="Eventos Agendados">
+                      <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
                           <i class="bi bi-calendar-check"></i> 
                       </a>
-                      <a href="compound_events.shtm" class="nav-link" title="Eventos Compostos">
+                      <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
                           <i class="bi bi-calendar-week"></i> 
                       </a>
-                      <a href="point_links.shtm" class="nav-link" title="Point Links">
+                      <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
                           <i class="bi bi-arrow-left-right"></i> 
                       </a>
-                      <a href="scripting.shtm" class="nav-link" title="Scripting">
+                      <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
                           <i class="bi bi-journal-code"></i> 
                       </a>
               </div>
 						</c:if>
-							<img src="./images/menu_separator.png" class="separator"/>
               <div class="horizontal-menu">
-                      <a href="users.shtm" class="nav-link" title="Usuários">
+                      <a href="users.shtm" class="nav-link" title="<fmt:message key='header.users'/>">
                           <i class="bi bi-people"></i> 
                       </a>
 						  </div>
 
 						<c:if test="${sessionUser.admin}">
-              <div class="horizontal-menu">
-                      <a href="usersProfiles.shtm" class="nav-link" title="Perfis de Usuários">
-                          <i class="bi bi-person-vcard"></i> 
-                      </a>
-                      <a href="pointHierarchySLTS"" class="nav-link" title="Hierarquia">
-                          <i class="bi bi-menu-app"></i> 
-                      </a>
-                      <a href="mailing_lists.shtm" class="nav-link" title="Listas de envio">
-                          <i class="bi bi-journal-arrow-up"></i> 
-                      </a>
-                      <a href="publishers.shtm" class="nav-link" title="Publishers">
-                          <i class="bi bi-arrow-up-square"></i> 
-                      </a>
-                      <a href="maintenance_events.shtm" class="nav-link" title="Eventos de manutenção">
-                          <i class="bi bi-wrench-adjustable-circle"></i> 
-                      </a>
-                      <a href="system_settings.shtm" class="nav-link" title="Configuração do sistema">
-                          <i class="bi bi-sliders"></i> 
-                      </a>
-                      <a href="emport.shtm" class="nav-link" title="Importar/Exportar">
-                          <i class="bi bi-floppy"></i> 
-                      </a>
-                      <a href="sql.shtm" class="nav-link" title="SQL">
-                          <i class="bi bi-filetype-sql"></i> 
-                      </a>
-              </div>
+                            <div class="horizontal-menu">
+                                <a href="usersProfiles.shtm" class="nav-link" title="<fmt:message key='header.usersProfiles'/>">
+                                    <i class="bi bi-person-vcard"></i> 
+                                </a>
+                                <a href="pointHierarchySLTS"" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
+                                    <i class="bi bi-menu-app"></i> 
+                                </a>
+                                <a href="mailing_lists.shtm" class="nav-link" title="<fmt:message key='header.mailingLists'/>">
+                                    <i class="bi bi-journal-arrow-up"></i> 
+                                </a>
+                                <a href="publishers.shtm" class="nav-link" title="<fmt:message key='header.publishers'/>">
+                                    <i class="bi bi-upload"></i> 
+                                </a>
+                                <a href="maintenance_events.shtm" class="nav-link" title="<fmt:message key='header.maintenanceEvents'/>">
+                                    <i class="bi bi-wrench-adjustable-circle"></i> 
+                                </a>
+                                <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
+                                    <i class="bi bi-sliders"></i> 
+                                </a>
+                                <a href="emport.shtm" class="nav-link" title="<fmt:message key='header.emport'/>">
+                                    <i class="bi bi-floppy"></i> 
+                                </a>
+                                <a href="sql.shtm" class="nav-link" title="<fmt:message key='header.sql'/>">
+                                    <i class="bi bi-filetype-sql"></i> 
+                                </a>
+                            </div>
 						</c:if>
 
-						<div class="spacer">
-							<img src="./images/menu_separator.png" class="separator"/>
-							<span onclick="disconnect()">
-								<tag:menuItem href="logout.htm" png="control_stop_blue" key="header.logout"/>
-							</span>
-							<tag:menuItem href="help.shtm" png="help" key="header.help"/>
+						<div class="spacer">                           
+                            <div class="horizontal-menu">
+                                <span onclick="disconnect()">
+                                    <a href="logout.htm" class="nav-link" title="<fmt:message key='header.logout'/>">
+                                        <i class="bi bi-box-arrow-right"></i> 
+                                    </a>
+                                </span>
+                                    <a href="help.shtm" class="nav-link" title="<fmt:message key='header.help'/>">
+                                        <i class="bi bi-question-circle"></i> 
+                                    </a>
+                            </div>
 						</div>
 					</c:if>
 
@@ -433,21 +468,28 @@
 
 				<div id="navbarUserProperties" class="flex-default spacer">
 					<c:if test="${isLoggedToScadaUser}">
-						<c:if test="${!sessionUser.hideMenu}">
-							<tag:img id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')"/>
-							<tag:img png="house" title="header.goHomeUrl" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
-							<tag:img png="house_link" title="header.setHomeUrl" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')"/>
-						</c:if>
+                        <div class="horizontal-menu">
+                            <a href="#" id="userMutedImg" class="nav-link" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
+                            </a>
+                            <a href="#" class="nav-link" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.goHomeUrl'/>">
+                                <i class="bi bi-house"></i>
+                            </a>
+                            <a href="#" class="nav-link" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.setHomeUrl'/>">
+                                <i class="bi bi-house-door"></i>
+                            </a>                        
+                        </div>
+                        
 					</c:if>
-
-					<div class="ptr" onmouseover="showMenu('localeEdit', -40, 10);">
-						<tag:img png="world" title="header.changeLanguage"/>
-						<div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
-							<c:forEach items="${availableLanguages}" var="lang">
-								<a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
-							</c:forEach>
-						</div>
-					</div>
+                        <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
+                                <a href="#" class="nav-link" title="<fmt:message key='header.changeLanguage'/>">
+                                    <i class="bi bi-globe"></i>
+                                </a>
+                            <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
+                                <c:forEach items="${availableLanguages}" var="lang">
+                                    <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
+                                </c:forEach>
+                            </div>
+                        </div>
 				</div>
 			</div>
 		</div>

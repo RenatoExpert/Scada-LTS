@@ -939,11 +939,29 @@ function setUserMuted(muted) {
     mango.soundPlayer.setMute(muted);
     var imgNode = $("userMutedImg");
     if (imgNode != null) {
-        if (muted)
-            updateImg(imgNode, "images/sound_mute.png", mango.i18n["header.unmute"], true, "inline");
-        else
-            updateImg(imgNode, "images/sound_none.png", mango.i18n["header.mute"], true, "inline");
+        if (muted) {
+            updateIcon(imgNode, "bi bi-volume-mute", mango.i18n["header.unmute"], true, "inline");
+        } else {            
+            updateIcon(imgNode, "bi bi-volume-up", mango.i18n["header.mute"], true, "inline");
+        }
     }
+}
+
+function updateIcon(imgNode, className, text, visible, styleType) {
+    if (visible) {
+        if (imgNode != null) {
+            imgNode = getNodeIfString(imgNode);
+            show(imgNode, styleType);
+            if (className)
+                imgNode.className = className;
+            if (text) {
+                imgNode.title = text;
+                imgNode.alt = text;
+            }
+        }
+    }
+    else
+        hide(imgNode);
 }
 
 function ackEvent(eventId) {
