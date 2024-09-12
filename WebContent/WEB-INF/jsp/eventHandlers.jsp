@@ -93,7 +93,7 @@
         for (i=0; i<data.dataPoints.length; i++) {
             dp = data.dataPoints[i];
             pointNode = dojo.widget.createWidget("TreeNode", {
-                    title: "<img src='images/icon_comp.png'/> "+ dp.name,
+                    title: "<i class='bi bi-search'></i> " + dp.name,
                     object: dp
             });
             pointRoot.addChild(pointNode);
@@ -551,7 +551,9 @@
   </script>
 
   <table class="marB subPageHeader" id="eventHandlerHeader"><tr><td>
-    <tag:img png="cog" title="eventHandlers.eventHandlers"/>
+    <a href="#" class="nav-link" title="<fmt:message key='eventHandlers.eventHandlers'/>">
+        <i class="bi bi-gear"></i>
+    </a>
     <span class="smallTitle"><fmt:message key="eventHandlers.eventHandlers"/></span>
     <tag:help id="eventHandlers"/>
   </td></tr></table>
@@ -564,16 +566,17 @@
           <div dojoType="TreeBasicController" widgetId="controller"></div>
           <img src="images/hourglass.png" id="loadingImg"/>
           <div id="tree" style="display:none;">
-            <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
-              <div dojoType="TreeNode" title="<img src='images/bell.png'/> <fmt:message key="eventHandlers.pointEventDetector"/>" widgetId="rootPoint"></div>
-              <div dojoType="TreeNode" title="<img src='images/clock.png'/> <fmt:message key="scheduledEvents.ses"/>" widgetId="rootScheduled"></div>
-              <div dojoType="TreeNode" title="<img src='images/multi_bell.png'/> <fmt:message key="compoundDetectors.compoundEventDetectors"/>" widgetId="rootCompound"></div>
-              <div dojoType="TreeNode" title="<fmt:message key="eventHandlers.dataSourceEvents"/>" widgetId="rootDataSource"></div>
-              <div dojoType="TreeNode" title="<fmt:message key="eventHandlers.publisherEvents"/>" widgetId="rootPublisher"></div>
-              <div dojoType="TreeNode" title="<img src='images/hammer.png'/> <fmt:message key="eventHandlers.maintenanceEvents"/>" widgetId="rootMaintenance"></div>
-              <div dojoType="TreeNode" title="<fmt:message key="eventHandlers.systemEvents"/>" widgetId="rootSystem"></div>
-              <div dojoType="TreeNode" title="<fmt:message key="eventHandlers.auditEvents"/>" widgetId="rootAudit"></div>
-            </div>
+              <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
+                  <div dojoType="TreeNode" title="<i class='bi bi-bell'></i> <fmt:message key='eventHandlers.pointEventDetector'/>" widgetId="rootPoint"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-calendar-check'></i> <fmt:message key='scheduledEvents.ses'/>" widgetId="rootScheduled"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-calendar-week'></i> <fmt:message key='compoundDetectors.compoundEventDetectors'/>" widgetId="rootCompound"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-database-add'></i> <fmt:message key='eventHandlers.dataSourceEvents'/>" widgetId="rootDataSource"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-upload'></i> <fmt:message key='eventHandlers.publisherEvents'/>" widgetId="rootPublisher"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-wrench-adjustable-circle'></i> <fmt:message key='eventHandlers.maintenanceEvents'/>" widgetId="rootMaintenance"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-gear'></i> <fmt:message key='eventHandlers.systemEvents'/>" widgetId="rootSystem"></div>
+                  <div dojoType="TreeNode" title="<i class='bi bi-shield'></i> <fmt:message key='eventHandlers.auditEvents'/>" widgetId="rootAudit"></div>
+              </div>
+          </div>
           </div>
         </div>
       </td>

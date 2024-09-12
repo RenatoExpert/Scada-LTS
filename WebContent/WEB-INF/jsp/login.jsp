@@ -47,7 +47,7 @@
 
 		$set("browser",
 			BrowserDetect.browser + " " +
-			BrowserDetect.version + " <fmt:message key="login.browserOnPlatform"/> " + BrowserDetect.OS
+			BrowserDetect.version + " <fmt:message key="login.browserOnPlatform"/>" + BrowserDetect.OS
 		);
 
 		if (checkCombo(BrowserDetect.browser, BrowserDetect.version, BrowserDetect.OS)) {
@@ -67,4 +67,3 @@
 		}
 	}
 </script>
-
