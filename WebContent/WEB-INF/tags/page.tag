@@ -296,7 +296,7 @@
             else
                 hide(imgNode);
         } */
-    
+
         window.addEventListener('beforeunload', (event) => {
             try {
                 disconnect();
@@ -350,13 +350,13 @@
                                                 <i class="bi bi-layout-text-window-reverse"></i>
                                             </a>
                                             <a href="views.shtm" class="nav-link" title="<fmt:message key='header.views'/>">
-                                                <i class="bi bi-diagram-3"></i> 
+                                                <i class="bi bi-diagram-3"></i>
                                             </a>
                                             <a href="events.shtm" class="nav-link" title="<fmt:message key='header.alarms'/>">
-                                                <i class="bi bi-flag"></i> 
+                                                <i class="bi bi-flag"></i>
                                             </a>
                                             <a href="reports.shtm" class="nav-link" title="<fmt:message key='header.reports'/>">
-                                                <i class="bi bi-clipboard2-pulse"></i> 
+                                                <i class="bi bi-clipboard2-pulse"></i>
                                             </a>
                                     </div>
 								</c:otherwise>
@@ -366,69 +366,69 @@
 						<c:if test="${sessionUser.admin}">
               <div class="horizontal-menu">
                       <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
-                          <i class="bi bi-gear"></i> 
+                          <i class="bi bi-gear"></i>
                       </a>
                       <a href="data_sources.shtm"" class="nav-link" title="<fmt:message key='header.dataSources'/>">
-                          <i class="bi bi-database-add"></i> 
+                          <i class="bi bi-database-add"></i>
                       </a>
                       <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
-                          <i class="bi bi-calendar-check"></i> 
+                          <i class="bi bi-calendar-check"></i>
                       </a>
                       <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
-                          <i class="bi bi-calendar-week"></i> 
+                          <i class="bi bi-calendar-week"></i>
                       </a>
                       <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
-                          <i class="bi bi-arrow-left-right"></i> 
+                          <i class="bi bi-arrow-left-right"></i>
                       </a>
                       <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
-                          <i class="bi bi-journal-code"></i> 
+                          <i class="bi bi-journal-code"></i>
                       </a>
               </div>
 						</c:if>
               <div class="horizontal-menu">
                       <a href="users.shtm" class="nav-link" title="<fmt:message key='header.users'/>">
-                          <i class="bi bi-people"></i> 
+                          <i class="bi bi-people"></i>
                       </a>
 						  </div>
 
 						<c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
                                 <a href="usersProfiles.shtm" class="nav-link" title="<fmt:message key='header.usersProfiles'/>">
-                                    <i class="bi bi-person-vcard"></i> 
+                                    <i class="bi bi-person-vcard"></i>
                                 </a>
                                 <a href="pointHierarchySLTS"" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
-                                    <i class="bi bi-menu-app"></i> 
+                                    <i class="bi bi-menu-app"></i>
                                 </a>
                                 <a href="mailing_lists.shtm" class="nav-link" title="<fmt:message key='header.mailingLists'/>">
-                                    <i class="bi bi-journal-arrow-up"></i> 
+                                    <i class="bi bi-journal-arrow-up"></i>
                                 </a>
                                 <a href="publishers.shtm" class="nav-link" title="<fmt:message key='header.publishers'/>">
-                                    <i class="bi bi-upload"></i> 
+                                    <i class="bi bi-upload"></i>
                                 </a>
                                 <a href="maintenance_events.shtm" class="nav-link" title="<fmt:message key='header.maintenanceEvents'/>">
-                                    <i class="bi bi-wrench-adjustable-circle"></i> 
+                                    <i class="bi bi-wrench-adjustable-circle"></i>
                                 </a>
                                 <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
-                                    <i class="bi bi-sliders"></i> 
+                                    <i class="bi bi-sliders"></i>
                                 </a>
                                 <a href="emport.shtm" class="nav-link" title="<fmt:message key='header.emport'/>">
-                                    <i class="bi bi-floppy"></i> 
+                                    <i class="bi bi-floppy"></i>
                                 </a>
                                 <a href="sql.shtm" class="nav-link" title="<fmt:message key='header.sql'/>">
-                                    <i class="bi bi-filetype-sql"></i> 
+                                    <i class="bi bi-filetype-sql"></i>
                                 </a>
                             </div>
 						</c:if>
 
-						<div class="spacer">                           
+						<div class="spacer">
                             <div class="horizontal-menu">
                                 <span onclick="disconnect()">
                                     <a href="logout.htm" class="nav-link" title="<fmt:message key='header.logout'/>">
-                                        <i class="bi bi-box-arrow-right"></i> 
+                                        <i class="bi bi-box-arrow-right"></i>
                                     </a>
                                 </span>
                                     <a href="help.shtm" class="nav-link" title="<fmt:message key='header.help'/>">
-                                        <i class="bi bi-question-circle"></i> 
+                                        <i class="bi bi-question-circle"></i>
                                     </a>
                             </div>
 						</div>
@@ -476,9 +476,8 @@
                             </a>
                             <a href="#" class="nav-link" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.setHomeUrl'/>">
                                 <i class="bi bi-house-door"></i>
-                            </a>                        
+                            </a>
                         </div>
-                        
 					</c:if>
                         <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
                                 <a href="#" class="nav-link" title="<fmt:message key='header.changeLanguage'/>">

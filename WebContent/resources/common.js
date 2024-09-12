@@ -2,7 +2,6 @@
     Mango - Open Source M2M - http://mango.serotoninsoftware.com
     Copyright (C) 2006-2011 Serotonin Software Technologies Inc.
     @author Matthew Lohbihler
-    
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -190,7 +189,7 @@ function isMouseLeaveOrEnter(e, handler) {
 	  while (reltg && reltg != handler)
 		  reltg = reltg.parentNode;
 	  return (reltg != handler);
-}      
+}
 
 //
 // Common functions (delegates to Dojo functions)
@@ -339,27 +338,27 @@ function getX(node)
 function IEBlinker(/*element*/node, /*milliseconds*/onTime, /*milliseconds*/offTime) {
     this.target = node;
     this.on = onTime;
-    if (!this.on)
+    if (!this.on) {
         this.on = 700;
+    }
     this.off = offTime;
-    if (!this.off)
+    if (!this.off) {
         this.off = 300;
-    
+    }
     this.state = true;
     this.timeoutId;
     this.started = false;
-    
     this.start = function() {
         this.started = true;
         this.timeoutId = null;
         this.state = !this.state;
-        if (this.state)
+        if (this.state) {
             showLayer(this.target);
-        else
+	} else {
             hideLayer(this.target);
+	}
         this.timeoutId = setTimeout(dojo.lang.hitch(this, "start"), this.state ? this.on : this.off);
     };
-    
     this.stop = function() {
         if (this.started) {
             this.started = false;
@@ -398,37 +397,34 @@ function stopIEBlinker(node) {
 function ImageFader(/*element*/imgNode, /*milliseconds*/cycleRate, /*0<float<1*/cycleStep) {
     this.im = imgNode;
     this.rate = cycleRate;
-    if (!this.rate)
+    if (!this.rate) {
         this.rate = 100;
+    }
     this.step = cycleStep;
-    if (!this.step)
+    if (!this.step) {
         this.step = 0.1;
-    
+    }
     this.increasing = false;
     this.timeoutId;
     this.started = false;
-    
     this.start = function() {
         this.started = true;
         this.timeoutId = null;
-        
         var op = dojo.html.getOpacity(this.im, "opacity");
-        if (op >= 1)
+        if (op >= 1) {
             this.increasing = false;
-        else if (op <= 0)
+	} else if (op <= 0) {
             this.increasing = true;
-    
-        if (this.increasing)
+	}
+        if (this.increasing) {
             op += this.step;
-        else
+	} else {
             op -= this.step;
-        
+	}
         dojo.html.setOpacity(this.im, op);
         //console.log('setOpacity: ' + op + ' on ' + this.im );
-    
         this.timeoutId = setTimeout(dojo.lang.hitch(this, "start"), this.rate);
     };
-    
     this.stop = function() {
         if (this.started) {
             this.started = false;
@@ -440,9 +436,9 @@ function ImageFader(/*element*/imgNode, /*milliseconds*/cycleRate, /*0<float<1*/
 }
 
 function startImageFader(node, disableOnclick) {
-    if (disableOnclick)
+    if (disableOnclick) {
         this.disableOnclick(node);
-    
+    }
     node = getNodeIfString(node);
     var fader = new ImageFader(node);
     if (node.fader)
@@ -663,7 +659,6 @@ function getSelectionRange(node) {
         return { start: node.selectionStart, end: node.selectionEnd };
     if (!document.selection)
         return { start: 0, end: 0 };
-    
     // IE
     var range = document.selection.createRange();
     var rangeCopy = range.duplicate();
@@ -753,7 +748,7 @@ function showMessage(node, msg) {
     else
         hide(node);
 }
-  
+
 function getNodeIfString(node) {
     if (typeof(node) == "string")
         return $(node);
@@ -836,7 +831,6 @@ function createContextualMessageNode(field, fieldId) {
     node.id = fieldId +"Ctxmsg";
     node.className = "ctxmsg formError";
     dojo.html.hide(node);
-    
     var next = field.nextSibling;
     if (next)
         next.parentNode.insertBefore(node, next);
@@ -859,7 +853,6 @@ function showDwrMessages(/*DwrResponseI18n.messages*/messages, /*tbody*/genericM
                 else
                     alert("No contextual field found for key "+ m.contextKey);
             }
-            
             if (node) {
                 node.innerHTML = m.contextualMessage;
                 dojo.html.show(node);
@@ -868,7 +861,7 @@ function showDwrMessages(/*DwrResponseI18n.messages*/messages, /*tbody*/genericM
         else
             genericMessages[genericMessages.length] = m.genericMessage;
     }
-    
+
     if (genericMessages.length > 0) {
         if (!genericMessageNode)
             alert("generic messages node not defined");
@@ -893,7 +886,6 @@ function setDateRange(data) {
     $set("fromHour", data.fromHour);
     $set("fromMinute", data.fromMinute);
     $set("fromSecond", data.fromMinute);
-    
     $set("toYear", data.toYear);
     $set("toMonth", data.toMonth);
     $set("toDay", data.toDay);
@@ -912,7 +904,6 @@ function updateDateRange() {
     setDisabled("fromMinute", inception);
     setDisabled("fromSecond", inception);
     setDisabled("fromNone", false);
-    
     var now = $get("toNone");
     setDisabled("toYear", now);
     setDisabled("toMonth", now);
@@ -941,7 +932,7 @@ function setUserMuted(muted) {
     if (imgNode != null) {
         if (muted) {
             updateIcon(imgNode, "bi bi-volume-mute", mango.i18n["header.unmute"], true, "inline");
-        } else {            
+        } else {
             updateIcon(imgNode, "bi bi-volume-up", mango.i18n["header.mute"], true, "inline");
         }
     }
@@ -1013,12 +1004,10 @@ mango.share.writeSharedUsers = function(sharedUsers) {
                     if (data.accessType == 1) // ShareUser.ACCESS_READ
                         s += ' selected="selected"';
                     s += '>'+ mango.i18n["common.access.read"] +'</option>';
-                    
                     s += '<option value="2"'; // ShareUser.ACCESS_SET
                     if (data.accessType == 2) // ShareUser.ACCESS_SET
                         s += ' selected="selected"';
                     s += '>'+ mango.i18n["common.access.set"] +'</option>';
-                    
                     s += '</select>';
                     return s;
                 },
@@ -1050,7 +1039,6 @@ mango.share.updateUserList = function(sharedUsers) {
                 break;
             }
         }
-        
         if (!found)
             availUsers.push(mango.share.users[i]);
     }
