@@ -18,6 +18,14 @@
          ],
          "sharingUsers":[
             {
+               "user":"jeferson",
+               "accessType":"READ"
+            },
+            {
+               "user":"gabriel",
+               "accessType":"READ"
+            },
+            {
                "user":"silvaney",
                "accessType":"READ"
             },
@@ -50,6 +58,14 @@
             }
          ],
          "sharingUsers":[
+            {
+               "user":"jeferson",
+               "accessType":"READ"
+            },
+            {
+               "user":"gabriel",
+               "accessType":"READ"
+            },
             {
                "user":"silvaney",
                "accessType":"READ"
@@ -1338,6 +1354,54 @@
          "dataPointPermissions":[
          ],
          "userProfileXid":"",
+         "admin":true,
+         "disabled":false,
+         "email":"claudiomendonca@luminiit.com",
+         "enableFullScreen":false,
+         "firstName":"Claudio",
+         "hideMenu":false,
+         "hideShortcutDisableFullScreen":false,
+         "homeUrl":"",
+         "lang":"en",
+         "lastName":"Mendonça",
+         "password":"fEqNCco3Yq9h5ZUglD3CZJT4lBs=",
+         "phone":"",
+         "receiveOwnAuditEvents":false,
+         "selectedWatchList":0,
+         "theme":"DEFAULT",
+         "userProfile":-1,
+         "username":"claudio"
+      },
+      {
+         "dataSourcePermissions":[
+         ],
+         "dataPointPermissions":[
+         ],
+         "userProfileXid":"UP_073049",
+         "admin":false,
+         "disabled":false,
+         "email":"gabrielpacheco@luminit.com",
+         "enableFullScreen":false,
+         "firstName":"Gabriel",
+         "hideMenu":false,
+         "hideShortcutDisableFullScreen":false,
+         "homeUrl":"",
+         "lang":"en",
+         "lastName":"Pacheco",
+         "password":"fEqNCco3Yq9h5ZUglD3CZJT4lBs=",
+         "phone":"",
+         "receiveOwnAuditEvents":false,
+         "selectedWatchList":0,
+         "theme":"DEFAULT",
+         "userProfile":2,
+         "username":"gabriel"
+      },
+      {
+         "dataSourcePermissions":[
+         ],
+         "dataPointPermissions":[
+         ],
+         "userProfileXid":"",
          "admin":false,
          "disabled":true,
          "email":"null@null.com",
@@ -1355,6 +1419,30 @@
          "theme":"DEFAULT",
          "userProfile":-1,
          "username":"httpds-basic"
+      },
+      {
+         "dataSourcePermissions":[
+         ],
+         "dataPointPermissions":[
+         ],
+         "userProfileXid":"UP_073049",
+         "admin":false,
+         "disabled":false,
+         "email":"jeferson.formicola@luminiit.com",
+         "enableFullScreen":false,
+         "firstName":"Jeferson",
+         "hideMenu":false,
+         "hideShortcutDisableFullScreen":false,
+         "homeUrl":"",
+         "lang":"en",
+         "lastName":"Formicola",
+         "password":"fEqNCco3Yq9h5ZUglD3CZJT4lBs=",
+         "phone":"",
+         "receiveOwnAuditEvents":false,
+         "selectedWatchList":0,
+         "theme":"DEFAULT",
+         "userProfile":2,
+         "username":"jeferson"
       },
       {
          "dataSourcePermissions":[
@@ -1577,6 +1665,14 @@
          ],
          "sharingUsers":[
             {
+               "user":"jeferson",
+               "accessType":"READ"
+            },
+            {
+               "user":"gabriel",
+               "accessType":"READ"
+            },
+            {
                "user":"silvaney",
                "accessType":"READ"
             },
@@ -1747,11 +1843,25 @@
             }
          ],
          "viewPermissions":[
+            {
+               "viewXid":"alarmes",
+               "permission":"READ"
+            },
+            {
+               "viewXid":"GV_980014",
+               "permission":"READ"
+            }
          ],
          "watchlistPermissions":[
+            {
+               "watchlistXid":"WL_656108",
+               "permission":"READ"
+            }
          ],
          "usersIds":[
-            8
+            8,
+            9,
+            10
          ],
          "dataSourcePermissionsXid":[
          ],
@@ -1852,3 +1962,4 @@
    "reports":[
    ]
 }
+
