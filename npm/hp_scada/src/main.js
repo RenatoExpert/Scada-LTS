@@ -79,7 +79,7 @@ function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora
 	Object.getOwnPropertyNames(tags).forEach(key => {
 		let tag = tags[key];
 		let promise = new Promise((resolve, reject) => {
-			api.load_tag_history(tag, start_ts, end_ts).then(json => {
+			api.load_tag_history_compress(tag, start_ts, end_ts).then(json => {
 				let table = normatize_relatory_column(json, key);
 				resolve({ key, table });
 			});
