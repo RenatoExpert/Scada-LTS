@@ -1,66 +1,75 @@
 # docker stack deploy --compose-file compose-deploy.yml tree-renato
 services:
     database:
-        image: mysql/mysql-server:8.0.32
-        environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=root
-            - MYSQL_DATABASE=scadalts
-        command: --log_bin_trust_function_creators=1
-        deploy:
-            resources:
-                limits:
-                    cpus: '1'
-                    memory: 768M
-            restart_policy:
-                condition: on-failure
-                max_attempts: 15
-                delay: 3s
-        healthcheck:
-            test: mysqladmin ping -h localhost
-            interval: 5s
-            timeout: 10s
-            retries: 10
-            start_period: 5s
-            start_interval: 5s
-        ports:
-            - target: 3306
-              published: ${PORT_DB:-8881}
-              mode: host
-        volumes:
-            - database_lib:/var/lib/mysql:rw
-            - database_etc:/etc/mysql:ro
-        networks:
-            - scadanet
+      image: mysql/mysql-server:8.0.32
+      environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_USER=root
+          - MYSQL_PASSWORD=root
+          - MYSQL_DATABASE=scadalts
+      command: --log_bin_trust_function_creators=1
+      deploy:
+        mode: global
+        resources:
+          limits:
+            cpus: '1'
+            memory: 768M
+        restart_policy:
+          condition: on-failure
+          max_attempts: 15
+          delay: 3s
+      healthcheck:
+          test: mysqladmin ping -h localhost
+          interval: 5s
+          timeout: 10s
+          retries: 10
+          start_period: 20s
+          start_interval: 10s
+      ports:
+          - target: 3306
+            published: ${PORT_DB:-8881}
+            mode: host
+      volumes:
+          - database_lib:/var/lib/mysql:rw
+          - database_etc:/etc/mysql:ro
+      networks:
+          - scadanet
 
     argos:
-        image: scada-argos.eastus2.cloudapp.azure.com:8793/argos:${BRANCH:-main}
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: war_deploy
-        environment:
-            - CATALINA_OPTS=-Xmx512m -Xms512m
-        deploy:
-            resources:
-                limits:
-                    cpus: '2'
-                    memory: 1.2G
-            restart_policy:
-                condition: on-failure
-                max_attempts: 15
-                delay: 3s
-        ports:
-            - target: 8080
-              published: ${PORT_WEB:-8880}
-              mode: host
-        depends_on:
-            - database
-        extra_hosts:
-            - "linuxhost:host-gateway"
-        networks:
-            - scadanet
+      image: scada-argos.eastus2.cloudapp.azure.com:8793/argos:${BRANCH:-main}
+      build:
+          context: .
+          dockerfile: Dockerfile
+          target: war_deploy
+      environment:
+          - CATALINA_OPTS=-Xmx512m -Xms512m
+      deploy:
+        mode: global
+        resources:
+          limits:
+            cpus: '2'
+            memory: 1.2G
+        restart_policy:
+          condition: on-failure
+          max_attempts: 15
+          delay: 3s
+      healthcheck:
+        test: curl -X GET -sf http://localhost:8080/Scada-LTS/ || exit 1
+        interval: 5s
+        timeout: 5s
+        retries: 5
+        start_period: 1m
+        start_interval: 30s
+      ports:
+          - target: 8080
+            published: ${PORT_WEB:-8880}
+            mode: host
+      depends_on:
+          - database
+      extra_hosts:
+          - "linuxhost:host-gateway"
+      networks:
+          - scadanet
 
 networks:
     scadanet:
