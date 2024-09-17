@@ -566,18 +566,18 @@ function setCompoundEventImg(disabled, imgNode) {
         updateImg(imgNode, "images/multi_bell.png", mango.i18n["compoundDetectors.compoundEventDetector"], true);
 }
 
-function setDataSourceStatusImg(enabled, imgNode) {
-    if (enabled)
-        updateImg(imgNode, "images/database_go.png", mango.i18n["common.enabledToggle"], true);
+function setDataSourceStatusImg(disabled, imgNode) {
+    if (disabled)
+        updateIcon(imgNode, "bi bi-database-fill-check text-success", mango.i18n["common.enabledToggle"], true);
     else
-        updateImg(imgNode, "images/database_stop.png", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-database-fill-x text-danger", mango.i18n["common.disabledToggle"], true);
 }
 
 function setDataPointStatusImg(enabled, imgNode) {
     if (enabled)
-        updateImg(imgNode, "images/brick_go.png", mango.i18n["common.enabledToggle"], true);
+        updateIcon(imgNode, "bi bi-puzzle-fill text-success", mango.i18n["common.enabledToggle"], true);
     else
-        updateImg(imgNode, "images/brick_stop.png", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-puzzle-fill text-danger", mango.i18n["common.disabledToggle"], true);
 }
 
 function setPublisherStatusImg(enabled, imgNode) {
@@ -786,6 +786,16 @@ function appendNewElement(/*string*/type, /*node*/parent) {
     return node;
 }
 
+function writeIcon(id, iconClass, title, onclick) {
+    var result = '<i class="ptr ' + iconClass + '"';
+    if (id)
+        result += ' id="'+ id +'"';
+    if (title)
+        result += ' title="'+ title +'"';
+    result += ' onclick="'+ onclick +'" style="cursor: pointer;"></i>';
+    return result;
+}
+
 function writeImage(id, src, png, title, onclick) {
     var result = '<img class="ptr"';
     if (id)
@@ -921,9 +931,9 @@ function toggleSilence(eventId) {
 function setSilenced(eventId, silenced) {
     var imgNode = $("silenceImg"+ eventId);
     if (silenced)
-        updateImg(imgNode, "images/sound_mute.png", mango.i18n["events.unsilence"], true, "inline");
+        updateIcon(imgNode, "bi bi-volume-mute", mango.i18n["events.unsilence"], true, "inline");
     else
-        updateImg(imgNode, "images/sound_none.png", mango.i18n["events.silence"], true, "inline");
+        updateIcon(imgNode, "bi bi-volume-up", mango.i18n["events.silence"], true, "inline");
 }
 
 function setUserMuted(muted) {
@@ -1012,8 +1022,9 @@ mango.share.writeSharedUsers = function(sharedUsers) {
                     return s;
                 },
                 function(data) {
-                    return "<img src='images/bullet_delete.png' class='ptr' "+
-                            "onclick='mango.share.removeFromSharedUsers("+ data.userId +")'/>";
+                    return "<i class='bi bi-trash ptr' " +
+                           "onclick='mango.share.removeFromSharedUsers(" + data.userId + ")' " +
+                           "style='cursor: pointer;'></i>";
                 }
             ],
             {
