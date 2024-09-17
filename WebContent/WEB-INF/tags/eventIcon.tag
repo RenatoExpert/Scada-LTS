@@ -23,15 +23,55 @@
 --%><%@attribute name="eventBean" type="com.serotonin.mango.web.dwr.beans.EventInstanceBean" %><%--
 --%><c:if test="${empty event}"><c:set var="event" value="${eventBean}"/></c:if><%--
 --%><c:choose>
-  <c:when test="${event.active && event.alarmLevel == 0}"><tag:img png="flag_green" title="common.alarmLevel.none"/></c:when>
-  <c:when test="${event.alarmLevel == 0}"><tag:img png="flag_green_off" title="common.alarmLevel.none.rtn"/></c:when>
-  <c:when test="${event.active && event.alarmLevel == 1}"><tag:img png="flag_blue" title="common.alarmLevel.info"/></c:when>
-  <c:when test="${event.alarmLevel == 1}"><tag:img png="flag_blue_off" title="common.alarmLevel.info.rtn"/></c:when>
-  <c:when test="${event.active && event.alarmLevel == 2}"><tag:img png="flag_yellow" title="common.alarmLevel.urgent"/></c:when>
-  <c:when test="${event.alarmLevel == 2}"><tag:img png="flag_yellow_off" title="common.alarmLevel.urgent.rtn"/></c:when>
-  <c:when test="${event.active && event.alarmLevel == 3}"><tag:img png="flag_orange" title="common.alarmLevel.critical"/></c:when>
-  <c:when test="${event.alarmLevel == 3}"><tag:img png="flag_orange_off" title="common.alarmLevel.critical.rtn"/></c:when>
-  <c:when test="${event.active && event.alarmLevel == 4}"><tag:img png="flag_red" title="common.alarmLevel.lifeSafety"/></c:when>
-  <c:when test="${event.alarmLevel == 4}"><tag:img png="flag_red_off" title="common.alarmLevel.lifeSafety.rtn"/></c:when>
+  <c:when test="${event.active && event.alarmLevel == 0}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>">
+          <i class="bi bi-flag-fill text-success"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.alarmLevel == 0}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none.rtn'/>">
+          <i class="bi bi-flag text-success"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.active && event.alarmLevel == 1}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.info'/>">
+          <i class="bi bi-flag-fill text-primary"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.alarmLevel == 1}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.info.rtn'/>">
+          <i class="bi bi-flag text-primary"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.active && event.alarmLevel == 2}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.urgent'/>">
+          <i class="bi bi-flag-fill text-warning"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.alarmLevel == 2}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.urgent.rtn'/>">
+          <i class="bi bi-flag text-warning"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.active && event.alarmLevel == 3}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.critical'/>">
+          <i class="bi bi-flag-fill text-orange"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.alarmLevel == 3}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.critical.rtn'/>">
+          <i class="bi bi-flag text-orange"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.active && event.alarmLevel == 4}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.lifeSafety'/>">
+          <i class="bi bi-flag-fill text-danger"></i>
+      </a>
+  </c:when>
+  <c:when test="${event.alarmLevel == 4}">
+      <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.lifeSafety.rtn'/>">
+          <i class="bi bi-flag text-danger"></i>
+      </a>
+  </c:when>
   <c:otherwise>(<fmt:message key="common.alarmLevel.unknown"/> ${event.alarmLevel})</c:otherwise>
 </c:choose>

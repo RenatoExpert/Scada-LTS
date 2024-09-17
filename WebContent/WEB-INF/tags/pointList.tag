@@ -29,10 +29,8 @@
           <tr>
             <td class="smallTitle"><fmt:message key="dsEdit.points.points"/></td>
             <td align="right">
-            <tag:img id="enableAllImg" png="icon_ds_go"
-                      onclick="enableAllPoints()" title="common.enableAll" style="margin-right:10px;"/>
-              <tag:img id="editImg${applicationScope['constants.Common.NEW_ID']}" png="icon_comp_add"
-                      onclick="editPoint(${applicationScope['constants.Common.NEW_ID']})" title="common.addPoint"/>
+                <i id="enableAllImg" class="bi bi-puzzle-fill text-success" onclick="enableAllPoints()" title="<fmt:message key='common.enableAll'/>" style="margin-right:10px; cursor: pointer;"></i>
+                <i id="editImg${applicationScope['constants.Common.NEW_ID']}" class="bi bi-database-fill-add text-success" onclick="editPoint(${applicationScope['constants.Common.NEW_ID']})" title="<fmt:message key='common.addPoint'/>" style="cursor: pointer;"></i>
             </td>
           </tr>
         </table>
@@ -52,8 +50,8 @@
               <tag:help id="${pointHelpId}"/>
             </td>
             <td align="right">
-              <tag:img id="pointSaveImg" png="save" onclick="savePoint()" title="common.save"/>
-              <tag:img id="pointDeleteImg" png="delete" onclick="deletePoint()" title="common.delete" />
+              <i id="pointSaveImg" class="bi bi-floppy2-fill text-success" onclick="savePoint()" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+              <i id="pointDeleteImg" class="bi bi-trash  text-danger" onclick="deletePoint()" title="<fmt:message key='common.delete'/>" style="cursor: pointer;"></i>
             </td>
           </tr>
         </table>

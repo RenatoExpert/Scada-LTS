@@ -36,11 +36,11 @@
         
         pointListColumnHeaders.push("<fmt:message key="dsEdit.status"/>");
         pointListColumnFunctions.push(function(p) {
-                var id = "toggleImg"+ p.id;
-                var onclick = "togglePoint("+ p.id +")";
-                if (p.enabled)
-                    return writeImage(id, null, "brick_go", "<fmt:message key="common.enabledToggle"/>", onclick);
-                return writeImage(id, null, "brick_stop", "<fmt:message key="common.disabledToggle"/>", onclick);
+            var id = "toggleImg" + p.id;
+            var onclick = "togglePoint(" + p.id + ")";
+            if (p.enabled)
+                return writeIcon(id, "bi bi-puzzle-fill text-success", "<fmt:message key='common.enabledToggle'/>", onclick);
+            return writeIcon(id, "bi bi-puzzle-fill text-danger", "<fmt:message key='common.disabledToggle'/>", onclick);
         });
         
         if (typeof appendPointListColumnFunctions == 'function')
@@ -49,13 +49,13 @@
         pointListColumnHeaders.push("");
         
         pointListColumnFunctions.push(function(p) {
-                return writeImage("editImg"+ p.id, null, "icon_ds_edit", "<fmt:message key="pointDetails.editPoint"/>", "editPoint("+ p.id +")");
+            return writeIcon("editImg" + p.id, "bi bi-database-fill-gear", "<fmt:message key='pointDetails.editPoint'/>", "editPoint(" + p.id + ")");
         });
 
         pointListColumnHeaders.push("");
 
         pointListColumnFunctions.push(function(p) {
-        		return writeImage("editImg"+ p.id, null, "icon_comp_edit", "<fmt:message key="pointEdit.props.props"/>", "window.location='data_point_edit.shtm?dpid="+ p.id +"'");
+            return writeIcon("editImg" + p.id, "bi bi-pencil-square", "<fmt:message key='pointEdit.props.props'/>", "window.location='data_point_edit.shtm?dpid=" + p.id + "'");
         });
 
         var headers = $("pointListHeaders");
@@ -338,8 +338,9 @@
 						<td class="smallTitle"><fmt:message
 								key="dsEdit.currentAlarms" />
 						</td>
-						<td align="right"><tag:img png="control_repeat_blue"
-								title="common.refresh" onclick="getAlarms()" />
+                        <td align="right">
+                            <i class="bi bi-arrow-repeat" title="<fmt:message key='common.refresh'/>" onclick="getAlarms()" style="cursor: pointer;"></i>
+                        </td>
 						</td>
 					</tr>
 				</table>

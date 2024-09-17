@@ -67,12 +67,12 @@
             startImageFader("deleteDataSourceImg"+ dataSourceId);
             DataSourceListDwr.deleteDataSource(dataSourceId, function(dataSourceId) {
                 stopImageFader("deleteDataSourceImg"+ dataSourceId);
-                // Delete the data source row
-                var row = $("dataSourceRow"+ dataSourceId);
-                row.parentNode.removeChild(row);
+                // Delete the data source rowTable
+                var rowTable = $("dataSourceRow"+ dataSourceId);
+                rowTable.parentNode.removeChild(rowTable);
                 // Delete the points section.
-                row = $("points"+ dataSourceId);
-                row.parentNode.removeChild(row);
+                rowTable = $("points"+ dataSourceId);
+                rowTable.parentNode.removeChild(rowTable);
             });
         }
     }
@@ -87,8 +87,8 @@
     function deleteDataPoint(pointId) {
         if (confirm("<fmt:message key="dsList.pointDeleteConfirm"/>")) {
             DataSourceListDwr.deleteDataPoint(pointId, function(pointId) {
-                var row = $("pointRow"+ pointId);
-                row.parentNode.removeChild(row);
+                var rowTable = $("pointRow"+ pointId);
+                rowTable.parentNode.removeChild(rowTable);
             });
         }
     }
@@ -101,13 +101,13 @@
   <table class="subPageHeader">
     <tr>
       <td>
-        <tag:img png="icon_ds" title="dsList.dataSources"/>
+        <i class="bi bi-database-add" title="<fmt:message key='dsList.dataSources'/>"></i>
         <span class="smallTitle"><fmt:message key="dsList.dataSources"/></span>
         <tag:help id="dataSourceList"/>
       </td>
       <td align="right" id="dataSourceTypesContent" style="display:none">
         <select id="dataSourceTypes"></select>
-        <tag:img png="icon_ds_add" title="common.add" onclick="addDataSource()"/>
+        <i class="bi bi-database-fill-add text-success" title="<fmt:message key='common.add'/>" onclick="addDataSource()" style="cursor: pointer;"></i>
       </td>
     </tr>
     
@@ -129,33 +129,40 @@
                 <c:set var="hideText"><fmt:message key="dsList.hide"/></c:set>
                 <c:set var="showText"><fmt:message key="dsList.show"/></c:set>
                 <c:forEach items="${data}" var="listParent"> 
-                    <tr class="row" id="dataSourceRow${listParent.parent.id}">
+                    <tr class="rowTable" id="dataSourceRow${listParent.parent.id}">
                     <td><b>${listParent.parent.name}</b></td>
                     <td><fmt:message key="${listParent.parent.type.key}"/></td>
                     <td><sst:i18n message="${listParent.parent.connectionDescription}"/></td>
                     <td align="center">
-                      <c:choose>
+                    <c:choose>
                         <c:when test="${listParent.parent.enabled}">
-                          <tag:img png="database_go" title="common.enabledToggle" id="dsImg${listParent.parent.id}"
-                                  onclick="toggleDataSource(${listParent.parent.id})"/>
+                            <a href="#" title="<fmt:message key='common.enabledToggle'/>" 
+                            id="dsImg${listParent.parent.id}" onclick="toggleDataSource(${listParent.parent.id})" class="bi bi-database-fill-check text-success">
+                            </a>
                         </c:when>
                         <c:otherwise>
-                          <tag:img png="database_stop" title="common.disabledToggle" id="dsImg${listParent.parent.id}"
-                                  onclick="toggleDataSource(${listParent.parent.id})"/>
+                            <a href="#" title="<fmt:message key='common.disabledToggle'/>" 
+                            id="dsImg${listParent.parent.id}" onclick="toggleDataSource(${listParent.parent.id})"  class="bi bi-database-fill-x  text-danger">
+                            </a>
                         </c:otherwise>
-                      </c:choose>
+                    </c:choose>
                     </td>
                     <td id="stateDes${listParent.parent.id}">
                       ${listParent.parent.state.describe}
                     </td>
                     <td>
-                      <a href="data_source_edit.shtm?dsid=${listParent.parent.id}"><tag:img png="icon_ds_edit"
-                              title="common.edit"/></a>
-                      <tag:img png="arrow_out" title="dsList.show" onclick="togglePanelVisibility2(this, 'points${listParent.parent.id}', '${hideText}', '${showText}');"/>
-                      <tag:img png="icon_ds_delete" title="common.delete" id="deleteDataSourceImg${listParent.parent.id}" 
-                              onclick="deleteDataSource(${listParent.parent.id})"/>
-                      <tag:img png="icon_ds_add" title="common.copy" id="copyDataSourceImg${listParent.parent.id}" 
-                              onclick="copyDataSource(${listParent.parent.id})"/>
+                      <a href="data_source_edit.shtm?dsid=${listParent.parent.id}" title="<fmt:message key='common.edit'/>">
+                          <i class="bi bi-pencil-square"></i>
+                      </a>
+                      <a href="#" title="<fmt:message key='dsList.show'/>" onclick="togglePanelVisibility2(this, 'points${listParent.parent.id}', '${hideText}', '${showText}');">
+                          <i class="bi bi-database-fill-gear"></i>
+                      </a>
+                        <a href="#" title="<fmt:message key='common.delete'/>" id="deleteDataSourceImg${listParent.parent.id}" onclick="deleteDataSource(${listParent.parent.id})">
+                            <i class="bi bi-database-dash text-danger"></i>
+                        </a>
+                        <a href="#" title="<fmt:message key='common.copy'/>" id="copyDataSourceImg${listParent.parent.id}" onclick="copyDataSource(${listParent.parent.id})">
+                             <i class="bi bi-database-add text-success"></i>
+                        </a>
                     </td>
                   </tr>
                   
@@ -175,20 +182,27 @@
                             <td align="center">
                               <c:choose>
                                 <c:when test="${point.enabled}">
-                                  <tag:img png="brick_go" title="common.enabledToggle" id="dpImg${point.id}"
-                                          onclick="toggleDataPoint(${point.id})"/>
+                                    <a href="#" title="<fmt:message key='common.enabledToggle'/>" 
+                                    id="dpImg${point.id}" onclick="toggleDataPoint(${point.id})"  class="bi bi-puzzle-fill text-success">
+                                    </a>
                                 </c:when>
                                 <c:otherwise>
-                                  <tag:img png="brick_stop" title="common.disabledToggle" id="dpImg${point.id}"
-                                          onclick="toggleDataPoint(${point.id})"/>
+                                    <a href="#" title="<fmt:message key='common.disabledToggle'/>" 
+                                    id="dpImg${point.id}" onclick="toggleDataPoint(${point.id})" class="bi bi-puzzle-fill text-danger">
+                                    </a>
                                 </c:otherwise>
                               </c:choose>
                             </td>
-                            <td><tag:img png="icon_comp" title="events.pointDetails"
-                                    onclick="window.location='data_point_details.shtm?dpid=${point.id}'"/></td>
-                            <td><tag:img png="icon_comp_edit" title="pointEdit.props.props"
-                                    onclick="window.location='data_point_edit.shtm?dpid=${point.id}'"/></td>
-                          </tr>
+                            <td>
+                                <a href="data_point_details.shtm?dpid=${point.id}" title="<fmt:message key='events.pointDetails'/>">
+                                    <i class="bi bi-search"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointEdit.props.props'/>">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </td>
                         </c:forEach>
                       </table>
                     </td>

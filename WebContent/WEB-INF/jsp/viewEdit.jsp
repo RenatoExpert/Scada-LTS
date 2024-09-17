@@ -652,7 +652,7 @@
               <div id="c_TEMPLATE_Warning" style="display:none;"
                       onmouseover="showMenu('c'+ getViewComponentId(this) +'Messages', 16, 0);"
                       onmouseout="hideLayer('c'+ getViewComponentId(this) +'Messages');">
-                <tag:img png="warn" title="common.warning"/>
+                <i class="bi bi-exclamation-triangle-fill text-warning" title="<fmt:message key='common.warning'/>" style="cursor: pointer;"></i>
                 <div id="c_TEMPLATE_Messages" onmouseout="hideLayer(this);" class="controlContent"></div>
               </div>
             </div>

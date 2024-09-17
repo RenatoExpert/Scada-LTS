@@ -162,14 +162,19 @@
 
   <div class="borderDiv marB" style="float:left;">
     <div class="smallTitle titlePadding" style="float:left;">
-      <tag:img png="flag_white" title="events.alarms"/>
+    <a href="#" class="nav-link" title="<fmt:message key='events.alarms'/>">
+        <i class="bi bi-flag"></i>
+    </a>
       <fmt:message key="events.pending"/>
     </div>
     <div id="ackAllDiv" class="titlePadding" style="display:none;float:right;">
-      <fmt:message key="events.acknowledgeAll"/>
-      <tag:img png="tick" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="events.acknowledgeAll"/>&nbsp;
+      <fmt:message key="events.acknowledgeAll"/><a href="#" class="nav-link" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="<fmt:message key='events.acknowledgeAll'/>">
+          <i class="bi bi-check"></i>
+      </a>&nbsp;
       <fmt:message key="events.silenceAll"/>
-      <tag:img png="sound_mute" onclick="silenceAll()" title="events.silenceAll"/><br/>
+        <a href="#" class="nav-link" onclick="silenceAll()" title="<fmt:message key='events.silenceAll'/>">
+            <i class="bi bi-volume-mute"></i>
+        </a><br/>
     </div>
     <div id="pendingAlarms" style="clear:both;"></div>
     <div id="noAlarms" style="display:none;padding:6px;text-align:center;">
@@ -186,6 +191,7 @@
           <td id="eventIdLabel" class="formLabel"><fmt:message key="events.id"/></td>
           <td class="formField"><input id="eventId" type="text"></td>
         </tr>
+        <%-- Formulario Procura de eventos --%>
         <tr>
           <td class="formLabel"><fmt:message key="events.search.type"/></td>
           <td class="formField">

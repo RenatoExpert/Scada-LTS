@@ -233,7 +233,7 @@
                                     "onclick='exportEventData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'/>";
                         
                         if (ri.includeUserComments)
-                            result += "<img src='images/comment.png' class='ptr' title='<fmt:message key="reports.userCommentExport"/>' "+
+                            result += "<i class='bi bi-chat-left-text ptr' title='<fmt:message key=\"reports.userCommentExport\"/>'></i> "+
                                     "onclick='exportUserComments(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'/>";
                         
                         result += "<img src='images/icon_chart.png' class='ptr' title='<fmt:message key="reports.charts"/>' "+

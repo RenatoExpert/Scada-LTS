@@ -112,20 +112,20 @@
         }
     }
     
-    function togglePanel(img, panelId) {
-        if (!img.minimized) {
-            img.src = "images/arrow_out.png";
-            img.title = "<fmt:message key="common.maximize"/>";
-            hide(panelId);
-            img.minimized = true;
-        }
-        else {
-            img.src = "images/arrow_in.png";
-            img.title = "<fmt:message key="common.minimize"/>";
-            show(panelId);
-            img.minimized = false;
-        }
-    }
+     function togglePanel(imgNode, panelId) {
+				if (!imgNode.minimized) {
+					imgNode.className = "bi bi-arrows-expand";
+					imgNode.title = "<fmt:message key="common.maximize"/>";
+					hide(panelId);
+					imgNode.minimized = true;
+				}
+				else {
+					imgNode.className = "bi bi-arrows-collapse";
+					imgNode.title = "<fmt:message key="common.minimize"/>";
+					show(panelId);
+					imgNode.minimized = false;
+				}
+			}
     
     // Flipbook
     function getFlipbookChart() {
@@ -172,13 +172,11 @@
         </sst:select>
 
         <c:if test="${!empty prevId}">
-          <tag:img png="bullet_go_left" title="pagination.previous"
-                  onclick="window.location='data_point_details.shtm?dpid=${prevId}'"/>
+            <i class="bi bi-caret-left-square-fill text-success" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
         </c:if>
         
         <c:if test="${!empty nextId}">
-          <tag:img png="bullet_go" title="pagination.next"
-                  onclick="window.location='data_point_details.shtm?dpid=${nextId}'"/>
+            <i class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='pagination.next'/>" onclick="window.location='data_point_details.shtm?dpid=${nextId}'" style="cursor: pointer;"></i>
         </c:if>
       </td>
     </tr>
@@ -190,13 +188,15 @@
         <div class="borderDiv marB marR">
           <table>
             <tr>
-              <td class="smallTitle" colspan="2">
-                <tag:img png="icon_comp" title="common.point"/>
+              <td class="smallTitle" colspan="2"><i class="bi bi-search" title="<fmt:message key='common.point'/>"></i>
                 ${point.name}
                 <c:if test="${pointEditor}">
-                  <a href="data_point_edit.shtm?dpid=${point.id}"><tag:img png="icon_comp_edit" title="pointDetails.editPoint"/></a>
-                  <a href="data_source_edit.shtm?dsid=${point.dataSourceId}&pid=${point.id}"><tag:img png="icon_ds_edit"
-                          title="pointDetails.editDataSource"/></a>
+                    <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointDetails.editPoint'/>">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="data_source_edit.shtm?dsid=${point.dataSourceId}&pid=${point.id}" title="<fmt:message key='pointDetails.editDataSource'/>">
+                        <i class="bi bi-database-fill-gear"></i>
+                    </a>
                 </c:if>
               </td>
             </tr>
@@ -210,7 +210,7 @@
             </tr>
             <tr id="pointChangeNode" style="display:none">
               <td class="formLabelRequired">
-                <tag:img id="pointChanging" png="icon_edit" title="common.set"/>
+                <i id="pointChanging" class="bi bi-tools" title="<fmt:message key='common.set'/>"></i>
                 <fmt:message key="common.set"/>
               </td>
               <td id="pointChange" class="formField"></td>
@@ -235,7 +235,9 @@
                 <sst:select id="statsChartDurationType" value="${periodType}">
                   <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true"/>
                 </sst:select>
-                <tag:img id="statsChartImg" png="control_play_blue" title="pointDetails.getStatistics" onclick="getStatsChart()"/>
+                  <a href="#" id="statsChartImg" title="<fmt:message key='pointDetails.getStatistics'/>" onclick="getStatsChart()">
+                      <i class="bi bi-play-circle-fill text-primary"></i>
+                  </a>
               </td>
             </tr>
           </table>
@@ -254,7 +256,9 @@
                 <input id="historyLimit" type="text" style="text-align:right;" value="${historyLimit}"
                         class="formVeryShort"/>
                 <fmt:message key="pointDetails.mostRecentRecords"/>
-                <tag:img id="historyLimitImg" png="control_play_blue" title="pointDetails.getData" onclick="getHistoryTableData()"/>
+                <a href="#" id="historyLimitImg" title="<fmt:message key='pointDetails.getData'/>" onclick="getHistoryTableData()">
+                    <i class="bi bi-play-circle-fill text-primary"></i>
+                </a>
               </td>
             </tr>
           </table>
@@ -275,8 +279,9 @@
             <tr>
               <td class="smallTitle"><fmt:message key="notes.userNotes"/></td>
               <td align="right">
-                <tag:img png="comment_add" title="notes.addNote"
-                        onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_POINT']}, ${point.id})"/>
+                  <a href="#" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_POINT']}, ${point.id})">
+                      <i class="bi bi-chat-dots"></i>
+                  </a>
               </td>
             </tr>
           </table>
@@ -295,8 +300,10 @@
                 <td class="smallTitle"><fmt:message key="pointDetails.chart"/></td>
                 <td id="imageChartAsof"></td>
                 <td align="right"><tag:dateRange/></td>
-                <td><tag:img id="imageChartImg" png="control_play_blue" title="pointDetails.imageChartButton"
-                        onclick="getImageChart()"/></td>
+                <td>
+                  <a href="#" id="imageChartImg" title="<fmt:message key='pointDetails.imageChartButton'/>" onclick="getImageChart()">
+                      <i class="bi bi-play-circle-fill text-primary"></i>
+                  </a>
               </tr>
               <tr><td colspan="3" id="imageChartDiv"></td></tr>
             </table>
@@ -317,8 +324,9 @@
                   <fmt:message key="pointDetails.images"/>:
                   <input id="flipbookLimit" style="text-align:right;" type="text" value="${flipbookLimit}"
                           class="formVeryShort"/>
-                  <tag:img id="flipbookChartImg" png="control_play_blue" title="pointDetails.getImages" 
-                          onclick="getFlipbookChart()"/>
+                  <a href="#" id="flipbookChartImg" title="<fmt:message key='pointDetails.getImages'/>" onclick="getFlipbookChart()">
+                      <i class="bi bi-play-circle-fill text-primary"></i>
+                  </a>
                 </td>
               </tr>
               <tr><td colspan="2" id="flipbookThumbsDiv"></td></tr>
@@ -336,8 +344,10 @@
             <tr>
               <td class="smallTitle"><fmt:message key="pointDetails.events"/></td>
               <td align="right">
-                <tag:img png="arrow_in" title="common.maximize" onclick="togglePanel(this, 'eventsTable');"/>
-                <a href=""><tag:img png="control_repeat_blue" title="common.refresh"/></a>
+                <i class="bi bi-arrows-collapse" title="<fmt:message key='common.maximize'/>" onclick="togglePanel(this, 'eventsTable');"></i>
+                <a href="#" title="<fmt:message key='common.refresh'/>">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </a>
               </td>
             </tr>
           </table>
@@ -352,7 +362,7 @@
             </tr>
             
             <c:forEach items="${events}" var="event" varStatus="status" end="19">
-              <tr class="row<c:if test="${status.index % 2 == 1}">Alt</c:if>">
+              <tr class="rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
                 <td align="center">${event.id}</td>
                 <td align="center"><tag:eventIcon event="${event}"/></td>
                 <td>${sst:time(event.activeTimestamp)}</td>
@@ -360,14 +370,17 @@
                   <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                       <td><b><sst:i18n message="${event.message}"/></b></td>
-                      <td align="right"><tag:img png="comment_add" title="notes.addNote"
-                              onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})"/></td>
+                      <td align="right">
+                          <i class="bi bi-plus-square" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})" style="cursor: pointer;"></i>
+                      </td>
                     </tr>
                   </table>
                   <table cellspacing="0" cellpadding="0" id="eventComments${event.id}">
                     <c:forEach items="${event.eventComments}" var="comment">
                       <tr>
-                        <td valign="top" width="16"><tag:img png="comment" title="notes.note"/></td>
+                        <td valign="top" width="16">
+                            <i class="bi bi-chat-left-text" title="<fmt:message key='notes.note'/>"></i>
+                        </td>
                         <td valign="top">
                           <span class="copyTitle">
                             ${comment.prettyTime} <fmt:message key="notes.by"/>
@@ -427,14 +440,14 @@
               <td></td>
             </tr>
             <c:forEach items="${views}" var="view" varStatus="status">
-              <tr class="row<c:if test="${status.index % 2 == 1}">Alt</c:if>">
+              <tr class="rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
                 <td>${view.name}</td>
                 <td align="center"><a href="views.shtm?viewId=${view.id}"><tag:img png="icon_view"
                         title="pointDetails.gotoView"/></a></td>
               </tr>
             </c:forEach>
             <c:if test="${empty views}">
-              <tr class="row"><td colspan="2"><fmt:message key="pointDetails.notInView"/></td></tr>
+              <tr class="rowTable"><td colspan="2"><fmt:message key="pointDetails.notInView"/></td></tr>
             </c:if>
           </table>
         </div>
@@ -451,7 +464,7 @@
               <td><fmt:message key="pointDetails.accessType"/></td>
             </tr>
             <c:forEach items="${users}" var="userData" varStatus="status">
-              <tr class="row<c:if test="${status.index % 2 == 1}">Alt</c:if>">
+              <tr class="rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
                 <c:set var="user" value="${userData.user}"/>
                 <td><%@ include file="/WEB-INF/snippet/userIcon.jsp" %></td>
                 <td><c:out value="${user.username}"/></td>

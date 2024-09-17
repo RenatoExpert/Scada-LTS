@@ -104,7 +104,6 @@
             }
         }
         pointRoot.expand();
-        
         var scheduledRoot = dojo.widget.manager.getWidgetById('rootScheduled');
         for (i=0; i<data.scheduledEvents.length; i++) {
             et = data.scheduledEvents[i];
@@ -123,7 +122,7 @@
         for (i=0; i<data.dataSources.length; i++) {
             ds = data.dataSources[i];
             dataSourceNode = dojo.widget.createWidget("TreeNode", {
-                    title: "<img src='images/icon_ds.png'/> "+ ds.name,
+                    title: "<i class='bi bi-database-add'></i> " + ds.name,
                     object: ds
             });
             dataSourceRoot.addChild(dataSourceNode);
@@ -133,15 +132,14 @@
                 createEventTypeNode("dse"+ et.typeRef1 +"/"+ et.typeRef2, et, dataSourceNode);
             }
         }
-
         if (data.publishers) {
             var publisherRoot = dojo.widget.manager.getWidgetById('rootPublisher');
             for (i=0; i<data.publishers.length; i++) {
                 p = data.publishers[i];
                 publisherNode = dojo.widget.createWidget("TreeNode", {
-                        title: "<img src='images/transmit.png'/> "+ p.name,
-                        object: p
-                });
+                                        title: "<i class='bi bi-upload'></i> " + p.name,
+                                        object: p
+                                });
                 publisherRoot.addChild(publisherNode);
 
                 for (j=0; j<p.eventTypes.length; j++) {
@@ -192,12 +190,12 @@
 
     function createEventTypeNode(widgetId, eventType, parent) {
         var node = dojo.widget.createWidget("TreeNode", {
-                title: "<img id='"+ widgetId +"Img'/> "+ eventType.description,
+                title: "<a id='"+ widgetId +"a'/> "+ eventType.description,
                 widgetId: widgetId,
                 object: eventType
         });
         parent.addChild(node);
-        setAlarmLevelImg(eventType.alarmLevel, $(widgetId +"Img"));
+        setAlarmLevelImg(eventType.alarmLevel, $(widgetId +"a"));
         addHandlerNodes(eventType.handlers, node);
     }
 
@@ -207,14 +205,14 @@
     }
 
     function createHandlerNode(handler) {
-        var img = "images/cog_wrench.png";
+        var img = "class='bi bi-hammer'";
         if (handler.handlerType == <c:out value="<%= EventHandlerVO.TYPE_EMAIL %>"/>)
-            img = "images/cog_email.png";
+            img = "class='bi bi-envelope'";
         else if (handler.handlerType == <c:out value="<%= EventHandlerVO.TYPE_PROCESS %>"/>)
-            img = "images/cog_process.png";
+            img = "class='bi bi-terminal'";
 
         var node = dojo.widget.createWidget("TreeNode", {
-                title: "<img src='"+ img +"'/> <span id='"+ handler.id +"Msg'>"+ handler.message +"</span>",
+                title: "<a "+ img +"/> <span id='"+ handler.id +"Msg'>"+ handler.message +"</span>",
                 widgetId: "h"+ handler.id,
                 object: handler
         });
@@ -564,7 +562,7 @@
         <div class="borderDivPadded marR">
           <span class="smallTitle"><fmt:message key="eventHandlers.types"/></span>
           <div dojoType="TreeBasicController" widgetId="controller"></div>
-          <img src="images/hourglass.png" id="loadingImg"/>
+            <i id="loadingImg" class="bi bi-hourglass-split"></i>
           <div id="tree" style="display:none;">
               <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
                   <div dojoType="TreeNode" title="<i class='bi bi-bell'></i> <fmt:message key='eventHandlers.pointEventDetector'/>" widgetId="rootPoint"></div>

@@ -19,7 +19,7 @@
 --%><%@tag body-content="empty"%><%--
 --%><table width="100%">
   <tr><td class="smallTitle">
-    <tag:img png="flag_white"/>
+    <i class="bi bi-flag"></i>
     <fmt:message key="dsEdit.events.alarmLevels"/>
   </td></tr>
 </table>
