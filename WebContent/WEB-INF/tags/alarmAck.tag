@@ -20,15 +20,27 @@
 --%><%@attribute name="event" type="com.serotonin.mango.rt.event.EventInstance" required="true" rtexprvalue="true" %><%--
 --%><c:if test="${event.userNotified}">
   <c:choose>
-    <c:when test="${event.acknowledged}"><tag:img png="tick_off" title="events.acknowledged" style="display:inline;"/></c:when>
+    <c:when test="${event.acknowledged}">
+        <a href="#" class="nav-link" title="<fmt:message key='events.acknowledged'/>" style="display:inline;">
+            <i class="bi bi-check-circle"></i>
+        </a>
+    </c:when>
     <c:otherwise>
-      <c:if test="${not event.active}"><tag:img png="tick" id="ackImg${event.id}" onclick="ackEvent(${event.id})" title="events.acknowledge" style="display:inline;"/></c:if>
+      <c:if test="${not event.active}">
+          <a href="#" id="ackImg${event.id}" class="nav-link" onclick="ackEvent(${event.id})" title="<fmt:message key='events.acknowledge'/>" style="display:inline;">
+              <i class="bi bi-check"></i>
+          </a>
+      </c:if>
       <c:choose>
         <c:when test="${event.silenced}">
-          <tag:img png="sound_mute" id="silenceImg${event.id}" onclick="toggleSilence(${event.id})" title="events.unsilence" style="display:inline;"/>
+          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.unsilence'/>" style="display:inline;">
+              <i class="bi bi-volume-mute"></i>
+          </a>
         </c:when>
         <c:otherwise>
-          <tag:img png="sound_none" id="silenceImg${event.id}" onclick="toggleSilence(${event.id})" title="events.silence" style="display:inline;"/>
+          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.silence'/>" style="display:inline;">
+              <i class="bi bi-volume-up"></i>
+          </a>
         </c:otherwise>
       </c:choose>
     </c:otherwise>
