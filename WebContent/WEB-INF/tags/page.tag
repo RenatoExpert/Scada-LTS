@@ -249,23 +249,11 @@
             else
                 textNode.innerHTML = "Unknown: "+ alarmLevel;
         }
-
-        function setAlarmLevelImg(alarmLevel, imgNode) {
-            if (alarmLevel == 0)
-                updateImg(imgNode, "images/flag_green.png", "Green Flag", false, "none");
-            else if (alarmLevel == 1)
-                updateImg(imgNode, "images/flag_blue.png", "Blue Flag", true, "visible");
-            else if (alarmLevel == 2)
-                updateImg(imgNode, "images/flag_yellow.png", "Yellow Flag", true, "visible");
-            else if (alarmLevel == 3)
-                updateImg(imgNode, "images/flag_orange.png", "Orange Flag", true, "visible");
-            else if (alarmLevel == 4)
-                updateImg(imgNode, "images/flag_red.png", "Red Flag", true, "visible");
-            else
-                updateImg(imgNode, "(unknown)", "(unknown)", true, "visible");
-        }
-        // teste setAlarmLevelImg claudio - 11-09-24
-        /* function setAlarmLevelImg(alarmLevel, iconNode) {
+        // Função para definir a imagem do nível de alarme com base no nível de alarme fornecido.
+        // Dependendo do valor de 'alarmLevel', a função atualiza o ícone 'iconNode' com diferentes classes, descrições e visibilidades.
+        // alarmLevel: Nível do alarme (0 a 4, onde 0 é o mais baixo e 4 é o mais alto).
+        // iconNode: O nó do ícone que será atualizado. 
+         function setAlarmLevelImg(alarmLevel, iconNode) {
             if (alarmLevel == 0)
                 updateIcon(iconNode, "bi bi-flag-fill text-success", "Green Flag", false, "none");
             else if (alarmLevel == 1)
@@ -279,7 +267,7 @@
             else
                 updateIcon(iconNode, "bi bi-question-circle-fill", "(unknown)", true, "visible");
         }
-
+        
         function updateIcon(imgNode, className, text, visible, styleType) {
             if (visible) {
                 if (imgNode != null) {
@@ -295,7 +283,7 @@
             }
             else
                 hide(imgNode);
-        } */
+        } 
 
         window.addEventListener('beforeunload', (event) => {
             try {
