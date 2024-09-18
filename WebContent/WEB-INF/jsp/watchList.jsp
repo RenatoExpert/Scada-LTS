@@ -632,8 +632,6 @@
    	  	})(jQuery);
    	  });
     </script>
-    <div class="container">
-
     <table width="100%">
     <tr><td>
       <div id="splitContainer" dojoType="SplitContainer" orientation="horizontal" sizerWidth="3" activeSizing="true" class="borderDiv"
@@ -764,6 +762,5 @@
     </td></tr>
     <%-- <tag:newPageNotification href="./app.shtm#/watch-list" ref="watchListNotification"/> --%>
     </table>
-    </div>
   </jsp:body>
 </tag:page>
