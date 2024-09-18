@@ -552,7 +552,7 @@
     }
   </script>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -617,7 +617,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR" >
     <table width="100%">
       <tr>
         <td>
@@ -638,7 +638,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR" >
     <table width="100%">
       <tr>
         <td>
@@ -659,7 +659,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -684,7 +684,7 @@
       </tr>
     </table>
   </div>
-  <div class="borderDivPadded marB marR" style="clear:left;float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -749,7 +749,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -797,7 +797,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -863,7 +863,7 @@
     </table>
   </div>
 
-    <div class="borderDivPadded marB marR" style="float:left">
+    <div class="borderDivPadded marB marR">
       <table width="100%">
         <tr>
           <td>
@@ -1013,7 +1013,7 @@
   </div>
 --%>
 
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
        <table width="100%">
           <tr>
              <td>
@@ -1028,7 +1028,7 @@
        </table>
   </div>
 
-    <div class="borderDivPadded marB marR" style="clear:left;float:left">
+    <div class="borderDivPadded marB marR" >
          <table align="center" "100%">
            <tr>
              <td>
@@ -1060,7 +1060,7 @@
                 </table>
   </div>
 
-  <div class="borderDiv marB marR" style="float: left;">
+  <div class="borderDiv marB marR" >
         <table>
             <tr>
               <td>
@@ -1077,7 +1077,7 @@
         </table>
       </div>
 
-  <div class="" style="float:left; color:white">
+  <div class="" style="color:white">
   #branchName
 
   <div id="css-editor-dialog">
@@ -1157,4 +1157,4 @@
   
   
 </tag:page>
-<tag:newPageNotification href="./app.shtm#/system-settings" ref="systemSettingsNotification"/>
+<%-- <tag:newPageNotification href="./app.shtm#/system-settings" ref="systemSettingsNotification"/> --%>

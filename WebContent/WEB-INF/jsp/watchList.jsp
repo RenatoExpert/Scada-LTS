@@ -632,6 +632,7 @@
    	  	})(jQuery);
    	  });
     </script>
+    <div class="container">
 
     <table width="100%">
     <tr><td>
@@ -646,7 +647,7 @@
           <img title="Add to watch list" src="images/bullet_go.png" onclick="addSelectedToWatchList()" style="cursor:pointer;">
         </div>
         <div class="horzSeparator" style="margin-bottom:10px;"></div> -->
-        <img src="images/hourglass.png" id="loadingImg"/>
+        <i id="loadingImg" class="bi bi-hourglass-split" style="cursor: pointer;"></i>
         <div id="treeDiv" style="display:none;"><div dojoType="Tree" widgetId="tree"></div></div>
         </div>
         <div dojoType="ContentPane" sizeMin="50" sizeShare="50" style="overflow:auto; padding:2px 10px 2px 2px;">
@@ -662,7 +663,7 @@
                 </sst:select>
 
                 <div id="wlEditDiv" style="display:inline;" onmouseover="showWatchListEdit()">
-                  <tag:img id="wlEditImg" png="pencil" title="watchlist.editListName"/>
+                  <i id="wlEditImg" class="bi bi-pencil" title="<fmt:message key='watchlist.editListName'/>" style="cursor: pointer;"></i>
                   <div id="wlEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv"
                           onmouseout="hideLayer(this)">
                     <fmt:message key="watchlist.newListName"/><br/>
@@ -673,18 +674,17 @@
                 </div>
 
                 <div id="usersEditDiv" style="display:inline;" onmouseover="showWatchListUsers()">
-                  <tag:img png="user" title="share.sharing" onmouseover="closeLayers();"/>
+                  <i class="bi bi-people" title="<fmt:message key='share.sharing'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
                   <div id="usersEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv">
                     <tag:sharedUsers doxId="watchListSharing" noUsersKey="share.noWatchlistUsers"
                             closeFunction="hideLayer('usersEdit')"/>
                   </div>
                 </div>
 
-                <tag:img png="copy" onclick="addWatchList(true)" title="watchlist.copyList" onmouseover="closeLayers();"/>
-                <tag:img png="add" onclick="addWatchList(false)" title="watchlist.addNewList" onmouseover="closeLayers();"/>
-                <tag:img png="delete" id="watchListDeleteImg" onclick="deleteWatchList()" title="watchlist.deleteList"
-                        style="display:none;" onmouseover="closeLayers();"/>
-                <tag:img png="report_add" onclick="createReport()" title="watchlist.createReport" onmouseover="closeLayers();"/>
+                <i class="bi bi-journals text-primary" onclick="addWatchList(true)" title="<fmt:message key='watchlist.copyList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-clipboard-plus-fill text-success" onclick="addWatchList(false)" title="<fmt:message key='watchlist.addNewList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-clipboard-minus-fill  text-danger" id="watchListDeleteImg" onclick="deleteWatchList()" title="<fmt:message key='watchlist.deleteList'/>" style="display:none; cursor: pointer;" onmouseover="closeLayers();"></i>
+                <i class="bi bi-clipboard2-pulse" onclick="createReport()" title="<fmt:message key='watchlist.createReport'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
               </td>
             </tr>
           </table>
@@ -698,34 +698,32 @@
                       <tr>
                         <td onclick="mango.view.showChange('p'+ getMangoId(this) +'Change', 4, 12);"
                                 ondblclick="mango.view.hideChange('p'+ getMangoId(this) +'Change');"
-                                id="p_TEMPLATE_ChangeMin" style="display:none;"><img alt="" id="p_TEMPLATE_Changing"
-                                src="images/icon_edit.png"/><div id="p_TEMPLATE_Change" class="labelDiv"
+                                id="p_TEMPLATE_ChangeMin" style="display:none;">
+                                <i class="bi bi-pencil-square" id="p_TEMPLATE_Changing" style="cursor: pointer;"></i>
+                                <div id="p_TEMPLATE_Change" class="labelDiv"
                                 style="visibility:hidden;top:10px;left:1px;" ondblclick="hideLayer(this);">
-                          <tag:img png="hourglass" title="common.gettingData"/>
+                          <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i>
                         </div></td>
                         <td id="p_TEMPLATE_ChartMin" style="display:none;" onmouseover="showChart(getMangoId(this), event, this);"
                                 onmouseout="hideChart(getMangoId(this), event, this);"><img alt=""
                                 src="images/icon_chart.png"/><div id="p_TEMPLATE_ChartLayer" class="labelDiv"
                                 style="visibility:hidden;top:0;left:0;"></div><textarea
-                                style="display:none;" id="p_TEMPLATE_Chart"><tag:img png="hourglass"
-                                title="common.gettingData"/></textarea></td>
+                                style="display:none;" id="p_TEMPLATE_Chart">
+                                <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i></textarea>
+                        </td>
                       </tr>
                     </table>
                   </td>
                   <td id="p_TEMPLATE_Name" style="font-weight:bold"></td>
-                  <td id="p_TEMPLATE_Value" align="center"><img src="images/hourglass.png"/></td>
+                  <td id="p_TEMPLATE_Value" align="center"><i class="bi bi-hourglass-split" style="cursor: pointer;"></i></td>
                   <td id="p_TEMPLATE_Time" align="center"></td>
                   <td style="width:1px; white-space:nowrap;">
                     <input type="checkbox" name="chartCB" id="p_TEMPLATE_ChartCB" value="_TEMPLATE_" checked="checked"
                             title="<fmt:message key="watchlist.consolidatedChart"/>"/>
-                    <tag:img png="icon_comp" title="watchlist.pointDetails"
-                            onclick="window.location='data_point_details.shtm?dpid='+ getMangoId(this)"/>
-                    <tag:img png="arrow_up_thin" id="p_TEMPLATE_MoveUp" title="watchlist.moveUp" style="display:none;"
-                            onclick="moveRowUp('p'+ getMangoId(this));"/><tag:img png="arrow_down_thin"
-                            id="p_TEMPLATE_MoveDown" title="watchlist.moveDown" style="display:none;"
-                            onclick="moveRowDown('p'+ getMangoId(this));"/>
-                    <tag:img id="p_TEMPLATE_Delete" png="bullet_delete" title="watchlist.delete" style="display:none;"
-                            onclick="removeFromWatchList(getMangoId(this))"/>
+                    <i class="bi bi-search" title="<fmt:message key='watchlist.pointDetails'/>" onclick="window.location='data_point_details.shtm?dpid=' + getMangoId(this)" style="cursor: pointer;"></i>
+                    <i class="bi bi-caret-up-square-fill" id="p_TEMPLATE_MoveUp" title="<fmt:message key='watchlist.moveUp'/>" style="display:none; cursor: pointer;" onclick="moveRowUp('p'+ getMangoId(this));"></i>
+                    <i class="bi bi-caret-down-square-fill" id="p_TEMPLATE_MoveDown" title="<fmt:message key='watchlist.moveDown'/>" style="display:none; cursor: pointer;" onclick="moveRowDown('p'+ getMangoId(this));"></i>
+                    <i id="p_TEMPLATE_Delete" class="bi bi-trash3-fill  text-danger" title="<fmt:message key='watchlist.delete'/>" style="display:none; cursor: pointer;" onclick="removeFromWatchList(getMangoId(this))"></i>
                   </td>
                 </tr>
                 <tr><td colspan="5" style="padding-left:16px;" id="p_TEMPLATE_Messages"></td></tr>
@@ -750,13 +748,11 @@
                 	<tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
             	</select>
             </td>
-            <td  align="left"><tag:img id="imageChartLiveImg" png="control_play_blue" title="watchlist.imageChartLiveButton"
-                      onclick="switchChartMode()"/><br/></td>
+            <td  align="left"><i id="imageChartLiveImg" class="bi bi-play-circle-fill text-primary" title="<fmt:message key='watchlist.imageChartLiveButton'/>" onclick="switchChartMode()" style="cursor: pointer;"></i><br/></td>
             <td class="vertSeparator"></td>
             <td align="right"><tag:dateRange/></td>
             <td>
-              <tag:img id="imageChartImg" png="control_play_blue" title="watchlist.imageChartButton"
-                      onclick="getImageChart()"/>
+              <i id="imageChartImg" class="bi bi-play-circle-fill text-primary" title="<fmt:message key='watchlist.imageChartButton'/>" onclick="getImageChart()" style="cursor: pointer;"></i>
 <%--               <tag:img id="chartDataImg" png="bullet_down" title="watchlist.chartDataButton" --%>
 <!--                       onclick="getChartData()"/> -->
             </td>
@@ -766,9 +762,8 @@
         </table>
       </div>
     </td></tr>
-
-    <tag:newPageNotification href="./app.shtm#/watch-list" ref="watchListNotification"/>
-
+    <%-- <tag:newPageNotification href="./app.shtm#/watch-list" ref="watchListNotification"/> --%>
     </table>
+    </div>
   </jsp:body>
 </tag:page>

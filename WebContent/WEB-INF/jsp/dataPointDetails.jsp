@@ -67,7 +67,7 @@
                         {
                             rowCreator:function(options) {
                                 var tr = document.createElement("tr");
-                                tr.className = "row"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                                tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                                 return tr;
                             }
                         });

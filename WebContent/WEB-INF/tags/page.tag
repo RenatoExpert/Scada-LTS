@@ -482,13 +482,14 @@
 		</div>
 	</c:if>
 </c:if>
-
-<div id="sltsContent" class="content">
-  <jsp:doBody/>
+<div class="container">
+    <div id="sltsContent" class="content">
+    <jsp:doBody/>
+    </div>
 </div>
 <div id="sltsFooter" class="footer">
 	<span>
-		&copy;2012-${toYear} SCADA Argos
+		&copy;2012-${toYear} Argos SCADA
 		<fmt:message key="footer.rightsReserved"/>
 	<span>
 </div>
