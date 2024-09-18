@@ -99,7 +99,8 @@
 
 <table style="display:none;">
   <tr id="comment_TEMPLATE_">
-    <td valign="top" width="16"><tag:img png="comment" title="notes.note"/></td>
+    <td valign="top" width="16">
+    <i class="bi bi-chat-left-text" title="<fmt:message key='notes.note'/>"></i></td>
     <td valign="top">
       <span id="comment_TEMPLATE_UserTime" class="copyTitle"><fmt:message key="notes.timeByUsername"/></span><br/>
       <span id="comment_TEMPLATE_Text"></span>

@@ -67,7 +67,7 @@
     </tr>
     <c:if test="${empty events}"><tr><td colspan="6"><b><sst:i18n key="events.emptyList"/></b></td></tr></c:if>
     <c:forEach items="${events}" var="event" varStatus="status">
-      <tr class="row<c:if test="${status.index % 2 == 1}">Alt</c:if>">
+      <tr class="rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
         <td align="center">${event.id}</td>
         <td align="center"><tag:eventIcon event="${event}"/></td>
         <td>${sst:time(event.activeTimestamp)}</td>
@@ -76,8 +76,9 @@
             <tr>
               <td colspan="2"><b><sst:i18n message="${event.message}"/></b></td>
               <td align="right">
-                <tag:img png="comment_add" title="notes.addNote"
-                        onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})"/>
+                <a href="#" class="nav-link" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})">
+                    <i class="bi bi-chat-dots"></i>
+                </a>
               </td>
             </tr>
             <tbody id="eventComments${event.id}"><tag:comments comments="${event.eventComments}"/></tbody>
@@ -87,7 +88,10 @@
           <c:choose>
             <c:when test="${event.active}">
               <sst:i18n key="common.active"/>
-              <a href="events.shtm"><tag:img png="flag_white" title="common.active"/></a>
+              <%-- mexi aqui --%>
+              <a href="events.shtm" title="<fmt:message key='common.active'/>">
+                  <i class="bi bi-flag"></i>
+              </a>
             </c:when>
             <c:when test="${!event.rtnApplicable}"><sst:i18n key="common.nortn"/></c:when>
             <c:otherwise>
@@ -107,7 +111,9 @@
           <tag:alarmAck event="${event}"/>
           <c:choose>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.DATA_POINT']}">
-              <a href="data_point_details.shtm?dpid=${event.eventType.dataPointId}"><tag:img png="icon_comp" title="events.pointDetails"/></a>
+            <a href="data_point_details.shtm?dpid=${event.eventType.dataPointId}" title="<fmt:message key='events.pointDetails'/>">
+                <i class="bi bi-search"></i>
+            </a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.DATA_SOURCE']}">
               <a href="data_source_edit.shtm?dsid=${event.eventType.dataSourceId}"><tag:img png="icon_ds_edit" title="events.editDataSource"/></a>

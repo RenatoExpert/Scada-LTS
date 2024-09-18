@@ -116,6 +116,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 
 /* --- Tables --- */
+
 .rowHeader td, .smRowHeader td {
 	font-weight: bold;
 	color: var(--slts-color-secondary-text);
@@ -126,20 +127,20 @@ a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:
 	color: var(--slts-color-secondary-text)
 }
 
-.row td, .smRow td, .rowAlt td, .smRowAlt td, .rowAlt2 td {
-	color: var(--slts-color-primary-text);
+.rowTable td, .smrowTable td, .rowTableAlt td, .smrowTableAlt td, .rowTableAlt2 td {
+	color: var(--slts-color-primary-text);	
 }
 
-.row td, .rowAlt td, .rowAlt2 td {
+.rowTable td, .rowTableAlt td, .rowAlt2 td {	
 	padding: var(--padding-default);
 }
-.smRow td, .smRowAlt td {
+.smrowTable td, .smrowTableAlt td {
 	padding: 0 var(--padding-default);
 }
-.row td, .smRow td, .rowAlt2 td {
+.rowTable td, .smrowTable td, .rowTableAlt2 td {
 	background-color: var(--slts-color-secondary-lighter);
 }
-.rowAlt td, .smRowAlt td {
+.rowTableAlt td, .smrowTableAlt td {
 	background-color: var(--slts-color-secondary-lighter-alt);
 }
 
@@ -338,5 +339,8 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 
+.text-orange {
+    color: orange;
+}
 
 /* fim do teste de estilo no menu de navegação*/

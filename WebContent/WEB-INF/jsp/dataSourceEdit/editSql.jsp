@@ -210,7 +210,9 @@
           <td class="formField">
             <sst:checkbox id="rowBasedQuery" selectedValue="${dataSource.rowBasedQuery}"
                     onclick="rowBasedQueryChange()"/>
-            <span id="rowBasedQueryWarning" style="display:none"><tag:img png="warn" title="dsEdit.sql.deleteWarn"/></span>
+            <span id="rowBasedQueryWarning" style="display:none">
+            <i class="bi bi-exclamation-triangle-fill text-warning" title="<fmt:message key='dsEdit.sql.deleteWarn'/>" style="cursor: pointer;">
+            </i></span>
           </td>
         </tr>
       </table>

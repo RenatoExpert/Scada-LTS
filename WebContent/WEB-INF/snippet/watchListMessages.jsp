@@ -21,7 +21,7 @@
 --%>
 <%@ include file="/WEB-INF/snippet/common.jsp" %>
 <c:if test="${!empty disabled}">
-  <tag:img png="warn" title="common.pointWarning"/> <fmt:message key="common.pointWarning"/><br/>
+  <i class="bi bi-exclamation-triangle-fill text-warning" title="<fmt:message key='common.pointWarning'/>" style="cursor: pointer;"></i> <fmt:message key="common.pointWarning"/><br/>
 </c:if>
 <c:if test="${pointRT.attributes.UNRELIABLE || pointRT.attributes.DP_UPDATE_ERROR}">
   <tag:img png="exclamation" title="common.valueUnreliable"/> <fmt:message key="common.valueUnreliable"/>

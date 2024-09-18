@@ -24,13 +24,13 @@
         <table width="100%">
           <tr>
             <td class="smallTitle">
-              <tag:img png="icon_ds" title="common.edit"/>
+              <i class="bi bi-database-fill-gear" title="<fmt:message key='common.edit'/>"></i>
               ${dsDesc}
               <tag:help id="${dsHelpId}"/>
             </td>
             <td align="right">
-              <tag:img png="icon_ds" onclick="toggleDataSource()" id="dsStatusImg" style="display:none"/>
-              <tag:img id="dsSaveImg" png="save" onclick="saveDataSource()" title="common.save"/>
+              <i class="bi bi-database-fill-x  text-danger" onclick="toggleDataSource()" id="dsStatusImg" style="display:none; cursor: pointer;"></i>
+              <i id="dsSaveImg" class="bi bi-floppy2-fill text-success" onclick="saveDataSource()" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
             </td>
           </tr>
         </table>
