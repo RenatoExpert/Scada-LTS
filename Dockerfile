@@ -20,7 +20,7 @@ COPY art .
 #RUN inkscape --export-type="ico" -w 64 -h 64 favicon.svg
 #RUN inkscape --export-type="png" logo.svg
 RUN mkdir -p /output
-RUN cp logo.png /output
+RUN cp logo.svg /output
 RUN convert favicon.png -define icon:auto-resize=256,64,48,32,16 /output/favicon.ico
 
 FROM debian:stable-20240408 as lib
@@ -77,7 +77,7 @@ RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/fonts					WebContent/resources/js-ui/app/fonts		&& \
 	cp -r dist/img						WebContent/img					;
 ADD https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.js WebContent/assets/hp
-COPY --from=img_build /output/logo.png WebContent/assets/logo.png
+COPY --from=img_build /output/logo.svg WebContent/assets/logo.svg
 COPY --from=img_build /output/favicon.ico WebContent/images/favicon.ico
 RUN --mount=type=cache,target=/root/.gradle			\
 	--mount=type=cache,target=/src/build/classes		\
