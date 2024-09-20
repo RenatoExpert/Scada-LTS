@@ -299,7 +299,7 @@
 
 <!-- mainHeader -->
 <c:if test="${!sessionUser.hideHeader}">
-	<div id="mainHeader">
+	<div id="mainHeader" style="height: 75px;">
 		<tag:logo/>
 	</div>
 
@@ -391,7 +391,7 @@
                                     <i class="bi bi-journal-arrow-up"></i>
                                 </a>
                                 <a href="publishers.shtm" class="nav-link" title="<fmt:message key='header.publishers'/>">
-                                    <i class="bi bi-upload"></i>
+                                    <i class="bi bi-broadcast-pin"></i>
                                 </a>
                                 <a href="maintenance_events.shtm" class="nav-link" title="<fmt:message key='header.maintenanceEvents'/>">
                                     <i class="bi bi-wrench-adjustable-circle"></i>
@@ -482,12 +482,12 @@
 		</div>
 	</c:if>
 </c:if>
-<div class="container">
+<div class="container-fluid">
     <div id="sltsContent" class="content">
     <jsp:doBody/>
     </div>
 </div>
-<div id="sltsFooter" class="footer">
+<div id="sltsFooter" class="footer fixed-bottom text-center m-3">
 	<span>
 		&copy;2012-${toYear} Argos SCADA
 		<fmt:message key="footer.rightsReserved"/>
