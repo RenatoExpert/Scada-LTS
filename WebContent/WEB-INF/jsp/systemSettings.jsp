@@ -59,7 +59,7 @@
                     content += "<option value='<c:out value="<%= AlarmLevels.CRITICAL %>"/>'><fmt:message key="<%= AlarmLevels.CRITICAL_DESCRIPTION %>"/></option>";
                     content += "<option value='<c:out value="<%= AlarmLevels.LIFE_SAFETY %>"/>'><fmt:message key="<%= AlarmLevels.LIFE_SAFETY_DESCRIPTION %>"/></option>";
                     content += "</select> ";
-                    content += "<img id='alarmLevelImg"+ etid +"' src='images/flag_green.png' style='display:none'>";
+                    content += "<i id='alarmLevelImg"+ etid +"' style='display:none'></i>";
                     return content;
                 }
             ];
@@ -552,7 +552,7 @@
     }
   </script>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -587,8 +587,8 @@
         <td class="formLabelRequired"><fmt:message key="systemSettings.databaseSize"/></td>
         <td class="formField">
           <span id="databaseSize"></span>
-          <tag:img id="refreshImg" png="control_repeat_blue" onclick="dbSizeUpdate();" title="common.refresh"/>
-          <tag:img id="purgeNowImg" png="bin" onclick="purgeNow()" title="systemSettings.purgeNow"/>
+          <i id="refreshImg" class="bi bi-arrow-repeat" onclick="dbSizeUpdate()" title="<fmt:message key='common.refresh'/>" style="cursor: pointer;"></i>
+          <i id="purgeNowImg" class="bi bi-trash3-fill  text-danger" onclick="purgeNow()" title="<fmt:message key='systemSettings.purgeNow'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
       <tr>
@@ -617,7 +617,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR" >
     <table width="100%">
       <tr>
         <td>
@@ -625,8 +625,7 @@
           <tag:help id="systemAlarmLevels"/>
         </td>
         <td align="right">
-          <tag:img id="saveSystemEventAlarmLevelsImg" png="save" onclick="saveSystemEventAlarmLevels();"
-                  title="common.save"/>
+          <i id="saveSystemEventAlarmLevelsImg" class="bi bi-floppy2-fill text-success" onclick="saveSystemEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -638,7 +637,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR" >
     <table width="100%">
       <tr>
         <td>
@@ -646,8 +645,7 @@
           <tag:help id="auditAlarmLevels"/>
         </td>
         <td align="right">
-          <tag:img id="saveAuditEventAlarmLevelsImg" png="save" onclick="saveAuditEventAlarmLevels();"
-                  title="common.save"/>
+          <i id="saveAuditEventAlarmLevelsImg" class="bi bi-floppy2-fill text-success" onclick="saveAuditEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -659,7 +657,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -667,7 +665,7 @@
           <tag:help id="languageSettings"/>
         </td>
         <td align="right">
-          <tag:img id="saveLangSettingsImg" png="save" onclick="saveLangSettings();" title="common.save"/>
+          <i id="saveLangSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveLangSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -684,7 +682,7 @@
       </tr>
     </table>
   </div>
-  <div class="borderDivPadded marB marR" style="clear:left;float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -692,8 +690,8 @@
           <tag:help id="emailSettings"/>
         </td>
         <td align="right">
-          <tag:img id="saveEmailSettingsImg" png="save" onclick="saveEmailSettings();" title="common.save"/>
-          <tag:img id="sendTestEmailImg" png="email_go" onclick="sendTestEmail();" title="common.sendTestEmail"/>
+          <i id="saveEmailSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveEmailSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+          <i id="sendTestEmailImg" class="bi bi-envelope" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -749,7 +747,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -757,7 +755,7 @@
           <tag:help id="httpSettings"/>
         </td>
         <td align="right">
-          <tag:img id="saveHttpSettingsImg" png="save" onclick="saveHttpSettings();" title="common.save"/>
+          <i id="saveHttpSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveHttpSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -797,7 +795,7 @@
     </table>
   </div>
   
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
     <table width="100%">
       <tr>
         <td>
@@ -805,7 +803,7 @@
           <tag:help id="dataRetentionSettings"/>
         </td>
         <td align="right">
-          <tag:img id="saveDataRetentionSettingsImg" png="save" onclick="saveDataRetentionSettings();" title="common.save"/>
+          <i id="saveDataRetentionSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveDataRetentionSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
         </td>
       </tr>
     </table>
@@ -863,7 +861,7 @@
     </table>
   </div>
 
-    <div class="borderDivPadded marB marR" style="float:left">
+    <div class="borderDivPadded marB marR">
       <table width="100%">
         <tr>
           <td>
@@ -871,7 +869,7 @@
             <tag:help id="otherSettings"/>
           </td>
           <td align="right">
-            <tag:img id="saveMiscSettingsImg" png="save" onclick="saveMiscSettings();" title="common.save"/>
+            <i id="saveMiscSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveMiscSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
           </td>
         </tr>
       </table>
@@ -1013,7 +1011,7 @@
   </div>
 --%>
 
-  <div class="borderDivPadded marB marR" style="float:left">
+  <div class="borderDivPadded marB marR">
        <table width="100%">
           <tr>
              <td>
@@ -1028,7 +1026,7 @@
        </table>
   </div>
 
-    <div class="borderDivPadded marB marR" style="clear:left;float:left">
+    <div class="borderDivPadded marB marR" >
          <table align="center" "100%">
            <tr>
              <td>
@@ -1060,7 +1058,7 @@
                 </table>
   </div>
 
-  <div class="borderDiv marB marR" style="float: left;">
+  <div class="borderDiv marB marR" >
         <table>
             <tr>
               <td>
@@ -1077,7 +1075,7 @@
         </table>
       </div>
 
-  <div class="" style="float:left; color:white">
+  <div class="" style="color:white">
   #branchName
 
   <div id="css-editor-dialog">
@@ -1157,4 +1155,4 @@
   
   
 </tag:page>
-<tag:newPageNotification href="./app.shtm#/system-settings" ref="systemSettingsNotification"/>
+<%-- <tag:newPageNotification href="./app.shtm#/system-settings" ref="systemSettingsNotification"/> --%>

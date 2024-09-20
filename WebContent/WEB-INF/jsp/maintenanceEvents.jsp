@@ -315,14 +315,30 @@
             dwr.util.addOptions(node, options, "value", "text");
         }
     }
+    function updateIcon(imgNode, className, text, visible, styleType) {
+      if (visible) {
+        if (imgNode != null) {
+          imgNode = getNodeIfString(imgNode);
+          show(imgNode, styleType);
+          if (className)
+            imgNode.className = className;
+          if (text) {
+            imgNode.title = text;
+            imgNode.alt = text;
+          }
+        }
+      } else {
+        hide(imgNode);
+      }
+    }
     
     function updateToggle(active) {
         var display = editingMaintenanceEvent.id != ${NEW_ID};
     	
     	if (active)
-            updateImg("toggleImg", "images/hammer_activated.png", "<sst:i18n key="maintenanceEvents.activated" escapeDQuotes="true"/>", display);
+            updateIcon("toggleImg", "bi bi-hammer text-success", "<sst:i18n key='maintenanceEvents.activated' escapeDQuotes='true'/>", display, "block");
     	else
-            updateImg("toggleImg", "images/hammer_deactivated.png", "<sst:i18n key="maintenanceEvents.deactivated" escapeDQuotes="true"/>", display);
+            updateIcon("toggleImg", "bi bi-hammer text-danger", "<sst:i18n key='maintenanceEvents.deactivated' escapeDQuotes='true'/>", display, "block");
     }
     
     function toggleMaintenanceEvent() {
@@ -345,14 +361,18 @@
                 <span class="smallTitle"><fmt:message key="maintenanceEvents.mes"/></span>
                 <tag:help id="maintenanceEvents"/>
               </td>
-              <td align="right"><tag:img png="add" title="maintenanceEvents.addMe"
-                      onclick="showMaintenanceEvent(${NEW_ID})" id="me${NEW_ID}Img"/></td>
-            </tr>
+              <td align="right">
+                  <i class="bi bi-plus-circle-fill text-success" title="<sst:i18n key='maintenanceEvents.addMe' escapeDQuotes='true'/>" 
+                     onclick="showMaintenanceEvent(${NEW_ID})" id="me${NEW_ID}Img"></i>
+              </td>
+              </tr>
           </table>
           <table id="maintenanceEventsTable">
             <tbody id="me_TEMPLATE_" onclick="showMaintenanceEvent(getMangoId(this))" class="ptr" style="display:none">
               <tr>
-                <td><tag:img id="me_TEMPLATE_Img" png="hammer" title="maintenanceEvents.me"/></td>
+                <td>
+                    <i id="me_TEMPLATE_Img" class="bi bi-wrench-adjustable-circle" title="<sst:i18n key='maintenanceEvents.me' escapeDQuotes='true'/>"></i>
+                </td>
                 <td class="link" id="me_TEMPLATE_Name"></td>
               </tr>
             </tbody>
@@ -366,9 +386,9 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="maintenanceEvents.meDetails"/></span></td>
               <td align="right">
-                <tag:img png="save" onclick="saveMaintenanceEvent();" title="common.save"/>
-                <tag:img id="deleteMaintenanceEventImg" png="delete" onclick="deleteMaintenanceEvent();" title="common.delete"/>
-                <tag:img id="toggleImg" onclick="toggleMaintenanceEvent();"/>
+                <i class="bi bi-floppy2-fill text-success" onclick="saveMaintenanceEvent();" title="<sst:i18n key='common.save' escapeDQuotes='true'/>"></i>
+                <i id="deleteMaintenanceEventImg" class="bi bi-trash  text-danger" onclick="deleteMaintenanceEvent();" title="<sst:i18n key='common.delete' escapeDQuotes='true'/>"></i>
+                <i id="toggleImg" onclick="toggleMaintenanceEvent();"></i>
               </td>
             </tr>
           </table>
@@ -395,7 +415,7 @@
                 <select id="alarmLevel" onchange="updateAlarmLevelImage()">
                   <tag:alarmLevelOptions/>
                 </select>
-                <tag:img id="alarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+                <i id="alarmLevelImg" class="bi bi-flag-fill" title="<sst:i18n key='common.alarmLevel.none' escapeDQuotes='true'/>" style="display:none;"></i>
               </td>
             </tr>
             

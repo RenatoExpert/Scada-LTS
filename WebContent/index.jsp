@@ -18,7 +18,7 @@
 --%>
 <html>
 <head>
-  <title>SCADA Argos</title>
+  <title>Argos SCADA</title>
   <meta http-equiv="content-type" content="application/xhtml+xml;charset=utf-8"/>
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="Copyright" content="&copy; From 2012 - Scada-LTS All rights reserved."/>

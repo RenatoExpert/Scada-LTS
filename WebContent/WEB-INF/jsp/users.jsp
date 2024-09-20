@@ -506,6 +506,6 @@
       </td>
     </tr>
 
-    <tag:newPageNotification href="./app.shtm#/users" ref="usersNotification"/>
+    <%-- <tag:newPageNotification href="./app.shtm#/users" ref="usersNotification"/> --%>
   </table>
 </tag:page>

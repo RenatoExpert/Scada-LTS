@@ -217,7 +217,7 @@ thead th {
 			</tr>
 		</table>-->
 	</div>
-	<tag:newPageNotification href="./app.shtm#/point-hierarchy" ref="pointHierarchyNotification"/>
+	<%-- <tag:newPageNotification href="./app.shtm#/point-hierarchy" ref="pointHierarchyNotification"/> --%>
 </body>
 
 <script src="resources/node_modules/jquery/dist/jquery.min.js"></script>
