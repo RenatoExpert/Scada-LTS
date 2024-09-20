@@ -99,13 +99,13 @@
   <table cellspacing="0" cellpadding="0">
     <tr>
       <td>
-        <tag:img png="transmit" title="publisherList.publishers"/>
+        <i class="bi bi-broadcast-pin" title="<sst:i18n key='publisherList.publishers' escapeDQuotes='true'/>"></i>
         <span class="smallTitle"><fmt:message key="publisherList.publishers"/></span>
         <tag:help id="publisherList"/>
       </td>
       <td align="right">
         <select id="publisherTypes"></select>
-        <tag:img png="transmit_add" title="common.add" onclick="addPublisher()"/>
+        <i class="bi bi-plus-circle-fill text-success" title="<sst:i18n key='common.add' escapeDQuotes='true'/>" onclick="addPublisher()"></i>
       </td>
     </tr>
     
