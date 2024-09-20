@@ -13,10 +13,10 @@ build() {
 		docker buildx build . --target $TARGET -t $TARGET	&& \
 		docker create --name $TARGET $TARGET /			&& \
 		FULLNAME=$TARGET-$VERSION				&& \
-		mkdir -p ./output					&& \
+		mkdir -p ./output/$FULLNAME				&& \
 		docker cp $TARGET:/output/ output/$FULLNAME		&& \
 		docker rm $TARGET					&& \
-		tar -cf $FULLNAME.tar $FULLNAME
+		tar -cf output/$FULLNAME.tar output/$FULLNAME
 	fi
 }
 
