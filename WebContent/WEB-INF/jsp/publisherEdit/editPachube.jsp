@@ -72,7 +72,7 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<img src='images/"+ (data.enabled ? "brick_go" : "brick_stop") +".png'/>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +".png'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
                           return "<input type='text' value='"+ data.feedId +"' "+
@@ -83,14 +83,14 @@
                                   "onblur='updateDataStreamId("+ data.id +", this.value)'/>";
                   },
                   function(data) { 
-                          return "<img src='images/bullet_delete.png' class='ptr' "+
-                                  "onclick='removeFromSelectedPoints("+ data.id +")'/>";
+                          return "<i class='bi bi-trash text-danger' "+
+                                  "onclick='removeFromSelectedPoints("+ data.id +")'></i>";
                   }
               ],
               {
                   rowCreator: function(options) {
                       var tr = document.createElement("tr");
-                      tr.className = "row"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                      tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                       return tr;
                   },
                   cellCreator: function(options) {
@@ -194,7 +194,7 @@
         <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
         <td align="right">
           <select id="availablePoints"></select>
-          <tag:img png="icon_comp_add" onclick="selectPoint()"/>
+          <i class="bi bi-plus-circle-fill text-success" onclick="selectPoint()"></i>
         </td>
       </tr>
     </table>

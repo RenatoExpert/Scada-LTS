@@ -116,8 +116,8 @@
           dwr.util.addRows("staticHeaderList", staticHeaderList, [
                   function(data) { return data.key +"="+ data.value; },
                   function(data, options) {
-                      return "<img src='images/bullet_delete.png' class='ptr' title='<fmt:message key="publisherEdit.httpSender.removeHeader"/>' "+
-                              "onclick='removeStaticHeader("+ options.rowIndex + ");'/>";
+                      return "<i class='bi bi-trash text-danger' title='<fmt:message key="publisherEdit.httpSender.removeHeader"/>' "+
+                              "onclick='removeStaticHeader("+ options.rowIndex + ");'></i>";
                   }
                   ], null);
       }
@@ -206,7 +206,7 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<img src='images/"+ (data.enabled ? "brick_go" : "brick_stop") +".png'/>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
                           return "<input type='text' value='"+ data.parameterName +"' "+
@@ -217,14 +217,14 @@
                                   "onclick='updateIncludeTimestamp("+ data.id +", this.checked)'/>";
                   },
                   function(data) { 
-                          return "<img src='images/bullet_delete.png' class='ptr' "+
-                                  "onclick='removeFromSelectedPoints("+ data.id +")'/>";
+                          return "<i class='bi bi-trash text-danger' "+
+                                  "onclick='removeFromSelectedPoints("+ data.id +")'></i>";
                   }
               ],
               {
                   rowCreator: function(options) {
                       var tr = document.createElement("tr");
-                      tr.className = "row"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                      tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                       return tr;
                   },
                   cellCreator: function(options) {
@@ -423,7 +423,7 @@
             <td class="formField">
               <fmt:message key="publisherEdit.httpSender.headerKey"/> <input type="text" id="sheaderKey" class="formShort"/>
               <fmt:message key="publisherEdit.httpSender.headerValue"/> <input type="text" id="sheaderValue" class="formShort"/>
-              <tag:img png="add" title="publisherEdit.httpSender.addStaticHeader" onclick="addStaticHeader()"/>
+              <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>" onclick="addStaticHeader()"></i>
               <table>
                 <tr id="noStaticHeadersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticHeaders"/></td></tr>
                 <tbody id="staticHeaderList"></tbody>
@@ -436,7 +436,7 @@
             <td class="formField">
               <fmt:message key="publisherEdit.httpSender.paramKey"/> <input type="text" id="sparamKey" class="formShort"/>
               <fmt:message key="publisherEdit.httpSender.paramValue"/> <input type="text" id="sparamValue" class="formShort"/>
-              <tag:img png="add" title="publisherEdit.httpSender.addStaticParam" onclick="addStaticParameter()"/>
+              <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='publisherEdit.httpSender.addStaticParam'/>" onclick="addStaticParameter()"></i>
               <table>
                 <tr id="noStaticParametersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticParams"/></td></tr>
                 <tbody id="staticParameterList"></tbody>
@@ -489,7 +489,7 @@
         <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
         <td align="right">
           <select id="availablePoints"></select>
-          <tag:img png="icon_comp_add" onclick="selectPoint()"/>
+          <i class="bi bi-plus-circle-fill text-success" onclick="selectPoint()"></i>
         </td>
       </tr>
     </table>
