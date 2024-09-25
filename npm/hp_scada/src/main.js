@@ -6,7 +6,9 @@ import utils from './utils/utils.js';
 import api from './api/api.js';
 
 import Graphic_component from './graphic_component/graphic_component.js';
-import Summary_component from './summary_component/summary_component.js';
+import Cathodic_component from './cathodic_component/cathodic_component.js';
+//import Summary_component from './summary_component/summary_component.js';
+import StationsSummary from './StationsSummary/StationsSummary.js';
 
 import * as views_tree from 'views_tree.json';
 
@@ -457,6 +459,7 @@ function get_view_info(xid) {
 		view.name = split[1];
 	}
 	let process;
+	console.log({ view, xid });
 	from_tree: {
 		switch(view.level) {
 			case 'l0':
@@ -464,9 +467,11 @@ function get_view_info(xid) {
 				break;
 			case 'l1':
 				process = loaded.tree.root.menus[view.name];
+				console.log({ menus: loaded.tree.root.menus, process });
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
+				view.custom_bg = process.custom_bg;
 				break;
 			case 'l2':
 				process = loaded.tree.root.children[view.name];
@@ -481,6 +486,7 @@ function get_view_info(xid) {
 				view.label = reference.label;
 				view.title = process.label + "/" + view.label; 
 				view.class = reference.class;
+				view.custom_bg = reference.custom_bg;
 				view.code = reference.code;
 				console.log({ process });
 				break;
@@ -884,7 +890,7 @@ async function main() {
 						utils.goto_id("l1-cidades");
 					});
 					bind_button("l1-system", "Status do sistema",() => {
-						utils.goto_id("l1-estatisticas");
+						utils.goto_id("l1-system");
 					});
 					bind_button("l1-refresh", "Atualizar tela", () => {
 						location.reload();
@@ -911,7 +917,8 @@ async function main() {
 				return div;
 			})();
 			let map = new Map(loaded.tree);
-			let summary = current_view.level == "l2" ? new Summary_component(map).get_dom_element() : null
+			let summary = current_view.level == "l2" ? new StationsSummary(map).get_dom_element() : null
+			let cathodic = current_view.xid == "l1-rectifiers" ? new Cathodic_component(map).get_dom_element() : null
 			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
 					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
 					null;
@@ -922,14 +929,14 @@ async function main() {
 			l1.id = "header-l1";
 			l2.id = "header-l2";
 
-			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics };
+			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics, cathodic };
 		}
 	}
 
 	render: {
 		if(current_view.level == "l0") {
 			setTimeout(() => {
-				utils.goto_id("l1-estatisticas");
+				utils.goto_id("l1-system");
 			}, 10e3);
 		} else {
 			canvas.insertBefore(generated.hp_headers, viewBackground);
@@ -940,6 +947,8 @@ async function main() {
 				headers.appendChild(generated.summary);
 			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
+			} else if(current_view.xid == "l1-rectifiers") {
+				headers.appendChild(generated.cathodic);
 			} else if(current_view.xid == "l1-graphics") {
 				headers.appendChild(generated.graphics);
 			} else if(current_view.xid == "l1-cidades") {
@@ -949,9 +958,56 @@ async function main() {
 		background: {
 			let cv = generated.current_view;
 			let background_url = utils.asset_url("hp/bg/");
+			let custom_bg = cv.custom_bg;
+			if (cv.xid == "l0-banner") {
+				custom_bg = "l0-banner.svg";
+			}
 			let prefix = cv.class;
 			let extension;
-			if(prefix) {
+			if (custom_bg) {
+				let filename = custom_bg;
+				let target_url = new URL(filename, background_url);
+				utils.load_svg(target_url).then(image => {
+					console.log("Background with custom_bg goes fine");
+					replace_background(image);
+					if (current_view.xid == "l1-system") {
+						console.log("inside current_view.xid == l1-system");
+						function subtitle(desc, source) {
+							var c = document.getElementById("hp-headers-subtitle");
+							if (desc) {
+								//var bounds = getAbsoluteNodeBounds(source);
+								let bounds = source.getBoundingClientRect();
+								console.debug(bounds);
+								c.innerHTML = desc;
+								c.style.left = (bounds.x + 16) +"px";
+								c.style.top = (bounds.y - 150) +"px";
+								show(c);
+							} else {
+								hide(c);
+							}
+						}
+						function bind_button(id, tooltip, action) {
+							console.log("inside bind_button");
+							let btn = document.body.querySelector(`#${id}`);
+							btn.onclick = action;
+							btn.onmouseover = () => {
+								subtitle(tooltip, btn);
+							};
+							btn.onmouseout = () => {
+								subtitle();
+							};
+							btn.style.cursor = "pointer";
+						}
+						bind_button("l1-rectifiers", "Retificadores", () => {
+							utils.goto_id("l1-rectifiers");
+						});
+					}
+				}).catch(problem => {
+					console.error("Error on loading background SVG file");
+					console.error({ target_url, filename, extension });
+					console.error(problem);
+				});
+			} else if (prefix) {
 				extension = "svg";
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
