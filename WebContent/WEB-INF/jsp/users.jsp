@@ -389,13 +389,17 @@
                 <span class="smallTitle"><fmt:message key="users.title"/></span>
                 <tag:help id="userAdministration"/>
               </td>
-              <td align="right"><tag:img png="user_add" onclick="showUser(${applicationScope['constants.Common.NEW_ID']}, false)"
-                      title="users.add" id="u${applicationScope['constants.Common.NEW_ID']}Img"/></td>
+              <td align="right">
+                <i class="bi bi-person-plus-fill text-success" onclick="showUser(${applicationScope['constants.Common.NEW_ID']}, false)"
+                   title="<fmt:message key='users.add'/>" id="u${applicationScope['constants.Common.NEW_ID']}Img"></i>
+              </td>
             </tr>
           </table>
           <table id="usersTable">
             <tbody id="u_TEMPLATE_" onclick="showUser(getMangoId(this), true)" class="ptr" style="display:none;"><tr>
-              <td><tag:img id="u_TEMPLATE_Img" png="user_green" title="users.user"/></td>
+              <td>
+                <i class="bi bi-person-circle" id="u_TEMPLATE_Img" title="<fmt:message key='users.user'/>"></i>
+              </td>
               <td class="link" id="u_TEMPLATE_Username"></td>
             </tr></tbody>
           </table>
@@ -407,14 +411,13 @@
           <table width="100%">
             <tr>
               <td>
-                <span class="smallTitle"><tag:img id="userImg" png="user_green" title="users.user"/>
+                <span class="smallTitle"><i id="userImg" class="bi bi-person-circle" title="<fmt:message key='users.user'/>"></i>
                 <fmt:message key="users.details"/></span>
               </td>
               <td align="right">
-                <tag:img id="saveImg" png="save" onclick="saveUser();" title="common.save"/>
-                <tag:img id="deleteImg" png="delete" onclick="deleteUser();" title="common.delete" style="display:none;"/>
-                <tag:img id="sendTestEmailImg" png="email_go" onclick="sendTestEmail();" title="common.sendTestEmail"
-                        style="display:none;"/>
+                <i id="saveImg" class="bi bi-floppy2-fill text-success" onclick="saveUser();" title="<fmt:message key='common.save'/>"></i>
+                <i id="deleteImg" class="bi bi-trash  text-danger" onclick="deleteUser();" title="<fmt:message key='common.delete'/>" style="display:none;"></i>
+                <i id="sendTestEmailImg" class="bi bi-envelope" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="display:none;"></i>
               </td>
             </tr>
           </table>

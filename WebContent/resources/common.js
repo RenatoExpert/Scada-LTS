@@ -545,11 +545,11 @@ function setAlarmLevelText(alarmLevel, textNode) {
 
 function setUserImg(admin, disabled, imgNode) {
     if (disabled)
-        updateImg(imgNode, "images/user_disabled.png", mango.i18n["common.disabled"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-secondary", mango.i18n["common.disabled"], true);
     else if (admin)
-        updateImg(imgNode, "images/user_suit.png", mango.i18n["common.administrator"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-danger", mango.i18n["common.administrator"], true);
     else
-        updateImg(imgNode, "images/user_green.png", mango.i18n["common.user"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-success", mango.i18n["common.user"], true);
 }
 
 function setScheduledEventImg(disabled, imgNode) {
@@ -561,9 +561,9 @@ function setScheduledEventImg(disabled, imgNode) {
 
 function setCompoundEventImg(disabled, imgNode) {
     if (disabled)
-        updateImg(imgNode, "images/multi_bell_disabled.png", mango.i18n["js.disabledCed"], true);
+        updateIcon(imgNode, "bi bi-bell-slash-fill text-secondary", mango.i18n["js.disabledCed"], true, "block");
     else
-        updateImg(imgNode, "images/multi_bell.png", mango.i18n["compoundDetectors.compoundEventDetector"], true);
+        updateIcon(imgNode, "bi bi-bell-fill text-primary", mango.i18n["compoundDetectors.compoundEventDetector"], true, "block");
 }
 
 function setDataSourceStatusImg(disabled, imgNode) {
@@ -589,9 +589,9 @@ function setPublisherStatusImg(enabled, imgNode) {
 
 function setPointLinkImg(disabled, imgNode) {
     if (disabled)
-        updateImg(imgNode, "images/link_break.png", mango.i18n["js.disabledPointLink"], true);
+        updateIcon(imgNode, "bi bi-link-45deg", mango.i18n["js.disabledPointLink"], true);
     else
-        updateImg(imgNode, "images/link.png", mango.i18n["pointLinks.pointLink"], true);
+        updateIcon(imgNode, "bi bi-link", mango.i18n["pointLinks.pointLink"], true);
 }
 
 function updateImg(imgNode, src, text, visible, styleType) {
