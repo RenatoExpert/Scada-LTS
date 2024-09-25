@@ -6,7 +6,7 @@ import Api_connector from './api_connector.js';
 
 class Graphic_component {
 	constructor (current_view) {
-		console.log({ current_view });
+		console.log({ current_view_inside_graphic_component: current_view });
 		let reference = null;
 		let graphic_title = current_view.label;
 		this.chart_handler = new Chart_handler(graphic_title);

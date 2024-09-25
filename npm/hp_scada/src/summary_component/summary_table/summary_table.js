@@ -3,9 +3,11 @@ import Header_row from './header_row.js';
 import Station_row from './station_row.js';
 
 class Summary_table {
-	constructor (map, items_per_page) {
+	constructor (map, items_per_page, station_model) {
 		this.map = map;
 		this.create_dom_element(items_per_page);
+		this.station_model = station_model;
+		console.log({ this });
 	}
 
 	create_dom_element (items_per_page) {
@@ -33,7 +35,7 @@ class Summary_table {
 		for(let item in tree_table) {
 			console.log({ item });
 			if(index_number < (current_page * items_per_page) && index_number >= (current_page - 1) * items_per_page) {
-				let row = new Station_row(tree_table, item, this.map);
+				let row = new Station_row(tree_table, item, this.map, this.station_model);
 				table.append(row.get_dom_element());
 			}
 			index_number++;

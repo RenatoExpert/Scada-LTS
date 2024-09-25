@@ -3,10 +3,11 @@
 		"label": "Bahiagás",
 		"menus": {
 			"cidades": {
-				"label": "Cidades"
+				"label": "Estações"
 			},
-			"estatisticas": {
-				"label": "Estatisticas"
+			"system": {
+				"custom_bg": "l1-system.svg",
+				"label": "Sistemas"
 			},
 			"graphics": {
 				"label": "Gráfico ao vivo"
@@ -16,6 +17,10 @@
 			},
 			"daily": {
 				"label": "Relatório Diário"
+			},
+			"rectifiers": {
+				"custom_bg": "l1-rectifiers.svg",
+				"label": "Retificadores"
 			}
 		},
 
