@@ -30,13 +30,13 @@
 	<table>
 		<tr>
 			<td colspan="3">
-				<img src="images/icon_comp_edit.png"/>
+				<i class="bi bi-pencil-square"></i>
 				<span class="smallTitle">
 					<fmt:message key="pointEdit.props.props"/>
 				</span>
 				<tag:help id="dataPointEditing"/>
 				<a href="data_point_details.shtm?dpid=${form.id}">
-					<tag:img png="icon_comp" title="pointEdit.props.details"/>
+					<i class="bi bi-search" title="<fmt:message key='pointEdit.props.details'/>"></i>
 				</a>
 			</td>
 		</tr>
@@ -48,7 +48,7 @@
 			<td colspan="2" class="formField">
 				${dataSource.name}
 				<a href="data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}">
-					<tag:img png="icon_ds_edit" title="pointEdit.props.editDs"/>
+					<i class="bi bi-database-fill-gear" title="<fmt:message key='pointEdit.props.editDs'/>"></i>
 				</a>
 			</td>
 		</tr>

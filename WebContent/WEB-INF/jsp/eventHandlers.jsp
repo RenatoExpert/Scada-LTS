@@ -585,8 +585,8 @@
             <tr>
               <td class="smallTitle"><fmt:message key="eventHandlers.eventHandler"/></td>
               <td align="right">
-                <tag:img id="deleteImg" png="delete" title="common.delete" onclick="deleteHandler();"/>
-                <tag:img id="saveImg" png="save" title="common.save" onclick="saveHandler();"/>
+                  <i id="deleteImg" class="bi bi-trash  text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteHandler();"></i>
+                  <i id="saveImg" class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" onclick="saveHandler();"></i>
               </td>
             </tr>
             <tr><td class="formError" id="userMessage"></td></tr>
@@ -603,11 +603,11 @@
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_SCRIPT %>"/>"><fmt:message key="eventHandlers.type.script"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_SMS %>"/>"><fmt:message key="eventHandlers.type.sms"/></option>
                 </select>
-                <tag:img id="handler1Img" png="cog_wrench" title="eventHandlers.type.setPointHandler" style="display:none;"/>
-                <tag:img id="handler2Img" png="cog_email" title="eventHandlers.type.emailHandler" style="display:none;"/>
-                <tag:img id="handler3Img" png="cog_process" title="eventHandlers.type.processHandler" style="display:none;"/>
-                <tag:img id="handler4Img" png="report" title="eventHandlers.type.processHandler" style="display:none;"/>
-                <tag:img id="handler5Img" png="phone" title="eventHandlers.type.smsHandler" style="display:none;"/>
+                <i id="handler1Img" class="bi bi-wrench" title="<fmt:message key='eventHandlers.type.setPointHandler'/>" style="display:none;"></i>
+                <i id="handler2Img" class="bi bi-envelope" title="<fmt:message key='eventHandlers.type.emailHandler'/>" style="display:none;"></i>
+                <i id="handler3Img" class="bi bi-gear" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
+                <i id="handler4Img" class="bi bi-file-earmark-text" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
+                <i id="handler5Img" class="bi bi-phone" title="<fmt:message key='eventHandlers.type.smsHandler'/>" style="display:none;"></i>
                 <span id="handler5Help" style="display:none;">
                     <tag:help id="smsEventHandlers"/>
                 </span>
@@ -729,7 +729,7 @@
               <td class="formLabelRequired"><fmt:message key="eventHandlers.activeCommand"/></td>
               <td class="formField">
                 <input type="text" id="activeProcessCommand" class="formLong"/>
-                <tag:img png="cog_go" onclick="testProcessCommand('activeProcessCommand')" title="eventHandlers.commandTest.title"/>
+                <i class="bi bi-gear-fill text-primary" onclick="testProcessCommand('activeProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
             
@@ -737,7 +737,7 @@
               <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveCommand"/></td>
               <td class="formField">
                 <input type="text" id="inactiveProcessCommand" class="formLong"/>
-                <tag:img png="cog_go" onclick="testProcessCommand('inactiveProcessCommand')" title="eventHandlers.commandTest.title"/>
+                <i class="bi bi-gear-fill text-primary" onclick="testProcessCommand('inactiveProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
           </table>
@@ -747,15 +747,15 @@
               <td class="formLabelRequired"><fmt:message key="eventHandlers.activeScript"/></td>
               <td class="formField">
               	<select id="activeScriptCommand"></select>
-                <tag:img png="cog_go" onclick="testScriptCommand('activeScriptCommand')" title="eventHandlers.commandTest.title"/>
+                <i class="bi bi-gear-fill text-primary" onclick="testScriptCommand('activeScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
             
             <tr>
               <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveScript"/></td>
               <td class="formField">
-              	<select id="inactiveScriptCommand"></select>
-                <tag:img png="cog_go" onclick="testScriptCommand('inactiveScriptCommand')" title="eventHandlers.commandTest.title"/>
+                <select id="inactiveScriptCommand"></select>
+                <i class="bi bi-gear-fill text-primary" onclick="testScriptCommand('inactiveScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
           </table>

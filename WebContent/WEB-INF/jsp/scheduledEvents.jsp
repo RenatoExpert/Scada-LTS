@@ -313,14 +313,17 @@
                 <span class="smallTitle"><fmt:message key="scheduledEvents.ses"/></span>
                 <tag:help id="scheduledEvents"/>
               </td>
-              <td align="right"><tag:img png="clock_add" title="scheduledEvents.addSe"
-                      onclick="showScheduledEvent(${NEW_ID})" id="se${NEW_ID}Img"/></td>
+              <td align="right">
+                  <i class="bi bi-calendar-check" title="<fmt:message key='scheduledEvents.addSe'/>" onclick="showScheduledEvent(${NEW_ID})" id="se${NEW_ID}Img"></i>
+              </td>
             </tr>
           </table>
           <table id="scheduledEventsTable">
             <tbody id="se_TEMPLATE_" onclick="showScheduledEvent(getMangoId(this))" class="ptr" style="display:none">
               <tr>
-                <td><tag:img id="se_TEMPLATE_Img" png="clock" title="scheduledEvents.se"/></td>
+                <td>
+                    <i id="se_TEMPLATE_Img" class="bi bi-alarm text-secondary" title="<fmt:message key='scheduledEvents.se'/>"></i>
+                </td>
                 <td class="link" id="se_TEMPLATE_Name"></td>
               </tr>
             </tbody>
@@ -334,8 +337,8 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="scheduledEvents.seDetails"/></span></td>
               <td align="right">
-                <tag:img png="save" onclick="saveScheduledEvent();" title="common.save"/>
-                <tag:img id="deleteScheduledEventImg" png="delete" onclick="deleteScheduledEvent();" title="common.delete"/>
+                  <i class="bi bi-floppy2-fill text-success" onclick="saveScheduledEvent();" title="<fmt:message key='common.save'/>"></i>
+                  <i id="deleteScheduledEventImg" class="bi bi-trash  text-danger" onclick="deleteScheduledEvent();" title="<fmt:message key='common.delete'/>"></i>
               </td>
             </tr>
           </table>
@@ -357,7 +360,7 @@
                 <select id="alarmLevel" onchange="updateAlarmLevelImage()">
                   <tag:alarmLevelOptions/>
                 </select>
-                <tag:img id="alarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+                <i id="alarmLevelImg" class="bi bi-flag-fill text-success" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;"></i>
               </td>
             </tr>
             

@@ -169,8 +169,7 @@
                                 " onclick='updatePointConsolidatedChart("+ data.pointId +", this.checked)'/>";
                     },
                     function(data) { 
-                            return "<img src='images/bullet_delete.png' class='ptr' "+
-                                    "onclick='removeFromReportPointsArray("+ data.pointId +")'/>";
+                        return "<i class='bi bi-trash  text-danger' onclick='removeFromReportPointsArray(" + data.pointId + ")'></i>";
                     }
                 ],
                 {
@@ -252,21 +251,21 @@
                                 ri.state == <c:out value="<%= ReportInstance.STATE_STARTED %>"/>)
                             return "";
                             
-                        var result = "<img src='images/bullet_down.png' class='ptr' title='<fmt:message key="reports.export"/>' "+
-                                "onclick='exportData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'/>";
+                        var result = "<i class='bi bi-filetype-csv text-success' title='<fmt:message key="reports.export"/>' "+
+                                "onclick='exportData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
                         if (ri.includeEvents != <c:out value="<%= ReportVO.EVENTS_NONE %>"/>)
-                            result += "<img src='images/flag_white.png' class='ptr' title='<fmt:message key="reports.eventExport"/>' "+
-                                    "onclick='exportEventData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'/>";
+                            result += "<i class='bi bi-calendar-check text-primary' title='<fmt:message key="reports.eventExport"/>' "+
+                                    "onclick='exportEventData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
                         if (ri.includeUserComments)
-                            result += "<img src='images/comment.png' class='ptr' title='<fmt:message key="reports.userCommentExport"/>' "+
-                                    "onclick='exportUserComments(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'/>";
+                            result += "<i class='bi bi-chat-dots text-success' title='<fmt:message key="reports.userCommentExport"/>' "+
+                                    "onclick='exportUserComments(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
-                        result += "<img src='images/icon_chart.png' class='ptr' title='<fmt:message key="reports.charts"/>' "+
-                                "onclick='viewChart("+ ri.id +")'/>"+
-                                "<img id='ri"+ ri.id +"DeleteImg' src='images/bullet_delete.png' class='ptr' "+
-                                "onclick='deleteReportInstance("+ ri.id +")'/> ";
+                        result += "<i class='bi bi-graph-up-arrow text-success' title='<fmt:message key="reports.charts"/>' "+
+                                "onclick='viewChart("+ ri.id +")'></i>"+
+                                "<i id='ri"+ ri.id +"DeleteImg' class='bi bi-trash text-danger' "+
+                                "onclick='deleteReportInstance("+ ri.id +")'></i> ";
                         
                         return result;
                     }
@@ -274,7 +273,7 @@
                 {
                     rowCreator: function(options) {
                         var tr = document.createElement("tr");
-                        tr.className = "row"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                        tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                         return tr;
                     },
                     cellCreator: function(options) {
@@ -506,10 +505,9 @@
             <span class="smallTitle"><fmt:message key="reports.reportQueue"/></span>
             <tag:help id="reportInstances"/>
           </td>
-          <td align="right">
-            <tag:img id="reportInstancesRefreshImg" png="control_play_blue" title="common.refresh"
-                    onclick="refreshReportInstanceList()"/>
-          </td>
+        <td align="right">
+            <i id="reportInstancesRefreshImg" class="bi bi-arrow-clockwise" title="<fmt:message key='common.refresh'/>" onclick="refreshReportInstanceList()"></i>
+        </td>
         </tr>
       </table>
       
@@ -524,8 +522,8 @@
           <td><fmt:message key="reports.doNotPurge"/></td>
           <td></td>
         </tr>
-        <tr id="hourglass" class="row"><td colspan="8" align="center"><tag:img png="hourglass" title="reports.loading"/></td></tr>
-        <tr id="noReportInstances" class="row" style="display:none;"><td colspan="8"><fmt:message key="reports.noInstances"/></td></tr>
+        <tr id="hourglass" class="rowTable"><td colspan="8" align="center"><tag:img png="hourglass" title="reports.loading"/></td></tr>
+        <tr id="noReportInstances" class="rowTable" style="display:none;"><td colspan="8"><fmt:message key="reports.noInstances"/></td></tr>
         <tbody id="reportInstancesList"></tbody>
       </table>
     </div>
@@ -541,14 +539,18 @@
                 <span class="smallTitle"><fmt:message key="reports.templates"/></span>
                 <tag:help id="reportTemplates"/>
               </td>
-              <td align="right"><tag:img png="report_add" title="reports.newReport"
-                      onclick="loadReport(${applicationScope['constants.Common.NEW_ID']}, false)"
-                      id="r${applicationScope['constants.Common.NEW_ID']}Img"/></td>
+              <td align="right">
+                  <i class="bi bi-clipboard2-pulse" title="<fmt:message key='reports.newReport'/>"
+                     onclick="loadReport(${applicationScope['constants.Common.NEW_ID']}, false)"
+                     id="r${applicationScope['constants.Common.NEW_ID']}Img"></i>
+              </td>
             </tr>
           </table>
           <table id="reportsTable">
             <tbody id="r_TEMPLATE_" onclick="loadReport(getMangoId(this), false)" class="ptr" style="display:none;"><tr>
-              <td><tag:img id="r_TEMPLATE_Img" png="report" title="reports.report"/></td>
+              <td>
+                  <i id="r_TEMPLATE_Img" class="bi bi-journal-text" title="<fmt:message key='reports.report'/>"></i>
+              </td>
               <td class="link" id="r_TEMPLATE_Name"></td>
             </tr></tbody>
           </table>
@@ -560,14 +562,15 @@
           <table width="100%">
             <tr>
               <td>
-                <span class="smallTitle"><tag:img id="reportImg" png="report" title="reports.report"/>
+                <span class="smallTitle">
+                <i id="reportImg" class="bi bi-journal-text" title="<fmt:message key='reports.report'/>"></i>
                 <fmt:message key="reports.criteria"/></span>
               </td>
               <td align="right">
-                <tag:img id="deleteImg" png="delete" title="common.delete" onclick="deleteReport();"/>
-                <tag:img id="runImg" png="report_go" onclick="runReport();" title="reports.runNow"/>
-                <tag:img id="saveImg" png="save" onclick="saveReport();" title="common.save"/>
-                <tag:img id="copyImg" png="report_add" onclick="loadReport(selectedReport.id, true);" title="common.copy"/>
+                  <i id="deleteImg" class="bi bi-trash  text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteReport();"></i>
+                  <i id="runImg" class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='reports.runNow'/>" onclick="runReport();"></i>
+                  <i id="saveImg" class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" onclick="saveReport();"></i>
+                  <i id="copyImg" class="bi bi-journals text-primary" title="<fmt:message key='common.copy'/>" onclick="loadReport(selectedReport.id, true);"></i>
               </td>
             </tr>
             <tr><td class="formError" id="userMessage"></td></tr>
@@ -586,7 +589,7 @@
               <td class="formLabelRequired"><fmt:message key="common.points"/></td>
               <td class="formField">
                 <select id="allPointsList"></select>
-                <tag:img png="add" onclick="addPointToReport();" title="common.add"/>
+                <i class="bi bi-plus-circle-fill text-success" onclick="addPointToReport();" title="<fmt:message key='common.add'/>"></i>
                 
                 <table cellspacing="1">
                   <tbody id="reportPointsTableEmpty" style="display:none;">

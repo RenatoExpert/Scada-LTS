@@ -38,11 +38,11 @@ mango.erecip.EmailRecipients = function(prefix, testEmailMessage, mailingLists, 
         var tr = appendNewElement("tr", node);
         if (id)
             tr.id = id;
-        
+        // Erro no icone de e-mail 23-09-2024 em reports.shtm
         var td = appendNewElement("td", tr);
         td.className = "formLabelRequired";
         var cnt = label +'<br/>';
-        cnt += '<img id="'+ this.prefix +'SendTestImg" src="images/email_go.png" class="ptr"';
+        cnt += '<i class="bi bi-envelope  text-success" id="'+ this.prefix +'SendTestImg"';
         cnt += '        onclick="'+ varName +'.sendTestEmail()" title="'+ mango.i18n["common.sendTestEmail"] +'"/>';
         td.innerHTML = cnt;
         
@@ -53,21 +53,21 @@ mango.erecip.EmailRecipients = function(prefix, testEmailMessage, mailingLists, 
         cnt += '    <td class="formLabel">'+ mango.i18n["js.email.addMailingList"] +'</td>';
         cnt += '    <td>';
         cnt += '      <select id="'+ this.prefix +'MailingLists"></select>';
-        cnt += '      <img src="images/add.png" class="ptr" onclick="'+ varName +'.addMailingList()"/>';
+        cnt += '      <i class="bi bi-plus-circle-fill text-success" onclick="'+ varName +'.addMailingList()"></i>';
         cnt += '    </td>';
         cnt += '  </tr>';
         cnt += '  <tr>';
         cnt += '    <td class="formLabel">'+ mango.i18n["js.email.addUser"] +'</td>';
         cnt += '    <td>';
         cnt += '      <select id="'+ this.prefix +'Users"></select>';
-        cnt += '      <img src="images/add.png" class="ptr" onclick="'+ varName +'.addUser()"/>';
+        cnt += '      <i class="bi bi-plus-circle-fill text-success" onclick="'+ varName +'.addUser()"></i>';
         cnt += '    </td>';
         cnt += '  </tr>';
         cnt += '  <tr>';
         cnt += '    <td class="formLabel">'+ mango.i18n["js.email.addAddress"] +'</td>';
         cnt += '    <td>';
         cnt += '      <input id="'+ this.prefix +'Address" type="text"/>';
-        cnt += '      <img src="images/add.png" class="ptr" onclick="'+ varName +'.addAddress()"/>';
+        cnt += '      <i class="bi bi-plus-circle-fill text-success" onclick="'+ varName +'.addAddress()"></i>';
         cnt += '    </td>';
         cnt += '  </tr>';
         cnt += '</table>';
@@ -75,9 +75,9 @@ mango.erecip.EmailRecipients = function(prefix, testEmailMessage, mailingLists, 
         cnt += '  <table width="100%">';
         cnt += '    <tr id="'+ this.prefix +'ListEmpty"><td colspan="3">'+ mango.i18n["js.email.noRecipients"] +'</td></tr>';
         cnt += '    <tr id="'+ this.prefix +'_TEMPLATE_" style="display:none;">';
-        cnt += '        <td width="16"><img id="'+ this.prefix +'_TEMPLATE_Img"/></td>';
+        cnt += '        <td width="16"><i class="bi bi-check2-circle text-success" id="'+ this.prefix +'_TEMPLATE_Img"></i></td>';
         cnt += '        <td id="'+ this.prefix +'_TEMPLATE_Description"></td>';
-        cnt += '        <td width="16"><img src="images/bullet_delete.png" class="ptr"';
+        cnt += '        <td width="16"><i class="bi bi-trash  text-danger"';
         cnt += '                onclick="'+ varName +'.deleteRecipient(getMangoId(this))"/></td>';
         cnt += '    </tr>';
         cnt += '    <tbody id="'+ this.prefix +'List"></tbody>';

@@ -135,7 +135,7 @@
               </c:choose>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.COMPOUND']}">
-              <a href="compound_events.shtm?cedid=${event.eventType.compoundEventDetectorId}"><tag:img png="multi_bell" title="events.editCompound"/></a>
+              <a href="compound_events.shtm?cedid=${event.eventType.compoundEventDetectorId}"><i class="bi bi-bell" title="<fmt:message key='events.editCompound'/>"></i></a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.SCHEDULED']}">
               <a href="scheduled_events.shtm?seid=${event.eventType.scheduleId}"><tag:img png="clock" title="events.editScheduledEvent"/></a>

@@ -451,13 +451,16 @@
                 <span class="smallTitle"><fmt:message key="mailingLists.mailingLists"/></span>
                 <tag:help id="mailingLists"/>
               </td>
-              <td align="right"><tag:img png="book_add" title="common.add" onclick="showMailingList(${NEW_ID})"
-                      id="ml${NEW_ID}Img"/></td>
+            <td align="right">
+              <i class="bi bi-journal-arrow-up" title="<fmt:message key='common.add'/>" onclick="showMailingList(${NEW_ID})" id="ml${NEW_ID}Img"></i>
+            </td>
             </tr>
           </table>
           <table id="mailingListsTable">
             <tbody id="ml_TEMPLATE_" onclick="showMailingList(getMangoId(this))" class="ptr" style="display:none;"><tr>
-              <td><tag:img id="ml_TEMPLATE_Img" png="book" title="mailingLists.mailingList"/></td>
+            <td>
+              <i class="bi bi-journal-arrow-up" id="ml_TEMPLATE_Img" title="<fmt:message key='mailingLists.mailingList'/>"></i>
+            </td>
               <td class="link" id="ml_TEMPLATE_Name"></td>
             </tr></tbody>
           </table>
@@ -470,9 +473,9 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="mailingLists.details"/></span></td>
               <td align="right">
-                <tag:img png="save" onclick="saveMailingList();" title="common.save"/>
-                <tag:img id="deleteMailingListImg" png="delete" onclick="deleteMailingList();" title="common.delete"/>
-                <tag:img id="sendTestEmailImg" png="email_go" onclick="sendTestEmail();" title="common.sendTestEmail"/>
+                <i class="bi bi-floppy2-fill text-success" onclick="saveMailingList();" title="<fmt:message key='common.save'/>"></i>
+                <i class="bi bi-trash  text-danger" id="deleteMailingListImg" onclick="deleteMailingList();" title="<fmt:message key='common.delete'/>"></i>
+                <i class="bi bi-envelope" id="sendTestEmailImg" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>"></i>
               </td>
             </tr>
           </table>
@@ -515,14 +518,14 @@
               <td class="formLabel"><fmt:message key="mailingLists.addUser"/></td>
               <td class="formField">
                 <select id="userList"></select>
-                <tag:img png="add" title="common.add" onclick="createUserEntry()"/>
+                <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='common.add'/>" onclick="createUserEntry()"></i>
               </td>
             </tr>
             <tr>
               <td class="formLabel"><fmt:message key="mailingLists.addAddress"/></td>
               <td class="formField">
                 <input id="address" type="text" class="formLong" onmousedown="this.focus()"/>
-                <tag:img png="add" title="common.add" onclick="createAddressEntry()"/>
+                <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='common.add'/>"  onclick="createAddressEntry()"></i>
               </td>
             </tr>
           </table>
@@ -533,14 +536,20 @@
               <td colspan="3"><fmt:message key="mailingLists.noEntries"/></td>
             </tr>
             <tr id="mleUser_TEMPLATE_" style="display:none;">
-              <td width="16"><img id="mle_TEMPLATE_Img" src="images/hourglass.png"/></td>
+              <td width="16"><i id="mle_TEMPLATE_Img" class="bi bi-person"></i>
               <td id="mle_TEMPLATE_Username"></td>
-              <td width="16"><tag:img png="bullet_delete" title="common.delete" onclick="deleteUserEntry(getMangoId(this));"/></td>
+              <td width="16">
+                <i class="bi bi-trash text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteUserEntry(getMangoId(this));"></i>
+              </td>
             </tr>
             <tr id="mleAddress_TEMPLATE_" style="display:none;">
-              <td width="16"><tag:img png="email" title="mailingLists.emailAddress"/></td>
+              <td width="16">
+                <i class="bi bi-envelope-open" title="<fmt:message key='mailingLists.emailAddress'/>"></i>
+              </td>
               <td id="mle_TEMPLATE_Address"></td>
-              <td width="16"><tag:img png="bullet_delete" title="common.delete" onclick="deleteAddressEntry(getMangoId(this));"/></td>
+              <td width="16">
+                <i class="bi bi-trash text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteAddressEntry(getMangoId(this));"></i>
+              </td>
             </tr>
             <tbody id="mailingListEntriesTable">
               <tr><td width="16"></td><td></td><td width="16"></td></tr>

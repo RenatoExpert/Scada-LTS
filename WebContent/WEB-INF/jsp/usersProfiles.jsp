@@ -337,13 +337,17 @@
               <td>
                 <span class="smallTitle"><fmt:message key="userProfiles.title"/></span>
               </td>
-              <td align="right"><tag:img png="user_add" onclick="showUserProfile(${applicationScope['constants.Common.NEW_ID']})"
-                      title="userProfiles.add" id="u${applicationScope['constants.Common.NEW_ID']}Img"/></td>
-            </tr>
+              <td align="right">
+                <i class="bi bi-person-plus-fill text-success" onclick="showUserProfile(${applicationScope['constants.Common.NEW_ID']})"
+                   title="<fmt:message key='userProfiles.add'/>" id="u${applicationScope['constants.Common.NEW_ID']}Img"></i>
+              </td>
+              </tr>
           </table>
           <table id="userProfileTable">
             <tbody id="u_TEMPLATE_" onclick="showUserProfile(getMangoId(this))" class="ptr" style="display:none;"><tr>
-              <td><tag:img id="u_TEMPLATE_Img" png="user_green" title="userProfile.user"/></td>
+              <td>
+                <i id="u_TEMPLATE_Img" class="bi bi-person-circle" title="<fmt:message key='userProfile.user'/>"></i>
+              </td>
               <td class="link" id="u_TEMPLATE_UserProfileName"></td>
             </tr></tbody>
           </table>
@@ -355,12 +359,12 @@
           <table width="100%">
             <tr>
               <td>
-                <span class="smallTitle"><tag:img id="userImg" png="user_green" title="userProfile.user"/>
+                <span class="smallTitle"><i id="userImg" class="bi bi-person-vcard" title="<fmt:message key='userProfiles.details'/>"></i>
                 <fmt:message key="userProfiles.details"/></span>
               </td>
               <td align="right">
-                <tag:img png="save" id="saveButton" onclick="saveUserProfile();" title="common.save"/>
-                <tag:img png="delete" id="deleteButton" onclick="deleteUserProfile();" title="common.delete" style="display:none;"/>
+                <i class="bi bi-floppy2-fill text-success" id="saveButton" onclick="saveUserProfile();" title="<fmt:message key='common.save'/>"></i>
+                <i class="bi bi-trash  text-danger" id="deleteButton" onclick="deleteUserProfile();" title="<fmt:message key='common.delete'/>" style="display:none;"></i>
               </td>
             </tr>
           </table>
