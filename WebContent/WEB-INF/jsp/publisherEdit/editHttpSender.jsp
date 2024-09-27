@@ -160,8 +160,8 @@
           dwr.util.addRows("staticParameterList", staticParameterList, [
                   function(data) { return data.key +"="+ data.value; },
                   function(data, options) {
-                      return "<img src='images/bullet_delete.png' class='ptr' title='<fmt:message key="publisherEdit.httpSender.removeParam"/>' "+
-                              "onclick='removeStaticParameter("+ options.rowIndex + ");'/>";
+                      return "<i class='bi bi-trash text-danger' title='<fmt:message key="publisherEdit.httpSender.removeParam"/>' "+
+                              "onclick='removeStaticParameter("+ options.rowIndex + ");'></i>";
                   }
                   ], null);
       }

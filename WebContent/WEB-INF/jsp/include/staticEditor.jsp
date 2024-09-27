@@ -23,11 +23,11 @@
     <table width="100%">
       <tr>
         <td>
-          <tag:img png="html" title="viewEdit.static.editor" style="display:inline;"/>
+          <i class="bi bi-file-earmark-code" title="<fmt:message key='viewEdit.static.editor'/>" style="display:inline;"></i>
         </td>
         <td align="right">
-          <tag:img png="save" onclick="staticEditor.save()" title="common.save" style="display:inline;"/>&nbsp;
-          <tag:img png="cross" onclick="staticEditor.close()" title="common.close" style="display:inline;"/>
+            <i class="bi bi-floppy2-fill text-success" onclick="staticEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+            <i class="bi bi-x-lg text-danger" onclick="staticEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>

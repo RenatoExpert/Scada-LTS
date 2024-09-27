@@ -522,7 +522,7 @@
           <td><fmt:message key="reports.doNotPurge"/></td>
           <td></td>
         </tr>
-        <tr id="hourglass" class="rowTable"><td colspan="8" align="center"><tag:img png="hourglass" title="reports.loading"/></td></tr>
+        <tr id="hourglass" class="rowTable"><td colspan="8" align="center"><i class="bi bi-hourglass-split" title="<fmt:message key='reports.loading'/>"></i></td></tr>
         <tr id="noReportInstances" class="rowTable" style="display:none;"><td colspan="8"><fmt:message key="reports.noInstances"/></td></tr>
         <tbody id="reportInstancesList"></tbody>
       </table>

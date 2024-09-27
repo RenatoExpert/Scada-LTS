@@ -31,21 +31,12 @@
 				<table width="100%">
 					<tr>
 						<td>
-							<tag:img png="plugin_edit"
-								title="viewEdit.compound.editor" 
-								style="display:inline;"
-							/>
+							<i class="bi bi-pencil-fill text-success" title="<fmt:message key='viewEdit.compound.editor'/>" style="display:inline;"></i>
 							<span class="copyTitle" id="compoundComponentName"></span>
 						</td>
 						<td align="right">
-							<tag:img png="save" title="common.save"
-								style="display:inline;"
-								onclick="compoundEditor.save()" 
-							/>&nbsp;
-							<tag:img png="cross" title="common.close"
-								style="display:inline;"
-								onclick="compoundEditor.close()" 
-							/>
+							<i class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" style="display:inline;" onclick="compoundEditor.save()"></i>&nbsp;
+							<i class="bi bi-x-lg text-danger" title="<fmt:message key='common.close'/>" style="display:inline;" onclick="compoundEditor.close()"></i>
 						</td>
 					</tr>
 				</table>

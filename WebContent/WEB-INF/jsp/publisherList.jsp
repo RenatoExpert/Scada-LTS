@@ -39,23 +39,19 @@
                 function(p) { return p.configDescription; },
                 function(p) {
                     if (p.enabled)
-                        return '<img src="images/transmit_go.png" title="<fmt:message key="common.enabledToggle"/>" '+
-                            'class="ptr" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"/>';
-                    return '<img src="images/transmit_stop.png" title="<fmt:message key="common.disabledToggle"/>" '+
-                        'class="ptr" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"/>';
+                        return '<i class="bi bi-wifi text-primary" title="<fmt:message key="common.enabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
+                        return '<i class="bi bi-wifi-off text-danger" title="<fmt:message key="common.disabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
                 },
                 function(p) {
-                    return '<a href="publisher_edit.shtm?pid='+ p.id +'"><img src="images/transmit_edit.png" '+
-                        'border="0" title="<fmt:message key="common.edit"/>"/></a> '+
-                        '<img src="images/transmit_delete.png" title="<fmt:message key="common.delete"/>" id="deleteImg'+ p.id +'" '+
-                        'class="ptr" onclick="deletePublisher('+ p.id +')"/>';
+                    return '<a href="publisher_edit.shtm?pid='+ p.id +'"><i class="bi bi-pencil-square" border="0" title="<fmt:message key="common.edit"/>"></i></a> '+
+                        '<i class="bi bi-trash text-danger" title="<fmt:message key="common.delete"/>" id="deleteImg'+ p.id +'" onclick="deletePublisher('+ p.id +')"</i>';
                 }
             ],
             {
                 rowCreator: function(options) {
                     var tr = document.createElement("tr");
                     tr.id = "publisherRow"+ options.rowData.id;
-                    tr.className = "row"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                    tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                     return tr;
                 },
                 cellCreator: function(options) {
@@ -73,6 +69,7 @@
         if (!hasImageFader(imgNode)) {
             PublisherListDwr.togglePublisher(id, function(result) {
                 updateStatusImg($("pImg"+ result.data.id), result.data.enabled);
+                updateStatusImg(imgNode, result.data.enabled);
             });
             startImageFader(imgNode);
         }
@@ -84,8 +81,8 @@
             startImageFader("deleteImg"+ id);
             PublisherListDwr.deletePublisher(id, function(publisherId) {
                 stopImageFader("deleteImg"+ publisherId);
-                var row = $("publisherRow"+ publisherId);
-                row.parentNode.removeChild(row);
+                var rowTable = $("publisherRow"+ publisherId);
+                rowTable.parentNode.removeChild(rowTable);
             });
         }
     }

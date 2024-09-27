@@ -72,7 +72,7 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +".png'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
                           return "<input type='text' value='"+ data.feedId +"' "+

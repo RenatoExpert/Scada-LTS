@@ -183,7 +183,7 @@
       <b><fmt:message key="events.emptyList"/></b>
     </div>
     <div id="hourglass" style="padding:6px;text-align:center;">
-      <tag:img png="hourglass"/>
+      <i class="bi bi-hourglass-split"></i>
     </div>
   </div>
   <div class="borderDiv marB marR">
