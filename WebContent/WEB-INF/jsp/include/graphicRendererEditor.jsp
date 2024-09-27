@@ -22,12 +22,12 @@
     <table width="100%">
       <tr>
         <td>
-          <tag:img png="graphic" title="viewEdit.graphic.editor" style="display:inline;"/>
+          <i class="bi bi-bar-chart text-success" title="<fmt:message key='viewEdit.graphic.editor'/>" style="display:inline;"></i>
           <span class="copyTitle" id="graphicsComponentName"></span>
         </td>
         <td align="right">
-          <tag:img png="save" onclick="graphicRendererEditor.save()" title="common.save" style="display:inline;"/>&nbsp;
-          <tag:img png="cross" onclick="graphicRendererEditor.close()" title="common.close" style="display:inline;"/>
+            <i class="bi bi-floppy2-fill text-success" onclick="graphicRendererEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+            <i class="bi bi-x-lg text-danger" onclick="graphicRendererEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>

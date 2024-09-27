@@ -580,11 +580,17 @@ function setDataPointStatusImg(enabled, imgNode) {
         updateIcon(imgNode, "bi bi-puzzle-fill text-danger", mango.i18n["common.disabledToggle"], true);
 }
 
+// function setPublisherStatusImg(enabled, imgNode) {
+//     if (enabled)
+//         updateImg(imgNode, "images/transmit_go.png", mango.i18n["common.enabledToggle"], true);
+//     else
+//         updateImg(imgNode, "images/transmit_stop.png", mango.i18n["common.disabledToggle"], true);
+// }
 function setPublisherStatusImg(enabled, imgNode) {
     if (enabled)
-        updateImg(imgNode, "images/transmit_go.png", mango.i18n["common.enabledToggle"], true);
+        updateIcon(imgNode, "bi bi-wifi text-primary", mango.i18n["common.enabledToggle"], true);
     else
-        updateImg(imgNode, "images/transmit_stop.png", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-wifi-off text-danger", mango.i18n["common.disabledToggle"], true);
 }
 
 function setPointLinkImg(disabled, imgNode) {
