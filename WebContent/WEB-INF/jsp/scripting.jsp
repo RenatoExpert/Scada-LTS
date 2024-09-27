@@ -236,8 +236,7 @@
                                     "onblur='updateScriptVarName("+ data.pointId +", this.value)'/>";
                     },
                     function(data) {
-                            return "<img src='images/bullet_delete.png' class='ptr' "+
-                                    "onclick='removeFromContextArray("+ data.pointId +")'/>";
+                        return "<i class='bi bi-trash text-danger' onclick='removeFromContextArray(" + data.pointId + ")'></i>";
                     }
                 ],
                 {
@@ -375,14 +374,18 @@
                 <span class="smallTitle"><fmt:message key="scripts.title"/></span>
                 <tag:help id="scripts"/>
               </td>
-              <td align="right"><tag:img png="report_add" title="scripts.addSe"
-                      onclick="showScript(${NEW_ID})" id="se${NEW_ID}Img"/></td>
-            </tr>
+              <td align="right">
+                <i class="bi bi-journal-code" title="<fmt:message key='scripts.addSe'/>"
+                   onclick="showScript(${NEW_ID})" id="se${NEW_ID}Img"></i>
+              </td>
+              </tr>
           </table>
           <table id="scriptsTable">
             <tbody id="se_TEMPLATE_" onclick="showScript(getMangoId(this))" class="ptr" style="display:none">
               <tr>
-                <td><tag:img id="se_TEMPLATE_Img" png="report" title="scripts.se"/></td>
+                <td>
+                  <i id="se_TEMPLATE_Img" class="bi bi-journal-code text-success" title="<fmt:message key='scripts.se'/>"></i>
+                </td>
                 <td class="link" id="se_TEMPLATE_Name"></td>
               </tr>
             </tbody>
@@ -396,9 +399,9 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="scripts.seDetails"/></span></td>
               <td align="right">
-                <%-- <tag:img id="executeScriptImg" png="exclamation" title="common.run"/> --%>
-                <tag:img png="save" onclick="saveScript();" title="common.save"/>
-                <tag:img id="deleteScriptImg" png="delete" onclick="deleteScript();" title="common.delete"/>
+                <%-- <i id="executeScriptImg" class="bi bi-exclamation-circle" title="common.run"></i> --%>
+                <i class="bi bi-floppy2-fill text-success" onclick="saveScript();" title="<fmt:message key='common.save'/>"></i>
+                <i id="deleteScriptImg" class="bi bi-trash  text-danger" onclick="deleteScript();" title="<fmt:message key='common.delete'/>"></i>
               </td>
             </tr>
           </table>
@@ -418,7 +421,7 @@
 			    <td class="formLabelRequired"><fmt:message key="scripts.pointsContext"/></td>
 			    <td class="formField">
 			      <select id="allPointsList"></select>
-			      <tag:img png="add" onclick="addPointToContext();" title="common.add"/>
+            <i class="bi bi-plus-circle-fill text-success" onclick="addPointToContext();" title="<fmt:message key='common.add'/>"></i>
 
 			      <table cellspacing="1" id="contextContainer">
 			        <tbody id="contextTableEmpty" style="display:none;">
@@ -467,8 +470,7 @@
 
     			<td class="formLabelRequired">
       				<fmt:message key="dsEdit.meta.script"/>
-
-      				<tag:img id="executeScriptImg" png="cog_go" title="common.run"/>
+              <i id="executeScriptImg" class="bi bi-gear-fill text-primary" title="<fmt:message key='common.run'/>"></i>
       				<%-- <tag:img png="accept" onclick="validateScript();" title="dsEdit.meta.validate"/> --%>
     			</td>
 

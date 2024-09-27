@@ -153,8 +153,8 @@
 
       function addPoint(point, parent) {
           var pointNode = dojo.widget.createWidget("TreeNode", {
-                  title: "<img src='images/icon_comp.png'/> <span id='ph"+ point.key +"Name'>"+ point.value +"</span> "+
-                          "<img src='images/bullet_go.png' id='ph"+ point.key +"Image' title='<fmt:message key="watchlist.addToWatchlist"/>'/>",
+                  title: "<i class='bi bi-search'></i> <span id='ph"+ point.key +"Name'>"+ point.value +"</span> "+
+                          "<i class='bi bi-caret-right-square-fill text-success' id='ph"+ point.key +"Image' title='<fmt:message key="watchlist.addToWatchlist"/>'></i>",
                   object: point
           });
           parent.addChild(pointNode);

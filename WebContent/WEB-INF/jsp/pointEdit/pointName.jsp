@@ -75,13 +75,13 @@
       </sst:select>
       
       <c:if test="${!empty prevId}">
-        <tag:img png="bullet_go_left" title="pagination.previous"
-                onclick="window.location='data_point_edit.shtm?dpid=${prevId}'"/>
+          <i class="bi bi-caret-left-square-fill text-success" title="<fmt:message key='pagination.previous'/>"
+            onclick="window.location='data_point_edit.shtm?dpid=${prevId}'"></i>
       </c:if>
       
       <c:if test="${!empty nextId}">
-        <tag:img png="bullet_go" title="pagination.next"
-                onclick="window.location='data_point_edit.shtm?dpid=${nextId}'"/>
+          <i class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='pagination.next'/>"
+            onclick="window.location='data_point_edit.shtm?dpid=${nextId}'"></i>
       </c:if>
     </td>
   </tr>

@@ -157,7 +157,7 @@
     
     function updateHtmlComponentContent(id, content) {
         if (!content || content == "")
-            $set(id +"Content", '<img src="images/html.png" alt=""/>');
+            $set(id +"Content", '<i class="bi bi-file-earmark-code" alt=""></i>');
         else
             $set(id +"Content", content);
     }
@@ -463,7 +463,7 @@
             <table>
               <tr>
                 <td colspan="3">
-                  <tag:img png="icon_view" title="viewEdit.editView"/>
+                  <i class="bi bi-diagram-3" title="<fmt:message key='viewEdit.editView'/>"></i>
                   <span class="smallTitle"><fmt:message key="viewEdit.viewProperties"/></span>
                   <tag:help id="editingGraphicalViews"/>
                 </td>
@@ -571,7 +571,7 @@
         <td>
           <fmt:message key="viewEdit.viewComponents"/>:
           <select id="componentList"></select>
-          <tag:img png="plugin_add" title="viewEdit.addViewComponent" onclick="addViewComponent()"/>
+          <i class="bi bi-plus-square" title="<fmt:message key='viewEdit.addViewComponent'/>" onclick="addViewComponent()"></i>
         </td>
         <td style="width:30px;"></td>
 
@@ -623,29 +623,24 @@
           <div id="pointTemplate" onmouseover="revealPointControls(getViewComponentId(this))"
                   onmouseout="hideLayer('c'+ getViewComponentId(this) +'Controls');"
                   style="position:absolute;left:0px;top:0px;display:none;">
-            <div id="c_TEMPLATE_Content"><img src="images/icon_comp.png" alt=""/></div>
+            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-primary" alt=""></i></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
                 <tr onmouseover="showMenu('c'+ getViewComponentId(this) +'Info', 16, 0);"
                         onmouseout="hideLayer('c'+ getViewComponentId(this) +'Info');">
                   <td>
-                    <img src="images/information.png" alt=""/>
+                    <i class="bi bi-info-circle-fill text-primary" alt=""></i>
                     <div id="c_TEMPLATE_Info" onmouseout="hideLayer(this);">
-                      <tag:img png="hourglass" title="common.gettingData"/>
+                      <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
                     </div>
                   </td>
                 </tr>
-                <tr><td><tag:img png="plugin_edit" onclick="openSettingsEditor(getViewComponentId(this))"
-                        title="viewEdit.editPointView"/></td></tr>
-                <tr><td><tag:img png="graphic" onclick="openGraphicRendererEditor(getViewComponentId(this))"
-                        title="viewEdit.editGraphicalRenderer"/></td></tr>
-                <tr><td><tag:img png="plugin_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deletePointView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openSettingsEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-bar-chart text-primary" onclick="openGraphicRendererEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editGraphicalRenderer'/>"></i></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
             <div style="position:absolute;left:-16px;top:0px;z-index:1;">
@@ -664,15 +659,11 @@
             <div id="c_TEMPLATE_Content"></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><tag:img png="pencil" onclick="openStaticEditor(getViewComponentId(this))"
-                        title="viewEdit.editStaticView"/></td></tr>
-                <tr><td><tag:img png="html_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deleteStaticView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openStaticEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -684,15 +675,11 @@
             <span id="c_TEMPLATE_Content"></span>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><tag:img png="plugin_edit" onclick="openCompoundEditor(getViewComponentId(this))"
-                        title="viewEdit.editPointView"/></td></tr>
-                <tr><td><tag:img png="plugin_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deletePointView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -708,15 +695,11 @@
             </div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><tag:img png="plugin_edit" onclick="openCompoundEditor(getViewComponentId(this))"
-                        title="viewEdit.editPointView"/></td></tr>
-                <tr><td><tag:img png="plugin_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deletePointView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-x-lg text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -730,21 +713,17 @@
                 <tr onmouseover="showMenu('c'+ getViewComponentId(this) +'Info', 16, 0);"
                         onmouseout="hideLayer('c'+ getViewComponentId(this) +'Info');">
                   <td>
-                    <img src="images/information.png" alt=""/>
+                    <i class="bi bi-info-circle-fill" alt="teste"></i>
                     <div id="c_TEMPLATE_Info" onmouseout="hideLayer(this);">
-                      <tag:img png="hourglass" title="common.gettingData"/>
+                      <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
                     </div>
                   </td>
                 </tr>
-                <tr><td><tag:img png="plugin_edit" onclick="openCompoundEditor(getViewComponentId(this))"
-                        title="viewEdit.editPointView"/></td></tr>
-                <tr><td><tag:img png="plugin_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deletePointView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
             
@@ -752,7 +731,7 @@
           </div>
           
           <div id="compoundChildTemplate" style="position:absolute;left:0px;top:0px;display:none;">
-            <div id="c_TEMPLATE_Content"><img src="images/icon_comp.png" alt=""/></div>
+            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-primary" alt=""></i></i></div>
           </div>
           
           <div id="customTemplate" onmouseover="revealPointControls(getViewComponentId(this))"
@@ -761,15 +740,11 @@
             <div id="c_TEMPLATE_Content"></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><tag:img png="pencil" onclick="openCustomEditor(getViewComponentId(this))"
-                        title="viewEdit.editStaticView"/></td></tr>
-                <tr><td><tag:img png="html_delete" onclick="deleteViewComponent(getViewComponentId(this))"
-                        title="viewEdit.deleteStaticView"/></td></tr>
-                <tr><td><tag:img png="arrow_up_thin" onclick="moveUpComponent(getViewComponentId(this))"
-                        title="viewEdit.moveUpComponent"/></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCustomEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
+                <tr><td><i class="bbi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><tag:img png="arrow_down_thin" onclick="moveDownComponent(getViewComponentId(this))"
-                        title="viewEdit.moveDownComponent"/></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>

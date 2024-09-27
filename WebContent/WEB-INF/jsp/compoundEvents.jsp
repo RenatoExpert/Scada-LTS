@@ -38,7 +38,7 @@
             var pointRoot = dojo.widget.manager.getWidgetById('rootPoint');
             for (i=0; i<data.dataPoints.length; i++) {
                 dp = data.dataPoints[i];
-                pointNode = dojo.widget.createWidget("TreeNode", {title: "<img src='images/icon_comp.png'/> "+ dp.name});
+                pointNode = dojo.widget.createWidget("TreeNode", {title: "<i class='bi bi-search'></i> " + dp.name});
                 pointRoot.addChild(pointNode);
                 
                 for (j=0; j<dp.eventTypes.length; j++) {
@@ -203,14 +203,17 @@
                 <span class="smallTitle"><fmt:message key="compoundDetectors.compoundEventDetectors"/></span>
                 <tag:help id="compoundEventDetectors"/>
               </td>
-              <td align="right"><tag:img png="multi_bell_add" title="common.add" id="ced${NEW_ID}Img"
-                      onclick="showCompoundEvent(${NEW_ID})"/></td>
+              <td align="right">
+                  <i class="bi bi-calendar-week" title="<fmt:message key='common.add'/>" id="ced${NEW_ID}Img" onclick="showCompoundEvent(${NEW_ID})"></i>
+              </td>
             </tr>
           </table>
           <table id="compoundEventsTable">
             <tbody id="ced_TEMPLATE_" onclick="showCompoundEvent(getMangoId(this))" class="ptr" style="display:none;">
               <tr>
-                <td><tag:img id="ced_TEMPLATE_Img" png="multi_bell" title="compoundDetectors.compoundEventDetector"/></td>
+                <td>
+                    <i id="ced_TEMPLATE_Img" class="bi bi-bell" title="<fmt:message key='compoundDetectors.compoundEventDetector'/>"></i>
+                </td>
                 <td class="link" id="ced_TEMPLATE_Name"></td>
               </tr>
             </tbody>
@@ -224,8 +227,8 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="compoundDetectors.details"/></span></td>
               <td align="right">
-                <tag:img png="save" onclick="saveCompoundEvent();" title="common.save"/>
-                <tag:img id="deleteCompoundEventImg" png="delete" onclick="deleteCompoundEvent();" title="common.delete"/>
+                  <i class="bi bi-floppy2-fill text-success" onclick="saveCompoundEvent();" title="<fmt:message key='common.save'/>"></i>
+                  <i id="deleteCompoundEventImg" class="bi bi-trash  text-danger" onclick="deleteCompoundEvent();" title="<fmt:message key='common.delete'/>"></i>
               </td>
             </tr>
           </table>
@@ -259,7 +262,7 @@
             <tr>
               <td class="formLabelRequired">
                 <fmt:message key="compoundDetectors.condition"/>
-                <tag:img png="accept" onclick="validate();" title="compoundDetectors.validate"/><br/>
+                <i class="bi bi-check-circle-fill text-success" onclick="validate();" title="<fmt:message key='compoundDetectors.validate'/>"></i><br/>
                 <br/>
                 <a href="#" onclick="insertText(' && '); return false;"><fmt:message key="compoundDetectors.and"/></a><br/>
                 <a href="#" onclick="insertText(' || '); return false;"><fmt:message key="compoundDetectors.or"/></a><br/>

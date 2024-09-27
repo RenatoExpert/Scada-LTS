@@ -33,7 +33,7 @@
             <option value="${eddef.id}"><fmt:message key="${eddef.nameKey}"/></option>
           </c:forEach>
         </select>
-        <tag:img png="bell_add" title="common.add" onclick="pointEventDetectorEditor.addEventDetector();"/>
+        <i class="bi bi-bell text-primary" title="<fmt:message key='common.add'/>" onclick="pointEventDetectorEditor.addEventDetector();"></i>
       </td>
     </tr>
     
@@ -49,7 +49,7 @@
       <tr><td class="horzSeparator" colspan="2"></td></tr>
       <tr>
         <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+          <i class="bi bi-bell-slash text-danger" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.highLimitDet"/></td>
@@ -69,7 +69,7 @@
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <i id="eventDetector_TEMPLATE_AlarmLevelImg" class="bi bi-flag-fill text-success" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;"></i>
         </td>
       </tr>
       <tr>

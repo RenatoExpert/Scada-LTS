@@ -85,7 +85,7 @@
           <table>
             <tr>
               <td colspan="2" class="smallTitle">
-                <tag:img png="transmit" title="common.edit"/>
+                <i class="bi bi-broadcast-pin" title="<fmt:message key='common.edit'/>"></i>
                 <fmt:message key="publisherEdit.generalProperties"/> <tag:help id="generalPublisherProperties"/>
               </td>
             </tr>
