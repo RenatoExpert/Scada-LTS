@@ -3,11 +3,11 @@ import Header_row from './header_row.js';
 import Station_row from './station_row.js';
 
 class Summary_table {
-	constructor (map, items_per_page, station_model) {
+	constructor (map, items_per_page, table_model, table_particle) {
 		this.map = map;
+		this.table_particle = table_particle;
+		this.table_model = table_model;
 		this.create_dom_element(items_per_page);
-		this.station_model = station_model;
-		console.log({ this });
 	}
 
 	create_dom_element (items_per_page) {
@@ -29,13 +29,13 @@ class Summary_table {
 			}
 		`;
 		table.appendChild(css);
-		this.header_row = new Header_row();
+		this.header_row = new Header_row(this.table_model);
 		table.append(this.header_row.get_dom_element());
 		let index_number = 0;
 		for(let item in tree_table) {
 			console.log({ item });
 			if(index_number < (current_page * items_per_page) && index_number >= (current_page - 1) * items_per_page) {
-				let row = new Station_row(tree_table, item, this.map, this.station_model);
+				let row = new Station_row(tree_table, item, this.map, this.table_model, this.table_particle);
 				table.append(row.get_dom_element());
 			}
 			index_number++;
