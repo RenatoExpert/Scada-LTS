@@ -83,11 +83,11 @@ services:
 
 networks:
     scadanet:
-        name: ${STACKNAME:-main}_network
+        name: ${BRACH:-main}_network
 
 volumes:
   database_lib:
-    name: argos_${STACKNAME:-main}_database_lib
+    name: argos_${BRACH:-main}_database_lib
   database_etc:
-    name: argos_${STACKNAME:-main}_database_etc
+    name: argos_${BRACH:-main}_database_etc
 
