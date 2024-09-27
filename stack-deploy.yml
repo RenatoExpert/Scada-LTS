@@ -12,12 +12,19 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '1'
-            memory: 768M
+            cpus: "1"
+            memory: "768M"
+          reservations:
+            cpus: "0.1"
+            memory: "256M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
           delay: 3s
+      ulimits:
+        nofile:
+          soft: 128
+          hard: 1024
       healthcheck:
           test: mysqladmin ping -h localhost
           interval: 5s
@@ -47,8 +54,11 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '2'
-            memory: 1.2G
+            cpus: "2"
+            memory: "1.2G"
+          reservations:
+            cpus: "0.3"
+            memory: "512M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
@@ -73,11 +83,11 @@ services:
 
 networks:
     scadanet:
-        name: ${BRANCH:-main}_network
+        name: ${STACKNAME:-main}_network
 
 volumes:
   database_lib:
-    name: argos_${BRANCH:-main}_database_lib
+    name: argos_${STACKNAME:-main}_database_lib
   database_etc:
-    name: argos_${BRANCH:-main}_database_etc
+    name: argos_${STACKNAME:-main}_database_etc
 

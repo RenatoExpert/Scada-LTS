@@ -19,7 +19,72 @@
 				"label": "Relatório Diário"
 			},
 			"rectifiers": {
-				"custom_bg": "l1-rectifiers.svg",
+				"children": {
+					"boticario": {
+						"code": "005",
+						"label": "Boticário"
+					},
+					"cidadejardim": {
+						"code": "005",
+						"label": "Cidade Jardim"
+					},
+					"edfeiradesantana": {
+						"code": "005",
+						"label": "ED Feira de Santana"
+					},
+					"edsantoamaro": {
+						"code": "005",
+						"label": "ED Santo Amaro"
+					},
+					"embasa": {
+						"code": "005",
+						"label": "Embasa"
+					},
+					"etccamacari": {
+						"code": "005",
+						"label": "ETC Camaçari"
+					},
+					"etcitabuna": {
+						"code": "005",
+						"label": "ETC Itabuna"
+					},
+					"etcmapele": {
+						"code": "005",
+						"label": "ETC Mapele"
+					},
+					"etcmucuri": {
+						"code": "005",
+						"label": "ETC Mucuri"
+					},
+					"ford": {
+						"code": "005",
+						"label": "Ford"
+					},
+					"millenium": {
+						"code": "005",
+						"label": "Millenium"
+					},
+					"postomilenio": {
+						"code": "005",
+						"label": "Posto Milênio"
+					},
+					"bonoco": {
+						"code": "005",
+						"label": "Bonocô"
+					},
+					"heineken": {
+						"code": "005",
+						"label": "Heineken"
+					},
+					"veracel": {
+						"code": "005",
+						"label": "Veracel"
+					},
+					"termobahia": {
+						"code": "005",
+						"label": "Termobahia"
+					}
+				},
 				"label": "Retificadores"
 			}
 		},
