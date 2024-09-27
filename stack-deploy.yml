@@ -83,7 +83,7 @@ services:
 
 networks:
     scadanet:
-        name: ${BRANCH:-main}_network
+      name: ${BRANCH:-main}_network
 
 volumes:
   database_lib:
