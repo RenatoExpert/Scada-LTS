@@ -64,9 +64,9 @@
               </c:forEach>
             </tr>
             
-            <c:forEach items="${form.data}" var="row">
-              <tr class="row">
-                <c:forEach items="${row}" var="col">
+            <c:forEach items="${form.data}" var="rowTable">
+              <tr class="rowTable">
+                <c:forEach items="${rowTable}" var="col">
                   <td><c:out value="${col}"/></td>
                 </c:forEach>
               </tr>
