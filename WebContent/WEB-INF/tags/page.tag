@@ -299,9 +299,56 @@
 
 <!-- mainHeader -->
 <c:if test="${!sessionUser.hideHeader}">
-	<div id="mainHeader" style="height: 75px;">
+	<div id="mainHeader" style="height: 75px; display: flex; justify-content: space-between; align-items: center;">
 		<tag:logo/>
-	</div>
+        <div class="btn-group">
+            <button class="avatar text-bg-primary dropdown" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+                <div>
+                    <c:if test="${isLoggedToScadaUser}">
+                        <c:choose>
+                            <c:when test="${!empty sessionUser.firstName}">
+                                <span class="userName"><c:out value="${fn:substring(sessionUser.firstName, 0, 1)}"/></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="userName"><c:out value="${fn:substring(sessionUser.username, 0, 1)}"/></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </div>
+            </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item">
+                            <div class="copyTitle"><fmt:message key="header.user"/></div>
+                            <div class="text-secondary"><c:out value="${sessionUser.firstName} ${sessionUser.lastName}"/></div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropstart">
+                        <a class="dropdown-item dropdown-toggle" href="#">
+                            <i class="bi bi-translate me-2"></i><fmt:message key='header.changeLanguage'/>
+                        </a>
+                        <ul class="dropdown-menu dropdown-submenu">
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="system_settings.shtm">
+                        <i class="bi bi-sliders me-2">
+                        </i><fmt:message key='header.systemSettings'/></a>
+                    </li>
+                    <li><a class="dropdown-item" href="help.shtm">
+                        <i class="bi bi-question-circle me-2"></i>
+                        <fmt:message key='header.help'/></a>
+                    </li>
+                    <li><a class="dropdown-item" href="logout.htm" onclick="disconnect()">
+                        <i class="bi bi-door-open me-2"></i>
+                        <fmt:message key='header.logout'/></a>
+                    </li>
+                </ul>
+        </div>
+	</div>    
 
 	<!-- subheader -->
 	<c:if test="${!simple}">
@@ -412,7 +459,7 @@
                             <div class="horizontal-menu">
                                 <span onclick="disconnect()">
                                     <a href="logout.htm" class="nav-link" title="<fmt:message key='header.logout'/>">
-                                        <i class="bi bi-box-arrow-right"></i>
+                                        <i class="bi bi-door-open"></i>
                                     </a>
                                 </span>
                                     <a href="help.shtm" class="nav-link" title="<fmt:message key='header.help'/>">
@@ -469,7 +516,7 @@
 					</c:if>
                         <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
                                 <a href="#" class="nav-link" title="<fmt:message key='header.changeLanguage'/>">
-                                    <i class="bi bi-globe"></i>
+                                    <i class="bi bi-translate"></i>
                                 </a>
                             <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
                                 <c:forEach items="${availableLanguages}" var="lang">

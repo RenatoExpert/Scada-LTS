@@ -76,7 +76,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 
 /* --- Headers --- */
 #mainHeader {
-	padding-top: 5px;
+	padding: 5px 40px 5px 40px;
 	background-color: #d6d5d5;
 }
 
@@ -341,6 +341,16 @@ html > body .dojoTreeNodeLabelTitle {
 
 .text-orange {
     color: orange;
+}
+
+.avatar {
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	color: #F0F0F0;
+    border: none;
+	font-size: 14px; /* Tamanho da fonte */
 }
 
 /* fim do teste de estilo no menu de navegação*/
