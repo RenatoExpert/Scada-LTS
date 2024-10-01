@@ -7,7 +7,7 @@ class RelatoryView {
         this.timestep = timestep;
         this.tree = tree;
         this.generated_relatory = false;
-        this.get_dom_element();
+        this.generate_dom_element();
     }
 
     get_dom_element() {
