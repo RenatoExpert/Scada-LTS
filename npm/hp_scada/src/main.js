@@ -789,8 +789,8 @@ async function main() {
 			let summary = current_view.level == "l2" ? new StationsSummary(map).get_dom_element() : null
 			let rectifiers = current_view.xid == "l1-rectifiers" ? new Rectifiers_component(map).get_dom_element() : null
 			let cathodic = current_view.xid == "l1-cathodic" ? new Cathodic_component(map).get_dom_element() : null
-			let relatory = current_view.xid == "l1-hourly" ? new RelatoryView(reference, "hour", loaded.tree).create() :
-					current_view.xid == "l1-daily" ? new RelatoryView(reference, "day", loaded.tree).create() :
+			let relatory = current_view.xid == "l1-hourly" ? new RelatoryView(reference, "hour", loaded.tree).get_dom_element() :
+					current_view.xid == "l1-daily" ? new RelatoryView(reference, "day", loaded.tree).get_dom_element() :
 					null;
 			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 
