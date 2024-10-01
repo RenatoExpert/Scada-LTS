@@ -88,6 +88,79 @@ RUN --mount=type=cache,target=/root/.gradle			\
 #RUN cp -r dist/js/test-component.js				WebContent/resources/js-ui/views/js
 #RUN cp -r dist/js/cmp-component-svg.js				WebContent/resources/js-ui/views/js
 
+FROM amazoncorretto:11-al2-native-jdk AS dir_build
+RUN mkdir -p /output/WEB-INF/classes
+WORKDIR /build
+COPY src src
+COPY tomcat/lib lib
+COPY tomcatlib lib
+COPY WebContent/WEB-INF/lib/ lib
+COPY WebContent/WEB-INF/tmp-lib/ lib
+COPY --from=lib /output lib
+RUN find ./src -type f -name "*.java" -exec \
+	javac -cp "lib/*" -d output/WEB-INF/classes -encoding "UTF-8" -source 11 -target 11 '{}' +
+WORKDIR /output
+COPY WebContent .
+RUN mv /build/lib/* WEB-INF/lib/
+COPY webapp-resources WEB-INF/classes
+COPY templates templates
+COPY test test
+COPY modbus modbus
+COPY jmeter jmeter
+COPY test-resources test-resources
+COPY xml xml
+COPY backstop backstop
+COPY --from=npm_src /scadalts-ui scadalts-ui
+COPY --from=npm_build /scadalts-ui/node_modules /tmp/node_modules
+COPY --from=npm_src /scadalts-ui scadalts-ui
+RUN mkdir -p ./resources/node_modules						&& \
+	cp -r /tmp/node_modules/sockjs-client ./resources/node_modules		&& \
+	cp -r /tmp/node_modules/stompjs ./resources/node_modules		;
+COPY --from=npm_package /dist dist
+COPY --from=newnpm_package /dist/hp.umd.js ./assets/hp/hp.umd.js
+COPY --from=newnpm_build /package/src/header_L1.svg ./assets/hp/header_L1.svg
+COPY --from=newnpm_build /package/src/views_tree.json ./assets/hp/views_tree.js
+COPY --from=newnpm_build /package/bg ./assets/hp/bg
+RUN mkdir -p ./resources/js-ui/app/									&& \
+	cp -r dist/css						./resources/js-ui/app/css		&& \
+	mkdir -p ./resources/js-ui/app/js								&& \
+	cp -r dist/js/chunk-vendors.js				./resources/js-ui/app/js		&& \
+	cp -r dist/js/app.js					./resources/js-ui/app/js		&& \
+	mkdir -p ./resources/js-ui/modernWatchList/js							&& \
+	cp -r dist/js/pdfmake.js				./resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/xlsx.js					./resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/canvg.js					./resources/js-ui/modernWatchList/js	&& \
+	cp -r dist/js/example-chart-cmp.js			./resources/js-ui/modernWatchList/js	&& \
+	mkdir -p ./resources/js-ui/views/js								&& \
+	cp -r dist/js/simple-component-svg.js			./resources/js-ui/views/js		&& \
+	cp -r dist/js/live-alarms-component.js			./resources/js-ui/views/js		&& \
+	cp -r dist/js/isalive-component.js			./resources/js-ui/views/js		&& \
+	mkdir -p ./resources/js-ui/ds/js								&& \
+	cp -r dist/js/sleep-and-reactivation-ds-component.js	./resources/js-ui/ds/js		&& \
+	mkdir -p ./resources/js-ui/pointHierarchy/js							&& \
+	cp -r dist/js/ph.js					./resources/js-ui/pointHierarchy/js	&& \
+	cp -r dist/fonts					./resources/js-ui/app/fonts		&& \
+	cp -r dist/img						./img					;
+ADD https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.js ./assets/hp
+COPY --from=img_build /output/logo.svg ./assets/logo.svg
+COPY --from=img_build /output/favicon.ico ./images/favicon.ico
+
+FROM scratch AS dir_package
+COPY --from=dir_build /output /output
+
+FROM tomcat:9.0.87-jdk11-corretto-al2 as dir_deploy
+EXPOSE 8080
+WORKDIR /usr/local/tomcat/
+COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
+COPY tomcat/lib/activation.jar					lib/activation.jar
+COPY tomcat/lib/jaxb-api-2.4.0-b180830.0359.jar			lib/jaxb-api-2.4.0-b180830.0359.jar
+COPY tomcat/lib/jaxb-core-3.0.2.jar				lib/jaxb-core-3.0.2.jar
+COPY tomcat/lib/jaxb-runtime-2.4.0-b180830.0438.jar		lib/jaxb-runtime-2.4.0-b180830.0438.jar
+COPY docker/config/context.xml conf/context.xml
+RUN mkdir -p webapps/Scada-LTS
+COPY --from=dir_package /output webapps/Scada-LTS
+WORKDIR webapps/Scada-LTS
+
 FROM gradle:7-jdk11 as war_debug
 WORKDIR /debug
 COPY --from=war_build /src/build/libs/Scada-LTS.war /tmp
@@ -98,6 +171,7 @@ WORKDIR /output
 COPY --from=war_build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk11-corretto-al2 as war_deploy
+EXPOSE 8080
 WORKDIR /usr/local/tomcat/
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
