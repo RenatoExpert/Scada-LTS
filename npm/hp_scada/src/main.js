@@ -519,23 +519,6 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
-
-function get_area_by_intcode(intcode) {
-	let area_obj;
-	Object.values(loaded.tree.root.children).forEach(area => {
-		if(area.code == intcode) {
-			area_obj = area;
-		}
-	});
-	if(area_obj) {
-		console.debug(`Are found for code ${intcode}`);
-		console.debug({ area_obj, intcode });
-		return area_obj;
-	} else {
-		throw new Error(`Area not found for code ${intcode}`);
-	}
-}
-
 function update_station_options(area, station_select, reference) {
 	station_select.replaceChildren();
 	Object.values(area.children).forEach(child => {
