@@ -1,5 +1,128 @@
 import utils from './utils/utils.js';
-import { sum_datetime, relatory, update_station_options, clear_minutes, download_pdf, download_csv, download_xlsx, get_timedate } from './helpers.js';
+
+function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora') {
+	let tags = get_hist_tags(area_code, station_code);
+	let promises = [];
+	let indexes = make_relatory_indexes(start_ts, end_ts);
+	Object.getOwnPropertyNames(tags).forEach(key => {
+		let tag = tags[key];
+		let promise = new Promise((resolve, reject) => {
+			api.load_tag_history(tag, start_ts, end_ts).then(json => {
+				let table = normatize_relatory_column(json, key);
+				resolve({ key, table });
+			});
+		})
+		promises.push(promise);
+	});
+	Promise.all(promises).then(results => {
+		let table = {};
+		console.log({ indexes });
+		indexes.forEach(index => {
+			console.log({ index });
+			table[index] = {};
+			results.forEach(result => {
+				console.log({ result });
+				let key = result.key;
+				table[index][key] = result.table[index];
+			});
+		});
+		console.log({ table });
+		relatory_memory = table;
+		render_relatory(table, id_col);
+	});
+}
+
+function normatize_relatory_column(json) {
+	let values = json.values;
+	let from = json.fromTs;
+	let to = json.toTs;
+	let hour_in_ms = 60 * 60 * 1e3;
+	let object = {};
+	for(let target = from; target <= to; target += hour_in_ms) {
+		let min_time = target;
+		let max_time = target + hour_in_ms;
+		let filtered_list = values.filter(row => {
+			let time = row.ts;
+			return min_time <= time && time <= max_time;
+		});
+		let sum = 0;
+		filtered_list.forEach(row => {
+			let value_str = row.value;
+			if (Number.isNaN(value_str)) {
+				throw new Error(`Invalid value ${value_str} on ${row}`);
+			} else {
+				let value = Number.parseFloat(value_str);
+				sum += value;
+			}
+		});
+		let length = filtered_list.length
+		let avg = sum / length;
+		let index = get_timedate(target);
+		object[index] = avg;
+	}
+	console.table(object);
+	return object;
+}
+
+function get_timedate(timestamp) {
+	let date = new Date(timestamp).toLocaleDateString();
+	let hour = new Date(timestamp).toLocaleTimeString();
+	let full = `${date} ${hour}`;
+	return full;
+}
+
+function download_csv() {
+	console.log("csv");
+	let memory = relatory_memory;
+	let csv_content = "Data-hora;Pressão média;Temperatura média;Volume não-corrigido;Volume corrigido\n";
+	Object.getOwnPropertyNames(relatory_memory).forEach(datetime => {
+		let { avg_pressure, avg_temperature, raw_volume, std_volume } = memory[datetime];
+		csv_content += `${datetime};${avg_pressure};${avg_temperature};${raw_volume};${std_volume}\n`;
+	});
+	check_relatory_then_save(csv_content, "relatory.csv", "text/plain");
+}
+
+function download_xlsx() {
+	console.log("xlsx");
+}
+
+function download_pdf() {
+	let iframe = document.getElementById('relatory-iframe');
+	iframe.contentWindow.print();
+}
+
+function clear_minutes(e) {
+	let input = e.srcElement;
+	console.log(input);
+	console.log(input.value);
+	let previous = input.value;
+	let clean = previous.replace(/:../, ":00");
+	input.value = clean;
+}
+
+function sum_datetime(/**/) {
+	let args = arguments;
+	let sum = new Date().getTimezoneOffset() * 60e3;
+	for(let i = 0; i < args.length; i++) {
+		let element = document.getElementById(args[i]);
+		sum += element.valueAsNumber;
+	}
+	if(Number.isNaN(sum)) {
+		throw new Error("Empty value");
+	}
+	return sum;
+}
+
+function update_station_options(area, station_select, reference) {
+	station_select.replaceChildren();
+	Object.values(area.children).forEach(child => {
+		let option = document.createElement("option");
+		option.value = child.code;
+		option.innerText = child.label;
+		option.selected = child.code == reference.code ? 'selected' : '';
+		station_select.append(option);
+	});
+}
 
 function validate_filter(e) {
 	let start_ts, end_ts;
