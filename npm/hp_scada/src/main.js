@@ -548,7 +548,7 @@ function on_change_area(e) {
 	get_area: {
 		let area_selector = document.getElementById('select-area');
 		let area_code = area_selector.value;
-		area = get_area_by_intcode(area_code);
+		area = get_area_by_intcode(area_code, loaded.tree);
 	}
 	let station_select = document.getElementById('select-station');
 	let reference = generated.reference;
