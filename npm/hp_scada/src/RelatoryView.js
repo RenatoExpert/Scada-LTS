@@ -9,8 +9,9 @@ class RelatoryView {
         this.generated_relatory = false;
     }
     get_dom_element(id) {
-        return document.getElementById(id);
+        return this.dom_element;
     }
+
     downloadXlsx() {
         console.log("xlsx");
     }
