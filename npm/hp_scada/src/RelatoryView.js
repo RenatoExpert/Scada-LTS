@@ -37,61 +37,162 @@ class RelatoryView {
         document.body.removeChild(anchor);
         window.URL.revokeObjectURL(url);
     }
-
-    render_relatory(obj, id_col) {
-        let iframe = document.getElementById("relatory-iframe");
-        let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
-        let child_dom = this.generate_relatory_dom(obj, id_col);
-        parent_dom.replaceChildren(child_dom);
-    }
-
-    generate_relatory_dom(obj, id_col, linear = true) {
-        this.dom_element = document.createElement("div");
-        this.dom_element.style.padding = "3px 15px";
-        let table = document.createElement("table");
-        header: {
-            let row = document.createElement("tr");
-            let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-            for(let header in headers) {
-                let col = utils.tag_text("th", headers[header]);
-                col.style.padding = "2px 15px";
-                row.append(col);
+    generate_dom_element(obj, id_col) {
+        let root = document.createElement("div");
+        root.style.display = "grid";
+        generate_filter: {
+            let filter = document.createElement("div");
+            let form = document.createElement("form");
+            form.id = "relatory-form";
+            form.addEventListener("submit", validate_filter);
+            form.action = "javascript:;";
+            form.style.padding = "3px 15px";
+            selectors: {
+                let area_value;
+                let area = make_selector_div('select-area', "Área", element => {
+                    element.addEventListener("change", on_change_area);
+                    Object.values(loaded.tree.root.children).forEach(child => {
+                        let option = document.createElement("option");
+                        option.value = child.code;
+                        option.innerText = child.label;
+                        option.selected = child.code == reference.process.code ? 'selected' : '';
+                        element.append(option);
+                    });
+                    area_value = element.value;
+                });
+                form.append(area);
+                let area_int_code = get_area_by_intcode(area_value);
+                let station = make_selector_div('select-station', "Estação", element => {
+                    update_station_options(area_int_code, element, reference)
+                });
+                form.append(station);
             }
-            table.append(row);
+            start: {
+                let date = make_field_div("input", "start-date", "Data Início", element => {
+                    element.type = "date";
+                    let days_delta = step == 'day' ? 3 : 1;
+                    let ms_in_day = 1e3 * 60 * 60 * 24;
+                    element.valueAsNumber = new Date() - (ms_in_day * days_delta);
+                    element.required = true;
+                });
+                form.append(date);
+                let time = make_field_div("input", "start-time", "Hora Início", element => {
+                    element.addEventListener("change", clear_minutes);
+                    element.type = "time";
+                    element.valueAsNumber = 0;
+                    element.required = true;
+                    element.disabled = step == 'day';
+                });
+                form.append(time);
+            }
+            end: {
+                let date = make_field_div("input", "end-date", "Data Final", element => {
+                    element.type = "date";
+                    element.valueAsDate = new Date();
+                    element.required = true;
+                });
+                form.append(date);
+                let time = make_field_div("input", "end-time", "Hora Início", element => {
+                    element.addEventListener("change", clear_minutes);
+                    element.type = "time";
+                    element.valueAsNumber = 0;
+                    element.required = true;
+                    element.disabled = step == 'day';
+                });
+                form.append(time);
+            }
+            step_type: {
+                let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
+                    element.addEventListener("change", on_change_timestep);
+                    let hourly = document.createElement("option");
+                    hourly.value = "hour";
+                    hourly.innerText = "Horário";
+                    hourly.selected = step == "hour" ? 'selected' : '';
+                    element.append(hourly);
+                    let daily = document.createElement("option");
+                    daily.value = "day";
+                    daily.innerText = "Diário";
+                    daily.selected = step == "day" ? 'selected' : '';
+                    element.append(daily);
+                })
+                form.append(timestep);
+            }
+            submit: {
+                let submit = make_field_div("input", "form-submit", "*", element => {
+                    element.type = "submit";
+                    element.value = "Gerar";
+                    element.style.backgroundColor = "lightgray";
+                    element.style.borderRadius = "5px";
+                    element.style.width = "50px";
+                });
+                form.append(submit);
+            }
+            filter.append(form);
+            file_export: {
+                let export_menu = document.createElement("div");
+                let pdf = make_field_div("button", "export-pdf", "Export as", element => {
+                    element.innerText = "PDF";
+                    element.onclick = download_pdf;
+                });
+                export_menu.append(pdf);
+                let csv = make_field_div("button", "export-csv", "Export as", element => {
+                    element.innerText = "csv";
+                    element.onclick = download_csv;
+                });
+                export_menu.append(csv);
+                let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
+                    element.innerText = "xlsx";
+                    element.onclick = download_xlsx;
+                });
+                export_menu.append(xlsx);
+                filter.append(export_menu);
+            }
+            root.append(filter);
         }
-        body: {
-            let raw_volume_eu = linear ? "m³" : "kPa";
-            let std_volume_eu = "m³";
-            let avg_pressure_eu = "kgf/cm²";
-            let avg_temperature_eu = "ºC";
-            Object.getOwnPropertyNames(obj).forEach(time => {
-                let frame = obj[time];
-                let row = document.createElement("tr");
-                let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
-                let cols = [
-                    time,
-                    utils.format_var(raw_volume, raw_volume_eu),
-                    utils.format_var(std_volume, std_volume_eu),
-                    utils.format_var(avg_pressure, avg_pressure_eu),
-                    utils.format_var(avg_temperature, avg_temperature_eu)
-                ];
-                for(let i in cols) {
-                    let col = utils.tag_text("td", cols[i]);
-                    col.style.padding = "2px 15px";
-                    col.style.textAlign = "right";
-                    row.append(col);
+        let iframe_parent = document.createElement("div");
+        iframe_parent.style.padding = "15px 30px";
+        let relatory_iframe = document.createElement("IFRAME");
+        relatory_iframe.id = "relatory-iframe";
+        relatory_iframe.height = "500";
+        relatory_iframe.width = "1150";
+        iframe_parent.append(relatory_iframe);
+        root.append(iframe_parent);
+        after_dom: {
+            let relatory_table = document.createElement("div");
+            relatory_table.id = "relatory-table";
+            let observer = new MutationObserver((mutationList, observer) => {
+                for (let mutation in mutationList) {
+                    console.log({ mutation });
+                    if (document.getElementById("relatory-iframe")) {
+                        relatory_iframe.contentWindow.document.body.append(relatory_table);
+                        observer.disconnect();
+                    }
                 }
-                table.append(row);
             });
+            observer.observe(document.getElementById("viewContent"), { childList: true });
         }
-        this.dom_element.append(table);
+        this.dom_element = root;
         return this.dom_element;
     }
+
 }
 
 export default RelatoryView;
 
+
+
+
+
+
+
     /*
+
+    render_relatory(obj, id_col) {
+    let iframe = document.getElementById("relatory-iframe");
+    let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
+    let child_dom = this.generate_relatory_dom(obj, id_col);
+    parent_dom.replaceChildren(child_dom);
+}
     make_relatory_indexes(from, to) {
         let hour_in_ms = 60 * 60 * 1e3;
         let day_in_ms = hour_in_ms * 24;
