@@ -73,8 +73,9 @@ class RelatoryView {
         relatory.append(table);
         return relatory;
     }
+}
 
-    export default RelatoryView;
+export default RelatoryView;
 
     /*
     make_relatory_indexes(from, to) {
