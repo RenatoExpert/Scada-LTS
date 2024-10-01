@@ -28,6 +28,33 @@ function validate_filter(e) {
 	}
 }
 
+function make_field_div(dom, id, title, callback) {
+	let div = document.createElement("div");
+	div.style.cssFloat = "left";
+	div.style.margin = "5px";
+	div.style.padding = "3px";
+	div.style.border = "1px";
+	div.style.minWidth = "60px";
+	label: {
+		let label = document.createElement("label");
+		label.innerText = title;
+		label.style.display = "block";
+		div.append(label);
+	}
+	input: {
+		let input = document.createElement(dom);
+		input.id = id;
+		input.name = id;
+		callback(input);
+		div.append(input);
+	}
+	return div;
+}
+
+function make_selector_div(id, title, callback) {
+	return make_field_div("select", id, title, callback);
+}
+
 // RelatoryView.js
 class RelatoryView {
     constructor(reference, timestep, tree) {
