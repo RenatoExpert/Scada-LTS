@@ -55,15 +55,15 @@ function make_selector_div(id, title, callback) {
 	return make_field_div("select", id, title, callback);
 }
 
-function get_area_by_intcode(intcode) {
+function get_area_by_intcode(intcode, children) {
 	let area_obj;
-	Object.values(loaded.tree.root.children).forEach(area => {
+	Object.values(children).forEach(area => {
 		if(area.code == intcode) {
 			area_obj = area;
 		}
 	});
 	if(area_obj) {
-		console.debug(`Are found for code ${intcode}`);
+		console.debug(`Area found for code ${intcode}`);
 		console.debug({ area_obj, intcode });
 		return area_obj;
 	} else {
