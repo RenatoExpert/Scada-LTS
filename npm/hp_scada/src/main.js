@@ -6,7 +6,10 @@ import utils from './utils/utils.js';
 import api from './api/api.js';
 
 import Graphic_component from './graphic_component/graphic_component.js';
-import Summary_component from './summary_component/summary_component.js';
+import Rectifiers_component from './rectifiers_component/rectifiers_component.js';
+import Cathodic_component from './cathodic_component/cathodic_component.js';
+//import Summary_component from './summary_component/summary_component.js';
+import StationsSummary from './StationsSummary/StationsSummary.js';
 
 import * as views_tree from 'views_tree.json';
 
@@ -464,9 +467,11 @@ function get_view_info(xid) {
 				break;
 			case 'l1':
 				process = loaded.tree.root.menus[view.name];
+				console.log({ menus: loaded.tree.root.menus, process });
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
+				view.custom_bg = process.custom_bg;
 				break;
 			case 'l2':
 				process = loaded.tree.root.children[view.name];
@@ -481,6 +486,7 @@ function get_view_info(xid) {
 				view.label = reference.label;
 				view.title = process.label + "/" + view.label; 
 				view.class = reference.class;
+				view.custom_bg = reference.custom_bg;
 				view.code = reference.code;
 				console.log({ process });
 				break;
@@ -566,28 +572,6 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
-function make_field_div(dom, id, title, callback) {
-	let div = document.createElement("div");
-	div.style.cssFloat = "left";
-	div.style.margin = "5px";
-	div.style.padding = "3px";
-	div.style.border = "1px";
-	div.style.minWidth = "60px";
-	label: {
-		let label = document.createElement("label");
-		label.innerText = title;
-		label.style.display = "block";
-		div.append(label);
-	}
-	input: {
-		let input = document.createElement(dom);
-		input.id = id;
-		input.name = id;
-		callback(input);
-		div.append(input);
-	}
-	return div;
-}
 
 function make_selector_div(id, title, callback) {
 	return make_field_div("select", id, title, callback);
@@ -637,115 +621,35 @@ function download_xlsx() {
 	console.log("xlsx");
 }
 
-function create_relatory_view(reference, step) {
-	let root = document.createElement("div");
-	root.style.display = "grid";
-	generate_filter: {
-		let filter = document.createElement("div");
-		let form = document.createElement("form");
-		form.id = "relatory-form";
-		form.addEventListener("submit", validate_filter);
-		form.action = "javascript:;";
-		form.style.padding = "3px 15px";
-		selectors: {
-			let area_value;
-			let area = make_selector_div('select-area', "Área", element => {
-				element.addEventListener("change", on_change_area);
-				Object.values(loaded.tree.root.children).forEach(child => {
-					let option = document.createElement("option");
-					option.value = child.code;
-					option.innerText = child.label;
-					option.selected = child.code == reference.process.code ? 'selected' : '';
-					element.append(option);
-				});
-				area_value = element.value;
-			});
-			form.append(area);
-			let area_int_code = get_area_by_intcode(area_value);
-			let station = make_selector_div('select-station', "Estação", element => {
-				update_station_options(area_int_code, element, reference)
-			});
-			form.append(station);
-		}
-		start: {
-			let date = make_field_div("input", "start-date", "Data Início", element => {
-				element.type = "date";
-				let days_delta = step == 'day' ? 3 : 1;
-				let ms_in_day = 1e3 * 60 * 60 * 24;
-				element.valueAsNumber = new Date() - (ms_in_day * days_delta);
-				element.required = true;
-			});
-			form.append(date);
-			let time = make_field_div("input", "start-time", "Hora Início", element => {
-				element.addEventListener("change", clear_minutes);
-				element.type = "time";
-				element.valueAsNumber = 0;
-				element.required = true;
-				element.disabled = step == 'day';
-			});
-			form.append(time);
-		}
-		end: {
-			let date = make_field_div("input", "end-date", "Data Final", element => {
-				element.type = "date";
-				element.valueAsDate = new Date();
-				element.required = true;
-			});
-			form.append(date);
-			let time = make_field_div("input", "end-time", "Hora Início", element => {
-				element.addEventListener("change", clear_minutes);
-				element.type = "time";
-				element.valueAsNumber = 0;
-				element.required = true;
-				element.disabled = step == 'day';
-			});
-			form.append(time);
-		}
-		step_type: {
-			let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
-				element.addEventListener("change", on_change_timestep);
-				let hourly = document.createElement("option");
-				hourly.value = "hour";
-				hourly.innerText = "Horário";
-				hourly.selected = step == "hour" ? 'selected' : '';
-				element.append(hourly);
-				let daily = document.createElement("option");
-				daily.value = "day";
-				daily.innerText = "Diário";
-				daily.selected = step == "day" ? 'selected' : '';
-				element.append(daily);
-			})
-			form.append(timestep);
-		}
-		submit: {
-			let submit = make_field_div("input", "form-submit", "*", element => {
-				element.type = "submit";
-				element.value = "Gerar";
-				element.style.backgroundColor = "lightgray";
-				element.style.borderRadius = "5px";
-				element.style.width = "50px";
-			});
-			form.append(submit);
-		}
-		filter.append(form);
-		file_export: {
-			let export_menu = document.createElement("div");
-			let pdf = make_field_div("button", "export-pdf", "Export as", element => {
-				element.innerText = "PDF";
-				element.onclick = download_pdf;
-			});
-			export_menu.append(pdf);
-			let csv = make_field_div("button", "export-csv", "Export as", element => {
-				element.innerText = "csv";
-				element.onclick = download_csv;
-			});
-			export_menu.append(csv);
-			let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
-				element.innerText = "xlsx";
-				element.onclick = download_xlsx;
-			});
-			export_menu.append(xlsx);
-			filter.append(export_menu);
+//	Here starts relatory section
+function make_field_div(dom, id, title, callback) {
+	let div = document.createElement("div");
+	div.style.cssFloat = "left";
+	div.style.margin = "5px";
+	div.style.padding = "3px";
+	div.style.border = "1px";
+	div.style.minWidth = "60px";
+	label: {
+		let label = document.createElement("label");
+		label.innerText = title;
+		label.style.display = "block";
+		div.append(label);
+	}
+	input: {
+		let input = document.createElement(dom);
+		input.id = id;
+		input.name = id;
+		callback(input);
+		div.append(input);
+	}
+	return div;
+}
+
+function get_area_by_intcode(intcode, tree) {
+	let area_obj;
+	Object.values(tree.root.children).forEach(area => {
+		if(area.code == intcode) {
+			area_obj = area;
 		}
 		root.append(filter);
 	}
@@ -788,6 +692,8 @@ var sources;
 var loaded;
 var generated;
 var current_view;
+
+import RelatoryView from './RelatoryView.js';
 
 async function main() {
 	console.log(`Starting High Performance SCADA Library - version ${version_tag}`);
@@ -884,7 +790,7 @@ async function main() {
 						utils.goto_id("l1-cidades");
 					});
 					bind_button("l1-system", "Status do sistema",() => {
-						utils.goto_id("l1-estatisticas");
+						utils.goto_id("l1-system");
 					});
 					bind_button("l1-refresh", "Atualizar tela", () => {
 						location.reload();
@@ -911,9 +817,11 @@ async function main() {
 				return div;
 			})();
 			let map = new Map(loaded.tree);
-			let summary = current_view.level == "l2" ? new Summary_component(map).get_dom_element() : null
-			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
-					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
+			let summary = current_view.level == "l2" ? new StationsSummary(map).get_dom_element() : null
+			let rectifiers = current_view.xid == "l1-rectifiers" ? new Rectifiers_component(map).get_dom_element() : null
+			let cathodic = current_view.xid == "l1-cathodic" ? new Cathodic_component(map).get_dom_element() : null
+			let relatory = current_view.xid == "l1-hourly" ? new RelatoryView(reference, "hour", loaded.tree).create() :
+					current_view.xid == "l1-daily" ? new RelatoryView(reference, "day", loaded.tree).create() :
 					null;
 			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 
@@ -922,14 +830,14 @@ async function main() {
 			l1.id = "header-l1";
 			l2.id = "header-l2";
 
-			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics };
+			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics, cathodic, rectifiers };
 		}
 	}
 
 	render: {
 		if(current_view.level == "l0") {
 			setTimeout(() => {
-				utils.goto_id("l1-estatisticas");
+				utils.goto_id("l1-system");
 			}, 10e3);
 		} else {
 			canvas.insertBefore(generated.hp_headers, viewBackground);
@@ -940,6 +848,10 @@ async function main() {
 				headers.appendChild(generated.summary);
 			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
+			} else if(current_view.xid == "l1-cathodic") {
+				headers.appendChild(generated.cathodic);
+			} else if(current_view.xid == "l1-rectifiers") {
+				headers.appendChild(generated.rectifiers);
 			} else if(current_view.xid == "l1-graphics") {
 				headers.appendChild(generated.graphics);
 			} else if(current_view.xid == "l1-cidades") {
@@ -949,9 +861,59 @@ async function main() {
 		background: {
 			let cv = generated.current_view;
 			let background_url = utils.asset_url("hp/bg/");
+			let custom_bg = cv.custom_bg;
+			if (cv.xid == "l0-banner") {
+				custom_bg = "l0-banner.svg";
+			}
 			let prefix = cv.class;
 			let extension;
-			if(prefix) {
+			if (custom_bg) {
+				let filename = custom_bg;
+				let target_url = new URL(filename, background_url);
+				utils.load_svg(target_url).then(image => {
+					console.log("Background with custom_bg goes fine");
+					replace_background(image);
+					if (current_view.xid == "l1-system") {
+						console.log("inside current_view.xid == l1-system");
+						function subtitle(desc, source) {
+							var c = document.getElementById("hp-headers-subtitle");
+							if (desc) {
+								//var bounds = getAbsoluteNodeBounds(source);
+								let bounds = source.getBoundingClientRect();
+								console.debug(bounds);
+								c.innerHTML = desc;
+								c.style.left = (bounds.x + 16) +"px";
+								c.style.top = (bounds.y - 150) +"px";
+								show(c);
+							} else {
+								hide(c);
+							}
+						}
+						function bind_button(id, tooltip, action) {
+							console.log("inside bind_button");
+							let btn = document.body.querySelector(`#${id}`);
+							btn.onclick = action;
+							btn.onmouseover = () => {
+								subtitle(tooltip, btn);
+							};
+							btn.onmouseout = () => {
+								subtitle();
+							};
+							btn.style.cursor = "pointer";
+						}
+						bind_button("l1-rectifiers", "Retificadores", () => {
+							utils.goto_id("l1-rectifiers");
+						});
+						bind_button("l1-cathodic", "Monitoramento da proteção catódica", () => {
+							utils.goto_id("l1-cathodic");
+						});
+					}
+				}).catch(problem => {
+					console.error("Error on loading background SVG file");
+					console.error({ target_url, filename, extension });
+					console.error(problem);
+				});
+			} else if (prefix) {
 				extension = "svg";
 				let filename = `${prefix}.${extension}`;
 				let target_url = new URL(filename, background_url);
