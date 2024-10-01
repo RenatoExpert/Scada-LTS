@@ -255,17 +255,7 @@ function get_area_by_intcode(intcode, children) {
 	}
 }
 
-function on_change_area(e) {
-	let area;
-	get_area: {
-		let area_selector = document.getElementById('select-area');
-		let area_code = area_selector.value;
-		area = get_area_by_intcode(area_code);
-	}
-	let station_select = document.getElementById('select-station');
-	let reference = generated.reference;
-	update_station_options(area, station_select, reference);
-}
+
 
 // RelatoryView.js
 class RelatoryView {
@@ -318,7 +308,17 @@ class RelatoryView {
 			selectors: {
 				let area_value;
 				let area = make_selector_div('select-area', "Área", element => {
-					element.addEventListener("change", on_change_area);
+					element.addEventListener("change", function on_change_area(e) {
+						let area;
+						get_area: {
+							let area_selector = document.getElementById('select-area');
+							let area_code = area_selector.value;
+							area = get_area_by_intcode(area_code, this.tree.root.children);
+						}
+						let station_select = document.getElementById('select-station');
+						let reference = generated.reference;
+						update_station_options(area, station_select, reference);
+					});
 					Object.values(this.tree.root.children).forEach(child => {
 						let option = document.createElement("option");
 						option.value = child.code;
@@ -329,7 +329,7 @@ class RelatoryView {
 					area_value = element.value;
 				});
 				form.append(area);
-				let area_int_code = get_area_by_intcode(area_value);
+				let area_int_code = get_area_by_intcode(area_value, this.tree.root.children);
 				let station = make_selector_div('select-station', "Estação", element => {
 					update_station_options(area_int_code, element, this.reference)
 				});
