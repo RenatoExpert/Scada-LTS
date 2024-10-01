@@ -55,6 +55,18 @@ function make_selector_div(id, title, callback) {
 	return make_field_div("select", id, title, callback);
 }
 
+function on_change_area(e) {
+	let area;
+	get_area: {
+		let area_selector = document.getElementById('select-area');
+		let area_code = area_selector.value;
+		area = get_area_by_intcode(area_code);
+	}
+	let station_select = document.getElementById('select-station');
+	let reference = generated.reference;
+	update_station_options(area, station_select, reference);
+}
+
 // RelatoryView.js
 class RelatoryView {
     constructor(reference, timestep, tree) {
