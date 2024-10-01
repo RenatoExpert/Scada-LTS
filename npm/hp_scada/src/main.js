@@ -10,6 +10,8 @@ import Rectifiers_component from './rectifiers_component/rectifiers_component.js
 import Cathodic_component from './cathodic_component/cathodic_component.js';
 //import Summary_component from './summary_component/summary_component.js';
 import StationsSummary from './StationsSummary/StationsSummary.js';
+import RelatoryView from './RelatoryView.js';
+
 
 import * as views_tree from 'views_tree.json';
 
@@ -661,7 +663,6 @@ var loaded;
 var generated;
 var current_view;
 
-import RelatoryView from './RelatoryView.js';
 
 async function main() {
 	console.log(`Starting High Performance SCADA Library - version ${version_tag}`);
