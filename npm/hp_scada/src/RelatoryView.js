@@ -51,11 +51,11 @@ class RelatoryView {
                 let area_value;
                 let area = make_selector_div('select-area', "Área", element => {
                     element.addEventListener("change", on_change_area);
-                    Object.values(loaded.tree.root.children).forEach(child => {
+                    Object.values(this.tree.root.children).forEach(child => {
                         let option = document.createElement("option");
                         option.value = child.code;
                         option.innerText = child.label;
-                        option.selected = child.code == reference.process.code ? 'selected' : '';
+                        option.selected = child.code == this.reference.process.code ? 'selected' : '';
                         element.append(option);
                     });
                     area_value = element.value;
@@ -63,14 +63,14 @@ class RelatoryView {
                 form.append(area);
                 let area_int_code = get_area_by_intcode(area_value);
                 let station = make_selector_div('select-station', "Estação", element => {
-                    update_station_options(area_int_code, element, reference)
+                    update_station_options(area_int_code, element, this.reference)
                 });
                 form.append(station);
             }
             start: {
                 let date = make_field_div("input", "start-date", "Data Início", element => {
                     element.type = "date";
-                    let days_delta = step == 'day' ? 3 : 1;
+                    let days_delta = this.timestep == 'day' ? 3 : 1;
                     let ms_in_day = 1e3 * 60 * 60 * 24;
                     element.valueAsNumber = new Date() - (ms_in_day * days_delta);
                     element.required = true;
@@ -81,7 +81,7 @@ class RelatoryView {
                     element.type = "time";
                     element.valueAsNumber = 0;
                     element.required = true;
-                    element.disabled = step == 'day';
+                    element.disabled = this.timestep == 'day';
                 });
                 form.append(time);
             }
@@ -97,7 +97,7 @@ class RelatoryView {
                     element.type = "time";
                     element.valueAsNumber = 0;
                     element.required = true;
-                    element.disabled = step == 'day';
+                    element.disabled = this.timestep == 'day';
                 });
                 form.append(time);
             }
@@ -107,12 +107,12 @@ class RelatoryView {
                     let hourly = document.createElement("option");
                     hourly.value = "hour";
                     hourly.innerText = "Horário";
-                    hourly.selected = step == "hour" ? 'selected' : '';
+                    hourly.selected = this.timestep == "hour" ? 'selected' : '';
                     element.append(hourly);
                     let daily = document.createElement("option");
                     daily.value = "day";
                     daily.innerText = "Diário";
-                    daily.selected = step == "day" ? 'selected' : '';
+                    daily.selected = this.timestep == "day" ? 'selected' : '';
                     element.append(daily);
                 })
                 form.append(timestep);
@@ -161,7 +161,7 @@ class RelatoryView {
             let relatory_table = document.createElement("div");
             relatory_table.id = "relatory-table";
             let observer = new MutationObserver((mutationList, observer) => {
-                for (let mutation in mutationList) {
+                for (let mutation of mutationList) {
                     console.log({ mutation });
                     if (document.getElementById("relatory-iframe")) {
                         relatory_iframe.contentWindow.document.body.append(relatory_table);
