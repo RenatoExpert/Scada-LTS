@@ -26,6 +26,11 @@
   <meta http-equiv="content-type" content="application/xhtml+xml;charset=utf-8"/>
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="Copyright" content="&copy;©2012-${toYear} Scada-LTS"/>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="assets/lib/bootstrap-5.3.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/lib/bootstrap-5.3.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+  <script src="assets/lib/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
   
   <!-- Style -->
   <link rel="icon" href="images/favicon.ico"/>
@@ -63,11 +68,11 @@
       white-space: nowrap;
       padding: 3px 10px 3px 10px;
     }
-    .row td, .rowAlt td {
+    .rowTable td, .rowAlt td {
       color: #000000;
       padding: 3px;
     }
-    .row td {
+    .rowTable td {
       background-color: #F0F0F0;
     }
     .rowAlt td {
@@ -107,7 +112,7 @@
           </tr>
         </table>
       </td>
-      <td valign="top" align="right"><img src="${inline}<@img src="mangoLogoMed.jpg"/>" alt="Logo"/></td>
+      <td valign="top" align="right"><img src="assets/logo.svg" alt="Logo Argos SCADA" style="width: 181px; height: 55px /></td>
     </tr>
   </table>
 
@@ -213,19 +218,19 @@
           <td><@fmt key="reports.eventList.ackUser"/></td>
         </tr>
         
-        <#assign row = 1/>
+        <#assign rowTable = 1/>
         <#list events as event>
-          <#assign row = row + 1/>
-          <#if row == 2><#assign row = 0/></#if>
+          <#assign rowTable = rowTable + 1/>
+          <#if rowTable == 2><#assign rowTable = 0/></#if>
           
-          <tr class="row<#if row == 1>Alt</#if>">
+          <tr class="rowTable<#if rowTable == 1>Alt</#if>">
             <td align="center">${event.id?c}</td>
             <td align="center">
-              <#if event.alarmLevel == 0><img src="${inline}<@img src="flag_green.png"/>" alt="<@fmt key="common.alarmLevel.none"/>"/>
-              <#elseif event.alarmLevel == 1><img src="${inline}<@img src="flag_blue.png"/>" alt="<@fmt key="common.alarmLevel.info"/>"/>
-              <#elseif event.alarmLevel == 2><img src="${inline}<@img src="flag_yellow.png"/>" alt="<@fmt key="common.alarmLevel.urgent"/>"/>
-              <#elseif event.alarmLevel == 3><img src="${inline}<@img src="flag_orange.png"/>" alt="<@fmt key="common.alarmLevel.critical"/>"/>
-              <#elseif event.alarmLevel == 4><img src="${inline}<@img src="flag_red.png"/>" alt="<@fmt key="common.alarmLevel.lifeSafety"/>"/>
+              <#if event.alarmLevel == 0><i class="bi bi-flag-fill text-success" alt="<@fmt key="common.alarmLevel.none"/>"></i>
+              <#elseif event.alarmLevel == 1><i class="bi bi-flag-fill text-primary" alt="<@fmt key="common.alarmLevel.info"/>"></i>
+              <#elseif event.alarmLevel == 2><i class="bi bi-flag-fill text-warning" alt="<@fmt key="common.alarmLevel.urgent"/>"></i>
+              <#elseif event.alarmLevel == 3><i class="bi bi-flag-fill text-orange" alt="<@fmt key="common.alarmLevel.critical"/>"></i>
+              <#elseif event.alarmLevel == 4><i class="bi bi-flag-fill text-danger" alt="<@fmt key="common.alarmLevel.lifeSafety"/>"></i>
               <#else>(<@fmt key="common.alarmLevel.unknown"/>  ${event.alarmLevel})
               </#if>
             </td>
@@ -236,7 +241,7 @@
                 <table cellspacing="0" cellpadding="0">
                   <#list event.eventComments as comment>
                     <tr>
-                      <td valign="top" width="16"><img src="${inline}<@img src="comment.png"/>" alt="<@fmt key="notes.note"/>"/></td>
+                      <td valign="top" width="16"><i class="bi bi-chat-dots text-success" alt="<@fmt key="notes.note"/>"></i></td>
                       <td valign="top">
                         <span class="copyTitle">
                           ${comment.prettyTime} <@fmt key="notes.by"/>
@@ -256,7 +261,7 @@
             <td>
               <#if event.active>
                 <@fmt key="common.active"/>
-                <img src="${inline}<@img src="flag_white.png"/>" alt="<@fmt key="common.active"/>"/>
+                <i class="bi bi-flag" alt="<@fmt key="common.active"/>"></i>
               <#elseif !event.rtnApplicable>
               <#else>
                 ${event.fullPrettyRtnTimestamp} - <@fmt message=event.rtnMessage/>
@@ -287,7 +292,7 @@
       <table cellspacing="0" cellpadding="0">
         <#list userComments as comment>
           <tr>
-            <td valign="top" width="16"><img src="${inline}<@img src="comment.png"/>" alt="<@fmt key="notes.note"/>"/></td>
+            <td valign="top" width="16"><i class="bi bi-chat-dots text-success" alt="<@fmt key="notes.note"/>"></i></td>
             <td valign="top">
               <span class="copyTitle">
                 ${comment.prettyTime} <@fmt key="notes.by"/>
@@ -310,7 +315,7 @@
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <tr><td colspan="2">&nbsp;</td></tr>
   <tr>
-    <td colspan="2" class="footer" align="center">&copy;2012-${toYear} Scada-LTS <@fmt key="footer.rightsReserved"/></td>
+    <td colspan="2" class="footer" align="center">&copy;2012-${toYear} Argos SCADA <@fmt key="footer.rightsReserved"/></td>
   </tr>
 </table>
 

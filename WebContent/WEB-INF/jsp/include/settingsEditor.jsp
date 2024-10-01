@@ -25,12 +25,12 @@
     <table width="100%">
       <tr>
         <td>
-          <tag:img png="plugin_edit" title="viewEdit.settings.editor" style="display:inline;"/>
+          <i class="bi bi-pencil-fill text-success" title="<fmt:message key='viewEdit.settings.editor'/>" style="display:inline;"></i>
           <span class="copyTitle" id="settingsComponentName"></span>
         </td>
         <td align="right">
-          <tag:img png="save" onclick="settingsEditor.save()" title="common.save" style="display:inline;"/>&nbsp;
-          <tag:img png="cross" onclick="settingsEditor.close()" title="common.close" style="display:inline;"/>
+          <i class="bi bi-floppy2-fill text-success" onclick="settingsEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+          <i class="bi bi-x-lg text-danger" onclick="settingsEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>

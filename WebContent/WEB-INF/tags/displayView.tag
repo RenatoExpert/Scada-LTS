@@ -66,10 +66,10 @@
       <c:when test="${vc.defName == 'imageChart'}">
         <div id="c${vc.id}" class="viewComponent" style="position:absolute;left:${vc.x}px;top:${vc.y}px;z-index:${vc.z};"
                   onmouseover="vcOver('c${vc.id}', ${vc.z+1});" onmouseout="vcOut('c${vc.id}', ${vc.z});">
-          <div id="c${vc.id}Content"><img src="images/icon_comp.png" alt=""/></div>
+          <div id="c${vc.id}Content"><i class="bi bi-hourglass-split" alt=""></i></div>
           <div id="c${vc.id}Controls" class="controlContent">
             <div id="c${vc.id}Info">
-              <tag:img png="hourglass" title="common.gettingData"/>
+              <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@
               <tr onmouseover="showMenu('c${vc.id}Info', 16, 0);" onmouseout="hideLayer('c${vc.id}Info');"><td>
                 <tag:img png="information"/>
                 <div id="c${vc.id}Info" onmouseout="hideLayer(this);">
-                  <tag:img png="hourglass" title="common.gettingData"/>
+                  <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
                 </div>
               </td></tr>
               <c:if test="${vc.displayImageChart}">
@@ -131,7 +131,7 @@
                         onmouseout="mango.view.hideChart('${vc.id}', event, this);"><td>
                   <img src="images/icon_chart.png" alt=""/>
                   <div id="c${vc.id}ChartLayer"></div>
-                  <textarea style="display:none;" id="c${vc.id}Chart"><tag:img png="hourglass" title="common.gettingData"/></textarea>
+                  <textarea style="display:none;" id="c${vc.id}Chart"><i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i></textarea>
                 </td></tr>
               </c:if>
             </table>

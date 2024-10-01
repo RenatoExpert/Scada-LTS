@@ -12,19 +12,26 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '1'
-            memory: 768M
+            cpus: "1"
+            memory: "768M"
+          reservations:
+            cpus: "0.1"
+            memory: "256M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
           delay: 3s
+      ulimits:
+        nofile:
+          soft: 128
+          hard: 1024
       healthcheck:
           test: mysqladmin ping -h localhost
+          retries: 5
+          start_period: 30s
+          start_interval: 15s
           interval: 5s
-          timeout: 10s
-          retries: 10
-          start_period: 20s
-          start_interval: 10s
+          timeout: 15s
       ports:
           - target: 3306
             published: ${PORT_DB:-8881}
@@ -47,8 +54,11 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '2'
-            memory: 1.2G
+            cpus: "2"
+            memory: "1.2G"
+          reservations:
+            cpus: "0.3"
+            memory: "512M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
@@ -59,7 +69,7 @@ services:
         timeout: 5s
         retries: 5
         start_period: 1m
-        start_interval: 30s
+        start_interval: 1m
       ports:
           - target: 8080
             published: ${PORT_WEB:-8880}
@@ -73,11 +83,11 @@ services:
 
 networks:
     scadanet:
-        name: ${STACKNAME:-main}_network
+      name: ${BRANCH:-main}_network
 
 volumes:
   database_lib:
-    name: argos_${STACKNAME:-main}_database_lib
+    name: argos_${BRANCH:-main}_database_lib
   database_etc:
-    name: argos_${STACKNAME:-main}_database_etc
+    name: argos_${BRANCH:-main}_database_etc
 

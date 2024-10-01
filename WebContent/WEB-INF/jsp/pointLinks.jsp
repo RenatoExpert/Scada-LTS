@@ -104,7 +104,7 @@
     }
     
     function updatePointLink(pl) {
-        $set("pl"+ pl.id +"Name", getPointName(pl.sourcePointId) +' <tag:img png="bullet_go"/> '+ getPointName(pl.targetPointId));
+        $set("pl"+ pl.id +"Name", getPointName(pl.sourcePointId) +'<i class="bi bi-caret-right-square-fill text-success"></i> '+ getPointName(pl.targetPointId));
         setPointLinkImg(pl.disabled, $("pl"+ pl.id +"Img"));
     }
     
@@ -143,14 +143,17 @@
                 <span class="smallTitle"><fmt:message key="pointLinks.pointLinks"/></span>
                 <tag:help id="pointLinks"/>
               </td>
-              <td align="right"><tag:img png="link_add" title="common.add" onclick="showPointLink(${NEW_ID})"
-                      id="pl${NEW_ID}Img"/></td>
-            </tr>
+              <td align="right">
+                <i class="bi bi-arrow-left-right" title="<fmt:message key='common.add'/>" onclick="showPointLink(${NEW_ID})" id="pl${NEW_ID}Img"></i>
+              </td>
+              </tr>
           </table>
           <table id="pointLinksTable">
             <tbody id="pl_TEMPLATE_" onclick="showPointLink(getMangoId(this))" class="ptr" style="display:none">
               <tr>
-                <td><tag:img id="pl_TEMPLATE_Img" png="link" title="pointLinks.pointLink"/></td>
+                <td>
+                  <i id="pl_TEMPLATE_Img" class="bi bi-link" title="<fmt:message key='pointLinks.pointLink'/>"></i>
+                </td>
                 <td class="link" id="pl_TEMPLATE_Name"></td>
               </tr>
             </tbody>
@@ -164,8 +167,8 @@
             <tr>
               <td><span class="smallTitle"><fmt:message key="pointLinks.details"/></span></td>
               <td align="right">
-                <tag:img png="save" onclick="savePointLink();" title="common.save"/>
-                <tag:img id="deletePointLinkImg" png="delete" onclick="deletePointLink();" title="common.delete"/>
+                <i class="bi bi-floppy2-fill text-success" onclick="savePointLink();" title="<fmt:message key='common.save'/>"></i>
+                <i id="deletePointLinkImg" class="bi bi-trash text-danger" onclick="deletePointLink();" title="<fmt:message key='common.delete'/>"></i>
               </td>
             </tr>
           </table>
@@ -189,7 +192,7 @@
             <tr>
               <td class="formLabel">
                 <fmt:message key="pointLinks.script"/>
-                <tag:img png="accept" onclick="validateScript();" title="pointLinks.validate"/>
+                <i class="bi bi-check-circle-fill text-success" onclick="validateScript();" title="<fmt:message key='pointLinks.validate'/>"></i>
               </td>
               <td class="formField">
                 <textarea id="script" rows="10" cols="50"/></textarea>
