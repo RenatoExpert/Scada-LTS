@@ -1,6 +1,26 @@
 import utils from './utils/utils.js';
 import api from './api/api.js';
 
+var generated_relatory = false;
+var relatory_memory = {};
+
+
+function save_file(data, filename, type) {
+	let file = new Blob([data], { type });
+	console.log({ file });
+	let anchor = document.createElement("a");
+	let url = URL.createObjectURL(file);
+	anchor.href = url;
+	anchor.download = filename;
+	document.body.appendChild(anchor);
+	anchor.click();
+	console.log({ anchor, url, filename, data, file });
+	cleaning: {
+		document.body.removeChild(anchor);
+		window.URL.revokeObjectURL(url);
+	}
+}
+
 function check_relatory_then_save(data, filename, type) {
 	if(generated_relatory) {
 		save_file(data, filename, type);
