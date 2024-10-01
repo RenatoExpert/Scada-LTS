@@ -1,4 +1,35 @@
 import utils from './utils/utils.js';
+import api from './api/api.js';
+
+function check_relatory_then_save(data, filename, type) {
+	if(generated_relatory) {
+		save_file(data, filename, type);
+	} else {
+		throw new Error("No relatory generated to be saved!");
+	}
+}
+
+function make_relatory_indexes(from, to) {
+	let hour_in_ms = 60 * 60 * 1e3;
+	let day_in_ms = hour_in_ms * 24;
+	let formstep = document.getElementById("select-timestep");
+	let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
+	let indexes = [];
+	let min = from;
+	let max = min + step;
+	while(max < to) {
+		indexes.push(get_timedate(min));
+		min = max;
+		max += step;
+	}
+	return indexes;
+}
+function render_relatory(obj, id_col) {
+	let iframe = document.getElementById("relatory-iframe");
+	let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
+	let child_dom = generate_relatory_dom(obj, id_col);
+	parent_dom.replaceChildren(child_dom);
+}
 
 function get_hist_tags(area_code, station_code) {
 	let sample = {
