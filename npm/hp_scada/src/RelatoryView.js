@@ -1,3 +1,5 @@
+import utils from './utils/utils.js';
+
 // RelatoryView.js
 class RelatoryView {
     constructor(reference, timestep, tree) {
