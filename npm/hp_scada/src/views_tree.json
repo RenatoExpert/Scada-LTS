@@ -3,10 +3,11 @@
 		"label": "Bahiagás",
 		"menus": {
 			"cidades": {
-				"label": "Cidades"
+				"label": "Estações"
 			},
-			"estatisticas": {
-				"label": "Estatisticas"
+			"system": {
+				"custom_bg": "l1-system.svg",
+				"label": "Sistemas"
 			},
 			"graphics": {
 				"label": "Gráfico ao vivo"
@@ -16,6 +17,116 @@
 			},
 			"daily": {
 				"label": "Relatório Diário"
+			},
+			"cathodic": {
+				"children": {
+					"erpmsuzano": {
+						"code": "005",
+						"label": "RPM Suzano"
+					},
+					"cvcetrel": {
+						"code": "005",
+						"label": "CV Cetrel"
+					},
+					"postoondas": {
+						"code": "005",
+						"label": "Posto Ondas"
+					},
+					"postopetrobras": {
+						"code": "005",
+						"label": "Posto Petrobras"
+					},
+					"continental": {
+						"code": "005",
+						"label": "Continental"
+					},
+					"cvpostoleiro": {
+						"code": "005",
+						"label": "CV Posto Leiro"
+					},
+					"tecnogress": {
+						"code": "005",
+						"label": "Tecnogress"
+					},
+					"postoplastic": {
+						"code": "005",
+						"label": "Posto Plastic"
+					},
+					"low1": {
+						"code": "005",
+						"label": "LOW 1"
+					}
+				},
+				"label": "Monitoramento da Proteção Catódica"
+			},
+			"rectifiers": {
+				"children": {
+					"boticario": {
+						"code": "005",
+						"label": "Boticário"
+					},
+					"cidadejardim": {
+						"code": "005",
+						"label": "Cidade Jardim"
+					},
+					"edfeiradesantana": {
+						"code": "005",
+						"label": "ED Feira de Santana"
+					},
+					"edsantoamaro": {
+						"code": "005",
+						"label": "ED Santo Amaro"
+					},
+					"embasa": {
+						"code": "005",
+						"label": "Embasa"
+					},
+					"etccamacari": {
+						"code": "005",
+						"label": "ETC Camaçari"
+					},
+					"etcitabuna": {
+						"code": "005",
+						"label": "ETC Itabuna"
+					},
+					"etcmapele": {
+						"code": "005",
+						"label": "ETC Mapele"
+					},
+					"etcmucuri": {
+						"code": "005",
+						"label": "ETC Mucuri"
+					},
+					"ford": {
+						"code": "005",
+						"label": "Ford"
+					},
+					"millenium": {
+						"code": "005",
+						"label": "Millenium"
+					},
+					"postomilenio": {
+						"code": "005",
+						"label": "Posto Milênio"
+					},
+					"bonoco": {
+						"code": "005",
+						"label": "Bonocô"
+					},
+					"heineken": {
+						"code": "005",
+						"label": "Heineken"
+					},
+					"veracel": {
+						"code": "005",
+						"label": "Veracel"
+					},
+					"termobahia": {
+						"code": "005",
+						"label": "Termobahia"
+					}
+				},
+				"label": "Retificadores"
 			}
 		},
 

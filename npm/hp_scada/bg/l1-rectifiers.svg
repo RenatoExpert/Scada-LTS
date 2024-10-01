@@ -1,0 +1,19 @@
+<svg width="1280" height="720"
+xmlns="http://www.w3.org/2000/svg">
+	<line x1="50" y1="150" x2="200" y2="150" style="stroke:blue"/>
+	<text x="50" y="200" fill="blue" font-size="48" style="stroke-width:3">
+		SCADA ARGOS
+	</text>
+	<text x="50" y="250" fill="blue" font-size="24">
+		Versão 2023
+	</text>
+	<text x="50" y="400" fill="blue" font-size="18">
+		scadaargos.com.br
+	</text>
+	<text x="50" y="430" fill="blue" font-size="18">
+		© 2012 - 2023 Expansão Serviços e Comércio LTDA. Todos os direitos reservados.
+	</text>
+	<text x="700" y="430" fill="blue" font-size="30">
+		LOGO
+	</text>
+</svg>
