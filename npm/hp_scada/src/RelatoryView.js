@@ -1,5 +1,5 @@
 import utils from './utils/utils.js';
-
+import { sum_datetime, relatory, update_station_options, clear_minutes, download_pdf, download_csv, download_xlsx, get_timedate } from './helpers.js';
 
 function validate_filter(e) {
 	let start_ts, end_ts;
@@ -11,7 +11,7 @@ function validate_filter(e) {
 		end_ts = sum_datetime("end-date", "end-time") + TWO_HOURS;
 		let area = document.getElementById('select-area').value;
 		let station = document.getElementById('select-station').value;
-		if(area && station) {
+		if (area && station) {
 			relatory(area, station, start_ts, end_ts);
 			generated_relatory = true;
 			isValid = true;
@@ -19,7 +19,7 @@ function validate_filter(e) {
 			console.error({ area, station });
 			throw new Error("Error on validade_filter");
 		}
-	} catch(e) {
+	} catch (e) {
 		isValid = false;
 		console.error(e);
 	} finally {
@@ -58,11 +58,11 @@ function make_selector_div(id, title, callback) {
 function get_area_by_intcode(intcode, children) {
 	let area_obj;
 	Object.values(children).forEach(area => {
-		if(area.code == intcode) {
+		if (area.code == intcode) {
 			area_obj = area;
 		}
 	});
-	if(area_obj) {
+	if (area_obj) {
 		console.debug(`Area found for code ${intcode}`);
 		console.debug({ area_obj, intcode });
 		return area_obj;
@@ -85,226 +85,218 @@ function on_change_area(e) {
 
 // RelatoryView.js
 class RelatoryView {
-    constructor(reference, timestep, tree) {
-        this.reference = reference;
-        this.timestep = timestep;
-        this.tree = tree;
-        this.generated_relatory = false;
-        this.generate_dom_element();
-    }
+	constructor(reference, timestep, tree) {
+		this.reference = reference;
+		this.timestep = timestep;
+		this.tree = tree;
+		this.generated_relatory = false;
+		this.generate_dom_element();
+	}
 
-    get_dom_element() {
-        return this.dom_element;
-    }
+	get_dom_element() {
+		return this.dom_element;
+	}
 
-    downloadXlsx() {
-        console.log("xlsx");
-    }
+	downloadXlsx() {
+		console.log("xlsx");
+	}
 
-    checkRelatoryThenSave(data, filename, type) {
-        if (this.generated_relatory) {
-            this.saveFile(data, filename, type);
-        } else {
-            throw new Error("No relatory generated to be saved!");
-        }
-    }
+	checkRelatoryThenSave(data, filename, type) {
+		if (this.generated_relatory) {
+			this.saveFile(data, filename, type);
+		} else {
+			throw new Error("No relatory generated to be saved!");
+		}
+	}
 
-    saveFile(data, filename, type) {
-        let file = new Blob([data], { type });
-        let anchor = document.createElement("a");
-        let url = URL.createObjectURL(file);
-        anchor.href = url;
-        anchor.download = filename;
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
-        window.URL.revokeObjectURL(url);
-    }
-    generate_dom_element(obj, id_col) {
-        let root = document.createElement("div");
-        root.style.display = "grid";
-        generate_filter: {
-            let filter = document.createElement("div");
-            let form = document.createElement("form");
-            form.id = "relatory-form";
-            form.addEventListener("submit", validate_filter);
-            form.action = "javascript:;";
-            form.style.padding = "3px 15px";
-            selectors: {
-                let area_value;
-                let area = make_selector_div('select-area', "Área", element => {
-                    element.addEventListener("change", on_change_area);
-                    Object.values(this.tree.root.children).forEach(child => {
-                        let option = document.createElement("option");
-                        option.value = child.code;
-                        option.innerText = child.label;
-                        option.selected = child.code == this.reference.process.code ? 'selected' : '';
-                        element.append(option);
-                    });
-                    area_value = element.value;
-                });
-                form.append(area);
-                let area_int_code = get_area_by_intcode(area_value);
-                let station = make_selector_div('select-station', "Estação", element => {
-                    update_station_options(area_int_code, element, this.reference)
-                });
-                form.append(station);
-            }
-            start: {
-                let date = make_field_div("input", "start-date", "Data Início", element => {
-                    element.type = "date";
-                    let days_delta = this.timestep == 'day' ? 3 : 1;
-                    let ms_in_day = 1e3 * 60 * 60 * 24;
-                    element.valueAsNumber = new Date() - (ms_in_day * days_delta);
-                    element.required = true;
-                });
-                form.append(date);
-                let time = make_field_div("input", "start-time", "Hora Início", element => {
-                    element.addEventListener("change", clear_minutes);
-                    element.type = "time";
-                    element.valueAsNumber = 0;
-                    element.required = true;
-                    element.disabled = this.timestep == 'day';
-                });
-                form.append(time);
-            }
-            end: {
-                let date = make_field_div("input", "end-date", "Data Final", element => {
-                    element.type = "date";
-                    element.valueAsDate = new Date();
-                    element.required = true;
-                });
-                form.append(date);
-                let time = make_field_div("input", "end-time", "Hora Início", element => {
-                    element.addEventListener("change", clear_minutes);
-                    element.type = "time";
-                    element.valueAsNumber = 0;
-                    element.required = true;
-                    element.disabled = this.timestep == 'day';
-                });
-                form.append(time);
-            }
-            step_type: {
-                let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
-                    element.addEventListener("change", on_change_timestep);
-                    let hourly = document.createElement("option");
-                    hourly.value = "hour";
-                    hourly.innerText = "Horário";
-                    hourly.selected = this.timestep == "hour" ? 'selected' : '';
-                    element.append(hourly);
-                    let daily = document.createElement("option");
-                    daily.value = "day";
-                    daily.innerText = "Diário";
-                    daily.selected = this.timestep == "day" ? 'selected' : '';
-                    element.append(daily);
-                })
-                form.append(timestep);
-            }
-            submit: {
-                let submit = make_field_div("input", "form-submit", "*", element => {
-                    element.type = "submit";
-                    element.value = "Gerar";
-                    element.style.backgroundColor = "lightgray";
-                    element.style.borderRadius = "5px";
-                    element.style.width = "50px";
-                });
-                form.append(submit);
-            }
-            filter.append(form);
-            file_export: {
-                let export_menu = document.createElement("div");
-                let pdf = make_field_div("button", "export-pdf", "Export as", element => {
-                    element.innerText = "PDF";
-                    element.onclick = download_pdf;
-                });
-                export_menu.append(pdf);
-                let csv = make_field_div("button", "export-csv", "Export as", element => {
-                    element.innerText = "csv";
-                    element.onclick = download_csv;
-                });
-                export_menu.append(csv);
-                let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
-                    element.innerText = "xlsx";
-                    element.onclick = download_xlsx;
-                });
-                export_menu.append(xlsx);
-                filter.append(export_menu);
-            }
-            root.append(filter);
-        }
-        let iframe_parent = document.createElement("div");
-        iframe_parent.style.padding = "15px 30px";
-        let relatory_iframe = document.createElement("IFRAME");
-        relatory_iframe.id = "relatory-iframe";
-        relatory_iframe.height = "500";
-        relatory_iframe.width = "1150";
-        iframe_parent.append(relatory_iframe);
-        root.append(iframe_parent);
-        after_dom: {
-            let relatory_table = document.createElement("div");
-            relatory_table.id = "relatory-table";
-            let observer = new MutationObserver((mutationList, observer) => {
-                for (let mutation of mutationList) {
-                    console.log({ mutation });
-                    if (document.getElementById("relatory-iframe")) {
-                        relatory_iframe.contentWindow.document.body.append(relatory_table);
-                        observer.disconnect();
-                    }
-                }
-            });
-            observer.observe(document.getElementById("viewContent"), { childList: true });
-        }
-        this.dom_element = root;
-        return this.dom_element;
-    }
+	saveFile(data, filename, type) {
+		let file = new Blob([data], { type });
+		let anchor = document.createElement("a");
+		let url = URL.createObjectURL(file);
+		anchor.href = url;
+		anchor.download = filename;
+		document.body.appendChild(anchor);
+		anchor.click();
+		document.body.removeChild(anchor);
+		window.URL.revokeObjectURL(url);
+	}
 
+	generate_dom_element(obj, id_col) {
+		let root = document.createElement("div");
+		root.style.display = "grid";
+		generate_filter: {
+			let filter = document.createElement("div");
+			let form = document.createElement("form");
+			form.id = "relatory-form";
+			form.addEventListener("submit", validate_filter);
+			form.action = "javascript:;";
+			form.style.padding = "3px 15px";
+			selectors: {
+				let area_value;
+				let area = make_selector_div('select-area', "Área", element => {
+					element.addEventListener("change", on_change_area);
+					Object.values(this.tree.root.children).forEach(child => {
+						let option = document.createElement("option");
+						option.value = child.code;
+						option.innerText = child.label;
+						option.selected = child.code == this.reference.process.code ? 'selected' : '';
+						element.append(option);
+					});
+					area_value = element.value;
+				});
+				form.append(area);
+				let area_int_code = get_area_by_intcode(area_value);
+				let station = make_selector_div('select-station', "Estação", element => {
+					update_station_options(area_int_code, element, this.reference)
+				});
+				form.append(station);
+			}
+			start: {
+				let date = make_field_div("input", "start-date", "Data Início", element => {
+					element.type = "date";
+					let days_delta = this.timestep == 'day' ? 3 : 1;
+					let ms_in_day = 1e3 * 60 * 60 * 24;
+					element.valueAsNumber = new Date() - (ms_in_day * days_delta);
+					element.required = true;
+				});
+				form.append(date);
+				let time = make_field_div("input", "start-time", "Hora Início", element => {
+					element.addEventListener("change", clear_minutes);
+					element.type = "time";
+					element.valueAsNumber = 0;
+					element.required = true;
+					element.disabled = this.timestep == 'day';
+				});
+				form.append(time);
+			}
+			end: {
+				let date = make_field_div("input", "end-date", "Data Final", element => {
+					element.type = "date";
+					element.valueAsDate = new Date();
+					element.required = true;
+				});
+				form.append(date);
+				let time = make_field_div("input", "end-time", "Hora Início", element => {
+					element.addEventListener("change", clear_minutes);
+					element.type = "time";
+					element.valueAsNumber = 0;
+					element.required = true;
+					element.disabled = this.timestep == 'day';
+				});
+				form.append(time);
+			}
+			step_type: {
+				let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
+					element.addEventListener("change", on_change_timestep);
+					let hourly = document.createElement("option");
+					hourly.value = "hour";
+					hourly.innerText = "Horário";
+					hourly.selected = this.timestep == "hour" ? 'selected' : '';
+					element.append(hourly);
+					let daily = document.createElement("option");
+					daily.value = "day";
+					daily.innerText = "Diário";
+					daily.selected = this.timestep == "day" ? 'selected' : '';
+					element.append(daily);
+				})
+				form.append(timestep);
+			}
+			submit: {
+				let submit = make_field_div("input", "form-submit", "*", element => {
+					element.type = "submit";
+					element.value = "Gerar";
+					element.style.backgroundColor = "lightgray";
+					element.style.borderRadius = "5px";
+					element.style.width = "50px";
+				});
+				form.append(submit);
+			}
+			filter.append(form);
+			file_export: {
+				let export_menu = document.createElement("div");
+				let pdf = make_field_div("button", "export-pdf", "Export as", element => {
+					element.innerText = "PDF";
+					element.onclick = download_pdf;
+				});
+				export_menu.append(pdf);
+				let csv = make_field_div("button", "export-csv", "Export as", element => {
+					element.innerText = "csv";
+					element.onclick = download_csv;
+				});
+				export_menu.append(csv);
+				let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
+					element.innerText = "xlsx";
+					element.onclick = download_xlsx;
+				});
+				export_menu.append(xlsx);
+				filter.append(export_menu);
+			}
+			root.append(filter);
+		}
+		let iframe_parent = document.createElement("div");
+		iframe_parent.style.padding = "15px 30px";
+		let relatory_iframe = document.createElement("IFRAME");
+		relatory_iframe.id = "relatory-iframe";
+		relatory_iframe.height = "500";
+		relatory_iframe.width = "1150";
+		iframe_parent.append(relatory_iframe);
+		root.append(iframe_parent);
+		after_dom: {
+			let relatory_table = document.createElement("div");
+			relatory_table.id = "relatory-table";
+			let observer = new MutationObserver((mutationList, observer) => {
+				for (let mutation of mutationList) {
+					console.log({ mutation });
+					if (document.getElementById("relatory-iframe")) {
+						relatory_iframe.contentWindow.document.body.append(relatory_table);
+						observer.disconnect();
+					}
+				}
+			});
+			observer.observe(document.getElementById("viewContent"), { childList: true });
+		}
+		this.dom_element = root;
+		return this.dom_element;
+	}
 }
 
 export default RelatoryView;
 
+/*
 
-
-
-
-
-
-    /*
-
-    render_relatory(obj, id_col) {
-    let iframe = document.getElementById("relatory-iframe");
-    let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
-    let child_dom = this.generate_relatory_dom(obj, id_col);
-    parent_dom.replaceChildren(child_dom);
+render_relatory(obj, id_col) {
+	let iframe = document.getElementById("relatory-iframe");
+	let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
+	let child_dom = this.generate_relatory_dom(obj, id_col);
+	parent_dom.replaceChildren(child_dom);
 }
-    make_relatory_indexes(from, to) {
-        let hour_in_ms = 60 * 60 * 1e3;
-        let day_in_ms = hour_in_ms * 24;
-        let formstep = document.getElementById("select-timestep");
-        let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
-        let indexes = [];
-        let min = from;
-        let max = min + step;
-        while(max < to) {
-            indexes.push(get_timedate(min));
-            min = max;
-            max += step;
-        }
-        return indexes;
-    }
+make_relatory_indexes(from, to) {
+	let hour_in_ms = 60 * 60 * 1e3;
+	let day_in_ms = hour_in_ms * 24;
+	let formstep = document.getElementById("select-timestep");
+	let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
+	let indexes = [];
+	let min = from;
+	let max = min + step;
+	while (max < to) {
+		indexes.push(get_timedate(min));
+		min = max;
+		max += step;
+	}
+	return indexes;
+}
 
-    get_hist_tags(area_code, station_code) {
-        let sample = {
-            raw_volume: [`ERPM${area_code}-FQ${station_code}-FQIA-1`, "Contagem anterior"],
-            std_volume: [`ERPM${area_code}-FQ${station_code}-FQI-1`, "Contagem atual"],
-            avg_pressure: [`ERPM${area_code}-FQ${station_code}-PI-1`, "Pressão"],
-            avg_temperature: [`ERPM${area_code}-FQ${station_code}-TI-1`, "Temperatura"]
-        };
-        return sample;
-    }
+get_hist_tags(area_code, station_code) {
+	let sample = {
+		raw_volume: [`ERPM${area_code}-FQ${station_code}-FQIA-1`, "Contagem anterior"],
+		std_volume: [`ERPM${area_code}-FQ${station_code}-FQI-1`, "Contagem atual"],
+		avg_pressure: [`ERPM${area_code}-FQ${station_code}-PI-1`, "Pressão"],
+		avg_temperature: [`ERPM${area_code}-FQ${station_code}-TI-1`, "Temperatura"]
+	};
+	return sample;
 }
 
 export default RelatoryView;
-
 
 function render_relatory(obj, id_col) {
 	let iframe = document.getElementById("relatory-iframe");
@@ -320,7 +312,7 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 	header: {
 		let row = document.createElement("tr");
 		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-		for(let header in headers) {
+		for (let header in headers) {
 			let col = utils.tag_text("th", headers[header]);
 			col.style.padding = "2px 15px";
 			row.append(col);
@@ -343,7 +335,7 @@ function generate_relatory_dom(obj, id_col, linear = true) {
 				utils.format_var(avg_pressure, avg_pressure_eu),
 				utils.format_var(avg_temperature, avg_temperature_eu)
 			];
-			for(let i in cols) {
+			for (let i in cols) {
 				let col = utils.tag_text("td", cols[i]);
 				col.style.padding = "2px 15px";
 				col.style.textAlign = "right";
@@ -364,7 +356,7 @@ function make_relatory_indexes(from, to) {
 	let indexes = [];
 	let min = from;
 	let max = min + step;
-	while(max < to) {
+	while (max < to) {
 		indexes.push(get_timedate(min));
 		min = max;
 		max += step;
@@ -381,5 +373,3 @@ function get_hist_tags(area_code, station_code) {
 	};
 	return sample;
 }
-
-*/
