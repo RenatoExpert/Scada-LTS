@@ -43,8 +43,8 @@ class RelatoryView {
     }
 
     generate_relatory_dom(obj, id_col, linear = true) {
-        let relatory = document.createElement("div");
-        relatory.style.padding = "3px 15px";
+        this.dom_element = document.createElement("div");
+        this.dom_element.style.padding = "3px 15px";
         let table = document.createElement("table");
         header: {
             let row = document.createElement("tr");
@@ -81,8 +81,8 @@ class RelatoryView {
                 table.append(row);
             });
         }
-        relatory.append(table);
-        return relatory;
+        this.dom_element.append(table);
+        return this.dom_element;
     }
 }
 
