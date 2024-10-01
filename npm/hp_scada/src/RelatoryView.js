@@ -1,5 +1,15 @@
 import utils from './utils/utils.js';
 
+function get_hist_tags(area_code, station_code) {
+	let sample = {
+		raw_volume: [`ERPM${area_code}-FQ${station_code}-FQIA-1`, "Contagem anterior"],
+		std_volume: [`ERPM${area_code}-FQ${station_code}-FQI-1`, "Contagem atual"],
+		avg_pressure: [`ERPM${area_code}-FQ${station_code}-PI-1`, "Pressão"],
+		avg_temperature: [`ERPM${area_code}-FQ${station_code}-TI-1`, "Temperatura"]
+	};
+	return sample;
+}
+
 function relatory(area_code, station_code, start_ts, end_ts, id_col = 'Data-hora') {
 	let tags = get_hist_tags(area_code, station_code);
 	let promises = [];
