@@ -74,6 +74,8 @@ class RelatoryView {
         return relatory;
     }
 
+    export default RelatoryView;
+
     /*
     make_relatory_indexes(from, to) {
         let hour_in_ms = 60 * 60 * 1e3;
