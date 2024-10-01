@@ -1,5 +1,11 @@
 // RelatoryView.js
 class RelatoryView {
+    constructor(reference, timestep, tree) {
+        this.reference = reference;
+        this.timestep = timestep;
+        this.tree = tree;
+        this.generated_relatory = false;
+    }
     get_dom_element(id) {
         return document.getElementById(id);
     }
