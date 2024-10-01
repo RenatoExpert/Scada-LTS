@@ -651,32 +651,55 @@ function get_area_by_intcode(intcode, tree) {
 		if(area.code == intcode) {
 			area_obj = area;
 		}
-		root.append(filter);
+	});
+	if(area_obj) {
+		console.debug(`Are found for code ${intcode}`);
+		console.debug({ area_obj, intcode });
+		return area_obj;
+	} else {
+		throw new Error(`Area not found for code ${intcode}`);
 	}
-	let iframe_parent = document.createElement("div");
-	iframe_parent.style.padding = "15px 30px";
-	let relatory_iframe = document.createElement("IFRAME");
-	relatory_iframe.id = "relatory-iframe";
-	relatory_iframe.height = "500";
-	relatory_iframe.width = "1150";
-	iframe_parent.append(relatory_iframe);
-	root.append(iframe_parent);
-	after_dom: {
-		let relatory_table = document.createElement("div");
-		relatory_table.id = "relatory-table";
-		let observer = new MutationObserver((mutationList, observer) => {
-			for (let mutation in mutationList) {
-				console.log({ mutation });
-				if (document.getElementById("relatory-iframe")) {
-					relatory_iframe.contentWindow.document.body.append(relatory_table);
-					observer.disconnect();
-				}
-			}
-		});
-		observer.observe(document.getElementById("viewContent"), { childList: true });
-	}
-	return root;
 }
+
+function update_station_options(area, station_select, reference) {
+	station_select.replaceChildren();
+	Object.values(area.children).forEach(child => {
+		let option = document.createElement("option");
+		option.value = child.code;
+		option.innerText = child.label;
+		option.selected = child.code == reference.code ? 'selected' : '';
+		station_select.append(option);
+	});
+}
+
+function make_selector_div(id, title, callback) {
+	return make_field_div("select", id, title, callback);
+}
+
+function make_field_div(dom, id, title, callback) {
+	let div = document.createElement("div");
+	div.style.cssFloat = "left";
+	div.style.margin = "5px";
+	div.style.padding = "3px";
+	div.style.border = "1px";
+	div.style.minWidth = "60px";
+	label: {
+		let label = document.createElement("label");
+		label.innerText = title;
+		label.style.display = "block";
+		div.append(label);
+	}
+	input: {
+		let input = document.createElement(dom);
+		input.id = id;
+		input.name = id;
+		callback(input);
+		div.append(input);
+	}
+	return div;
+}
+
+//	Here ends relatory section
 
 function page_url(page) {
 	let url = new URL(window.location.href);
