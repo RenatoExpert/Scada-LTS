@@ -644,16 +644,6 @@ function get_area_by_intcode(intcode, tree) {
 	}
 }
 
-function update_station_options(area, station_select, reference) {
-	station_select.replaceChildren();
-	Object.values(area.children).forEach(child => {
-		let option = document.createElement("option");
-		option.value = child.code;
-		option.innerText = child.label;
-		option.selected = child.code == reference.code ? 'selected' : '';
-		station_select.append(option);
-	});
-}
 
 function make_selector_div(id, title, callback) {
 	return make_field_div("select", id, title, callback);
