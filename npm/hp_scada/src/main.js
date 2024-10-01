@@ -555,11 +555,6 @@ function on_change_area(e) {
 	update_station_options(area, station_select, reference);
 }
 
-
-function make_selector_div(id, title, callback) {
-	return make_field_div("select", id, title, callback);
-}
-
 function save_file(data, filename, type) {
 	let file = new Blob([data], { type });
 	console.log({ file });
