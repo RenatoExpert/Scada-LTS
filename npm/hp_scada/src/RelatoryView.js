@@ -1,5 +1,8 @@
 // RelatoryView.js
 class RelatoryView {
+    get_dom_element(id) {
+        return document.getElementById(id);
+    }
     downloadXlsx() {
         console.log("xlsx");
     }
