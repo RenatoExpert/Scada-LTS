@@ -8,7 +8,7 @@ class RelatoryView {
         this.tree = tree;
         this.generated_relatory = false;
     }
-    get_dom_element(id) {
+    get_dom_element() {
         return this.dom_element;
     }
 
