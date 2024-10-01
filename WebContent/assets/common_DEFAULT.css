@@ -343,6 +343,15 @@ html > body .dojoTreeNodeLabelTitle {
     color: orange;
 }
 
+.menu-user.custom-size {
+    width: 90px; /* Largura da div */
+    height: 32px; /* Altura da div */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaçamento entre ícone e texto */
+}
+
 .avatar {
 	vertical-align: middle;
 	width: 32px;
@@ -351,6 +360,32 @@ html > body .dojoTreeNodeLabelTitle {
 	color: #F0F0F0;
     border: none;
 	font-size: 14px; /* Tamanho da fonte */
+}
+
+.sound-icon {
+	font-size: 24px; /* Tamanho do ícone */
+}
+
+.notification-icon {
+    position: relative;
+    display: inline-block;
+    width: 24px; /* Largura do ícone */
+    height: 24px; /* Altura do ícone */
+}
+
+.notification-icon .bi-bell {
+    font-size: 24px; /* Tamanho do ícone */
+}
+
+.notification-icon .badge {
+    position: absolute;
+    top: -5px; /* Ajuste para centralizar o badge */
+    right: -5px; /* Ajuste para centralizar o badge */
+    padding: 2px 4px; /* Ajuste do padding para se adequar ao ícone de 32px */
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 10px; /* Ajuste do tamanho da fonte do badge */
 }
 
 /* fim do teste de estilo no menu de navegação*/

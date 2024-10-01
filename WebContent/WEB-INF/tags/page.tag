@@ -300,8 +300,23 @@
 <!-- mainHeader -->
 <c:if test="${!sessionUser.hideHeader}">
 	<div id="mainHeader" style="height: 75px; display: flex; justify-content: space-between; align-items: center;">
-		<tag:logo/>
+		<tag:logo/>        
         <div class="btn-group">
+            <div class="menu-user custom-size">
+                <div>
+                <c:if test="${isLoggedToScadaUser}">
+                    <div class="sound-icon">
+                        <a href="#" id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
+                        <i class=""></i>
+                        </a>
+                    </div>
+                </c:if>
+                </div>
+                <div class="notification-icon">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge">3</span> <!-- Número de notificações -->
+                </div>
+            </div>            
             <button class="avatar text-bg-primary dropdown" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
                 <div>
                     <c:if test="${isLoggedToScadaUser}">
@@ -334,10 +349,12 @@
                             <li><a class="dropdown-item" href="#">Menu item</a></li>
                         </ul>
                     </li>
-                    <li><a class="dropdown-item" href="system_settings.shtm">
-                        <i class="bi bi-sliders me-2">
-                        </i><fmt:message key='header.systemSettings'/></a>
-                    </li>
+                    <c:if test="${sessionUser.admin}">
+                        <li><a class="dropdown-item" href="system_settings.shtm">
+                            <i class="bi bi-sliders me-2">
+                            </i><fmt:message key='header.systemSettings'/></a>
+                        </li>
+                    </c:if>
                     <li><a class="dropdown-item" href="help.shtm">
                         <i class="bi bi-question-circle me-2"></i>
                         <fmt:message key='header.help'/></a>
@@ -397,41 +414,39 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-
-						<c:if test="${sessionUser.admin}">
-              <div class="horizontal-menu">
-                      <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
-                          <i class="bi bi-gear"></i>
-                      </a>
-                      <a href="data_sources.shtm"" class="nav-link" title="<fmt:message key='header.dataSources'/>">
-                          <i class="bi bi-database-add"></i>
-                      </a>
-                      <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
-                          <i class="bi bi-calendar-check"></i>
-                      </a>
-                      <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
-                          <i class="bi bi-calendar-week"></i>
-                      </a>
-                      <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
-                          <i class="bi bi-arrow-left-right"></i>
-                      </a>
-                      <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
-                          <i class="bi bi-journal-code"></i>
-                      </a>
-              </div>
-						</c:if>
-              <div class="horizontal-menu">
-                      <a href="users.shtm" class="nav-link" title="<fmt:message key='header.users'/>">
-                          <i class="bi bi-people"></i>
-                      </a>
-						  </div>
-
-						<c:if test="${sessionUser.admin}">
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
+                                <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
+                                    <i class="bi bi-gear"></i>
+                                </a>
+                                <a href="data_sources.shtm" class="nav-link" title="<fmt:message key='header.dataSources'/>">
+                                    <i class="bi bi-database-add"></i>
+                                </a>
+                                <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
+                                    <i class="bi bi-calendar-check"></i>
+                                </a>
+                                <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
+                                    <i class="bi bi-calendar-week"></i>
+                                </a>
+                                <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                </a>
+                                <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
+                                    <i class="bi bi-journal-code"></i>
+                                </a>
+                            </div>
+                        </c:if>
+                        <div class="horizontal-menu">
+                            <a href="users.shtm" class="nav-link" title="<fmt:message key='header.users'/>">
+                                <i class="bi bi-people"></i>
+                            </a>
+                        </div>
+                        <c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
                                 <a href="usersProfiles.shtm" class="nav-link" title="<fmt:message key='header.usersProfiles'/>">
                                     <i class="bi bi-person-vcard"></i>
                                 </a>
-                                <a href="pointHierarchySLTS"" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
+                                <a href="pointHierarchySLTS" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
                                     <i class="bi bi-menu-app"></i>
                                 </a>
                                 <a href="mailing_lists.shtm" class="nav-link" title="<fmt:message key='header.mailingLists'/>">
@@ -453,7 +468,7 @@
                                     <i class="bi bi-filetype-sql"></i>
                                 </a>
                             </div>
-						</c:if>
+                        </c:if>
 
 						<div class="spacer">
                             <div class="horizontal-menu">
@@ -504,8 +519,8 @@
 				<div id="navbarUserProperties" class="flex-default spacer">
 					<c:if test="${isLoggedToScadaUser}">
                         <div class="horizontal-menu">
-                            <a href="#" id="userMutedImg" class="nav-link" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
-                            </a>
+                            <%-- <a href="#" id="userMutedImg" class="nav-link" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
+                            </a> --%>
                             <a href="#" class="nav-link" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.goHomeUrl'/>">
                                 <i class="bi bi-house"></i>
                             </a>
