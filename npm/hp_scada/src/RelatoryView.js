@@ -1,5 +1,33 @@
 import utils from './utils/utils.js';
 
+
+function validate_filter(e) {
+	let start_ts, end_ts;
+	let isValid;
+	console.warn({ e });
+	try {
+		start_ts = sum_datetime("start-date", "start-time");
+		let TWO_HOURS = 2 * 60 * 60 * 1e3;
+		end_ts = sum_datetime("end-date", "end-time") + TWO_HOURS;
+		let area = document.getElementById('select-area').value;
+		let station = document.getElementById('select-station').value;
+		if(area && station) {
+			relatory(area, station, start_ts, end_ts);
+			generated_relatory = true;
+			isValid = true;
+		} else {
+			console.error({ area, station });
+			throw new Error("Error on validade_filter");
+		}
+	} catch(e) {
+		isValid = false;
+		console.error(e);
+	} finally {
+		console.log({ start_ts, end_ts });
+		return isValid;
+	}
+}
+
 // RelatoryView.js
 class RelatoryView {
     constructor(reference, timestep, tree) {
