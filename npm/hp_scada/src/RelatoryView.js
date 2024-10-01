@@ -74,6 +74,7 @@ class RelatoryView {
         return relatory;
     }
 
+    /*
     make_relatory_indexes(from, to) {
         let hour_in_ms = 60 * 60 * 1e3;
         let day_in_ms = hour_in_ms * 24;
@@ -179,3 +180,5 @@ function get_hist_tags(area_code, station_code) {
 	};
 	return sample;
 }
+
+*/
