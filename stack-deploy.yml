@@ -12,12 +12,19 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '1'
-            memory: 768M
+            cpus: "1"
+            memory: "768M"
+          reservations:
+            cpus: "0.1"
+            memory: "256M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
           delay: 3s
+      ulimits:
+        nofile:
+          soft: 128
+          hard: 1024
       healthcheck:
           test: mysqladmin ping -h localhost
           interval: 5s
@@ -47,19 +54,22 @@ services:
         mode: global
         resources:
           limits:
-            cpus: '2'
-            memory: 1.2G
+            cpus: "2"
+            memory: "1.2G"
+          reservations:
+            cpus: "0.3"
+            memory: "512M"
         restart_policy:
           condition: on-failure
           max_attempts: 15
           delay: 3s
       healthcheck:
         test: curl -X GET -sf http://localhost:8080/Scada-LTS/ || exit 1
-        interval: 5s
-        timeout: 5s
+        start_period: 2m
         retries: 5
-        start_period: 1m
-        start_interval: 30s
+        timeout: 10s
+        start_interval: 1m
+        interval: 30s
       ports:
           - target: 8080
             published: ${PORT_WEB:-8880}
@@ -73,7 +83,7 @@ services:
 
 networks:
     scadanet:
-        name: ${STACKNAME:-main}_network
+      name: ${BRANCH:-main}_network
 
 volumes:
   database_lib:

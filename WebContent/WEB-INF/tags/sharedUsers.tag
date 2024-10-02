@@ -23,13 +23,13 @@
 <table>
   <tr>
     <td>
-      <tag:img png="user" title="share.sharing"/>
+      <i class="bi bi-people" title="<fmt:message key='share.sharing'/>"></i>
       <span class="smallTitle"><fmt:message key="share.sharing"/></span>
       <tag:help id="${doxId}"/>
     </td>
     <td align="right">
       <c:if test="${!empty closeFunction}">
-        <tag:img png="cross" onclick="${closeFunction}" title="common.close" style="display:inline;"/>
+        <i class="bi bi-x-lg text-danger" onclick="${closeFunction}" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
       </c:if>
     </td>
   </tr>
@@ -37,7 +37,7 @@
   <tr>
     <td colspan="2">
       <select id="allShareUsersList"></select>
-      <tag:img png="add" onclick="mango.share.addUserToShared();" title="common.add"/>
+      <i class="bi bi-plus-circle-fill text-success" onclick="mango.share.addUserToShared();" title="<fmt:message key='common.add'/>"></i>
     </td>
   </tr>
   

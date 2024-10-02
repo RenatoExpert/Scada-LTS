@@ -463,7 +463,7 @@
                 </div>
                 
                 <div id="usersEditDiv" style="display:inline;" onmouseover="showWatchListUsers()">
-                  <tag:img png="user" title="share.sharing" onmouseover="closeLayers();"/>
+                  <i class="bi bi-people" title="<fmt:message key='share.sharing'/>" onmouseover="closeLayers();"></i>
                   <div id="usersEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv">
                     <tag:sharedUsers doxId="watchListSharing" noUsersKey="share.noWatchlistUsers"
                             closeFunction="hideLayer('usersEdit')"/>

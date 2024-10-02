@@ -247,7 +247,7 @@
 			<td width="50"></td>
 			<c:if test="${fn:length(views) != 0}">
 				<td>
-					<tag:img png="arrow_out" title="viewEdit.fullScreen" onclick="fullScreen()" />
+					<i class="bi bi-arrows-fullscreen text-primary" title="<fmt:message key='viewEdit.fullScreen'/>" onclick="fullScreen()"></i>
 				</td>
 			</c:if>
 			<td align="right"><sst:select value="${currentView.id}"
@@ -258,8 +258,7 @@
 				</sst:select> <c:if test="${!empty currentView}">
 					<c:choose>
 						<c:when test="${owner}">
-							<a href="view_edit.shtm?viewId=${currentView.id}"><tag:img
-									png="icon_view_edit" title="viewEdit.editView" /> </a>
+							<a href="view_edit.shtm?viewId=${currentView.id}"><i class="bi bi-pencil text-primary" title="<fmt:message key='viewEdit.editView'/>"></i> </a>
 						</c:when>
 						<c:otherwise>
 							<!-- Apenas Admin pode remover compartilhamento
@@ -267,8 +266,7 @@
 								onclick="unshare()" />-->
 						</c:otherwise>
 					</c:choose>
-				</c:if> <a href="view_edit.shtm"><tag:img png="icon_view_new"
-						title="views.newView" /> </a></td>
+				</c:if> <a href="view_edit.shtm"><i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='views.newView'/>"></i> </a></td>
 		</tr>
 		
 	</table>

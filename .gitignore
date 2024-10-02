@@ -105,3 +105,7 @@ databases
 TEST*.xml
 gradlew
 gradlew.bat
+# vscode
+.vscode/settings.json
+# scadalts-ui
+scadalts-ui/package-lock.json
