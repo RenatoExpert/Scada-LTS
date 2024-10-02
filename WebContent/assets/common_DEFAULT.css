@@ -344,12 +344,16 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 .menu-user.custom-size {
-    width: 90px; /* Largura da div */
+    width: 190px; /* Largura da div */
     height: 32px; /* Altura da div */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px; /* Espaçamento entre ícone e texto */
+}
+
+.menu-user.dropdown-item {
+	text-decoration: none; /* Remove o sublinhado do link */
 }
 
 .avatar {
@@ -364,8 +368,13 @@ html > body .dojoTreeNodeLabelTitle {
 
 .sound-icon {
 	font-size: 24px; /* Tamanho do ícone */
+	display: flex;
 }
-
+.custom-vr {
+    width: 2px; /* Largura da linha */
+    height: 32px; /* Altura da linha */
+    background-color: black; /* Cor da linha */
+}
 .notification-icon {
     position: relative;
     display: inline-block;
