@@ -77,7 +77,8 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 /* --- Headers --- */
 #mainHeader {
 	padding: 5px 40px 5px 40px;
-	background-color: #d6d5d5;
+	/* background-color: #d6d5d5; */
+	background-color: #ffffff;
 }
 
 #subHeader {
@@ -315,12 +316,17 @@ html > body .dojoTreeNodeLabelTitle {
 
 /* teste de estilo no menu de navegação*/
 
+#subHeader-menu {
+	background-color: var(--slts-color-secondary-lighter);
+	padding: 1px 0px 1px 0px;
+}
+
 .horizontal-menu {
     display: flex;
     justify-content: space-around;
-    background-color: #f8f9fa; /* Cor de fundo do menu */
+    background-color: #ffffff; /* Cor de fundo do menu */
     padding: 5px 5px; /* Espaçamento vertical */
-    border-bottom: 1px solid #dee2e6; /* Linha inferior */
+    border-bottom: 1px solid #ffffff; /* Linha inferior */
 	/* espaçamento entre o menu e o conteúdo */
 	margin-right: 5px;
 	margin-left: 5px;
@@ -343,6 +349,8 @@ html > body .dojoTreeNodeLabelTitle {
     color: orange;
 }
 
+/* fim do teste de estilo no menu de navegação*/
+
 .menu-user.custom-size {
     width: 190px; /* Largura da div */
     height: 32px; /* Altura da div */
@@ -353,6 +361,9 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 .menu-user.dropdown-item {
+	text-decoration: none; /* Remove o sublinhado do link */
+}
+.dropdown-menu.dropdown-item {
 	text-decoration: none; /* Remove o sublinhado do link */
 }
 
@@ -396,5 +407,3 @@ html > body .dojoTreeNodeLabelTitle {
     color: white;
     font-size: 10px; /* Ajuste do tamanho da fonte do badge */
 }
-
-/* fim do teste de estilo no menu de navegação*/

@@ -322,11 +322,10 @@
                 </div>
                 <div class="notification-icon">
                     <a href="events.shtm" class="nav-link" title="<fmt:message key='header.alarms'/>">
-                        <i class="bi bi-bell"></i>
+                        <i class="bi bi-bell me-2"></i>
                     </a>
                     <span class="badge">3</span> <!-- Número de notificações -->
                 </div>
-            </div>
             <button class="avatar text-bg-primary dropdown" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
                 <div>
                     <c:if test="${isLoggedToScadaUser}">
@@ -349,15 +348,14 @@
                         </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
-                    <li class="dropdown-submenu dropstart">
-                        <a class="dropdown-item dropdown-toggle" href="#">
-                            <i class="bi bi-translate me-2"></i><fmt:message key='header.changeLanguage'/>
-                        </a>
-                        <ul class="dropdown-menu dropdown-submenu">
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                        </ul>
+                    <li id="navbarUserProperties" class="dropdown-item" href="#" onmouseover="showMenu('localeEdit', -125, 10);">
+                            <i class="bi bi-translate me-2"></i>
+                            <fmt:message key='header.changeLanguage'/>
+                            <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
+                            <c:forEach items="${availableLanguages}" var="lang">
+                                <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
+                            </c:forEach>
+                        </div>
                     <li><a class="dropdown-item" href="users.shtm">
                             <i class="bi bi-people me-2"></i>
                             <fmt:message key='header.users'/></a>
@@ -377,16 +375,17 @@
                         <fmt:message key='header.logout'/></a>
                     </li>
                 </ul>
+            </div>
         </div>
 	</div>    
 
 	<!-- subheader -->
 	<c:if test="${!simple}">
-		<div class="navHeader" id="subHeader">
+		<div class="navHeader" id="subHeader-menu">
 			<div>
 				<nav class="flex-default">
 					<c:if test="${isLoggedToScadaUser}">
-						<div class="spacer">
+						<div>
 							<c:choose>
 								<c:when test="${sessionUser.hideMenu}">
 									<c:if test="${!empty sessionUser.homeUrl}">
@@ -448,7 +447,7 @@
                                     <i class="bi bi-journal-code"></i>
                                 </a>
                             </div>
-                        </c:if>                        
+                        </c:if>
                         <c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
                                 <a href="usersProfiles.shtm" class="nav-link" title="<fmt:message key='header.usersProfiles'/>">
@@ -466,9 +465,9 @@
                                 <a href="maintenance_events.shtm" class="nav-link" title="<fmt:message key='header.maintenanceEvents'/>">
                                     <i class="bi bi-wrench-adjustable-circle"></i>
                                 </a>
-                                <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
+                                <%-- <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
                                     <i class="bi bi-sliders"></i>
-                                </a>
+                                </a> --%>
                                 <a href="emport.shtm" class="nav-link" title="<fmt:message key='header.emport'/>">
                                     <i class="bi bi-floppy"></i>
                                 </a>
@@ -537,7 +536,7 @@
                             </a>
                         </div>
 					</c:if> --%>
-                        <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
+                        <%-- <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
                                 <a href="#" class="nav-link" title="<fmt:message key='header.changeLanguage'/>">
                                     <i class="bi bi-translate"></i>
                                 </a>
@@ -546,7 +545,7 @@
                                     <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
                                 </c:forEach>
                             </div>
-                        </div>
+                        </div> --%>
 				</div>
 			</div>
 		</div>
