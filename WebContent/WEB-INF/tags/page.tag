@@ -487,11 +487,11 @@
     <jsp:doBody/>
     </div>
 </div>
-<div id="sltsFooter" class="footer sticky-footer text-center m-3">
-    <span>
-        &copy;2012-${toYear} Argos SCADA
-        <fmt:message key="footer.rightsReserved"/>
-    </span>
+<div id="sltsFooter" class="footer fixed-bottom text-center m-3">
+	<span>
+		&copy;2012-${toYear} Argos SCADA
+		<fmt:message key="footer.rightsReserved"/>
+	<span>
 </div>
 
 <c:if test="${!!sessionUser.hideHeader}">
