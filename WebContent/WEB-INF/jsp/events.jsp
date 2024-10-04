@@ -164,19 +164,20 @@
   </script>
   <div class="borderDiv marB marR">
     <div class="smallTitle titlePadding" style="float:left;">
-    <a href="#" class="nav-link" title="<fmt:message key='events.alarms'/>">
+      <a href="#" class="nav-link" title="<fmt:message key='events.alarms'/>">
         <i class="bi bi-flag"></i>
-    </a>
+      </a>
       <fmt:message key="events.pending"/>
     </div>
     <div id="ackAllDiv" class="titlePadding" style="display:none;float:right;">
-      <fmt:message key="events.acknowledgeAll"/><a href="#" class="nav-link" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="<fmt:message key='events.acknowledgeAll'/>">
-          <i class="bi bi-check"></i>
+      <fmt:message key="events.acknowledgeAll"/>
+      <a href="#" class="nav-link" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="<fmt:message key='events.acknowledgeAll'/>">
+        <i class="bi bi-check"></i>
       </a>&nbsp;
       <fmt:message key="events.silenceAll"/>
-        <a href="#" class="nav-link" onclick="silenceAll()" title="<fmt:message key='events.silenceAll'/>">
-            <i class="bi bi-volume-mute"></i>
-        </a><br/>
+      <a href="#" class="nav-link" onclick="silenceAll()" title="<fmt:message key='events.silenceAll'/>">
+        <i class="bi bi-volume-mute"></i>
+      </a><br/>
     </div>
     <div id="pendingAlarms" style="clear:both;"></div>
     <div id="noAlarms" style="display:none;padding:6px;text-align:center;">

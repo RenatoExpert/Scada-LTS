@@ -107,7 +107,6 @@ class Station_row {
 		this.station_code = map.current_view.process.children[item].code
 		console.log({ place: "class Station_row", self: this, table_model });
 		this.station_tag = `ERPM${this.process_code}-${tag_particle}${this.station_code}`;
-		console.log({ station_tag: this.station_tag });
 		this.create_dom_element();
 	}
 
