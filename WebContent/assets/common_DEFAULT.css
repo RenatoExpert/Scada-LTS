@@ -76,8 +76,9 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 
 /* --- Headers --- */
 #mainHeader {
-	padding-top: 5px;
-	background-color: #d6d5d5;
+	padding: 5px 40px 5px 40px;
+	/* background-color: #d6d5d5; */
+	background-color: #ffffff;
 }
 
 #subHeader {
@@ -315,12 +316,17 @@ html > body .dojoTreeNodeLabelTitle {
 
 /* teste de estilo no menu de navegação*/
 
+#subHeader-menu {
+	background-color: var(--slts-color-secondary-lighter);
+	padding: 1px 0px 1px 0px;
+}
+
 .horizontal-menu {
     display: flex;
     justify-content: space-around;
-    background-color: #f8f9fa; /* Cor de fundo do menu */
+    background-color: #ffffff; /* Cor de fundo do menu */
     padding: 5px 5px; /* Espaçamento vertical */
-    border-bottom: 1px solid #dee2e6; /* Linha inferior */
+    border-bottom: 1px solid #ffffff; /* Linha inferior */
 	/* espaçamento entre o menu e o conteúdo */
 	margin-right: 5px;
 	margin-left: 5px;
@@ -344,3 +350,60 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 /* fim do teste de estilo no menu de navegação*/
+
+.menu-user.custom-size {
+    width: 190px; /* Largura da div */
+    height: 32px; /* Altura da div */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaçamento entre ícone e texto */
+}
+
+.menu-user.dropdown-item {
+	text-decoration: none; /* Remove o sublinhado do link */
+}
+.dropdown-menu.dropdown-item {
+	text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.avatar {
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	color: #F0F0F0;
+    border: none;
+	font-size: 14px; /* Tamanho da fonte */
+}
+
+.sound-icon {
+	font-size: 24px; /* Tamanho do ícone */
+	display: flex;
+}
+.custom-vr {
+    width: 2px; /* Largura da linha */
+    height: 32px; /* Altura da linha */
+    background-color: black; /* Cor da linha */
+}
+.notification-icon {
+    position: relative;
+    display: inline-block;
+    width: 24px; /* Largura do ícone */
+    height: 24px; /* Altura do ícone */
+}
+
+.notification-icon .bi-bell {
+    font-size: 24px; /* Tamanho do ícone */
+}
+
+.notification-icon .badge {
+    position: absolute;
+    top: -5px; /* Ajuste para centralizar o badge */
+    right: -5px; /* Ajuste para centralizar o badge */
+    padding: 2px 4px; /* Ajuste do padding para se adequar ao ícone de 32px */
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 10px; /* Ajuste do tamanho da fonte do badge */
+}

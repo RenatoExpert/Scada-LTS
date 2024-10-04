@@ -70,7 +70,7 @@
   </c:when>
   <c:when test="${vc.customComponent}">
     <div id="c${vc.id}" class="viewComponent" style="${vc.style}">
-      <div id="c${vc.id}Content"><img src="images/icon_comp.png" alt=""/></div>
+      <div id="c${vc.id}Content"><i class="bi bi-hourglass-split" alt=""></i></div>
       <div style="position:absolute;left:-16px;top:0px;z-index:${vc.z+1};">
         <div id="c${vc.id}Warning" style="display:none;" onmouseover="showMenu('c${vc.id}Messages', 16, 0);"
                 onmouseout="hideLayer('c${vc.id}Messages');">
