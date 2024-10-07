@@ -60,6 +60,7 @@
 				"label": "Monitoramento da Proteção Catódica"
 			},
 			"rectifiers": {
+				"code": "324",
 				"children": {
 					"boticario": {
 						"code": "005",
