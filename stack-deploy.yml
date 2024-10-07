@@ -65,11 +65,11 @@ services:
           delay: 3s
       healthcheck:
         test: curl -X GET -sf http://localhost:8080/Scada-LTS/ || exit 1
-        interval: 5s
-        timeout: 5s
-        retries: 5
-        start_period: 1m
+        start_period: 2m
         start_interval: 1m
+        timeout: 10s
+        interval: 15s
+        retries: 5
       ports:
           - target: 8080
             published: ${PORT_WEB:-8880}
