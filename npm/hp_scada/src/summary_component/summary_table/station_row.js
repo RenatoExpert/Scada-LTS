@@ -97,7 +97,7 @@ class Check_display {
 
 
 class Station_row {
-	constructor (tree_table, item, map, table_model, tag_particle) {
+	constructor (tree_table, item, map, table_model, table_particle) {
 		this.tree_table = tree_table;
 		this.item = item;
 		this.info = tree_table[item];
@@ -106,7 +106,7 @@ class Station_row {
 		this.process_code = map.current_view.process.code || "";
 		this.station_code = map.current_view.process.children[item].code
 		console.log({ place: "class Station_row", self: this, table_model });
-		this.station_tag = `ERPM${this.process_code}-${tag_particle}${this.station_code}`;
+		this.station_tag = `ERPM${this.process_code}-${table_particle}${this.station_code}`;
 		console.log({ station_tag: this.station_tag });
 		this.create_dom_element();
 	}
