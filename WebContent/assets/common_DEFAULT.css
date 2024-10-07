@@ -327,23 +327,38 @@ html > body .dojoTreeNodeLabelTitle {
     background-color: #ffffff; /* Cor de fundo do menu */
     padding: 5px 5px; /* Espaçamento vertical */
     border-bottom: 1px solid #ffffff; /* Linha inferior */
-	/* espaçamento entre o menu e o conteúdo */
-	margin-right: 5px;
-	margin-left: 5px;
+	margin: 0px;
 }
 
 .horizontal-menu a {
     text-decoration: none;
-    color: #343a40; /* Cor do texto */
-    font-size: 16px; /* Tamanho da fonte */
-    padding: 7px 7px; /* Espaçamento interno */
-    transition: color 0.3s ease; /* Transição suave para a cor */
+    color: #111111; /* Cor do texto */
+    padding: 3px 16px; /* Espaçamento interno */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
+    border-radius: 5px; /* Pontas arredondadas */
 }
 
-.horizontal-menu a:hover {
-    color: #007bff; /* Cor do texto ao passar o mouse */
+.horizontal-menu i {
+    text-decoration: none;
+    color: #111111; /* Cor do texto */
+    font-size: 24px; /* Tamanho da fonte */	
+    padding: 3px; /* Espaçamento interno */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
+    border-radius: 5px; /* Pontas arredondadas */
 }
 
+.flex-default {
+	background-color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 24px 0px 24px;
+}
+
+.horizontal-menu i:hover {
+    color: #ffffff; /* Cor do texto ao passar o mouse */
+    background-color: #0050D3; /* Cor de fundo ao passar o mouse */
+}
 
 .text-orange {
     color: orange;
@@ -364,7 +379,7 @@ html > body .dojoTreeNodeLabelTitle {
 	text-decoration: none; /* Remove o sublinhado do link */
 }
 .dropdown-menu.dropdown-item {
-	text-decoration: none; /* Remove o sublinhado do link */
+	text-decoration: none !important;; /* Remove o sublinhado do link */
 }
 
 .avatar {
@@ -380,11 +395,15 @@ html > body .dojoTreeNodeLabelTitle {
 .sound-icon {
 	font-size: 24px; /* Tamanho do ícone */
 	display: flex;
+	align-items: center;
 }
 .custom-vr {
-    width: 2px; /* Largura da linha */
-    height: 32px; /* Altura da linha */
-    background-color: black; /* Cor da linha */
+    position: relative;
+    display: inline-block;
+    width: 1px; /* Largura da linha */
+    height: 35px; /* Altura da linha */
+    background-color: #1111111A; /* Cor da linha */
+	margin-top: 5px; /* Ajuste conforme necessário */
 }
 .notification-icon {
     position: relative;

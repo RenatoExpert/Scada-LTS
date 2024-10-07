@@ -428,6 +428,11 @@
 						</div>
                         <c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
+                                <div class="vr custom-vr"></div>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
                                 <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
                                     <i class="bi bi-gear"></i>
                                 </a>
@@ -446,6 +451,11 @@
                                 <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
                                     <i class="bi bi-journal-code"></i>
                                 </a>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
+                                <div class="vr custom-vr"></div>
                             </div>
                         </c:if>
                         <c:if test="${sessionUser.admin}">
