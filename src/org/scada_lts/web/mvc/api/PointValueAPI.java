@@ -347,12 +347,11 @@ public class PointValueAPI {
 	*/
 	@RequestMapping(value = "/api/point_value/getValue/{xid}", method = RequestMethod.GET)
 	public ResponseEntity<String> getValue(@PathVariable("xid") String xid, HttpServletRequest request) {
-		ResponseEntity<String> response;
 		LOG.info("/api/point_value/getValue/{xid} id:" + xid);
 		try {
 			User user = Common.getUser(request);
 			if (user == null) {
-				response = new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 			} else {
 				DataPointVO dpvo = dataPointService.getDataPoint(xid);
 				PointValueTime pvt = pointValueService.getLatestPointValue(dpvo.getId());
@@ -365,14 +364,12 @@ public class PointValueAPI {
 					v.setDataPoint(dpvo);
 				}
 				json = mapper.writeValueAsString(v);
-				response = new ResponseEntity<String>(json, HttpStatus.OK);
+				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			Exception exception = new Exception("Error:" + xid + request);
 			LOG.error(e);
-			response = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		} finally {
-			return response;
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
