@@ -29,6 +29,49 @@ function check_relatory_then_save(data, filename, type) {
 	}
 }
 
+function generate_relatory_dom(obj, id_col, linear = true) {
+	let relatory = document.createElement("div");
+	relatory.style.padding = "3px 15px";
+	let table = document.createElement("table");
+	header: {
+		let row = document.createElement("tr");
+		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
+		for(let header in headers) {
+			let col = utils.tag_text("th", headers[header]);
+			col.style.padding = "2px 15px";
+			row.append(col);
+		}
+		table.append(row);
+	}
+	body: {
+		let raw_volume_eu = linear ? "m³" : "kPa";
+		let std_volume_eu = "m³";
+		let avg_pressure_eu = "kgf/cm²";
+		let avg_temperature_eu = "ºC";
+		Object.getOwnPropertyNames(obj).forEach(time => {
+			let frame = obj[time];
+			let row = document.createElement("tr");
+			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
+			let cols = [
+				time,
+				utils.format_var(raw_volume, raw_volume_eu),
+				utils.format_var(std_volume, std_volume_eu),
+				utils.format_var(avg_pressure, avg_pressure_eu),
+				utils.format_var(avg_temperature, avg_temperature_eu)
+			];
+			for(let i in cols) {
+				let col = utils.tag_text("td", cols[i]);
+				col.style.padding = "2px 15px";
+				col.style.textAlign = "right";
+				row.append(col);
+			}
+			table.append(row);
+		});
+	}
+	relatory.append(table);
+	return relatory;
+}
+
 function make_relatory_indexes(from, to) {
 	let hour_in_ms = 60 * 60 * 1e3;
 	let day_in_ms = hour_in_ms * 24;
