@@ -347,7 +347,7 @@ public class PointValueAPI {
 	*/
 	@RequestMapping(value = "/api/point_value/getValue/{xid}", method = RequestMethod.GET)
 	public ResponseEntity<String> getValue(@PathVariable("xid") String xid, HttpServletRequest request) {
-		ResponseEntity response;
+		ResponseEntity<String> response;
 		LOG.info("/api/point_value/getValue/{xid} id:" + xid);
 		try {
 			User user = Common.getUser(request);
