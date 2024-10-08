@@ -320,7 +320,7 @@ class RelatoryView {
 						let reference = generated.reference;
 						update_station_options(area, station_select, reference);
 					});
-					Object.values(this.tree.root.children).forEach(child => {
+					Object.values(this.tree.root.erpm).forEach(child => {
 						let option = document.createElement("option");
 						option.value = child.code;
 						option.innerText = child.label;
