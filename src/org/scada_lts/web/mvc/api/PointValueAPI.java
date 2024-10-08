@@ -40,11 +40,11 @@ import static org.scada_lts.utils.ValidationUtils.msgIfNullOrInvalid;
 class ValueTime implements Serializable {
 	private static final long serialVersionUID = -1253618593346111896L;
 	private String value;
-	private Long ts;
+	private Long timestamp;
 
-	public ValueTime(String value, Long ts) {
+	public ValueTime(String value, Long timestamp) {
 		setValue(value);
-		setTs(ts);
+		setTs(timestamp);
 	}
 
 	public String getValue() {
@@ -56,11 +56,11 @@ class ValueTime implements Serializable {
 	}
 
 	public Long getTs() {
-		return ts;
+		return timestamp;
 	}
 
-	public void setTs(Long ts) {
-		this.ts = ts;
+	public void setTs(Long timestamp) {
+		this.ts = timestamp;
 	}
 
 }
