@@ -350,7 +350,9 @@ public class PointValueAPI {
 		LOG.info("/api/point_value/getValue/{xid} id:" + xid);
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				DataPointVO dpvo = dataPointService.getDataPoint(xid);
 				PointValueTime pvt = pointValueService.getLatestPointValue(dpvo.getId());
 				String json = null;
@@ -364,7 +366,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			Exception exception = new Exception("Error:" + xid + request);
 			LOG.error(e);
@@ -382,7 +383,9 @@ public class PointValueAPI {
 		LOG.info("/api/point_value/getValue/id/{id} id:" + id);
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				DataPointVO dpvo = dataPointService.getDataPoint(id);
 				PointValueTime pvt = pointValueService.getLatestPointValue(dpvo.getId());
 				String json = null;
@@ -396,7 +399,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -417,11 +419,12 @@ public class PointValueAPI {
 		LOG.info("/api/point_value/setValue/{xid}/{type}/{value} xid:" + xid + " type:" + type + " value:" + value);
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				dataPointService.save(user, value, xid, type);
 				return new ResponseEntity<String>(value, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -440,7 +443,9 @@ public class PointValueAPI {
 		LOG.info("/api/point_value/setValue/{xid}/{type}\n - xid:" + xid + " type:" + type + " value:" + value);
 		try {
 			User user = Common.getUser(request);
-			if(user != null) {
+			if (user == null) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			} else {
 				String error = msgIfNullOrInvalid("Correct type", type, a -> !validPointValueType(a));
 				if (!error.isEmpty()) {
 					return ResponseEntity.badRequest().body(formatErrorsJson(error));
@@ -449,7 +454,6 @@ public class PointValueAPI {
 				dataPointService.save(user, value, xid, type);
 				return new ResponseEntity<>(value, HttpStatus.OK);
 			}
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -469,11 +473,12 @@ public class PointValueAPI {
 		LOG.info("/api/point_value/setValue/{xid}/{type}/{value} xid:" + xid + " type:" + type + " value:" + value);
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				dataPointService.save(user, value, xid, type);
 				return new ResponseEntity<String>(value, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -492,7 +497,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dpvo = dataPointService.getDataPoint(xid);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				long to = System.currentTimeMillis();
 				List<PointValueTime> pvts = pointValueService.getPointValuesBetween(dpvo.getId(), ts, to);
 				String json = null;
@@ -506,7 +513,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -524,7 +530,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dpvo = dataPointService.getDataPoint(id);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				long to = System.currentTimeMillis();
 				List<PointValueTime> pvts = pointValueService.getPointValuesBetween(dpvo.getId(), ts, to);
 				String json = null;
@@ -538,7 +546,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -560,7 +567,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dataPoint = dataPointService.getDataPoint(xid);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				int dataPointId = dataPoint.getId();
 				String type = "Numeric";
 				List<ValueTime> values = new ArrayList<ValueTime>();
@@ -579,8 +588,6 @@ public class PointValueAPI {
 				ObjectMapper mapper = new ObjectMapper();
 				String jsonString = mapper.writeValueAsString(protoJson);
 				return new ResponseEntity<String>(jsonString, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 			}
 		} catch (Exception e) {
 			LOG.error(e);
@@ -601,7 +608,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dpvo = dataPointService.getDataPoint(xid);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				List<PointValueTime> pvts = pointValueService.getFirstPointValueBetween(dpvo.getId(), sts, ets);
 				String json = null;
 				ObjectMapper mapper = new ObjectMapper();
@@ -625,8 +634,6 @@ public class PointValueAPI {
 				ValuesToJSON v = new ValuesToJSON(values, dpvo, type, sts, ets);
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 			}
 		} catch (Exception e) {
 			LOG.error(e);
@@ -647,7 +654,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dpvo = dataPointService.getDataPoint(xid);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				List<PointValueTime> pvts = pointValueService.getPointValuesBetween(dpvo.getId(), sts, ets);
 				String json = null;
 				ObjectMapper mapper = new ObjectMapper();
@@ -667,7 +676,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -685,7 +693,9 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			DataPointVO dpvo = dataPointService.getDataPoint(id);
-			if (user != null) {
+			if (user == null) {
+				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			} else {
 				List<PointValueTime> pvts = pointValueService.getPointValuesBetween(dpvo.getId(), sts, ets);
 				String json = null;
 				ObjectMapper mapper = new ObjectMapper();
@@ -705,7 +715,6 @@ public class PointValueAPI {
 				json = mapper.writeValueAsString(v);
 				return new ResponseEntity<String>(json, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			LOG.error(e);
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -716,14 +725,14 @@ public class PointValueAPI {
 	public ResponseEntity<String> updateMetaDataPointByScript(@PathVariable("xid") String xid, HttpServletRequest request) {
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
-				if(dataPointService.getDataPoint(xid).getDataSourceTypeId()==DataSourceVO.Type.META.getId()) {
+			if (user == null) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			} else {
+				if (dataPointService.getDataPoint(xid).getDataSourceTypeId()==DataSourceVO.Type.META.getId()) {
 					pointValueService.updateMetaDataPointByScript(user, xid);
 				} else {
 					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 				}
-			} else {
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 		} catch (Exception e) {
 			LOG.error(e);
@@ -736,10 +745,10 @@ public class PointValueAPI {
 	public ResponseEntity<String> updateMetaDataPointsByScript(@PathVariable("xid") String xid, HttpServletRequest request) {
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
-				pointValueService.updateAllMetaDataPointsFromDatasourceByScript(user, xid);
-			} else {
+			if (user == null) {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			} else {
+				pointValueService.updateAllMetaDataPointsFromDatasourceByScript(user, xid);
 			}
 		} catch (Exception e) {
 			LOG.error(e);
@@ -752,10 +761,10 @@ public class PointValueAPI {
 	public ResponseEntity<String> updateAllMetaDataPointsByScript(HttpServletRequest request) {
 		try {
 			User user = Common.getUser(request);
-			if (user != null) {
-				pointValueService.updateAllMetaDataPointsByScript(user);
-			} else {
+			if (user == null) {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			} else {
+				pointValueService.updateAllMetaDataPointsByScript(user);
 			}
 		} catch (Exception e) {
 			LOG.error(e);
