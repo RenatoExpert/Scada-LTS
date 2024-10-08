@@ -540,7 +540,7 @@
                 <tag:help id="reportTemplates"/>
               </td>
               <td align="right">
-                  <i class="bi bi-clipboard2-pulse" title="<fmt:message key='reports.newReport'/>"
+                  <i class="bi bi-file-text-fill" title="<fmt:message key='reports.newReport'/>"
                      onclick="loadReport(${applicationScope['constants.Common.NEW_ID']}, false)"
                      id="r${applicationScope['constants.Common.NEW_ID']}Img"></i>
               </td>

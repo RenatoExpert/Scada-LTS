@@ -336,9 +336,9 @@
         var display = editingMaintenanceEvent.id != ${NEW_ID};
     	
     	if (active)
-            updateIcon("toggleImg", "bi bi-hammer text-success", "<sst:i18n key='maintenanceEvents.activated' escapeDQuotes='true'/>", display, "block");
+            updateIcon("toggleImg", "bi bi-toggle-on text-success  me-3", "<sst:i18n key='maintenanceEvents.activated' escapeDQuotes='true'/>", display, "block");
     	else
-            updateIcon("toggleImg", "bi bi-hammer text-danger", "<sst:i18n key='maintenanceEvents.deactivated' escapeDQuotes='true'/>", display, "block");
+            updateIcon("toggleImg", "bi bi-toggle-off  me-3", "<sst:i18n key='maintenanceEvents.deactivated' escapeDQuotes='true'/>", display, "block");
     }
     
     function toggleMaintenanceEvent() {
@@ -354,8 +354,8 @@
   <table class="subPageHeader">
     <tr>
       <td valign="top">
-        <div class="borderDiv">
-          <table width="100%">
+        <div class="borderDiv02 left-menu">
+          <table>
             <tr>
               <td>
                 <span class="smallTitle"><fmt:message key="maintenanceEvents.mes"/></span>
@@ -381,22 +381,28 @@
       </td>
       
       <td valign="top" style="display:none;" id="maintenanceEventDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="maintenanceEvents.meDetails"/></span></td>
-              <td align="right">
-                <i class="bi bi-floppy2-fill text-success" onclick="saveMaintenanceEvent();" title="<sst:i18n key='common.save' escapeDQuotes='true'/>"></i>
-                <i id="deleteMaintenanceEventImg" class="bi bi-trash  text-danger" onclick="deleteMaintenanceEvent();" title="<sst:i18n key='common.delete' escapeDQuotes='true'/>"></i>
+        <div class="borderDiv01 right-box">
+            <div class="top-row-box">
+              <div class="box-description">
+              <span class="smallTitle"><fmt:message key="maintenanceEvents.meDetails"/></span>
+              </div>
+              <div class="edit-button">
                 <i id="toggleImg" onclick="toggleMaintenanceEvent();"></i>
-              </td>
-            </tr>
-          </table>
+                <i class="bi bi-floppy2-fill text-success  me-3" onclick="saveMaintenanceEvent();" title="<sst:i18n key='common.save' escapeDQuotes='true'/>"></i>
+                <span style="font-size: 16px;">
+                <sst:i18n key='common.save' escapeDQuotes='true'/>                
+                </span>
+                <i id="deleteMaintenanceEventImg" class="bi bi-trash  text-danger  me-3" onclick="deleteMaintenanceEvent();" title="<sst:i18n key='common.delete' escapeDQuotes='true'/>"></i>
+                <span style="font-size: 16px;">
+                <sst:i18n key='common.delete' escapeDQuotes='true'/>
+                </span>
+              </div>
+            </div>
           
           <table>
             <tr>
               <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
+              <td class="formField"><input class="form-control" type="text" id="xid"/></td>
             </tr>
             
             <tr>
@@ -406,7 +412,7 @@
             
             <tr>
               <td class="formLabel"><fmt:message key="maintenanceEvents.alias"/></td>
-              <td class="formField"><input type="text" id="alias"/></td>
+              <td class="formField"><input class="form-control" type="text" id="alias"/></td>
             </tr>
             
             <tr>
@@ -448,7 +454,7 @@
                   </tr>
                   
                   <tr>
-                    <td id="activeYearData"><input id="activeYear" type="text" class="formVeryShort"/></td>
+                    <td id="activeYearData"><input id="activeYear" type="text" class="form-control"/></td>
                     <td id="activeYearSlash">/</td>
                     <td id="activeMonthData">
                       <select id="activeMonth">
@@ -495,7 +501,7 @@
                 </table>
                 <table id="activeCronTable">
                   <tr><td align="center"><fmt:message key="common.cronPattern"/></td></tr>
-                  <tr><td><input type="text" id="activeCron"/> <tag:help id="cronPatterns"/></td></tr>
+                  <tr><td><input class="form-control" type="text" id="activeCron"/> <tag:help id="cronPatterns"/></td></tr>
                 </table>
               </td>
             </tr>
@@ -512,7 +518,7 @@
                     <td align="center"><fmt:message key="common.tp.day"/></td>
                   </tr>
                   <tr>
-                    <td id="inactiveYearData"><input id="inactiveYear" type="text" class="formVeryShort"/></td>
+                    <td id="inactiveYearData"><input id="inactiveYear" type="text" class="form-control"/></td>
                     <td id="inactiveYearSlash">/</td>
                     <td id="inactiveMonthData">
                       <select id="inactiveMonth">
@@ -559,14 +565,14 @@
                 </table>
                 <table id="inactiveCronTable">
                   <tr><td align="center"><fmt:message key="common.cronPattern"/></td></tr>
-                  <tr><td><input type="text" id="inactiveCron"/> <tag:help id="cronPatterns"/></td></tr>
+                  <tr><td><input class="form-control" type="text" id="inactiveCron"/> <tag:help id="cronPatterns"/></td></tr>
                 </table>
               </td>
             </tr>
             
             <tr>
               <td class="formLabelRequired"><fmt:message key="common.disabled"/></td>
-              <td class="formField"><input type="checkbox" id="disabled"/></td>
+              <td class="formField"><input class="form-check-input" type="checkbox" id="disabled"/></td>
             </tr>
           </table>
           

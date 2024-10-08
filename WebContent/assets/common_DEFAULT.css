@@ -33,10 +33,11 @@
 
 :root {
 	--slts-color-primary: #ab97f5;
-	--slts-color-primary-text: #555555;
-	--slts-color-secondary: #424041;
-	--slts-color-secondary-lighter: #F0F0F0;
-	--slts-color-secondary-lighter-alt: #d0d0d0;
+	--slts-color-primary-text: #111111;
+	--slts-color-primary-text-hover: #555555;
+	--slts-color-secondary: #0000008a;
+	--slts-color-secondary-lighter: #ffffff;
+	--slts-color-secondary-lighter-alt: #FAFAFA;
 	--slts-color-secondary-darker: #333333;
 	--slts-color-secondary-text: #FFFFFF;
 	--slts-color-background: #FFFFFF;
@@ -62,13 +63,13 @@ html > body {
 	font-family: var(--slts-font-family);
 	font-size: var(--slts-font-size--default);
 	color: var(--slts-color-primary-text);
-	background-color: var(--slts-color-background);
+	background-color: var(--slts-color-secondary-lighter-alt);
 }
 a, a:visited, a:link, .link {
-	color: var(--slts-color-secondary);
+	color: var(--slts-color-primary-text);
 }
 a:hover {
-	color: var(--slts-color-primary);
+	color: var(--slts-color-primary-text-hover);
 }
 a.titleLink, a.titleLink:visited, a.titleLink:link {
 	font-weight: bold;
@@ -125,7 +126,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 
 a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:hover {
-	color: var(--slts-color-secondary-text)
+	color: var(--slts-color-primary-text-hover)
 }
 
 .rowTable td, .smrowTable td, .rowTableAlt td, .smrowTableAlt td, .rowTableAlt2 td {
@@ -144,11 +145,29 @@ a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:
 .rowTableAlt td, .smrowTableAlt td {
 	background-color: var(--slts-color-secondary-lighter-alt);
 }
-
-.borderDiv, .borderDivPadded {
-	border: 3px solid var(--slts-color-primary);
+.borderDiv02, .left-menu {
+	padding: 10px 20px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 95%;
+}
+.borderDiv01, .right-box {
 	padding: 5px;
 	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 98%;
+}
+
+
+.borderDiv, .borderDivPadded {
+	/* border: 3px solid var(--slts-color-primary); */
+	padding: 5px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 95%;
 }
 
 .borderDivPadded {
@@ -317,7 +336,7 @@ html > body .dojoTreeNodeLabelTitle {
 /* teste de estilo no menu de navegação*/
 
 #subHeader-menu {
-	background-color: var(--slts-color-secondary-lighter);
+	background-color: #dcdcdc;
 	padding: 1px 0px 1px 0px;
 }
 
@@ -367,19 +386,22 @@ html > body .dojoTreeNodeLabelTitle {
 /* fim do teste de estilo no menu de navegação*/
 
 .menu-user.custom-size {
+    text-decoration: none;
+    color: #111111; /* Cor do texto */
     width: 190px; /* Largura da div */
     height: 32px; /* Altura da div */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px; /* Espaçamento entre ícone e texto */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
 }
 
 .menu-user.dropdown-item {
-	text-decoration: none; /* Remove o sublinhado do link */
+	text-decoration: none !important; /* Remove o sublinhado do link */
 }
 .dropdown-menu.dropdown-item {
-	text-decoration: none !important;; /* Remove o sublinhado do link */
+	text-decoration: none !important; /* Remove o sublinhado do link */
 }
 
 .avatar {
@@ -402,7 +424,7 @@ html > body .dojoTreeNodeLabelTitle {
     display: inline-block;
     width: 1px; /* Largura da linha */
     height: 35px; /* Altura da linha */
-    background-color: #1111111A; /* Cor da linha */
+    background-color: var(--slts-color-secondary); /* Cor da linha */
 	margin-top: 5px; /* Ajuste conforme necessário */
 }
 .notification-icon {
@@ -426,3 +448,28 @@ html > body .dojoTreeNodeLabelTitle {
     color: white;
     font-size: 10px; /* Ajuste do tamanho da fonte do badge */
 }
+
+
+.content .subPageHeader, .content #alarmsTable {
+	width: 99%;
+	padding: 20px;
+  } 
+
+/* --- Eventos de manutenção --- */
+.top-row-box {
+	display: flex;
+	justify-content: space-between;
+	width: 96%;
+	margin: 0 auto;
+	padding: 10px 0px;
+}
+.box-description {
+}
+
+.edit-button{
+	display: flex;
+	justify-content: space-between;	
+	width: 35%;
+	font-size: 20px;
+}
+

@@ -682,7 +682,7 @@
                 <i class="bi bi-journals text-primary" onclick="addWatchList(true)" title="<fmt:message key='watchlist.copyList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
                 <i class="bi bi-clipboard-plus-fill text-success" onclick="addWatchList(false)" title="<fmt:message key='watchlist.addNewList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
                 <i class="bi bi-clipboard-minus-fill  text-danger" id="watchListDeleteImg" onclick="deleteWatchList()" title="<fmt:message key='watchlist.deleteList'/>" style="display:none; cursor: pointer;" onmouseover="closeLayers();"></i>
-                <i class="bi bi-clipboard2-pulse" onclick="createReport()" title="<fmt:message key='watchlist.createReport'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-file-text-fill" onclick="createReport()" title="<fmt:message key='watchlist.createReport'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
               </td>
             </tr>
           </table>

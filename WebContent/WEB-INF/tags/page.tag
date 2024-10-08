@@ -420,7 +420,7 @@
                                                 <i class="bi bi-flag"></i>
                                             </a>
                                             <a href="reports.shtm" class="nav-link" title="<fmt:message key='header.reports'/>">
-                                                <i class="bi bi-clipboard2-pulse"></i>
+                                                <i class="bi bi-file-text-fill"></i>
                                             </a>
                                     </div>
 								</c:otherwise>
@@ -561,7 +561,7 @@
 		</div>
 	</c:if>
 </c:if>
-<div class="container-fluid">
+<div class="container">
     <div id="sltsContent" class="content">
     <jsp:doBody/>
     </div>
