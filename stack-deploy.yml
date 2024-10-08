@@ -12,10 +12,10 @@ services:
         mode: global
         resources:
           limits:
-            cpus: "1"
+            cpus: "2"
             memory: "768M"
           reservations:
-            cpus: "0.1"
+            cpus: "0.5"
             memory: "256M"
         restart_policy:
           condition: on-failure
