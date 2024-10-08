@@ -255,6 +255,13 @@ function get_area_by_intcode(intcode, children) {
 	}
 }
 
+function on_change_timestep(e) {
+	let timestep = document.getElementById('select-timestep');
+	let start = document.getElementById('start-time');
+	let end = document.getElementById('end-time');
+	let lock = timestep.value == 'day';
+	update_time_lock(start, end, lock);
+}
 
 
 // RelatoryView.js
