@@ -211,7 +211,7 @@ function replace_background(image) {
 }
 
 function find_parent(view_name) {
-	let l2_list = loaded.tree.root.children;
+	let l2_list = loaded.tree.root.erpm;
 	let process = {};
 	for(let l2 in l2_list) {
 		let process = l2_list[l2];
@@ -400,7 +400,7 @@ function get_view_info(xid) {
 				view.custom_bg = process.custom_bg;
 				break;
 			case 'l2':
-				process = loaded.tree.root.children[view.name];
+				process = loaded.tree.root.erpm[view.name];
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
@@ -447,7 +447,7 @@ function create_inline_menu(table, level) {
 
 function update_station_options(area, station_select, reference) {
 	station_select.replaceChildren();
-	Object.values(area.children).forEach(child => {
+	Object.values(area.erpm).forEach(child => {
 		let option = document.createElement("option");
 		option.value = child.code;
 		option.innerText = child.label;
@@ -551,7 +551,7 @@ function make_field_div(dom, id, title, callback) {
 
 function get_area_by_intcode(intcode, tree) {
 	let area_obj;
-	Object.values(tree.root.children).forEach(area => {
+	Object.values(tree.root.erpm).forEach(area => {
 		if(area.code == intcode) {
 			area_obj = area;
 		}
@@ -718,7 +718,7 @@ async function main() {
 					null;
 			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 
-			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
+			let l2 = create_inline_menu(loaded.tree.root.erpm, "l2");
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
