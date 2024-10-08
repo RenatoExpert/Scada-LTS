@@ -131,7 +131,7 @@
 			}
 		},
 
-		"children": {
+		"erpm": {
 			"alagoinhas": {
 				"code": "005",
 				"label": "Alagoinhas",
