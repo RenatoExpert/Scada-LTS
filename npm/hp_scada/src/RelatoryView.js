@@ -314,7 +314,7 @@ class RelatoryView {
 							let area_selector = document.getElementById('select-area');
 							let area_code = area_selector.value;
 							console.log({ socorro: this.tree });
-							area = get_area_by_intcode(area_code, this.tree.root.children);
+							area = get_area_by_intcode(area_code, this.tree.root.erpm);
 						}
 						let station_select = document.getElementById('select-station');
 						let reference = generated.reference;
