@@ -381,6 +381,7 @@ public class PointValueAPI {
             return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 
         } catch (Exception e) {
+		Exception exception = new Exception("Error:" + xid + request);
             LOG.error(e);
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
