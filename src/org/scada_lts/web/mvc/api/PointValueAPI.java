@@ -60,7 +60,7 @@ class ValueTime implements Serializable {
 	}
 
 	public void setTs(Long timestamp) {
-		this.ts = timestamp;
+		this.timestamp = timestamp;
 	}
 
 }
