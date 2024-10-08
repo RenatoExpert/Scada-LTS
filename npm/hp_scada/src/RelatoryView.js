@@ -330,7 +330,7 @@ class RelatoryView {
 					area_value = element.value;
 				});
 				form.append(area);
-				let area_int_code = get_area_by_intcode(area_value, this.tree.root.children);
+				let area_int_code = get_area_by_intcode(area_value, this.tree.root.erpm);
 				let station = make_selector_div('select-station', "Estação", element => {
 					update_station_options(area_int_code, element, this.reference)
 				});
