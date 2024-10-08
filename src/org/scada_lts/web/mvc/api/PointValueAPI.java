@@ -352,7 +352,7 @@ public class PointValueAPI {
 		try {
 			User user = Common.getUser(request);
 			if (user == null) {
-				response = ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+				response = new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 			} else {
 				DataPointVO dpvo = dataPointService.getDataPoint(xid);
 				PointValueTime pvt = pointValueService.getLatestPointValue(dpvo.getId());
@@ -365,12 +365,12 @@ public class PointValueAPI {
 					v.setDataPoint(dpvo);
 				}
 				json = mapper.writeValueAsString(v);
-				response = ResponseEntity<String>(json, HttpStatus.OK);
+				response = new ResponseEntity<String>(json, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			Exception exception = new Exception("Error:" + xid + request);
 			LOG.error(e);
-			response = ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			response = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		} finally {
 			return response;
 		}
