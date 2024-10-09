@@ -112,25 +112,25 @@
           <c:choose>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.DATA_POINT']}">
             <a href="data_point_details.shtm?dpid=${event.eventType.dataPointId}" title="<fmt:message key='events.pointDetails'/>">
-                <i class="bi bi-search"></i>
+                <i class="bi bi-search text-danger"></i>
             </a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.DATA_SOURCE']}">
-              <a href="data_source_edit.shtm?dsid=${event.eventType.dataSourceId}"><tag:img png="icon_ds_edit" title="events.editDataSource"/></a>
+              <a href="data_source_edit.shtm?dsid=${event.eventType.dataSourceId}"><i class="bi bi-database-fill-gear text-danger" title="<fmt:message key='events.editDataSource'/>"></i></a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.SYSTEM']}">
               <c:choose>
                 <c:when test="${event.eventType.systemEventTypeId == applicationScope['constants.SystemEventType.TYPE_VERSION_CHECK']}">
-                  <a href="http://mango.serotoninsoftware.com/download.jsp" target="_blank"><tag:img png="bullet_down" title="events.downloadMango"/></a>
+                  <a href="http://mango.serotoninsoftware.com/download.jsp" target="_blank"><i class="bi bi-file-earmark-arrow-down text-danger" title="<fmt:message key='events.downloadMango'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.systemEventTypeId == applicationScope['constants.SystemEventType.TYPE_COMPOUND_DETECTOR_FAILURE']}">
-                  <a href="compound_events.shtm?cedid=${event.eventType.referenceId2}"><tag:img png="multi_bell" title="events.editCompound"/></a>
+                  <a href="compound_events.shtm?cedid=${event.eventType.referenceId2}"><i class="bi bi-bell" title="<fmt:message key='events.editCompound'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.systemEventTypeId == applicationScope['constants.SystemEventType.TYPE_SET_POINT_HANDLER_FAILURE']}">
-                  <a href="event_handlers.shtm?ehid=${event.eventType.referenceId2}"><tag:img png="cog" title="events.editEventHandler"/></a>
+                  <a href="event_handlers.shtm?ehid=${event.eventType.referenceId2}"><i class="bi bi-gear text-danger" title="<fmt:message key='events.editEventHandler'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.systemEventTypeId == applicationScope['constants.SystemEventType.TYPE_POINT_LINK_FAILURE']}">
-                  <a href="point_links.shtm?plid=${event.eventType.referenceId2}"><tag:img png="link" title="events.editPointLink"/></a>
+                  <a href="point_links.shtm?plid=${event.eventType.referenceId2}"><i class="bi bi-arrow-left-right text-danger" title="<fmt:message key='events.editPointLink'/>"></i></a>
                 </c:when>
               </c:choose>
             </c:when>
@@ -138,39 +138,39 @@
               <a href="compound_events.shtm?cedid=${event.eventType.compoundEventDetectorId}"><i class="bi bi-bell" title="<fmt:message key='events.editCompound'/>"></i></a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.SCHEDULED']}">
-              <a href="scheduled_events.shtm?seid=${event.eventType.scheduleId}"><tag:img png="clock" title="events.editScheduledEvent"/></a>
+              <a href="scheduled_events.shtm?seid=${event.eventType.scheduleId}"><i class="bi bi-calendar-check text-danger" title="<fmt:message key='events.editScheduledEvent'/>"></i></a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.PUBLISHER']}">
-              <a href="publisher_edit.shtm?pid=${event.eventType.publisherId}"><tag:img png="transmit_edit" title="events.editPublisher"/></a>
+              <a href="publisher_edit.shtm?pid=${event.eventType.publisherId}"><i class="bi bi-broadcast-pin text-danger" title="<fmt:message key='events.editPublisher'/>"></i></a>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.AUDIT']}">
               <c:choose>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_DATA_SOURCE']}">
-                  <a href="data_source_edit.shtm?dsid=${event.eventType.referenceId2}"><tag:img png="icon_ds_edit" title="events.editDataSource"/></a>
+                  <a href="data_source_edit.shtm?dsid=${event.eventType.referenceId2}"><i class="bi bi-database-fill-gear text-danger" title="<fmt:message key='events.editDataSource'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_DATA_POINT']}">
-                  <a href="data_point_edit.shtm?dpid=${event.eventType.referenceId2}"><tag:img png="icon_comp_edit" title="events.pointEdit"/></a>
-                  <a href="data_source_edit.shtm?pid=${event.eventType.referenceId2}"><tag:img png="icon_ds_edit" title="events.editDataSource"/></a>
+                  <a href="data_point_edit.shtm?dpid=${event.eventType.referenceId2}"><i class="bi bi-pencil-square text-danger" title="<fmt:message key='events.pointEdit'/>"></i></a>
+                  <a href="data_source_edit.shtm?pid=${event.eventType.referenceId2}"><i class="bi bi-database-fill-gear text-danger" title="<fmt:message key='events.editDataSource'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_POINT_EVENT_DETECTOR']}">
-                  <a href="data_point_edit.shtm?pedid=${event.eventType.referenceId2}"><tag:img png="icon_comp_edit" title="events.pointEdit"/></a>
+                  <a href="data_point_edit.shtm?pedid=${event.eventType.referenceId2}"><i class="bi bi-pencil-square text-danger" title="<fmt:message key='events.pointEdit'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_COMPOUND_EVENT_DETECTOR']}">
-                  <a href="compound_events.shtm?cedid=${event.eventType.referenceId2}"><tag:img png="multi_bell" title="events.editCompound"/></a>
+                  <a href="compound_events.shtm?cedid=${event.eventType.referenceId2}"><i class="bi bi-bell" title="<fmt:message key='events.editCompound'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_SCHEDULED_EVENT']}">
-                  <a href="scheduled_events.shtm?seid=${event.eventType.referenceId2}"><tag:img png="clock" title="events.editScheduledEvent"/></a>
+                  <a href="scheduled_events.shtm?seid=${event.eventType.referenceId2}"><i class="bi bi-calendar-check text-danger" title="<fmt:message key='events.editScheduledEvent'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_EVENT_HANDLER']}">
-                  <a href="event_handlers.shtm?ehid=${event.eventType.referenceId2}"><tag:img png="cog" title="events.editEventHandler"/></a>
+                  <a href="event_handlers.shtm?ehid=${event.eventType.referenceId2}"><i class="bi bi-gear text-danger" title="<fmt:message key='events.editEventHandler'/>"></i></a>
                 </c:when>
                 <c:when test="${event.eventType.auditEventTypeId == applicationScope['constants.AuditEventType.TYPE_POINT_LINK']}">
-                  <a href="point_links.shtm?plid=${event.eventType.referenceId2}"><tag:img png="link" title="events.editPointLink"/></a>
+                  <a href="point_links.shtm?plid=${event.eventType.referenceId2}"><i class="bi bi-arrow-left-right text-danger" title="<fmt:message key='events.editPointLink'/>"></i></a>
                 </c:when>
               </c:choose>
             </c:when>
             <c:when test="${event.eventType.eventSourceId == applicationScope['constants.EventType.EventSources.MAINTENANCE']}">
-              <a href="maintenance_events.shtm?meid=${event.eventType.maintenanceId}"><tag:img png="hammer" title="events.editMaintenanceEvent"/></a>
+              <a href="maintenance_events.shtm?meid=${event.eventType.maintenanceId}"><i class="bi bi-wrench-adjustable-circle text-danger" title="<fmt:message key='events.editMaintenanceEvent'/>"></i></a>
             </c:when>
             <c:otherwise>(unknown event source id ${event.eventType.eventSourceId})</c:otherwise>
           </c:choose>

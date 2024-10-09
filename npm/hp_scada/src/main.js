@@ -386,6 +386,7 @@ function get_view_info(xid) {
 		view.name = split[1];
 	}
 	let process;
+	console.log({ view, xid });
 	from_tree: {
 		switch(view.level) {
 			case 'l0':

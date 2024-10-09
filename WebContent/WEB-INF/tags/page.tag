@@ -62,14 +62,14 @@
   </c:forTokens>
   <link rel="stylesheet" type="text/css" href="assets/user_styles.css"/>
   <jsp:invoke fragment="styles"/>
-
+    <%--
   <style type="text/css">
     #__header__alarmLevelImg {
         height: 32px !important;
         width: 32px !important;
         vertical-align: middle !important;
     }
-  </style>
+  </style>--%>
 
   <!-- Scripts -->
   <script type="text/javascript">
@@ -299,17 +299,93 @@
 
 <!-- mainHeader -->
 <c:if test="${!sessionUser.hideHeader}">
-	<div id="mainHeader" style="height: 75px;">
+	<div id="mainHeader" style="height: 75px; display: flex; justify-content: space-between; align-items: center;">
 		<tag:logo/>
-	</div>
+        <div class="btn-group">
+            <div class="menu-user custom-size">
+                <div>
+                <c:if test="${isLoggedToScadaUser}">
+                    <div class="sound-icon">
+                        <a href="#" class="nav-link" onclick="goHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.goHomeUrl'/>">
+                            <i class="bi bi-house me-3"></i>
+                        </a>
+                        <a href="#" class="nav-link" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.setHomeUrl'/>">
+                            <i class="bi bi-house-add me-3"></i>
+                        </a>
+                    <div class="vr custom-vr"></div>
+                    </div>
+                </c:if>
+                </div>
+                <div class="sound-icon">
+                    <a href="#" id="userMutedImg" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
+                    </a>
+                </div>
+                <div class="notification-icon">
+                    <a href="events.shtm" class="nav-link" title="<fmt:message key='header.alarms'/>">
+                        <i class="bi bi-bell me-2"></i>
+                    </a>
+                    <span class="badge">3</span> <!-- Número de notificações -->
+                </div>
+            <button class="avatar text-bg-primary dropdown" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+                <div>
+                    <c:if test="${isLoggedToScadaUser}">
+                        <c:choose>
+                            <c:when test="${!empty sessionUser.firstName}">
+                                <span class="userName-menu"><c:out value="${fn:substring(sessionUser.firstName, 0, 1)}"/></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="userName-menu"><c:out value="${fn:substring(sessionUser.username, 0, 1)}"/></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </div>
+            </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item">
+                            <div class="copyTitle"><fmt:message key="header.user"/></div>
+                            <div class="text-secondary"><c:out value="${sessionUser.firstName} ${sessionUser.lastName}"/></div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li id="navbarUserProperties" class="dropdown-item" href="#" onmouseover="showMenu('localeEdit', -125, 10);">
+                            <i class="bi bi-translate me-2"></i>
+                            <fmt:message key='header.changeLanguage'/>
+                            <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
+                            <c:forEach items="${availableLanguages}" var="lang">
+                                <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
+                            </c:forEach>
+                        </div>
+                    <li><a class="dropdown-item" href="users.shtm">
+                            <i class="bi bi-people me-2"></i>
+                            <fmt:message key='header.users'/></a>
+                    </li>
+                    <c:if test="${sessionUser.admin}">
+                        <li><a class="dropdown-item" href="system_settings.shtm">
+                            <i class="bi bi-sliders me-2">
+                            </i><fmt:message key='header.systemSettings'/></a>
+                        </li>
+                    </c:if>
+                    <li><a class="dropdown-item" href="help.shtm">
+                        <i class="bi bi-question-circle me-2"></i>
+                        <fmt:message key='header.help'/></a>
+                    </li>
+                    <li><a class="dropdown-item" href="logout.htm" onclick="disconnect()">
+                        <i class="bi bi-door-open me-2"></i>
+                        <fmt:message key='header.logout'/></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+	</div>    
 
 	<!-- subheader -->
 	<c:if test="${!simple}">
-		<div class="navHeader" id="subHeader">
+		<div class="navHeader" id="subHeader-menu">
 			<div>
 				<nav class="flex-default">
 					<c:if test="${isLoggedToScadaUser}">
-						<div class="spacer">
+						<div>
 							<c:choose>
 								<c:when test="${sessionUser.hideMenu}">
 									<c:if test="${!empty sessionUser.homeUrl}">
@@ -350,41 +426,34 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-
-						<c:if test="${sessionUser.admin}">
-              <div class="horizontal-menu">
-                      <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
-                          <i class="bi bi-gear"></i>
-                      </a>
-                      <a href="data_sources.shtm"" class="nav-link" title="<fmt:message key='header.dataSources'/>">
-                          <i class="bi bi-database-add"></i>
-                      </a>
-                      <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
-                          <i class="bi bi-calendar-check"></i>
-                      </a>
-                      <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
-                          <i class="bi bi-calendar-week"></i>
-                      </a>
-                      <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
-                          <i class="bi bi-arrow-left-right"></i>
-                      </a>
-                      <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
-                          <i class="bi bi-journal-code"></i>
-                      </a>
-              </div>
-						</c:if>
-              <div class="horizontal-menu">
-                      <a href="users.shtm" class="nav-link" title="<fmt:message key='header.users'/>">
-                          <i class="bi bi-people"></i>
-                      </a>
-						  </div>
-
-						<c:if test="${sessionUser.admin}">
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
+                                <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
+                                    <i class="bi bi-gear"></i>
+                                </a>
+                                <a href="data_sources.shtm" class="nav-link" title="<fmt:message key='header.dataSources'/>">
+                                    <i class="bi bi-database-add"></i>
+                                </a>
+                                <a href="scheduled_events.shtm" class="nav-link" title="<fmt:message key='header.scheduledEvents'/>">
+                                    <i class="bi bi-calendar-check"></i>
+                                </a>
+                                <a href="compound_events.shtm" class="nav-link" title="<fmt:message key='header.compoundEvents'/>">
+                                    <i class="bi bi-calendar-week"></i>
+                                </a>
+                                <a href="point_links.shtm" class="nav-link" title="<fmt:message key='header.pointLinks'/>">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                </a>
+                                <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
+                                    <i class="bi bi-journal-code"></i>
+                                </a>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
                                 <a href="usersProfiles.shtm" class="nav-link" title="<fmt:message key='header.usersProfiles'/>">
                                     <i class="bi bi-person-vcard"></i>
                                 </a>
-                                <a href="pointHierarchySLTS"" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
+                                <a href="pointHierarchySLTS" class="nav-link" title="<fmt:message key='header.pointHierarchy'/>">
                                     <i class="bi bi-menu-app"></i>
                                 </a>
                                 <a href="mailing_lists.shtm" class="nav-link" title="<fmt:message key='header.mailingLists'/>">
@@ -396,9 +465,9 @@
                                 <a href="maintenance_events.shtm" class="nav-link" title="<fmt:message key='header.maintenanceEvents'/>">
                                     <i class="bi bi-wrench-adjustable-circle"></i>
                                 </a>
-                                <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
+                                <%-- <a href="system_settings.shtm" class="nav-link" title="<fmt:message key='header.systemSettings'/>">
                                     <i class="bi bi-sliders"></i>
-                                </a>
+                                </a> --%>
                                 <a href="emport.shtm" class="nav-link" title="<fmt:message key='header.emport'/>">
                                     <i class="bi bi-floppy"></i>
                                 </a>
@@ -406,20 +475,20 @@
                                     <i class="bi bi-filetype-sql"></i>
                                 </a>
                             </div>
-						</c:if>
+                        </c:if>
 
-						<div class="spacer">
+						<%-- <div class="spacer">
                             <div class="horizontal-menu">
                                 <span onclick="disconnect()">
                                     <a href="logout.htm" class="nav-link" title="<fmt:message key='header.logout'/>">
-                                        <i class="bi bi-box-arrow-right"></i>
+                                        <i class="bi bi-door-open"></i>
                                     </a>
                                 </span>
                                     <a href="help.shtm" class="nav-link" title="<fmt:message key='header.help'/>">
                                         <i class="bi bi-question-circle"></i>
                                     </a>
                             </div>
-						</div>
+						</div> --%>
 					</c:if>
 
 					<c:if test="${isRolePublic}">
@@ -440,7 +509,7 @@
 			</div>
 
 			<div class="flex-default">
-				<div id="navbarUserInfo">
+				<%-- <div id="navbarUserInfo">
 					<c:if test="${isLoggedToScadaUser}">
 						<span class="copyTitle"><fmt:message key="header.user"/>:</span>
 						<c:choose>
@@ -452,10 +521,10 @@
 							</c:otherwise>
 						</c:choose>
 					</c:if>
-				</div>
+				</div> --%>
 
 				<div id="navbarUserProperties" class="flex-default spacer">
-					<c:if test="${isLoggedToScadaUser}">
+					<%-- <c:if test="${isLoggedToScadaUser}">
                         <div class="horizontal-menu">
                             <a href="#" id="userMutedImg" class="nav-link" onclick="MiscDwr.toggleUserMuted(setUserMuted)" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.userMuted'/>">
                             </a>
@@ -463,20 +532,20 @@
                                 <i class="bi bi-house"></i>
                             </a>
                             <a href="#" class="nav-link" onclick="setHomeUrl()" onmouseover="hideLayer('localeEdit')" title="<fmt:message key='header.setHomeUrl'/>">
-                                <i class="bi bi-house-door"></i>
+                                <i class="bi bi-house-add"></i>
                             </a>
                         </div>
-					</c:if>
-                        <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
+					</c:if> --%>
+                        <%-- <div class="ptr" onmouseover="showMenu('localeEdit', -100, 5);">
                                 <a href="#" class="nav-link" title="<fmt:message key='header.changeLanguage'/>">
-                                    <i class="bi bi-globe"></i>
+                                    <i class="bi bi-translate"></i>
                                 </a>
                             <div id="localeEdit" class="labelDiv navbar-dropdown--hidden" onmouseout="hideLayer(this)">
                                 <c:forEach items="${availableLanguages}" var="lang">
                                     <a class="ptr" onclick="setLocale('${lang.key}')">${lang.value}</a><br/>
                                 </c:forEach>
                             </div>
-                        </div>
+                        </div> --%>
 				</div>
 			</div>
 		</div>
