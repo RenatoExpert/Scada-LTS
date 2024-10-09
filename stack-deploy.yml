@@ -12,10 +12,10 @@ services:
         mode: global
         resources:
           limits:
-            cpus: "1"
+            cpus: "2"
             memory: "768M"
           reservations:
-            cpus: "0.1"
+            cpus: "0.5"
             memory: "256M"
         restart_policy:
           condition: on-failure
@@ -27,11 +27,11 @@ services:
           hard: 1024
       healthcheck:
           test: mysqladmin ping -h localhost
+          retries: 5
+          start_period: 30s
+          start_interval: 15s
           interval: 5s
-          timeout: 10s
-          retries: 10
-          start_period: 20s
-          start_interval: 10s
+          timeout: 15s
       ports:
           - target: 3306
             published: ${PORT_DB:-8881}
@@ -66,10 +66,10 @@ services:
       healthcheck:
         test: curl -X GET -sf http://localhost:8080/Scada-LTS/ || exit 1
         start_period: 2m
-        retries: 5
-        timeout: 10s
         start_interval: 1m
-        interval: 30s
+        timeout: 10s
+        interval: 15s
+        retries: 5
       ports:
           - target: 8080
             published: ${PORT_WEB:-8880}

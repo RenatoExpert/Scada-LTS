@@ -17,7 +17,7 @@
 
 					<form name="f" action="login.htm" method="post" onclick="nag()" class="login-form">
 						<label for="username" class="h6 font-weight-normal"><fmt:message key="login.userId"/></label>
-						<input class="form-control" id="username" type="text" name="username" value="${login.username}" maxlength="40">
+						<input class="form-control" id="username" type="text" name="username" value="${login.username}" maxlength="40" autofocus>
 						<label for="password" class="mt-4 h6 font-weight-normal"><fmt:message key="login.password"/></label>
 						<input type="password" id="password" class="form-control" name="password" value="${login.password}" maxlength="20">
 						<div class="formError">

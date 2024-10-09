@@ -18,7 +18,49 @@
 			"daily": {
 				"label": "Relatório Diário"
 			},
+			"cathodic": {
+				"children": {
+					"erpmsuzano": {
+						"code": "005",
+						"label": "RPM Suzano"
+					},
+					"cvcetrel": {
+						"code": "005",
+						"label": "CV Cetrel"
+					},
+					"postoondas": {
+						"code": "005",
+						"label": "Posto Ondas"
+					},
+					"postopetrobras": {
+						"code": "005",
+						"label": "Posto Petrobras"
+					},
+					"continental": {
+						"code": "005",
+						"label": "Continental"
+					},
+					"cvpostoleiro": {
+						"code": "005",
+						"label": "CV Posto Leiro"
+					},
+					"tecnogress": {
+						"code": "005",
+						"label": "Tecnogress"
+					},
+					"postoplastic": {
+						"code": "005",
+						"label": "Posto Plastic"
+					},
+					"low1": {
+						"code": "005",
+						"label": "LOW 1"
+					}
+				},
+				"label": "Monitoramento da Proteção Catódica"
+			},
 			"rectifiers": {
+				"code": "324",
 				"children": {
 					"boticario": {
 						"code": "005",
@@ -89,7 +131,7 @@
 			}
 		},
 
-		"children": {
+		"erpm": {
 			"alagoinhas": {
 				"code": "005",
 				"label": "Alagoinhas",

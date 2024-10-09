@@ -6,9 +6,12 @@ import utils from './utils/utils.js';
 import api from './api/api.js';
 
 import Graphic_component from './graphic_component/graphic_component.js';
+import Rectifiers_component from './rectifiers_component/rectifiers_component.js';
 import Cathodic_component from './cathodic_component/cathodic_component.js';
 //import Summary_component from './summary_component/summary_component.js';
 import StationsSummary from './StationsSummary/StationsSummary.js';
+import RelatoryView from './RelatoryView.js';
+
 
 import * as views_tree from 'views_tree.json';
 
@@ -145,82 +148,6 @@ function get_timedate(timestamp) {
 	return full;
 }
 
-function render_relatory(obj, id_col) {
-	let iframe = document.getElementById("relatory-iframe");
-	let parent_dom = iframe.contentWindow.document.getElementById('relatory-table')
-	let child_dom = generate_relatory_dom(obj, id_col);
-	parent_dom.replaceChildren(child_dom);
-}
-
-function generate_relatory_dom(obj, id_col, linear = true) {
-	let relatory = document.createElement("div");
-	relatory.style.padding = "3px 15px";
-	let table = document.createElement("table");
-	header: {
-		let row = document.createElement("tr");
-		let headers = [id_col, "Volume não-corrigido", "Volume corrigido", "Pressão Média", "Temperatura Média"];
-		for(let header in headers) {
-			let col = utils.tag_text("th", headers[header]);
-			col.style.padding = "2px 15px";
-			row.append(col);
-		}
-		table.append(row);
-	}
-	body: {
-		let raw_volume_eu = linear ? "m³" : "kPa";
-		let std_volume_eu = "m³";
-		let avg_pressure_eu = "kgf/cm²";
-		let avg_temperature_eu = "ºC";
-		Object.getOwnPropertyNames(obj).forEach(time => {
-			let frame = obj[time];
-			let row = document.createElement("tr");
-			let { raw_volume, std_volume, avg_pressure, avg_temperature } = frame;
-			let cols = [
-				time,
-				utils.format_var(raw_volume, raw_volume_eu),
-				utils.format_var(std_volume, std_volume_eu),
-				utils.format_var(avg_pressure, avg_pressure_eu),
-				utils.format_var(avg_temperature, avg_temperature_eu)
-			];
-			for(let i in cols) {
-				let col = utils.tag_text("td", cols[i]);
-				col.style.padding = "2px 15px";
-				col.style.textAlign = "right";
-				row.append(col);
-			}
-			table.append(row);
-		});
-	}
-	relatory.append(table);
-	return relatory;
-}
-
-function make_relatory_indexes(from, to) {
-	let hour_in_ms = 60 * 60 * 1e3;
-	let day_in_ms = hour_in_ms * 24;
-	let formstep = document.getElementById("select-timestep");
-	let step = formstep.value == "hour" ? hour_in_ms : day_in_ms;
-	let indexes = [];
-	let min = from;
-	let max = min + step;
-	while(max < to) {
-		indexes.push(get_timedate(min));
-		min = max;
-		max += step;
-	}
-	return indexes;
-}
-
-function get_hist_tags(area_code, station_code) {
-	let sample = {
-		raw_volume: [`ERPM${area_code}-FQ${station_code}-FQIA-1`, "Contagem anterior"],
-		std_volume: [`ERPM${area_code}-FQ${station_code}-FQI-1`, "Contagem atual"],
-		avg_pressure: [`ERPM${area_code}-FQ${station_code}-PI-1`, "Pressão"],
-		avg_temperature: [`ERPM${area_code}-FQ${station_code}-TI-1`, "Temperatura"]
-	};
-	return sample;
-}
-
 var generated_relatory = false;
 
 function validate_filter(e) {
@@ -284,7 +211,7 @@ function replace_background(image) {
 }
 
 function find_parent(view_name) {
-	let l2_list = loaded.tree.root.children;
+	let l2_list = loaded.tree.root.erpm;
 	let process = {};
 	for(let l2 in l2_list) {
 		let process = l2_list[l2];
@@ -474,7 +401,7 @@ function get_view_info(xid) {
 				view.custom_bg = process.custom_bg;
 				break;
 			case 'l2':
-				process = loaded.tree.root.children[view.name];
+				process = loaded.tree.root.erpm[view.name];
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
@@ -519,26 +446,9 @@ function create_inline_menu(table, level) {
 	return menu;
 }
 
-
-function get_area_by_intcode(intcode) {
-	let area_obj;
-	Object.values(loaded.tree.root.children).forEach(area => {
-		if(area.code == intcode) {
-			area_obj = area;
-		}
-	});
-	if(area_obj) {
-		console.debug(`Are found for code ${intcode}`);
-		console.debug({ area_obj, intcode });
-		return area_obj;
-	} else {
-		throw new Error(`Area not found for code ${intcode}`);
-	}
-}
-
 function update_station_options(area, station_select, reference) {
 	station_select.replaceChildren();
-	Object.values(area.children).forEach(child => {
+	Object.values(area.erpm).forEach(child => {
 		let option = document.createElement("option");
 		option.value = child.code;
 		option.innerText = child.label;
@@ -565,38 +475,11 @@ function on_change_area(e) {
 	get_area: {
 		let area_selector = document.getElementById('select-area');
 		let area_code = area_selector.value;
-		area = get_area_by_intcode(area_code);
+		area = get_area_by_intcode(area_code, loaded.tree);
 	}
 	let station_select = document.getElementById('select-station');
 	let reference = generated.reference;
 	update_station_options(area, station_select, reference);
-}
-
-function make_field_div(dom, id, title, callback) {
-	let div = document.createElement("div");
-	div.style.cssFloat = "left";
-	div.style.margin = "5px";
-	div.style.padding = "3px";
-	div.style.border = "1px";
-	div.style.minWidth = "60px";
-	label: {
-		let label = document.createElement("label");
-		label.innerText = title;
-		label.style.display = "block";
-		div.append(label);
-	}
-	input: {
-		let input = document.createElement(dom);
-		input.id = id;
-		input.name = id;
-		callback(input);
-		div.append(input);
-	}
-	return div;
-}
-
-function make_selector_div(id, title, callback) {
-	return make_field_div("select", id, title, callback);
 }
 
 function save_file(data, filename, type) {
@@ -643,142 +526,52 @@ function download_xlsx() {
 	console.log("xlsx");
 }
 
-function create_relatory_view(reference, step) {
-	let root = document.createElement("div");
-	root.style.display = "grid";
-	generate_filter: {
-		let filter = document.createElement("div");
-		let form = document.createElement("form");
-		form.id = "relatory-form";
-		form.addEventListener("submit", validate_filter);
-		form.action = "javascript:;";
-		form.style.padding = "3px 15px";
-		selectors: {
-			let area_value;
-			let area = make_selector_div('select-area', "Área", element => {
-				element.addEventListener("change", on_change_area);
-				Object.values(loaded.tree.root.children).forEach(child => {
-					let option = document.createElement("option");
-					option.value = child.code;
-					option.innerText = child.label;
-					option.selected = child.code == reference.process.code ? 'selected' : '';
-					element.append(option);
-				});
-				area_value = element.value;
-			});
-			form.append(area);
-			let area_int_code = get_area_by_intcode(area_value);
-			let station = make_selector_div('select-station', "Estação", element => {
-				update_station_options(area_int_code, element, reference)
-			});
-			form.append(station);
-		}
-		start: {
-			let date = make_field_div("input", "start-date", "Data Início", element => {
-				element.type = "date";
-				let days_delta = step == 'day' ? 3 : 1;
-				let ms_in_day = 1e3 * 60 * 60 * 24;
-				element.valueAsNumber = new Date() - (ms_in_day * days_delta);
-				element.required = true;
-			});
-			form.append(date);
-			let time = make_field_div("input", "start-time", "Hora Início", element => {
-				element.addEventListener("change", clear_minutes);
-				element.type = "time";
-				element.valueAsNumber = 0;
-				element.required = true;
-				element.disabled = step == 'day';
-			});
-			form.append(time);
-		}
-		end: {
-			let date = make_field_div("input", "end-date", "Data Final", element => {
-				element.type = "date";
-				element.valueAsDate = new Date();
-				element.required = true;
-			});
-			form.append(date);
-			let time = make_field_div("input", "end-time", "Hora Início", element => {
-				element.addEventListener("change", clear_minutes);
-				element.type = "time";
-				element.valueAsNumber = 0;
-				element.required = true;
-				element.disabled = step == 'day';
-			});
-			form.append(time);
-		}
-		step_type: {
-			let timestep = make_selector_div("select-timestep", "Tipo de relatório", element => {
-				element.addEventListener("change", on_change_timestep);
-				let hourly = document.createElement("option");
-				hourly.value = "hour";
-				hourly.innerText = "Horário";
-				hourly.selected = step == "hour" ? 'selected' : '';
-				element.append(hourly);
-				let daily = document.createElement("option");
-				daily.value = "day";
-				daily.innerText = "Diário";
-				daily.selected = step == "day" ? 'selected' : '';
-				element.append(daily);
-			})
-			form.append(timestep);
-		}
-		submit: {
-			let submit = make_field_div("input", "form-submit", "*", element => {
-				element.type = "submit";
-				element.value = "Gerar";
-				element.style.backgroundColor = "lightgray";
-				element.style.borderRadius = "5px";
-				element.style.width = "50px";
-			});
-			form.append(submit);
-		}
-		filter.append(form);
-		file_export: {
-			let export_menu = document.createElement("div");
-			let pdf = make_field_div("button", "export-pdf", "Export as", element => {
-				element.innerText = "PDF";
-				element.onclick = download_pdf;
-			});
-			export_menu.append(pdf);
-			let csv = make_field_div("button", "export-csv", "Export as", element => {
-				element.innerText = "csv";
-				element.onclick = download_csv;
-			});
-			export_menu.append(csv);
-			let xlsx = make_field_div("button", "export-xlsx", "Export as", element => {
-				element.innerText = "xlsx";
-				element.onclick = download_xlsx;
-			});
-			export_menu.append(xlsx);
-			filter.append(export_menu);
-		}
-		root.append(filter);
+//	Here starts relatory section
+function make_field_div(dom, id, title, callback) {
+	let div = document.createElement("div");
+	div.style.cssFloat = "left";
+	div.style.margin = "5px";
+	div.style.padding = "3px";
+	div.style.border = "1px";
+	div.style.minWidth = "60px";
+	label: {
+		let label = document.createElement("label");
+		label.innerText = title;
+		label.style.display = "block";
+		div.append(label);
 	}
-	let iframe_parent = document.createElement("div");
-	iframe_parent.style.padding = "15px 30px";
-	let relatory_iframe = document.createElement("IFRAME");
-	relatory_iframe.id = "relatory-iframe";
-	relatory_iframe.height = "500";
-	relatory_iframe.width = "1150";
-	iframe_parent.append(relatory_iframe);
-	root.append(iframe_parent);
-	after_dom: {
-		let relatory_table = document.createElement("div");
-		relatory_table.id = "relatory-table";
-		let observer = new MutationObserver((mutationList, observer) => {
-			for (let mutation in mutationList) {
-				console.log({ mutation });
-				if (document.getElementById("relatory-iframe")) {
-					relatory_iframe.contentWindow.document.body.append(relatory_table);
-					observer.disconnect();
-				}
-			}
-		});
-		observer.observe(document.getElementById("viewContent"), { childList: true });
+	input: {
+		let input = document.createElement(dom);
+		input.id = id;
+		input.name = id;
+		callback(input);
+		div.append(input);
 	}
-	return root;
+	return div;
 }
+
+function get_area_by_intcode(intcode, tree) {
+	let area_obj;
+	Object.values(tree.root.erpm).forEach(area => {
+		if(area.code == intcode) {
+			area_obj = area;
+		}
+	});
+	if(area_obj) {
+		console.debug(`Are found for code ${intcode}`);
+		console.debug({ area_obj, intcode });
+		return area_obj;
+	} else {
+		throw new Error(`Area not found for code ${intcode}`);
+	}
+}
+
+
+function make_selector_div(id, title, callback) {
+	return make_field_div("select", id, title, callback);
+}
+
+//	Here ends relatory section
 
 function page_url(page) {
 	let url = new URL(window.location.href);
@@ -794,6 +587,7 @@ var sources;
 var loaded;
 var generated;
 var current_view;
+
 
 async function main() {
 	console.log(`Starting High Performance SCADA Library - version ${version_tag}`);
@@ -918,18 +712,19 @@ async function main() {
 			})();
 			let map = new Map(loaded.tree);
 			let summary = current_view.level == "l2" ? new StationsSummary(map).get_dom_element() : null
-			let cathodic = current_view.xid == "l1-rectifiers" ? new Cathodic_component(map).get_dom_element() : null
-			let relatory =	current_view.xid == "l1-hourly" ? create_relatory_view(reference, "hour") :
-					current_view.xid == "l1-daily" ? create_relatory_view(reference, "day") :
+			let rectifiers = current_view.xid == "l1-rectifiers" ? new Rectifiers_component(map).get_dom_element() : null
+			let cathodic = current_view.xid == "l1-cathodic" ? new Cathodic_component(map).get_dom_element() : null
+			let relatory = current_view.xid == "l1-hourly" ? new RelatoryView(reference, "hour", loaded.tree).get_dom_element() :
+					current_view.xid == "l1-daily" ? new RelatoryView(reference, "day", loaded.tree).get_dom_element() :
 					null;
 			let graphics = current_view.xid == "l1-graphics" ? new Graphic_component(reference).get_dom_element() : null;
 
-			let l2 = create_inline_menu(loaded.tree.root.children, "l2");
+			let l2 = create_inline_menu(loaded.tree.root.erpm, "l2");
 
 			l1.id = "header-l1";
 			l2.id = "header-l2";
 
-			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics, cathodic };
+			generated = { hp_headers, l1, l2, summary, current_view, relatory, reference, graphics, cathodic, rectifiers };
 		}
 	}
 
@@ -947,8 +742,10 @@ async function main() {
 				headers.appendChild(generated.summary);
 			} else if(["l1-hourly", "l1-daily"].includes(current_view.xid)) {
 				headers.appendChild(generated.relatory);
-			} else if(current_view.xid == "l1-rectifiers") {
+			} else if(current_view.xid == "l1-cathodic") {
 				headers.appendChild(generated.cathodic);
+			} else if(current_view.xid == "l1-rectifiers") {
+				headers.appendChild(generated.rectifiers);
 			} else if(current_view.xid == "l1-graphics") {
 				headers.appendChild(generated.graphics);
 			} else if(current_view.xid == "l1-cidades") {
@@ -1000,6 +797,9 @@ async function main() {
 						}
 						bind_button("l1-rectifiers", "Retificadores", () => {
 							utils.goto_id("l1-rectifiers");
+						});
+						bind_button("l1-cathodic", "Monitoramento da proteção catódica", () => {
+							utils.goto_id("l1-cathodic");
 						});
 					}
 				}).catch(problem => {
