@@ -94,7 +94,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 /* Sub-header */
 .smallTitle {
-	color: var(--slts-color-secondary);
+	color: var(--slts-color-secondary-darker);
 	font-size: var(--slts-font-size--subtitle);
 	font-weight: bold;
 }
@@ -145,20 +145,7 @@ a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:
 .rowTableAlt td, .smrowTableAlt td {
 	background-color: var(--slts-color-secondary-lighter-alt);
 }
-.borderDiv02, .left-menu {
-	padding: 10px 20px;
-	border-radius: 10px;
-	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
-	background-color: var(--slts-color-secondary-lighter);
-	width: 95%;
-}
-.borderDiv01, .right-box {
-	padding: 5px;
-	border-radius: 10px;
-	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
-	background-color: var(--slts-color-secondary-lighter);
-	width: 98%;
-}
+
 
 
 .borderDiv, .borderDivPadded {
@@ -183,8 +170,9 @@ html > body table {
 }
 .formLabel, .formLabelRequired {
 	padding-right: 10px;
-	padding-top: 5px;
-	text-align: right;
+	padding-left: 20px;
+	/* padding-top: 5px; */
+	/* text-align: right; */
 }
 .formField {
 	padding: 2px;
@@ -201,10 +189,10 @@ table select {
     -webkit-appearance: revert;
     appearance: revert;
 }
-input[type="checkbox"], input[type="radio"] {
+/* input[type="checkbox"], input[type="radio"] {
 	color: var(--slts-color-primary);
 	border: 0;
-}
+} comentado por Claudio Mendonça sobre escreveu o bootstrap */
 .formDisabled {
 	border: 1px solid var(--slts-color-secondary-lighter);
 }
@@ -288,13 +276,13 @@ html > body .dojoTreeNodeLabelTitle {
 
 .login-box .form-box > .formLabelRequired {
 	margin-bottom: 0.6rem;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1.25;
-	font-family: Inter, 'Source Sans Pro';
+	font-family: Inter, 'Label Medium';
 	white-space: nowrap;
 	flex-shrink: 0;
 	color: var(--slts-color-primary-text);
-	font-size: var(--slts-font-size--subtitle);
+	font-size: var(--slts-font-size--section-title);
 }
 
 .spacer > * {
@@ -471,5 +459,57 @@ html > body .dojoTreeNodeLabelTitle {
 	justify-content: space-between;	
 	width: 35%;
 	font-size: 20px;
+}
+
+.formLabelinput {
+    display: flex;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+}
+
+/* menus esquerdo e box direito */
+.left-menu {
+	padding: 10px 20px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 95%;;
+    height: 28.1rem;
+}
+.right-box {
+	padding: 5px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 98%;
+}
+
+/* Configuração de formulario */
+.custom-padding-form {
+    padding-left: 16px; /* Ajuste o valor conforme necessário */
+	font-size: var(--slts-font-size--section-title);
+}
+.custom-padding-l {
+	padding-right: 0px; /* Ajuste o valor conforme necessário */
+}
+.custom-padding-is {
+	padding-left: 5px; /* Ajuste o valor conforme necessário */
+}
+
+.icon-selection {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.custom-checkbox {
+	margin: 12px;
+    transform: scale(2); /* Ajuste o valor conforme necessário */
+    margin: 5px; /* Ajuste o valor conforme necessário */
+}
+
+.icon-selection i {
+	font-size: 20px; /* Tamanho do ícone */
+	padding-left: 10px;
 }
 
