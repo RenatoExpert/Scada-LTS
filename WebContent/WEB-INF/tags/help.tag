@@ -18,4 +18,4 @@
 --%><%@include file="/WEB-INF/tags/decl.tagf"%><%--
 --%><%@tag body-content="empty"%><%--
 --%><%@attribute name="id"%><%--
---%><i class="bi bi-question-circle" title="<fmt:message key='common.help'/>" style="display:inline; width:auto; height: 16px; vertical-align:bottom; margin-bottom: 4px; cursor: pointer;" onclick="help('${id}', this);"></i>
+--%><i class="bi bi-question-circle ms-3" title="<fmt:message key='common.help'/>" style="display:inline; width:auto; height: 16px; vertical-align:bottom; margin-bottom: 4px; cursor: pointer;" onclick="help('${id}', this);"></i>
