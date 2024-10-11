@@ -18,14 +18,6 @@
          ],
          "sharingUsers":[
             {
-               "user":"jeferson",
-               "accessType":"READ"
-            },
-            {
-               "user":"gabriel",
-               "accessType":"READ"
-            },
-            {
                "user":"silvaney",
                "accessType":"READ"
             },
@@ -36,6 +28,14 @@
             {
                "user":"paulofranca",
                "accessType":"SET"
+            },
+            {
+               "user":"jeferson",
+               "accessType":"READ"
+            },
+            {
+               "user":"gabriel",
+               "accessType":"READ"
             }
          ],
          "resolution":"R1280x720",
@@ -59,15 +59,15 @@
          ],
          "sharingUsers":[
             {
+               "user":"silvaney",
+               "accessType":"READ"
+            },
+            {
                "user":"jeferson",
                "accessType":"READ"
             },
             {
                "user":"gabriel",
-               "accessType":"READ"
-            },
-            {
-               "user":"silvaney",
                "accessType":"READ"
             }
          ],
@@ -96,6 +96,347 @@
       }
    ],
    "dataPoints":[
+      {
+         "xid":"dp_one",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"INCREMENT_ANALOG",
+               "change":1.0,
+               "max":30.0,
+               "min":0.0,
+               "roll":true,
+               "startValue":"1"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"dp_one",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"dp_two",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"ANALOG_ATTRACTOR",
+               "attractionPointId":"dp_one",
+               "maxChange":15.0,
+               "startValue":"1",
+               "volatility":15.0
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"dp_two",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"ERPM001-FQ064-PAH-1",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"BINARY",
+            "changeType":{
+               "type":"NO_CHANGE",
+               "startValue":"0"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"ERPM001-FQ064-PAH-1",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"ERPM001-FQ064-SG-1",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"BINARY",
+            "changeType":{
+               "type":"NO_CHANGE",
+               "startValue":"1"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"ERPM001-FQ064-SG-1",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"virtual_pressure",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"BROWNIAN",
+               "max":23.0,
+               "maxChange":2.0,
+               "min":17.0,
+               "startValue":"17"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"virtual_pressure",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"virtual_temperature",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"NO_CHANGE",
+               "startValue":"30"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"virtual_temperature",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"virtual_flow",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"BROWNIAN",
+               "max":10.0,
+               "maxChange":1.0,
+               "min":5.0,
+               "startValue":"7"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"virtual_flow",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
+      {
+         "xid":"virtual_voltage",
+         "loggingType":"ON_CHANGE",
+         "intervalLoggingPeriodType":"MINUTES",
+         "intervalLoggingType":"INSTANT",
+         "purgeType":"YEARS",
+         "pointLocator":{
+            "dataType":"NUMERIC",
+            "changeType":{
+               "type":"NO_CHANGE",
+               "startValue":"24"
+            },
+            "settable":true
+         },
+         "eventDetectors":[
+         ],
+         "engineeringUnits":"",
+         "purgeStrategy":"PERIOD",
+         "chartColour":null,
+         "chartRenderer":null,
+         "dataSourceXid":"datasource_test",
+         "defaultCacheSize":1,
+         "description":null,
+         "deviceName":"datasource_test",
+         "discardExtremeValues":false,
+         "discardHighLimit":1.7976931348623157E308,
+         "discardLowLimit":-1.7976931348623157E308,
+         "enabled":true,
+         "eventTextRenderer":{
+            "type":"EVENT_NONE"
+         },
+         "intervalLoggingPeriod":15,
+         "name":"virtual_voltage",
+         "purgePeriod":1,
+         "purgeValuesLimit":100,
+         "textRenderer":{
+            "type":"PLAIN",
+            "suffix":""
+         },
+         "tolerance":0.0
+      },
       {
          "xid":"DP_988939",
          "loggingType":"ON_CHANGE",
@@ -950,354 +1291,43 @@
             "suffix":""
          },
          "tolerance":0.0
-      },
-      {
-         "xid":"dp_one",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"INCREMENT_ANALOG",
-               "change":1.0,
-               "max":30.0,
-               "min":0.0,
-               "roll":true,
-               "startValue":"1"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"dp_one",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"dp_two",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"ANALOG_ATTRACTOR",
-               "attractionPointId":"dp_one",
-               "maxChange":15.0,
-               "startValue":"1",
-               "volatility":15.0
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"dp_two",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"ERPM001-FQ064-PAH-1",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"BINARY",
-            "changeType":{
-               "type":"NO_CHANGE",
-               "startValue":"0"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"ERPM001-FQ064-PAH-1",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"ERPM001-FQ064-SG-1",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"BINARY",
-            "changeType":{
-               "type":"NO_CHANGE",
-               "startValue":"1"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"ERPM001-FQ064-SG-1",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"virtual_pressure",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"BROWNIAN",
-               "max":23.0,
-               "maxChange":2.0,
-               "min":17.0,
-               "startValue":"17"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"virtual_pressure",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"virtual_temperature",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"NO_CHANGE",
-               "startValue":"30"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"virtual_temperature",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"virtual_flow",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"BROWNIAN",
-               "max":10.0,
-               "maxChange":1.0,
-               "min":5.0,
-               "startValue":"7"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"virtual_flow",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
-      },
-      {
-         "xid":"virtual_voltage",
-         "loggingType":"ON_CHANGE",
-         "intervalLoggingPeriodType":"MINUTES",
-         "intervalLoggingType":"INSTANT",
-         "purgeType":"YEARS",
-         "pointLocator":{
-            "dataType":"NUMERIC",
-            "changeType":{
-               "type":"NO_CHANGE",
-               "startValue":"24"
-            },
-            "settable":true
-         },
-         "eventDetectors":[
-         ],
-         "engineeringUnits":"",
-         "purgeStrategy":"PERIOD",
-         "chartColour":null,
-         "chartRenderer":null,
-         "dataSourceXid":"datasource_test",
-         "defaultCacheSize":1,
-         "description":null,
-         "deviceName":"datasource_test",
-         "discardExtremeValues":false,
-         "discardHighLimit":1.7976931348623157E308,
-         "discardLowLimit":-1.7976931348623157E308,
-         "enabled":true,
-         "eventTextRenderer":{
-            "type":"EVENT_NONE"
-         },
-         "intervalLoggingPeriod":15,
-         "name":"virtual_voltage",
-         "purgePeriod":1,
-         "purgeValuesLimit":100,
-         "textRenderer":{
-            "type":"PLAIN",
-            "suffix":""
-         },
-         "tolerance":0.0
       }
    ],
    "scheduledEvents":[
+      {
+         "xid":"SE_850761",
+         "alarmLevel":"NONE",
+         "scheduleType":"DAILY",
+         "activeCron":"",
+         "activeDay":0,
+         "activeHour":0,
+         "activeMinute":0,
+         "activeMonth":9,
+         "activeSecond":0,
+         "activeYear":2024,
+         "alias":"vvsvsvsvsvs",
+         "disabled":false,
+         "inactiveCron":"",
+         "inactiveDay":0,
+         "inactiveHour":0,
+         "inactiveMinute":0,
+         "inactiveMonth":9,
+         "inactiveSecond":0,
+         "inactiveYear":2024,
+         "returnToNormal":true
+      }
    ],
    "compoundEventDetectors":[
    ],
    "pointLinks":[
+      {
+         "xid":"PL_372341",
+         "sourcePointId":"dp_two",
+         "targetPointId":"dp_one",
+         "event":"CHANGE",
+         "disabled":false,
+         "script":"lhuioghiohio"
+      }
    ],
    "users":[
       {
@@ -1314,7 +1344,7 @@
          "hideMenu":false,
          "hideShortcutDisableFullScreen":false,
          "homeUrl":"",
-         "lang":"en",
+         "lang":"pt",
          "lastName":"",
          "password":"0DPiKuNIrrVmD8IUCuw1hQxNqZc=",
          "phone":"",
@@ -1450,6 +1480,30 @@
          "dataPointPermissions":[
          ],
          "userProfileXid":"",
+         "admin":false,
+         "disabled":false,
+         "email":"lucas@luminiit.com",
+         "enableFullScreen":false,
+         "firstName":"Lucas",
+         "hideMenu":false,
+         "hideShortcutDisableFullScreen":false,
+         "homeUrl":"",
+         "lang":"pt",
+         "lastName":"Paiva",
+         "password":"fEqNCco3Yq9h5ZUglD3CZJT4lBs=",
+         "phone":"",
+         "receiveOwnAuditEvents":false,
+         "selectedWatchList":0,
+         "theme":"DEFAULT",
+         "userProfile":-1,
+         "username":"lucas"
+      },
+      {
+         "dataSourcePermissions":[
+         ],
+         "dataPointPermissions":[
+         ],
+         "userProfileXid":"",
          "admin":true,
          "disabled":false,
          "email":"fneubert@terra.com.br",
@@ -1463,7 +1517,7 @@
          "password":"fEqNCco3Yq9h5ZUglD3CZJT4lBs=",
          "phone":"",
          "receiveOwnAuditEvents":false,
-         "selectedWatchList":6,
+         "selectedWatchList":0,
          "theme":"DEFAULT",
          "userProfile":-1,
          "username":"luiz"
@@ -1589,6 +1643,19 @@
    ],
    "watchLists":[
       {
+         "xid":"WL_890956",
+         "user":"admin",
+         "dataPoints":[
+            "ERPM001-FQ064-PAH-1",
+            "ERPM001-FQ064-SG-1",
+            "virtual_pressure",
+            "virtual_temperature"
+         ],
+         "sharingUsers":[
+         ],
+         "name":"(unnamed)"
+      },
+      {
          "xid":"WL_753758",
          "user":"admin",
          "dataPoints":[
@@ -1665,14 +1732,6 @@
          ],
          "sharingUsers":[
             {
-               "user":"jeferson",
-               "accessType":"READ"
-            },
-            {
-               "user":"gabriel",
-               "accessType":"READ"
-            },
-            {
                "user":"silvaney",
                "accessType":"READ"
             },
@@ -1683,14 +1742,55 @@
             {
                "user":"paulofranca",
                "accessType":"SET"
+            },
+            {
+               "user":"jeferson",
+               "accessType":"READ"
+            },
+            {
+               "user":"gabriel",
+               "accessType":"READ"
             }
          ],
          "name":"postotrevo"
       }
    ],
    "maintenanceEvents":[
+      {
+         "xid":"ME_431804",
+         "dataSourceXid":null,
+         "alarmLevel":"NONE",
+         "scheduleType":"MANUAL",
+         "activeCron":"",
+         "activeDay":0,
+         "activeHour":0,
+         "activeMinute":0,
+         "activeMonth":9,
+         "activeSecond":0,
+         "activeYear":2024,
+         "alias":"vsvsvs",
+         "disabled":false,
+         "inactiveCron":"",
+         "inactiveDay":0,
+         "inactiveHour":0,
+         "inactiveMinute":0,
+         "inactiveMonth":9,
+         "inactiveSecond":0,
+         "inactiveYear":2024
+      }
    ],
    "scripts":[
+      {
+         "type":"CONTEXTUALIZED_SCRIPT",
+         "user":"admin",
+         "pointsOnContext":[
+         ],
+         "objectsOnContext":[
+         ],
+         "name":"txt",
+         "script":"",
+         "xid":"SC_904130"
+      }
    ],
    "systemSettings":[
       {
@@ -1698,7 +1798,7 @@
          "filedata.path":"~\/WEB-INF\/filedata",
          "workItemsReportingItemsPerSecondEnabled":false,
          "reportPurgePeriods":1,
-         "language":"en",
+         "language":"pt",
          "futureDateLimitPeriodType":3,
          "httpClientProxyUsername":"",
          "eventPurgePeriodType":7,
@@ -1763,11 +1863,11 @@
             }
          ],
          "usersIds":[
-            6,
-            7
+            9,
+            10
          ],
          "dataSourcePermissionsXid":[
-            "DS_323322"
+            "datasource_test"
          ],
          "id":1,
          "name":"automacao",
@@ -1859,9 +1959,9 @@
             }
          ],
          "usersIds":[
-            8,
-            9,
-            10
+            6,
+            7,
+            11
          ],
          "dataSourcePermissionsXid":[
          ],
