@@ -17,7 +17,7 @@ class Map {
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
 		let xid = urlParams.get('xid') || "l0-banner";
-		let view = get_view_info(xid);
+		let view = get_view_info(xid, this.full_tree);
 		this.current_view = view;
 	}
 
@@ -25,7 +25,7 @@ class Map {
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
 		let xid = urlParams.get('reference') || "l0-banner";
-		let view = get_view_info(xid);
+		let view = get_view_info(xid, this.full_tree);
 		return view;
 	}
 
@@ -70,7 +70,7 @@ function get_reference_info() {
 	return view;
 }
 
-function get_view_info(xid) {
+function get_view_info(xid, tree) {
 	let view = {};
 	view.xid = xid;
 	split: {
@@ -86,15 +86,15 @@ function get_view_info(xid) {
 				console.warn("No XID detected. Lets consider L0");
 				break;
 			case 'l1':
-				process = loaded.tree.root.menus[view.name];
-				console.log({ menus: loaded.tree.root.menus, process });
+				process = tree.root.menus[view.name];
+				console.log({ menus: tree.root.menus, process });
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
 				view.custom_bg = process.custom_bg;
 				break;
 			case 'l2':
-				process = loaded.tree.root.erpm[view.name];
+				process = tree.root.erpm[view.name];
 				view.process = process;
 				view.label = process.label;
 				view.title = process.label;
