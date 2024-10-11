@@ -496,3 +496,4 @@ class RelatoryView {
 }
 
 export default RelatoryView;
+
