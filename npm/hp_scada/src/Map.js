@@ -110,3 +110,6 @@ function get_view_info(xid) {
 	console.log({view});
 	return view;
 }
+
+export default Map;
+
