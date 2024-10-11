@@ -1,9 +1,13 @@
 
 class Map {
 	constructor (tree) {
+		this.current_view = new LevelMap(tree, view_address);
 		this.full_tree = tree;
 		this.update_current_view();
 		this.update_current_page();
+	}
+
+	current_view (tree) {
 	}
 
 	update_current_page () {
@@ -20,6 +24,9 @@ class Map {
 		let view = get_view_info(xid, this.full_tree);
 		this.current_view = view;
 	}
+
+	get_view_info_by_xid (xid) {
+		let view = {};
 
 	get_reference_info () {
 		let queryString = window.location.search;
@@ -44,9 +51,43 @@ class Map {
 	}
 }
 
-//	==============================================================================================
-//	Library Utils
+get_param(param, default_value) {
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	let value = urlParams.get(param) || default_value;
+	return value;
+}
 
+class LevelMap {
+	constructor (tree, view_address) {
+		let levelmap = {};
+		let level_names = xid.split(':');
+		for(let i = 1; i <= level_names.length; i++) {
+			let name = level_names[i - 1];
+			let path = this.#make_path_from_levelmap(levelmap, name);
+			let view = get_view_by_path(this.tree, path);
+			levelmap[last] = levelmap[i] = {
+				...view,
+				name,
+				path
+			};
+			levelmap.max = i;
+		}
+		levelmap.max = i;
+		levelmap.last = levelmap[levelmap.max];
+		return levelmap;
+	}
+
+	static #make_path_from_levelmap (levelmap, target) {
+		let path = [];
+		while(let i = 1; let current_level = levelmap[i]; i++) {
+			path.push(current_level.name);
+		}
+		return path;
+	}
+}
+
+/*
 function get_current_page() {
 	let queryString = window.location.search;
 	let urlParams = new URLSearchParams(queryString);
@@ -57,7 +98,7 @@ function get_current_page() {
 function get_current_view() {
 	let queryString = window.location.search;
 	let urlParams = new URLSearchParams(queryString);
-	let xid = urlParams.get('xid') || "l0-banner";
+	let xid = urlParams.get('xid') || "banner";
 	let view = get_view_info(xid);
 	return view;
 }
@@ -65,58 +106,25 @@ function get_current_view() {
 function get_reference_info() {
 	let queryString = window.location.search;
 	let urlParams = new URLSearchParams(queryString);
-	let xid = urlParams.get('reference') || "l0-banner";
+	let xid = urlParams.get('reference') || "banner";
 	let view = get_view_info(xid);
 	return view;
 }
 
-function get_view_info(xid, tree) {
-	let view = {};
-	view.xid = xid;
-	split: {
-		let split = view.xid.split("-");
-		view.level = split[0];
-		view.name = split[1];
-	}
-	let process;
-	console.log({ view, xid });
-	from_tree: {
-		switch(view.level) {
-			case 'l0':
-				console.warn("No XID detected. Lets consider L0");
-				break;
-			case 'l1':
-				process = tree.root.menus[view.name];
-				console.log({ menus: tree.root.menus, process });
-				view.process = process;
-				view.label = process.label;
-				view.title = process.label;
-				view.custom_bg = process.custom_bg;
-				break;
-			case 'l2':
-				process = tree.root.erpm[view.name];
-				view.process = process;
-				view.label = process.label;
-				view.title = process.label;
-				break;
-			case 'l3':
-				process = find_parent(view.name);
-				view.process = process;
-				let reference = process.children[view.name];
-				view.label = reference.label;
-				view.title = process.label + "/" + view.label; 
-				view.class = reference.class;
-				view.custom_bg = reference.custom_bg;
-				view.code = reference.code;
-				console.log({ process });
-				break;
-			default:
-				console.error('Level may be l1, l2 or l3, but its', view.level);
-		}
-	}
-	console.log({view});
-	return view;
+
+get_view_by_path (tree, path) {
+	let current_view = tree.root;
+	path.forEach(name => {
+		current_view = current_view.children[name];
+	});
+	return current_view;
 }
 
+get_view_info_by_viewaddress (viewaddress) {
+}
+
+
+
+*/
 export default Map;
 
