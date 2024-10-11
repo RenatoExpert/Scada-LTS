@@ -250,7 +250,7 @@
 					<i class="bi bi-arrows-fullscreen text-primary" title="<fmt:message key='viewEdit.fullScreen'/>" onclick="fullScreen()"></i>
 				</td>
 			</c:if>
-			<td align="right"><sst:select value="${currentView.id}"
+			<td align="left"><sst:select value="${currentView.id}"
 					onchange="window.location='?viewId='+ this.value;">
 					<c:forEach items="${views}" var="aView">
 						<sst:option value="${aView.key}">${sst:escapeLessThan(aView.value)}</sst:option>
