@@ -3,7 +3,6 @@ class Map {
 	constructor (tree) {
 		this.full_tree = tree;
 		this.update_current_view();
-		this.update_reference_info();
 		this.update_current_page();
 	}
 
