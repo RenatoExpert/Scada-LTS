@@ -343,8 +343,11 @@
           <tag:help id="maintenanceEvents"/>
         </div>
         <div class="sound-icon">
-          <i class="bi bi-plus-circle-fill text-success" title="<sst:i18n key='maintenanceEvents.addMe' escapeDQuotes='true'/>" 
+          <i class="bi bi-plus-circle-fill text-blue-add" title="<sst:i18n key='maintenanceEvents.addMe' escapeDQuotes='true'/>" 
                 onclick="showMaintenanceEvent(${NEW_ID})" id="me${NEW_ID}Img"></i>
+                <%-- <span style="font-size: 16px;">
+                  <sst:i18n key='maintenanceEvents.addMe' escapeDQuotes='true'/>
+                </span> --%>
         </div>
         </div>
           <div class="top-row-box mb-3">
@@ -370,7 +373,7 @@
               </div>
               <div class="edit-button">
                   <i id="toggleImg" onclick="toggleMaintenanceEvent();"></i>
-                  <i class="bi bi-floppy2-fill text-success  me-1" onclick="saveMaintenanceEvent();" title="<sst:i18n key='common.save' escapeDQuotes='true'/>"></i>
+                  <i class="bi bi-floppy2-fill text-blue-add  me-1" onclick="saveMaintenanceEvent();" title="<sst:i18n key='common.save' escapeDQuotes='true'/>"></i>
                   <span style="font-size: 16px;">
                   <sst:i18n key='common.save' escapeDQuotes='true'/>
                   </span>

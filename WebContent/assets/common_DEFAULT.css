@@ -371,6 +371,10 @@ html > body .dojoTreeNodeLabelTitle {
     color: orange;
 }
 
+.text-blue-add {
+	color: #0050D3;
+}
+
 /* fim do teste de estilo no menu de navegação*/
 
 .menu-user.custom-size {
@@ -477,7 +481,7 @@ html > body .dojoTreeNodeLabelTitle {
     height: 28.1rem;
 }
 .right-box {
-	padding: 5px;
+	padding: 5px 5px 20px 5px;
 	border-radius: 10px;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
 	background-color: var(--slts-color-secondary-lighter);
