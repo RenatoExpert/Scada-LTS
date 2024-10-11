@@ -33,10 +33,11 @@
 
 :root {
 	--slts-color-primary: #ab97f5;
-	--slts-color-primary-text: #555555;
-	--slts-color-secondary: #424041;
-	--slts-color-secondary-lighter: #F0F0F0;
-	--slts-color-secondary-lighter-alt: #d0d0d0;
+	--slts-color-primary-text: #111111;
+	--slts-color-primary-text-hover: #555555;
+	--slts-color-secondary: #0000008a;
+	--slts-color-secondary-lighter: #ffffff;
+	--slts-color-secondary-lighter-alt: #FAFAFA;
 	--slts-color-secondary-darker: #333333;
 	--slts-color-secondary-text: #FFFFFF;
 	--slts-color-background: #FFFFFF;
@@ -62,13 +63,13 @@ html > body {
 	font-family: var(--slts-font-family);
 	font-size: var(--slts-font-size--default);
 	color: var(--slts-color-primary-text);
-	background-color: var(--slts-color-background);
+	background-color: var(--slts-color-secondary-lighter-alt);
 }
 a, a:visited, a:link, .link {
-	color: var(--slts-color-secondary);
+	color: var(--slts-color-primary-text);
 }
 a:hover {
-	color: var(--slts-color-primary);
+	color: var(--slts-color-primary-text-hover);
 }
 a.titleLink, a.titleLink:visited, a.titleLink:link {
 	font-weight: bold;
@@ -93,7 +94,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 /* Sub-header */
 .smallTitle {
-	color: var(--slts-color-secondary);
+	color: var(--slts-color-secondary-darker);
 	font-size: var(--slts-font-size--subtitle);
 	font-weight: bold;
 }
@@ -125,7 +126,7 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 }
 
 a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:hover {
-	color: var(--slts-color-secondary-text)
+	color: var(--slts-color-primary-text-hover)
 }
 
 .rowTable td, .smrowTable td, .rowTableAlt td, .smrowTableAlt td, .rowTableAlt2 td {
@@ -145,10 +146,15 @@ a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:
 	background-color: var(--slts-color-secondary-lighter-alt);
 }
 
+
+
 .borderDiv, .borderDivPadded {
-	border: 3px solid var(--slts-color-primary);
+	/* border: 3px solid var(--slts-color-primary); */
 	padding: 5px;
 	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 95%;
 }
 
 .borderDivPadded {
@@ -164,8 +170,9 @@ html > body table {
 }
 .formLabel, .formLabelRequired {
 	padding-right: 10px;
-	padding-top: 5px;
-	text-align: right;
+	padding-left: 20px;
+	/* padding-top: 5px; */
+	/* text-align: right; */
 }
 .formField {
 	padding: 2px;
@@ -182,10 +189,10 @@ table select {
     -webkit-appearance: revert;
     appearance: revert;
 }
-input[type="checkbox"], input[type="radio"] {
+/* input[type="checkbox"], input[type="radio"] {
 	color: var(--slts-color-primary);
 	border: 0;
-}
+} comentado por Claudio Mendonça sobre escreveu o bootstrap */
 .formDisabled {
 	border: 1px solid var(--slts-color-secondary-lighter);
 }
@@ -269,13 +276,13 @@ html > body .dojoTreeNodeLabelTitle {
 
 .login-box .form-box > .formLabelRequired {
 	margin-bottom: 0.6rem;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1.25;
-	font-family: Inter, 'Source Sans Pro';
+	font-family: Inter, 'Label Medium';
 	white-space: nowrap;
 	flex-shrink: 0;
 	color: var(--slts-color-primary-text);
-	font-size: var(--slts-font-size--subtitle);
+	font-size: var(--slts-font-size--section-title);
 }
 
 .spacer > * {
@@ -317,7 +324,7 @@ html > body .dojoTreeNodeLabelTitle {
 /* teste de estilo no menu de navegação*/
 
 #subHeader-menu {
-	background-color: var(--slts-color-secondary-lighter);
+	background-color: #dcdcdc;
 	padding: 1px 0px 1px 0px;
 }
 
@@ -327,44 +334,66 @@ html > body .dojoTreeNodeLabelTitle {
     background-color: #ffffff; /* Cor de fundo do menu */
     padding: 5px 5px; /* Espaçamento vertical */
     border-bottom: 1px solid #ffffff; /* Linha inferior */
-	/* espaçamento entre o menu e o conteúdo */
-	margin-right: 5px;
-	margin-left: 5px;
+	margin: 0px;
 }
 
 .horizontal-menu a {
     text-decoration: none;
-    color: #343a40; /* Cor do texto */
-    font-size: 16px; /* Tamanho da fonte */
-    padding: 7px 7px; /* Espaçamento interno */
-    transition: color 0.3s ease; /* Transição suave para a cor */
+    color: #111111; /* Cor do texto */
+    padding: 3px 16px; /* Espaçamento interno */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
+    border-radius: 5px; /* Pontas arredondadas */
 }
 
-.horizontal-menu a:hover {
-    color: #007bff; /* Cor do texto ao passar o mouse */
+.horizontal-menu i {
+    text-decoration: none;
+    color: #111111; /* Cor do texto */
+    font-size: 24px; /* Tamanho da fonte */	
+    padding: 3px; /* Espaçamento interno */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
+    border-radius: 5px; /* Pontas arredondadas */
 }
 
+.flex-default {
+	background-color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 24px 0px 24px;
+}
+
+.horizontal-menu i:hover {
+    color: #ffffff; /* Cor do texto ao passar o mouse */
+    background-color: #0050D3; /* Cor de fundo ao passar o mouse */
+}
 
 .text-orange {
     color: orange;
 }
 
+.text-blue-add {
+	color: #0050D3;
+}
+
 /* fim do teste de estilo no menu de navegação*/
 
 .menu-user.custom-size {
+    text-decoration: none;
+    color: #111111; /* Cor do texto */
     width: 190px; /* Largura da div */
     height: 32px; /* Altura da div */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px; /* Espaçamento entre ícone e texto */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
 }
 
 .menu-user.dropdown-item {
-	text-decoration: none; /* Remove o sublinhado do link */
+	text-decoration: none !important; /* Remove o sublinhado do link */
 }
 .dropdown-menu.dropdown-item {
-	text-decoration: none; /* Remove o sublinhado do link */
+	text-decoration: none !important; /* Remove o sublinhado do link */
 }
 
 .avatar {
@@ -380,11 +409,15 @@ html > body .dojoTreeNodeLabelTitle {
 .sound-icon {
 	font-size: 24px; /* Tamanho do ícone */
 	display: flex;
+	align-items: center;
 }
 .custom-vr {
-    width: 2px; /* Largura da linha */
-    height: 32px; /* Altura da linha */
-    background-color: black; /* Cor da linha */
+    position: relative;
+    display: inline-block;
+    width: 1px; /* Largura da linha */
+    height: 35px; /* Altura da linha */
+    background-color: var(--slts-color-secondary); /* Cor da linha */
+	margin-top: 5px; /* Ajuste conforme necessário */
 }
 .notification-icon {
     position: relative;
@@ -407,3 +440,80 @@ html > body .dojoTreeNodeLabelTitle {
     color: white;
     font-size: 10px; /* Ajuste do tamanho da fonte do badge */
 }
+
+
+.content .subPageHeader, .content #alarmsTable {
+	width: 99%;
+	padding: 20px;
+  } 
+
+/* --- Eventos de manutenção --- */
+.top-row-box {
+	display: flex;
+	justify-content: space-between;
+	width: 96%;
+	margin: 0 auto;
+	padding: 10px 0px;
+}
+.box-description {
+}
+
+.edit-button{
+	display: flex;
+	justify-content: space-between;	
+	width: 35%;
+	font-size: 20px;
+}
+
+.formLabelinput {
+    display: flex;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+}
+
+/* menus esquerdo e box direito */
+.left-menu {
+	padding: 10px 20px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 95%;;
+    height: 28.1rem;
+}
+.right-box {
+	padding: 5px 5px 20px 5px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+	background-color: var(--slts-color-secondary-lighter);
+	width: 98%;
+}
+
+/* Configuração de formulario */
+.custom-padding-form {
+    padding-left: 16px; /* Ajuste o valor conforme necessário */
+	font-size: var(--slts-font-size--section-title);
+}
+.custom-padding-l {
+	padding-right: 0px; /* Ajuste o valor conforme necessário */
+}
+.custom-padding-is {
+	padding-left: 5px; /* Ajuste o valor conforme necessário */
+}
+
+.icon-selection {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.custom-checkbox {
+	margin: 12px;
+    transform: scale(2); /* Ajuste o valor conforme necessário */
+    margin: 5px; /* Ajuste o valor conforme necessário */
+}
+
+.icon-selection i {
+	font-size: 20px; /* Tamanho do ícone */
+	padding-left: 10px;
+}
+

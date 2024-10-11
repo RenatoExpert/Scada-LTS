@@ -383,7 +383,7 @@
 	<c:if test="${!simple}">
 		<div class="navHeader" id="subHeader-menu">
 			<div>
-				<nav class="flex-default">
+				<nav class="flex-default" id="subHeader">
 					<c:if test="${isLoggedToScadaUser}">
 						<div>
 							<c:choose>
@@ -420,12 +420,17 @@
                                                 <i class="bi bi-flag"></i>
                                             </a>
                                             <a href="reports.shtm" class="nav-link" title="<fmt:message key='header.reports'/>">
-                                                <i class="bi bi-clipboard2-pulse"></i>
+                                                <i class="bi bi-file-text"></i>
                                             </a>
                                     </div>
 								</c:otherwise>
 							</c:choose>
 						</div>
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
+                                <div class="vr custom-vr"></div>
+                            </div>
+                        </c:if>
                         <c:if test="${sessionUser.admin}">
                             <div class="horizontal-menu">
                                 <a href="event_handlers.shtm" class="nav-link" title="<fmt:message key='header.eventHandlers'/>">
@@ -446,6 +451,11 @@
                                 <a href="scripting.shtm" class="nav-link" title="<fmt:message key='header.scripts'/>">
                                     <i class="bi bi-journal-code"></i>
                                 </a>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionUser.admin}">
+                            <div class="horizontal-menu">
+                                <div class="vr custom-vr"></div>
                             </div>
                         </c:if>
                         <c:if test="${sessionUser.admin}">

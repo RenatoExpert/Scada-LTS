@@ -303,86 +303,110 @@
     }
   </script>
     
-  <table class="subPageHeader">
+  <table class="subPageHeader container">
     <tr>
       <td valign="top">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td>
-                <span class="smallTitle"><fmt:message key="scheduledEvents.ses"/></span>
-                <tag:help id="scheduledEvents"/>
-              </td>
-              <td align="right">
-                  <i class="bi bi-calendar-check" title="<fmt:message key='scheduledEvents.addSe'/>" onclick="showScheduledEvent(${NEW_ID})" id="se${NEW_ID}Img"></i>
-              </td>
-            </tr>
-          </table>
-          <table id="scheduledEventsTable">
-            <tbody id="se_TEMPLATE_" onclick="showScheduledEvent(getMangoId(this))" class="ptr" style="display:none">
+        <div class="left-menu">
+        <div class="top-row-box mb-3">
+          <div class="box-description sound-icon">
+            <span class="smallTitle"><fmt:message key="scheduledEvents.ses"/></span>
+            <tag:help id="scheduledEvents"/>
+          </div>
+        <div class="sound-icon">
+          <i class="bi bi-plus-circle-fill text-blue-add" title="<fmt:message key='scheduledEvents.addSe'/>" onclick="showScheduledEvent(${NEW_ID})" id="se${NEW_ID}Img"></i>
+          <%-- <span style="font-size: 16px;">
+            <fmt:message key='scheduledEvents.addSe'/>
+          </span> --%>
+        </div>
+        </div>
+          <div class="top-row-box mb-3">
+            <table id="scheduledEventsTable">
+              <tbody id="se_TEMPLATE_" onclick="showScheduledEvent(getMangoId(this))" class="ptr" style="display:none">
               <tr>
                 <td>
-                    <i id="se_TEMPLATE_Img" class="bi bi-alarm text-secondary" title="<fmt:message key='scheduledEvents.se'/>"></i>
+                    <i id="se_TEMPLATE_Img" class="bi bi-alarm  me-3 sound-icon" title="<fmt:message key='scheduledEvents.se'/>"></i>
                 </td>
-                <td class="link" id="se_TEMPLATE_Name"></td>
+                <td class="text-uppercase" id="se_TEMPLATE_Name"></td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       </td>
       
       <td valign="top" style="display:none;" id="scheduledEventDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="scheduledEvents.seDetails"/></span></td>
-              <td align="right">
-                  <i class="bi bi-floppy2-fill text-success" onclick="saveScheduledEvent();" title="<fmt:message key='common.save'/>"></i>
-                  <i id="deleteScheduledEventImg" class="bi bi-trash  text-danger" onclick="deleteScheduledEvent();" title="<fmt:message key='common.delete'/>"></i>
-              </td>
-            </tr>
-          </table>
+        <div class="right-box">
+          <div class="top-row-box mb-3">
+              <div class="box-description">
+                <span class="smallTitle"><fmt:message key="scheduledEvents.seDetails"/></span>
+              </div>
+              <div class="edit-button">
+                  <i class="bi bi-floppy2-fill text-blue-add  me-1" onclick="saveScheduledEvent();" title="<fmt:message key='common.save'/>"></i>
+                  <span style="font-size: 16px;">
+                    <fmt:message key='common.save'/>
+                  </span>
+                  <i id="deleteScheduledEventImg" class="bi bi-trash  text-danger   me-1" onclick="deleteScheduledEvent();" title="<fmt:message key='common.delete'/>"></i>
+                  <span style="font-size: 16px;">
+                  <fmt:message key='common.delete'/>
+                  </span>
+              </div>
+            </div>
           
           <table>
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
-            </tr>
+            <form>
+              <div class="custom-padding-form mb-3">
+                <div class="mb-3 row">
+                <label for="xid" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.xid"/></label>
+                <div class="col-sm-9 custom-padding-is">
+                  <input type="text" class="form-control form-control-sm" id="xid">
+                </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="alias" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="scheduledEvents.alias"/></label>
+                  <div class="col-sm-9 custom-padding-is">
+                    <input type="text" class="form-control form-control-sm" id="alias">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="alarmLevel" class="col-sm-2 col-form-label custom-padding-l">
+                    <fmt:message key="common.alarmLevel"/>
+                  </label>
+                    <div class="col-sm-4 custom-padding-is">
+                      <div class="icon-selection">
+                      <select class="form-select form-select-sm" id="alarmLevel" onchange="updateAlarmLevelImage()">
+                        <tag:alarmLevelOptions/>
+                      </select>
+                      <i id="alarmLevelImg" class="bi bi-flag-fill text-success" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;"></i>
+                      </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="disabled" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.disabled"/></label>
+                  <div class="col-sm-2 custom-padding-is">
+                  <input type="checkbox" class="form-check-input custom-checkbox" id="disabled">
+                </div>
+                <div class="mb-3 row">
+                <label for="scheduleType" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="scheduledEvents.type"/></label>
+                <div class="col-sm-5 custom-padding-is">
+                  <select class="form-select form-select-sm" id="scheduleType" onchange="refreshDateTimeFields()">
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_HOURLY %>"/>"><fmt:message key="scheduledEvents.type.hour"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_DAILY %>"/>"><fmt:message key="scheduledEvents.type.day"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_WEEKLY %>"/>"><fmt:message key="scheduledEvents.type.week"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_MONTHLY %>"/>"><fmt:message key="scheduledEvents.type.month"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_YEARLY %>"/>"><fmt:message key="scheduledEvents.type.year"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_ONCE %>"/>"><fmt:message key="scheduledEvents.type.once"/></option>
+                    <option value="<c:out value="<%= ScheduledEventVO.TYPE_CRON %>"/>"><fmt:message key="scheduledEvents.type.cron"/></option>
+                  </select>
+                </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="rtn" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.rtn"/></label>
+                  <div class="col-sm-2 custom-padding-is">
+                  <input type="checkbox" class="form-check-input custom-checkbox" id="rtn" onclick="refreshDateTimeFields()">
+                </div>
+              </div>
+            </form>
             
-            <tr>
-              <td class="formLabel"><fmt:message key="scheduledEvents.alias"/></td>
-              <td class="formField"><input type="text" id="alias"/></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-              <td class="formField">
-                <select id="alarmLevel" onchange="updateAlarmLevelImage()">
-                  <tag:alarmLevelOptions/>
-                </select>
-                <i id="alarmLevelImg" class="bi bi-flag-fill text-success" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;"></i>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="scheduledEvents.type"/></td>
-              <td class="formField">
-                <select id="scheduleType" onchange="refreshDateTimeFields()">
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_HOURLY %>"/>"><fmt:message key="scheduledEvents.type.hour"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_DAILY %>"/>"><fmt:message key="scheduledEvents.type.day"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_WEEKLY %>"/>"><fmt:message key="scheduledEvents.type.week"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_MONTHLY %>"/>"><fmt:message key="scheduledEvents.type.month"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_YEARLY %>"/>"><fmt:message key="scheduledEvents.type.year"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_ONCE %>"/>"><fmt:message key="scheduledEvents.type.once"/></option>
-                  <option value="<c:out value="<%= ScheduledEventVO.TYPE_CRON %>"/>"><fmt:message key="scheduledEvents.type.cron"/></option>
-                </select>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.rtn"/></td>
-              <td class="formField"><input type="checkbox" id="rtn" onclick="refreshDateTimeFields()"/></td>
-            </tr>
             
             <tr>
               <td class="formLabelRequired"><fmt:message key="common.activeTime"/></td>
@@ -397,15 +421,15 @@
                   </tr>
                   
                   <tr>
-                    <td id="activeYearData"><input id="activeYear" type="text" class="formVeryShort"/></td>
+                    <td id="activeYearData"><input id="activeYear" type="text" class="form-control form-control-sm"/></td>
                     <td id="activeYearSlash">/</td>
                     <td id="activeMonthData">
-                      <select id="activeMonth">
+                      <select id="activeMonth" class="form-select form-select-sm">
                         <tag:monthOptions/>
                       </select>
                     </td>
                     <td id="activeMonthSlash">/</td>
-                    <td><select id="activeDay"></select></td>
+                    <td><select id="activeDay" class="form-select form-select-sm"></select></td>
                   </tr>
                 </table>
                 <table id="activeTimeTable">
@@ -418,7 +442,7 @@
                   </tr>
                   <tr>
                     <td id="activeHourData">
-                      <select id="activeHour">
+                      <select id="activeHour" class="form-select form-select-sm">
                         <c:forEach begin="0" end="23" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -426,7 +450,7 @@
                     </td>
                     <td id="activeHourColon">:</td>
                     <td>
-                      <select id="activeMinute">
+                      <select id="activeMinute" class="form-select form-select-sm">
                         <c:forEach begin="0" end="59" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -434,7 +458,7 @@
                     </td>
                     <td>:</td>
                     <td>
-                      <select id="activeSecond">
+                      <select id="activeSecond" class="form-select form-select-sm">
                         <c:forEach begin="0" end="59" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -444,7 +468,7 @@
                 </table>
                 <table id="activeCronTable">
                   <tr><td align="center"><fmt:message key="common.cronPattern"/></td></tr>
-                  <tr><td><input type="text" id="activeCron"/> <tag:help id="cronPatterns"/></td></tr>
+                  <tr><td><input class="form-control form-control-sm" type="text" id="activeCron"/> <tag:help id="cronPatterns"/></td></tr>
                 </table>
               </td>
             </tr>
@@ -461,15 +485,15 @@
                     <td align="center"><fmt:message key="common.tp.day"/></td>
                   </tr>
                   <tr>
-                    <td id="inactiveYearData"><input id="inactiveYear" type="text" class="formVeryShort"/></td>
+                    <td id="inactiveYearData"><input id="inactiveYear" type="text" class="form-control form-control-sm"/></td>
                     <td id="inactiveYearSlash">/</td>
                     <td id="inactiveMonthData">
-                      <select id="inactiveMonth">
+                      <select id="inactiveMonth" class="form-select form-select-sm">
                         <tag:monthOptions/>
                       </select>
                     </td>
                     <td id="inactiveMonthSlash">/</td>
-                    <td><select id="inactiveDay"></select></td>
+                    <td><select id="inactiveDay" class="form-select form-select-sm"></select></td>
                   </tr>
                 </table>
                 <table id="inactiveTimeTable">
@@ -482,7 +506,7 @@
                   </tr>
                   <tr>
                     <td id="inactiveHourData">
-                      <select id="inactiveHour">
+                      <select id="inactiveHour" class="form-select form-select-sm">
                         <c:forEach begin="0" end="23" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -490,7 +514,7 @@
                     </td>
                     <td id="inactiveHourColon">:</td>
                     <td>
-                      <select id="inactiveMinute">
+                      <select id="inactiveMinute" class="form-select form-select-sm">
                         <c:forEach begin="0" end="59" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -498,7 +522,7 @@
                     </td>
                     <td>:</td>
                     <td>
-                      <select id="inactiveSecond">
+                      <select id="inactiveSecond" class="form-select form-select-sm">
                         <c:forEach begin="0" end="59" var="i">
                           <option>${mango:padZeros(i, 2)}</option>
                         </c:forEach>
@@ -508,14 +532,9 @@
                 </table>
                 <table id="inactiveCronTable">
                   <tr><td align="center"><fmt:message key="common.cronPattern"/></td></tr>
-                  <tr><td><input type="text" id="inactiveCron"/> <tag:help id="cronPatterns"/></td></tr>
+                  <tr><td><input class="form-control form-control-sm" type="text" id="inactiveCron"/> <tag:help id="cronPatterns"/></td></tr>
                 </table>
               </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.disabled"/></td>
-              <td class="formField"><input type="checkbox" id="disabled"/></td>
             </tr>
           </table>
           
