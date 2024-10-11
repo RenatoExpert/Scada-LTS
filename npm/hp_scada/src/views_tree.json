@@ -1,7 +1,7 @@
 {
 	"root": {
 		"label": "Bahiagás",
-		"menus": {
+		"children": {
 			"cidades": {
 				"label": "Estações"
 			},
@@ -19,6 +19,7 @@
 				"label": "Relatório Diário"
 			},
 			"cathodic": {
+				"label": "Monitoramento da Proteção Catódica",
 				"children": {
 					"erpmsuzano": {
 						"code": "005",
@@ -56,10 +57,10 @@
 						"code": "005",
 						"label": "LOW 1"
 					}
-				},
-				"label": "Monitoramento da Proteção Catódica"
+				}
 			},
 			"rectifiers": {
+				"label": "Retificadores",
 				"code": "324",
 				"children": {
 					"boticario": {
@@ -126,15 +127,14 @@
 						"code": "005",
 						"label": "Termobahia"
 					}
-				},
-				"label": "Retificadores"
+				}
 			}
 		},
-
 		"erpm": {
+			"label": "Estações de Fluxo de Gás",
 			"alagoinhas": {
-				"code": "005",
 				"label": "Alagoinhas",
+				"code": "005",
 				"children": {
 					"edalagoinhas": {
 						"label": "ED Alagoinhas"

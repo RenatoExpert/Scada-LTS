@@ -2,19 +2,19 @@
 class Map {
 	constructor (tree) {
 		this.full_tree = tree;
-		this.get_current_view();
-		this.get_reference_info();
-		this.get_current_page();
+		this.update_current_view();
+		this.update_reference_info();
+		this.update_current_page();
 	}
 
-	get_current_page () {
+	update_current_page () {
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
 		let page = parseInt(urlParams.get('page')) || 1;
 		this.current_page = page;
 	}
 
-	get_current_view () {
+	update_current_view () {
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
 		let xid = urlParams.get('xid') || "l0-banner";
@@ -34,6 +34,14 @@ class Map {
 		let url = new URL(window.location.href);
 		url.searchParams.set("page", page);
 		return url;
+	}
+
+	get_current_page () {
+		return this.current_page;
+	}
+
+	get_current_view () {
+		return this.current_view;
 	}
 }
 
