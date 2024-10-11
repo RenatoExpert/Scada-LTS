@@ -383,7 +383,7 @@
 	<c:if test="${!simple}">
 		<div class="navHeader" id="subHeader-menu">
 			<div>
-				<nav class="flex-default">
+				<nav class="flex-default" id="subHeader">
 					<c:if test="${isLoggedToScadaUser}">
 						<div>
 							<c:choose>
