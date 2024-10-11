@@ -518,8 +518,9 @@ async function main() {
 			}
 			return div;
 		})();
-		current_view = new Map().get_current_view();
-		let reference = new Map().get_reference_info();
+		let map = new Map(loaded.tree);
+		current_view = map.get_current_view();
+		let reference = map.get_reference_info();
 		if(current_view.level == 'l0') {
 			generated = { current_view };
 			// show banner
