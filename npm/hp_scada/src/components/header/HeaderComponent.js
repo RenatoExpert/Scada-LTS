@@ -5,7 +5,7 @@ import OverviewHeader from './OverviewHeader.js';
 
 function make_menus (map) {
 	let children = [];
-	if (map.address == 'banner') {
+	if (map.params.address == 'banner') {
 	} else {
 		let l1_menu = new OverviewHeader();
 		children.push(l1_menu);
