@@ -5,6 +5,7 @@ class Map {
 
 	setParameters (params) {
 		this.params = params;
+		return this;
 	}
 }
 
