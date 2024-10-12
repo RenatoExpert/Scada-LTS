@@ -10,7 +10,7 @@ class App {
 	}
 
 	prepare () {
-		this.params = DOMAPI.getParametersSet("address", "reference", "page");
+		this.params = DOMAPI.ParametersController.readMany("address", "reference", "page");
 		this.map = new Map().setParameters(params);
 		this.rootComponent = new RootComponent(this.map);
 		this.node = this.rootComponent.getNode();
