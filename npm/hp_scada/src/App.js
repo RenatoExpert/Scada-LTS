@@ -13,7 +13,7 @@ class App {
 			this.map = new Map(tree).setParameters(params);
 			this.rootComponent = new RootComponent(this.map);
 			this.node = this.rootComponent.getNode();
-		}
+		});
 	}
 
 	static download_tree (tree_link) {
