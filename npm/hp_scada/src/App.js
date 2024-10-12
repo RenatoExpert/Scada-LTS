@@ -15,7 +15,7 @@ class App {
 		this.tree_promise = this.download_tree(tree_link);
 		this.tree_promise.then(tree => {
 			this.params = DOMAPI.ParametersController.readMany("address", "reference", "page");
-			this.map = new Map(tree).setParameters(params);
+			this.map = new Map(tree).setParameters(this.params);
 			this.rootComponent = new RootComponent(this.map);
 			this.node = this.rootComponent.getNode();
 		});
