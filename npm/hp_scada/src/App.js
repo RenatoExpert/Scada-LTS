@@ -1,7 +1,7 @@
-import DOMAPI;
+import DOMAPI from './lib/DOMAPI.js';
 
-import Map;
-import RootComponent;
+import Map from './Map.js';
+import RootComponent from './components/RootComponent.js';
 
 
 class App {
