@@ -25,7 +25,7 @@ class App {
 		this.tree_promise.then(() => {
 			let canvasId = 'viewContent';
 			DOMAPI.Observer(canvasId).when_exist(canvas => {
-				canvas.append(this.node());
+				canvas.append(this.node);
 			});
 		});
 	}
