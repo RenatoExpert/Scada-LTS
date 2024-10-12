@@ -1,7 +1,7 @@
-import Component;
-import OverviewHeader;
-import UnitHeader;
-import DetailHeader;
+import Component from '../../../abstract/Component.js';
+import OverviewHeader from './OverviewHeader.js';
+//import UnitHeader;
+//import DetailHeader;
 
 class HeaderComponent extends Component {
 	constructor (map) {
@@ -17,11 +17,11 @@ class HeaderComponent extends Component {
 			let l1_menu = new OverviewHeader();
 			children.push(l1_menu);
 			if (map.level.max > 1) {
-				let l2_menu = new UnitHeader(map);
-				children.push(l2_menu);
+				//let l2_menu = new UnitHeader(map);
+				//children.push(l2_menu);
 				if (map.level.max > 2) {
-					let l3_menu = new DetailHeader(map);
-					children.push(l3_menu);
+					//let l3_menu = new DetailHeader(map);
+					//children.push(l3_menu);
 				}
 			}
 		}
