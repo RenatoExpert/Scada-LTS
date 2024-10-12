@@ -1,8 +1,10 @@
 class Map {
-	constructor () {
+	constructor (tree) {
+		this.tree = tree;
 	}
 
 	setParameters (params) {
+		this.params = params;
 	}
 }
 
