@@ -13,6 +13,7 @@ class ParametersController {
 			let value = this.read(parameter);
 			result[parameter] = value;
 		}
+		return result;
 	}
 }
 
