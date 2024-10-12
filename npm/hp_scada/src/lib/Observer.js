@@ -4,10 +4,10 @@ class Observer {
 	}
 
 	when_exist (callback) {
-		#observer = new MutationObserver((mutationList, observer) => {
+		let observer = new MutationObserver((mutationList, observer) => {
 			for (let mutation of mutationList) {
 				if (let node = document.getElementById(this.nodeId)) {
-					#observer.disconnect();
+					observer.disconnect();
 					callback(node);
 				}
 			}
