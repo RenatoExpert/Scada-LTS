@@ -1,5 +1,5 @@
 import Observer from './Observer.js';
-import ParameterController from './ParameterController.js';
+import ParametersController from './ParametersController.js';
 
 class DOMAPI {
 	static Observer (nodeId) {
