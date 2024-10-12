@@ -6,7 +6,7 @@ import RootComponent from './components/RootComponent.js';
 
 
 class App {
-	static download_tree (tree_link) {
+	download_tree (tree_link) {
 		return ASSETSAPI.fetch_asset(tree_link);
 	}
 
