@@ -26,6 +26,7 @@ class App {
 			let canvasId = 'viewContent';
 			DOMAPI.Observer(canvasId).when_exist(canvas => {
 				canvas.append(this.node);
+				console.log("Plugin initialized with success");
 			});
 		});
 	}
