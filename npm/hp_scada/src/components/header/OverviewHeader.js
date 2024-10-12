@@ -7,7 +7,7 @@ function make_child () {
 	ASSETSAPI.fetch_asset(svg_link).then(svg => {
 		child.append(svg);
 	});
-	return div;
+	return child;
 }
 
 class OverviewHeader extends Component {
