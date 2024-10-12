@@ -7,10 +7,6 @@ class ASSETSAPI {
 		return new URL(path, this.#assets_dir_url);
 	}
 
-	static #assets_dir_url = new URL("assets/", this.#root_path);
-	static #root_path = new URL(this.#sublocation(), window.location.origin);
-	static #sublocation = this.#catch_sublocation();
-
 	static #catch_sublocation () {
 		let currentPath = window.location.pathname;
 		currentPath = currentPath.split('?')[0];
@@ -18,6 +14,10 @@ class ASSETSAPI {
 		let rootPath = '/' + pathSegments[1] + "/";
 		return rootPath;
 	}
+
+	static #sublocation = this.#catch_sublocation();
+	static #root_path = new URL(this.#sublocation(), window.location.origin);
+	static #assets_dir_url = new URL("assets/", this.#root_path);
 }
 
 export default ASSETSAPI;
