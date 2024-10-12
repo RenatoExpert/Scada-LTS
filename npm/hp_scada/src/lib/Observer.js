@@ -6,7 +6,8 @@ class Observer {
 	when_exist (callback) {
 		let observer = new MutationObserver((mutationList, observer) => {
 			for (let mutation of mutationList) {
-				if (let node = document.getElementById(this.nodeId)) {
+				let node = document.getElementById(this.nodeId);
+				if (node) {
 					observer.disconnect();
 					callback(node);
 				}
