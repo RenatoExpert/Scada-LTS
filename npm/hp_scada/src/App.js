@@ -1,5 +1,5 @@
 import DOMAPI from './lib/DOMAPI.js';
-import DOMAPI from './lib/ASSETSAPI.js';
+import ASSETSAPI from './lib/ASSETSAPI.js';
 
 import Map from './Map.js';
 import RootComponent from './components/RootComponent.js';
