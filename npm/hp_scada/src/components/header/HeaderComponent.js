@@ -1,4 +1,4 @@
-import Component from '../../../abstract/Component.js';
+import Component from '../../abstract/Component.js';
 import OverviewHeader from './OverviewHeader.js';
 //import UnitHeader;
 //import DetailHeader;
