@@ -7,6 +7,7 @@ import RootComponent from './components/RootComponent.js';
 
 class App {
 	constructor () {
+		let tree_link = "hp/views_tree.js";
 		this.tree_promise = this.download_tree(tree_link);
 		this.tree_promise.then(tree => {
 			this.params = DOMAPI.ParametersController.readMany("address", "reference", "page");
