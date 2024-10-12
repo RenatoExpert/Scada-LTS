@@ -16,7 +16,6 @@ class OverviewHeader extends Component {
 		let children = [ make_child() ];
 		super(map, nodeTag, children);
 	}
-
 }
 
 export default OverviewHeader;
