@@ -16,7 +16,7 @@ class ASSETSAPI {
 	}
 
 	static #sublocation = this.#catch_sublocation();
-	static #root_path = new URL(this.#sublocation(), window.location.origin);
+	static #root_path = new URL(this.#sublocation, window.location.origin);
 	static #assets_dir_url = new URL("assets/", this.#root_path);
 }
 
