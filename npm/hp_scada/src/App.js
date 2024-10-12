@@ -6,6 +6,10 @@ import RootComponent from './components/RootComponent.js';
 
 
 class App {
+	static download_tree (tree_link) {
+		return ASSETSAPI.fetch_asset(tree_link);
+	}
+
 	constructor () {
 		let tree_link = "hp/views_tree.js";
 		this.tree_promise = this.download_tree(tree_link);
@@ -15,10 +19,6 @@ class App {
 			this.rootComponent = new RootComponent(this.map);
 			this.node = this.rootComponent.getNode();
 		});
-	}
-
-	static download_tree (tree_link) {
-		return ASSETSAPI.fetch_asset(tree_link);
 	}
 
 	print () {
