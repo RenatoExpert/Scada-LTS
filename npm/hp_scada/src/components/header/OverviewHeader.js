@@ -1,5 +1,5 @@
-import Component from '../../../abstract/Component.js';
-import ASSETSAPI from '../../../lib/ASSETSAPI.js';
+import Component from '../../abstract/Component.js';
+import ASSETSAPI from '../../lib/ASSETSAPI.js';
 
 class OverviewHeader extends Component {
 	constructor (map) {
