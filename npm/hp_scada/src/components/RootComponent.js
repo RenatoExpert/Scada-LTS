@@ -1,6 +1,6 @@
 import Component from '../abstract/Component.js';
-import HeaderComponent from './HeaderComponent.js';
-import BodyComponent from './BodyComponent.js';
+import HeaderComponent from './header/HeaderComponent.js';
+import BodyComponent from './body/BodyComponent.js';
 
 class RootComponent extends Component {
 	constructor (map) {
