@@ -1,4 +1,4 @@
-class ParameterController {
+class ParametersController {
 	static read (parameter) {
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
@@ -15,4 +15,6 @@ class ParameterController {
 		}
 	}
 }
+
+export default ParametersController;
 
