@@ -595,9 +595,9 @@ function setPublisherStatusImg(enabled, imgNode) {
 
 function setPointLinkImg(disabled, imgNode) {
     if (disabled)
-        updateIcon(imgNode, "bi bi-link-45deg", mango.i18n["js.disabledPointLink"], true);
+        updateIcon(imgNode, "bi bi-x-octagon text-danger  me-3 sound-icon", mango.i18n["js.disabledPointLink"], true);
     else
-        updateIcon(imgNode, "bi bi-link", mango.i18n["pointLinks.pointLink"], true);
+        updateIcon(imgNode, "bi bi-arrow-left-right text-success me-3 sound-icon", mango.i18n["pointLinks.pointLink"], true);
 }
 
 function updateImg(imgNode, src, text, visible, styleType) {

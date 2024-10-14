@@ -104,7 +104,7 @@
     }
     
     function updatePointLink(pl) {
-        $set("pl"+ pl.id +"Name", getPointName(pl.sourcePointId) +'<i class="bi bi-caret-right-square-fill text-success"></i> '+ getPointName(pl.targetPointId));
+        $set("pl"+ pl.id +"Name", getPointName(pl.sourcePointId) +'</td><td><i class="bi bi-caret-right-square-fill text-success ms-3 me-3 sound-icon"></i></td><td>'+ getPointName(pl.targetPointId));
         setPointLinkImg(pl.disabled, $("pl"+ pl.id +"Img"));
     }
     
@@ -133,86 +133,111 @@
     }
   </script>
   
-  <table class="subPageHeader">
+  <table class="subPageHeader container">
     <tr>
       <td valign="top">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td>
-                <span class="smallTitle"><fmt:message key="pointLinks.pointLinks"/></span>
-                <tag:help id="pointLinks"/>
-              </td>
-              <td align="right">
-                <i class="bi bi-arrow-left-right" title="<fmt:message key='common.add'/>" onclick="showPointLink(${NEW_ID})" id="pl${NEW_ID}Img"></i>
-              </td>
-              </tr>
-          </table>
-          <table id="pointLinksTable">
+        <div class="left-menu">
+          <div class="top-row-box mb-3">
+            <div class="box-description sound-icon">
+              <span class="smallTitle"><fmt:message key="pointLinks.pointLinks"/></span>
+              <tag:help id="pointLinks"/>
+            </div>
+            <div class="sound-icon">
+                  <i class="bi bi-plus-circle-fill text-blue-add" title="<fmt:message key='common.add'/>"
+                    onclick="showPointLink(${NEW_ID})" id="pl${NEW_ID}Img"></i>
+            </div>
+          </div>
+          <div class="top-row-box mb-3">
+          <table id="pointLinksTable" class="table table-hover">
             <tbody id="pl_TEMPLATE_" onclick="showPointLink(getMangoId(this))" class="ptr" style="display:none">
               <tr>
-                <td>
-                  <i id="pl_TEMPLATE_Img" class="bi bi-link" title="<fmt:message key='pointLinks.pointLink'/>"></i>
+                <td style="width: 10px">
+                  <i id="pl_TEMPLATE_Img" class="bi bi-link" title="<fmt:message key='pointLinks.pointLink'/>" style="display:none"></i>
                 </td>
-                <td class="link" id="pl_TEMPLATE_Name"></td>
+                <td class="text-uppercase" id="pl_TEMPLATE_Name" style="display: flex; align-items: center;"></td>
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </td>
       
       <td valign="top" style="display:none;" id="pointLinkDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="pointLinks.details"/></span></td>
-              <td align="right">
-                <i class="bi bi-floppy2-fill text-success" onclick="savePointLink();" title="<fmt:message key='common.save'/>"></i>
+        <div class="right-box">
+            <div class="top-row-box mb-3">
+              <div class="box-description">
+              <span class="smallTitle"><fmt:message key="pointLinks.details"/></span>
+              </div>
+              <div class="edit-button">
+                <i class="bi bi-floppy2-fill text-blue-add  me-1" onclick="savePointLink();" title="<fmt:message key='common.save'/>"></i>
+                  <span style="font-size: 16px;">
+                  <fmt:message key='common.save'/>
+                  </span>
                 <i id="deletePointLinkImg" class="bi bi-trash text-danger" onclick="deletePointLink();" title="<fmt:message key='common.delete'/>"></i>
-              </td>
-            </tr>
-          </table>
+                  <span style="font-size: 16px;">
+                  <fmt:message key='common.delete'/>
+                  </span>
+              </div>
+            </div>
           
           <table>
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="pointLinks.source"/></td>
-              <td class="formField"><select id="sourcePointId"></select></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="pointLinks.target"/></td>
-              <td class="formField"><select id="targetPointId"></select></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabel">
-                <fmt:message key="pointLinks.script"/>
+            <form>
+            <div class="custom-padding-form mb-3">
+              <div class="mb-3 row">
+              <label for="xid" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.xid"/></label>
+              <div class="col-sm-7 custom-padding-is">
+                <input type="text" class="form-control" id="xid"/>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="dataSourceId" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="pointLinks.source"/></label>
+                <div class="col-sm-6 custom-padding-is">
+                  <select id="sourcePointId" class="form-select"></select>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="alias" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="pointLinks.target"/></label>
+                <div class="col-sm-6 custom-padding-is">
+                  <select id="targetPointId" class="form-select"></select>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="scheduleType" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="pointLinks.event"/></label>
+                <div class="col-sm-4 custom-padding-is">
+                  <select id="event" class="form-select form-select-sm">
+                    <option value="<c:out value="<%= PointLinkVO.EVENT_CHANGE %>"/>"><fmt:message key="pointLinks.event.change"/></option>
+                    <option value="<c:out value="<%= PointLinkVO.EVENT_UPDATE %>"/>"><fmt:message key="pointLinks.event.update"/></option>
+                  </select>
+                </div>
+              <div class="mb-3 row">
+                <label for="disabled" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.disabled"/></label>
+                <div class="col-sm-2 custom-padding-is">
+                <input type="checkbox" class="form-check-input custom-checkbox" id="disabled">
+              </div>
+              </div>
+              <div class="mb-3 row">
+                <%-- <fmt:message key="pointLinks.script"/>
                 <i class="bi bi-check-circle-fill text-success" onclick="validateScript();" title="<fmt:message key='pointLinks.validate'/>"></i>
               </td>
-              <td class="formField">
-                <textarea id="script" rows="10" cols="50"/></textarea>
-              </td>
-            </tr>
+              <td> --%>
+                  <label for="script" class="form-label"><fmt:message key="pointLinks.script"/></label>
+                  <div class="d-flex flex-column align-items-start">
+                <textarea class="form-control mb-3" id="script" name="script" rows="10" cols="40"></textarea>
+                <div class="align-self-end">
+                      <%-- <i class="bi bi-check-circle-fill text-success edit-button" onclick="validateScript();" title="<fmt:message key='pointLinks.validate'/>"></i>
+                      <span style="font-size: 16px;">
+                      <fmt:message key='pointLinks.validate'/>
+                      </span> --%>
+                      <button type="button" class="btn btn-primary custom-btn-blue" name="script" onclick="validateScript();"><sst:i18n key='pointLinks.validate' escapeDQuotes='true'/></button>
+                      </div>
+                  </div>
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="pointLinks.event"/></td>
-              <td class="formField">
-                <select id="event">
-                  <option value="<c:out value="<%= PointLinkVO.EVENT_CHANGE %>"/>"><fmt:message key="pointLinks.event.change"/></option>
-                  <option value="<c:out value="<%= PointLinkVO.EVENT_UPDATE %>"/>"><fmt:message key="pointLinks.event.update"/></option>
-                </select>
-              </td>
-            </tr>
-            
-            <tr>
+            <%-- <tr>
               <td class="formLabel"><fmt:message key="common.disabled"/></td>
               <td class="formField"><input type="checkbox" id="disabled"/></td>
-            </tr>
+            </tr> --%>
+            </div>
+            </form>
           </table>
           
           <table>
