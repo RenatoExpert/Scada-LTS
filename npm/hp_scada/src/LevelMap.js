@@ -21,7 +21,8 @@ class LevelMap {
 
 	#make_path_from_levelmap (levelmap, target) {
 		let path = [];
-		for (let i = 1; let current_level = levelmap[i]; i++) {
+		let current_level;
+		for (let i = 1; current_level = levelmap[i]; i++) {
 			path.push(current_level.name);
 		}
 		return path;
