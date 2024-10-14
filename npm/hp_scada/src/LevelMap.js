@@ -1,3 +1,10 @@
+function get_view_by_path (tree, path) {
+	let current_view = tree.root;
+	path.forEach(name => {
+		current_view = current_view.children[name];
+	});
+	return current_view;
+}
 
 class LevelMap {
 	constructor (tree, view_address) {
