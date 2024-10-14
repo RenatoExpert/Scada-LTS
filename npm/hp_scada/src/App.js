@@ -7,7 +7,13 @@ import RootComponent from './components/RootComponent.js';
 
 class App {
 	download_tree (tree_link) {
-		return ASSETSAPI.fetch_asset(tree_link);
+		return new Promise((resolve, reject) => {
+			ASSETSAPI.fetch_asset(tree_link).then(response => {
+				response.json().then(result => {
+					resolve(result);
+				});
+			});
+		});
 	}
 
 	constructor () {
