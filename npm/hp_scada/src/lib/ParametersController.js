@@ -2,6 +2,7 @@ function readOperation (parameter) {
 	let queryString = window.location.search;
 	let urlParams = new URLSearchParams(queryString);
 	let value = urlParams.get(parameter);
+	console.log({ parameter, value });
 	return value;
 }
 
@@ -13,6 +14,7 @@ class ParametersController {
 			let value = readOperation(parameter);
 			result[parameter] = value;
 		}
+		console.log({ arguments, result });
 		return result;
 	}
 
