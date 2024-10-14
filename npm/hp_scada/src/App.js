@@ -14,6 +14,7 @@ class App {
 		let tree_link = "hp/views_tree.js";
 		this.tree_promise = this.download_tree(tree_link);
 		this.tree_promise.then(tree => {
+			console.log({ tree });
 			this.params = DOMAPI.ParametersController.readMany("address", "reference", "page");
 			console.log({ app: this.params });
 			this.map = new Map(tree).setParameters(this.params);
