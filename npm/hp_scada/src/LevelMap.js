@@ -8,6 +8,7 @@ function get_view_by_path (tree, path) {
 
 class LevelMap {
 	constructor (tree, view_address) {
+		this.tree = tree;
 		let levelmap = {};
 		let level_names = view_address.split(':');
 		for (let i = 1; i <= level_names.length; i++) {
