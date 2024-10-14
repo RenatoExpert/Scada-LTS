@@ -121,8 +121,8 @@ a.titleLink, a.titleLink:visited, a.titleLink:link {
 
 .rowHeader td, .smRowHeader td {
 	font-weight: bold;
-	color: var(--slts-color-secondary-text);
-	background-color: var(--slts-color-secondary-darker);
+	color: var(--slts-color-primary-text);
+	background-color: var(--slts-color-secondary-lighter);
 }
 
 a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:hover {
@@ -373,6 +373,10 @@ html > body .dojoTreeNodeLabelTitle {
 
 .text-blue-add {
 	color: #0050D3;
+}
+.custom-btn-blue {
+    background-color: #0050D3; /* Cor personalizada */
+    border-color: #0050D3; /* Cor personalizada */
 }
 
 /* fim do teste de estilo no menu de navegação*/
