@@ -7,7 +7,7 @@ class Map {
 
 	setParameters (params) {
 		this.params = params;
-		this.levelmap = new LevelMap(tree, params.address);
+		this.levelmap = new LevelMap(this.tree, params.address);
 		return this;
 	}
 }
