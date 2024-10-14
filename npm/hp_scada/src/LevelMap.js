@@ -2,7 +2,7 @@
 class LevelMap {
 	constructor (tree, view_address) {
 		let levelmap = {};
-		let level_names = xid.split(':');
+		let level_names = view_address.split(':');
 		for (let i = 1; i <= level_names.length; i++) {
 			let name = level_names[i - 1];
 			let path = this.#make_path_from_levelmap(levelmap, name);
