@@ -15,7 +15,16 @@ class Map {
 	}
 
 	setTemplate () {
-		this.template = "banner";
+		let template;
+		switch (this.params.address) {
+			case "banner":
+				template = "banner";
+				break;
+			case "system":
+				template = "system";
+				break;
+		}
+		this.template = template;
 	}
 }
 

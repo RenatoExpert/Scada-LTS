@@ -1,9 +1,8 @@
 import Component from '../../abstract/Component.js';
 
 import BannerBody from './BannerBody.js';
-
-/*
 import SystemBody;
+/*
 import StationBody;
 import RectifiersBody;
 import CathodicBody;
@@ -24,10 +23,10 @@ class BodyComponent extends Component {
 			case 'banner':
 				child = new BannerBody(this.map);
 				break;
-				/*
 			case 'system':
 				child = new SystemBody();
 				break;
+				/*
 			case 'erpm':
 				child = new StationsBody();
 				break;
