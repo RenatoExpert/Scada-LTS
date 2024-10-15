@@ -1,5 +1,6 @@
 import Component from '../../abstract/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
+import NAVAPI from '../../lib/NAVAPI.js';
 
 class BannerBody extends Component {
 	constructor (map) {
@@ -11,6 +12,10 @@ class BannerBody extends Component {
 	#get_child () {
 		ASSETSAPI.fetch_svg("hp/bg/l0-banner.svg").then(svg => {
 			this.node.appendChild(svg);
+			let timeInterval = 1e3;
+			setTimeout(() => {
+				NAVAPI.goto_id("system");
+			}, timeInterval);
 		});
 	}
 }
