@@ -10,7 +10,12 @@ class Map {
 		this.params.address = this.params.address || "banner";
 		console.log(params);
 		this.levelmap = new LevelMap(this.tree, params.address);
+		this.setTemplate();
 		return this;
+	}
+
+	setTemplate () {
+		this.template = "banner";
 	}
 }
 
