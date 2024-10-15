@@ -10,8 +10,8 @@ class OverviewHeader extends Component {
 	}
 
 	#make_child () {
-		let svg_link = "hp/header_L1.svg";
-		ASSETSAPI.fetch_asset(svg_link).then(svg => {
+		let path = "hp/header_L1.svg";
+		ASSETSAPI.fetch_svg(path).then(svg => {
 			this.node.appendChild(svg);
 		});
 	}
