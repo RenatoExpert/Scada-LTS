@@ -22,7 +22,6 @@ class LevelMap {
 			};
 			levelmap.max = i;
 		}
-		levelmap.max = i;
 		levelmap.last = levelmap[levelmap.max];
 		return levelmap;
 	}
