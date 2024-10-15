@@ -7,18 +7,18 @@ class HeaderComponent extends Component {
 	constructor (map) {
 		let nodeTag = "div";
 		super(map, nodeTag);
-		let children = this.#make_menus(map);
+		let children = this.#make_menus();
 	}
 
 	#make_menus () {
-		if (map.params.address == 'banner') {
+		if (this.map.params.address == 'banner') {
 		} else {
 			let l1_menu = new OverviewHeader();
 			this.node.appendChild(l1_menu);
-			if (map.level.max > 1) {
+			if (this.map.level.max > 1) {
 				//let l2_menu = new UnitHeader(map);
 				//children.push(l2_menu);
-				if (map.level.max > 2) {
+				if (this.map.level.max > 2) {
 					//let l3_menu = new DetailHeader(map);
 					//children.push(l3_menu);
 				}
