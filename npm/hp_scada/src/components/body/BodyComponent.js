@@ -11,7 +11,7 @@ import RelatoryBody;
 import GraphicBody;
 */
 
-class BodyComponent {
+class BodyComponent extends Component {
 	#get_child (map) {
 		switch(map.template) {
 			case 'banner':
