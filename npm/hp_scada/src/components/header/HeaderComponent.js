@@ -13,8 +13,8 @@ class HeaderComponent extends Component {
 	#make_menus () {
 		if (this.map.params.address == 'banner') {
 		} else {
-			let l1_menu = new OverviewHeader();
-			this.node.appendChild(l1_menu);
+			let l1_menu = new OverviewHeader(this.map);
+			this.node.appendChild(l1_menu.node);
 			if (this.map.level.max > 1) {
 				//let l2_menu = new UnitHeader(map);
 				//children.push(l2_menu);
