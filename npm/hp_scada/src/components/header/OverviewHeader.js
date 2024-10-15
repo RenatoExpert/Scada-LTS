@@ -2,6 +2,36 @@ import Component from '../../abstract/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
 import NAVAPI from '../../lib/NAVAPI.js';
 
+function get_date () {
+	let date = new Date();
+	let day = date.getDate();
+	let month = date.toLocaleString('pt-br', { month: 'long' });
+	let year = date.getFullYear();
+	return `${day} de ${month} de ${year}`;
+}
+
+function get_time () {
+	function two_digit(num) {
+		num = `${num}`;
+		while (num.length < 2) {
+			num = "0" + num;
+			if (num.length > 2) {
+				throw new Error(`Error while parsing number in two_digit function: ${num}`);
+			}
+		}
+		return num;
+	}
+	let date = new Date();
+	let hours = two_digit(date.getHours());
+	let minutes = two_digit(date.getMinutes());
+	let seconds = two_digit(date.getSeconds());
+	return `${hours}:${minutes}:${seconds}`;
+}
+
+function change_text (id, value) {
+	document.getElementById(id).innerHTML = value;
+}
+
 function subtitle(desc, source) {
 	var c = document.getElementById("hp-headers-subtitle");
 	if (desc) {
@@ -37,6 +67,7 @@ class OverviewHeader extends Component {
 					});
 				}
 			}
+			this.#bind_buttons();
 		});
 	}
 
@@ -86,6 +117,14 @@ class OverviewHeader extends Component {
 		this.#bind_button("l1-hourly", "Relatório Horário", () => {
 			NAVAPI.goto_id("l1-hourly");
 		});
+	}
+
+	#update_clock () {
+		let timeInterval = 1e3;
+		setInterval(() => {
+			change_text("date", get_date());
+			change_text("time", get_time());
+		}, timeInterval);
 	}
 }
 
