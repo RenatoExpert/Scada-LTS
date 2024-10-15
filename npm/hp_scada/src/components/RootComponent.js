@@ -8,8 +8,8 @@ class RootComponent extends Component {
 		let header = new HeaderComponent(map);
 		let body = new BodyComponent(map);
 		super(map, nodeTag);
-		this.node.appendChild(header);
-		this.node.appendChild(body);
+		this.node.appendChild(header.node);
+		this.node.appendChild(body.node);
 	}
 }
 
