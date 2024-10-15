@@ -34,7 +34,11 @@ class App {
 			let canvasId = 'viewContent';
 			let imgId = "viewBackground";
 			DOMAPI.Observer(canvasId).when_exist(canvas => {
-				document.getElementById(imgId).remove();
+				try {
+					document.getElementById(imgId).remove();
+				} catch (e) {
+					console.error(e);
+				}
 				canvas.append(this.node);
 				console.log("Plugin initialized with success");
 			});
