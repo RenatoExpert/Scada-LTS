@@ -19,6 +19,7 @@ class BodyComponent extends Component {
 	}
 
 	#get_child () {
+		let child;
 		switch(this.map.template) {
 			case 'banner':
 				child = new BannerBody(this.map);
