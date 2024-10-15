@@ -29,8 +29,8 @@ class OverviewHeader extends Component {
 		ASSETSAPI.fetch_svg(path).then(svg => {
 			this.node.appendChild(svg);
 			static_strings: {
-				this.node.querySelector("#process-title").innerHTML = current_view.title;
-				this.node.querySelector("#operator-name").innerHTML = "Luiz Fernando";
+				this.node.querySelector("#process-title").innerHTML = this.map.title;
+				this.node.querySelector("#operator-name").innerHTML = this.map.user.fullname;
 				if(current_view.level == 'l3') {
 					['#l1-daily', '#l1-hourly', '#l1-graphics'].forEach(selector => {
 						set_visible(selector, div);

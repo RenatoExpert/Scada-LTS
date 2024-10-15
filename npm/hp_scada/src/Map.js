@@ -3,6 +3,10 @@ import LevelMap from './LevelMap.js';
 class Map {
 	constructor (tree) {
 		this.tree = tree;
+		this.title = "Processo X";
+		this.user = {
+			fullname: "Luiz Fernando"
+		};
 	}
 
 	setParameters (params) {
