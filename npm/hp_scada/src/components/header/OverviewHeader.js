@@ -5,7 +5,7 @@ import ASSETSAPI from '../../lib/ASSETSAPI.js';
 class OverviewHeader extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag, children);
+		super(map, nodeTag);
 		this.#make_child();
 	}
 
