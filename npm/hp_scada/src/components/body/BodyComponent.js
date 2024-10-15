@@ -23,6 +23,8 @@ class BodyComponent extends Component {
 		switch(this.map.template) {
 			case 'banner':
 				child = new BannerBody(this.map);
+				break;
+				/*
 			case 'system':
 				child = new SystemBody();
 				break;
@@ -41,6 +43,7 @@ class BodyComponent extends Component {
 			case 'graphic':
 				child = new GraphicBody();
 				break;
+				*/
 			default:
 				console.warn(`Template is not set. \n map.template: ${map.template}`);
 		}
