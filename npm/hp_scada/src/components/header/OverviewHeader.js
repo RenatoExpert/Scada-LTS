@@ -31,7 +31,7 @@ class OverviewHeader extends Component {
 			static_strings: {
 				this.node.querySelector("#process-title").innerHTML = this.map.title;
 				this.node.querySelector("#operator-name").innerHTML = this.map.user.fullname;
-				if(current_view.level == 'l3') {
+				if(this.map.levelmap.max == 3) {
 					['#l1-daily', '#l1-hourly', '#l1-graphics'].forEach(selector => {
 						set_visible(selector, div);
 					});
