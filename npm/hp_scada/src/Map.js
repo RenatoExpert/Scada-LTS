@@ -19,19 +19,37 @@ class Map {
 	}
 
 	setTemplate () {
-		let template;
-		switch (this.params.address) {
-			case "banner":
-				template = "banner";
+		let routerTable = [
+			{
+				regex: /banner/,
+				template: "banner"
+			},
+			{
+				regex: /system/,
+				template: "system"
+			},
+			{
+				regex: /stations/,
+				template: "stations-l1"
+			},
+			{
+				regex: /stations:*/,
+				template: "stations-l2"
+			},
+			{
+				regex: /stations:*:*/,
+				template: "stations-l3"
+			}
+		];
+		for (let i = 0; i < routerTable.length; i++) {
+			let route = routerTable[i];
+			if (route.regex.test(this.params.address)) {
+				this.template = route.template;
 				break;
-			case "system":
-				template = "system";
-				break;
+			}
 		}
-		this.template = template;
 	}
 }
-
 
 export default Map;
 
