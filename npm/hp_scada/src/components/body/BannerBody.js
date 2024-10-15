@@ -4,16 +4,14 @@ import ASSETSAPI from '../../lib/ASSETSAPI.js';
 class BannerBody extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		let children = [ this.#get_child(map) ];
-		super(map, nodeTag, children);
+		super(map, nodeTag);
+		this.#get_child();
 	}
 
-	#get_child (map) {
-		let div = document.createElement("div");
+	#get_child () {
 		ASSETSAPI.fetch_svg("hp/bg/l0-banner.svg").then(svg => {
-			div.appendChild(svg);
+			this.node.appendChild(svg);
 		});
-		return div;
 	}
 }
 

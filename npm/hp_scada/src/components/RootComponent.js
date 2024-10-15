@@ -7,11 +7,9 @@ class RootComponent extends Component {
 		let nodeTag = "div";
 		let header = new HeaderComponent(map);
 		let body = new BodyComponent(map);
-		let children = [
-			header,
-			body
-		];
-		super(map, nodeTag, children);
+		super(map, nodeTag);
+		this.node.appendChild(header);
+		this.node.appendChild(body);
 	}
 }
 

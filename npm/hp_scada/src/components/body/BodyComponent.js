@@ -14,14 +14,14 @@ import GraphicBody;
 class BodyComponent extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		let children = [ this.#get_child(map) ];
 		super(map, nodeTag, children);
+		this.#get_child();
 	}
 
-	#get_child (map) {
+	#get_child () {
 		switch(map.template) {
 			case 'banner':
-				child = new BannerBody(map);
+				child = new BannerBody(this.map);
 			case 'system':
 				child = new SystemBody();
 				break;
@@ -43,7 +43,7 @@ class BodyComponent extends Component {
 			default:
 				console.warn(`Template is not set. \n map.template: ${map.template}`);
 		}
-		return child;
+		return this.node.appendChild(child);
 	}
 }
 
