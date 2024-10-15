@@ -32,7 +32,9 @@ class App {
 	print () {
 		this.tree_promise.then(() => {
 			let canvasId = 'viewContent';
+			let imgId = "viewBackground";
 			DOMAPI.Observer(canvasId).when_exist(canvas => {
+				document.getElementById(imgId).remove();
 				canvas.append(this.node);
 				console.log("Plugin initialized with success");
 			});
