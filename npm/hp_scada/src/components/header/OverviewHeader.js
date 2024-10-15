@@ -91,7 +91,7 @@ class OverviewHeader extends Component {
 			history.forward();
 		});
 		this.#bind_button("l1-map", "Mapa das estacoes", () => {
-			NAVAPI.goto_id("l1-cidades");
+			NAVAPI.goto_id("erpm");
 		});
 		this.#bind_button("l1-system", "Status do sistema",() => {
 			NAVAPI.goto_id("l1-estatisticas");
