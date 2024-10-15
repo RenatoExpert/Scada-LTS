@@ -2,7 +2,6 @@ class Component {
 	constructor (map, nodeTag = "HTMLUnknownElement") {
 		this.map = map;
 		this.nodeTag = nodeTag;
-		this.children = children;
 		this.makeNode();
 	}
 
