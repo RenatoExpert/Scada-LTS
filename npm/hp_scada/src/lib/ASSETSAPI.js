@@ -1,4 +1,17 @@
 class ASSETSAPI {
+	static fetch_svg (path) {
+		let div = document.createElement("div");
+		div.style.position = "relative";
+		return new Promise((resolve, reject) => {
+			fetch(path).then(file => {
+				file.text().then(text => {
+					div.innerHTML = text;
+					resolve(div);
+				});
+			});
+		});
+	}
+
 	static fetch_asset (path) {
 		return fetch(this.#asset_url(path));
 	}

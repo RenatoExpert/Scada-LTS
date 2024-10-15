@@ -1,11 +1,15 @@
-import Component;
+import Component from '../../abstract/Component.js';
 
+import BannerBody from './BannerBody.js';
+
+/*
 import SystemBody;
 import StationBody;
 import RectifiersBody;
 import CathodicBody;
 import RelatoryBody;
 import GraphicBody;
+*/
 
 class BodyComponent {
 	constructor (map) {
@@ -16,6 +20,8 @@ class BodyComponent {
 
 	#get_child (map) {
 		switch(map.template) {
+			case 'banner':
+				child = new BannerBody(map);
 			case 'system':
 				child = new SystemBody();
 				break;

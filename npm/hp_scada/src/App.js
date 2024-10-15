@@ -4,7 +4,6 @@ import ASSETSAPI from './lib/ASSETSAPI.js';
 import Map from './Map.js';
 import RootComponent from './components/RootComponent.js';
 
-
 class App {
 	download_tree (tree_link) {
 		return new Promise((resolve, reject) => {
