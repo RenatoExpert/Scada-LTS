@@ -14,7 +14,7 @@ import GraphicBody;
 class BodyComponent extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag, children);
+		super(map, nodeTag);
 		this.#get_child();
 	}
 
