@@ -12,6 +12,12 @@ import GraphicBody;
 */
 
 class BodyComponent extends Component {
+	constructor (map) {
+		let nodeTag = "div";
+		let children = [ this.#get_child(map) ];
+		super(map, nodeTag, children);
+	}
+
 	#get_child (map) {
 		switch(map.template) {
 			case 'banner':
@@ -38,12 +44,6 @@ class BodyComponent extends Component {
 				console.warn(`Template is not set. \n map.template: ${map.template}`);
 		}
 		return child;
-	}
-
-	constructor (map) {
-		let nodeTag = "div";
-		let children = [ this.#get_child(map) ];
-		super(map, nodeTag, children);
 	}
 }
 
