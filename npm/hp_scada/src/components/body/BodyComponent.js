@@ -1,7 +1,7 @@
 import Component from '../../abstract/Component.js';
 
 import BannerBody from './BannerBody.js';
-import SystemBody;
+import SystemBody from './SystemBody.js';
 /*
 import StationBody;
 import RectifiersBody;
