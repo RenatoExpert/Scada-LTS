@@ -41,7 +41,7 @@ class OverviewHeader extends Component {
 	}
 
 	#bind_button (id, tooltip, action) {
-		let btn = div.querySelector(`#${id}`);
+		let btn = this.node.querySelector(`#${id}`);
 		btn.onclick = action;
 		btn.onmouseover = () => {
 			subtitle(tooltip, btn);
