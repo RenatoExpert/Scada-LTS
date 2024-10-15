@@ -1,15 +1,13 @@
 class Component {
-	constructor (map, nodeTag = "HTMLUnknownElement", children = []) {
+	constructor (map, nodeTag = "HTMLUnknownElement") {
 		this.map = map;
 		this.nodeTag = nodeTag;
 		this.children = children;
+		this.makeNode();
 	}
 
 	makeNode () {
 		this.node = document.createElement(this.nodeTag);
-		children.forEach(child => {
-			this.node.appendChild(child);
-		});
 	}
 
 	getNode () {
