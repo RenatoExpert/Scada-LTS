@@ -47,7 +47,7 @@ class BodyComponent extends Component {
 			default:
 				console.warn(`Template is not set. \n map.template: ${map.template}`);
 		}
-		return this.node.appendChild(child);
+		return this.node.appendChild(child.node);
 	}
 }
 
