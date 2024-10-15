@@ -2,8 +2,9 @@ class ASSETSAPI {
 	static fetch_svg (path) {
 		let div = document.createElement("div");
 		div.style.position = "relative";
+		let asset_path = new URL(path, this.#assets_dir_url);
 		return new Promise((resolve, reject) => {
-			fetch(path).then(file => {
+			fetch(asset_path).then(file => {
 				file.text().then(text => {
 					div.innerHTML = text;
 					resolve(div);
