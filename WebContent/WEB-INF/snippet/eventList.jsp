@@ -47,7 +47,7 @@
     </div>
   </c:if>
   <c:if test="${!empty events && !pendingEvents}">
-    <div style="padding:3px; float:left;">
+    <div style="padding:3px; float:right;">
       <c:if test="${displayPagination}">|</c:if>
       <a href="#" onclick="jumpToDate(this);return false;"><sst:i18n key="events.jumpToDate"/></a>
       | <sst:i18n message="${sst:message('events.listed',fn:length(events),'')}" />
@@ -55,7 +55,8 @@
   </c:if>
   <div style="clear:both;"></div>
   
-  <table cellspacing="1" cellpadding="0" border="0">
+  <div class="right-box mb-3 table-responsive w-100 h-50 overflow-auto mx-auto">
+  <table cellspacing="1" cellpadding="0" border="0" class="table table-light table-hover">
     <tr class="rowHeader">
       <td><sst:i18n key="events.id"/></td>
       <td><sst:i18n key="common.alarmLevel"/></td>
@@ -88,7 +89,6 @@
           <c:choose>
             <c:when test="${event.active}">
               <sst:i18n key="common.active"/>
-              <%-- mexi aqui --%>
               <a href="events.shtm" title="<fmt:message key='common.active'/>">
                   <i class="bi bi-flag"></i>
               </a>
@@ -178,4 +178,5 @@
       </tr>
     </c:forEach>
   </table>
+  </div>
 </c:if>

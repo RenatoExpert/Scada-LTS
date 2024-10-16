@@ -318,7 +318,7 @@ html > body .dojoTreeNodeLabelTitle {
 }
 
 #hp-headers > div {
-	margin-bottom: 15px;
+	margin-bottom: 1rem;
 }
 
 /* teste de estilo no menu de navegação*/
@@ -332,7 +332,7 @@ html > body .dojoTreeNodeLabelTitle {
     display: flex;
     justify-content: space-around;
     background-color: #ffffff; /* Cor de fundo do menu */
-    padding: 5px 5px; /* Espaçamento vertical */
+    padding: 0.25rem 0.25rem; /* Espaçamento vertical */
     border-bottom: 1px solid #ffffff; /* Linha inferior */
 	margin: 0px;
 }
@@ -340,18 +340,18 @@ html > body .dojoTreeNodeLabelTitle {
 .horizontal-menu a {
     text-decoration: none;
     color: #111111; /* Cor do texto */
-    padding: 3px 16px; /* Espaçamento interno */
+    padding: 0.25rem 1rem; /* Espaçamento interno */
     transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
-    border-radius: 5px; /* Pontas arredondadas */
+    border-radius: 0.25rem; /* Pontas arredondadas */
 }
 
 .horizontal-menu i {
     text-decoration: none;
     color: #111111; /* Cor do texto */
-    font-size: 24px; /* Tamanho da fonte */	
-    padding: 3px; /* Espaçamento interno */
+    font-size: 1.5rem; /* Tamanho da fonte */	
+    padding: 0.25rem; /* Espaçamento interno */
     transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
-    border-radius: 5px; /* Pontas arredondadas */
+    border-radius: 0.25rem; /* Pontas arredondadas */
 }
 
 .flex-default {
@@ -359,7 +359,7 @@ html > body .dojoTreeNodeLabelTitle {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0px 24px 0px 24px;
+	padding: 0rem 1.5rem 0rem 1.5rem;
 }
 
 .horizontal-menu i:hover {
@@ -384,12 +384,12 @@ html > body .dojoTreeNodeLabelTitle {
 .menu-user.custom-size {
     text-decoration: none;
     color: #111111; /* Cor do texto */
-    width: 190px; /* Largura da div */
-    height: 32px; /* Altura da div */
+    width: 12rem; /* Largura da div */
+    height: 2rem; /* Altura da div */
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Espaçamento entre ícone e texto */
+    gap: 0.5rem; /* Espaçamento entre ícone e texto */
     transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor e o fundo */
 }
 
@@ -402,16 +402,16 @@ html > body .dojoTreeNodeLabelTitle {
 
 .avatar {
 	vertical-align: middle;
-	width: 32px;
-	height: 32px;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 50%;
 	color: #F0F0F0;
     border: none;
-	font-size: 14px; /* Tamanho da fonte */
+	font-size: 0.75rem; /* Tamanho da fonte */
 }
 
 .sound-icon {
-	font-size: 24px; /* Tamanho do ícone */
+	font-size: 1.5rem; /* Tamanho do ícone */
 	display: flex;
 	align-items: center;
 }
@@ -459,6 +459,11 @@ html > body .dojoTreeNodeLabelTitle {
 	margin: 0 auto;
 	padding: 10px 0px;
 }
+
+#pendingAlarms i {
+	font-size: 1.0rem;
+}
+
 .box-description {
 }
 
@@ -467,6 +472,17 @@ html > body .dojoTreeNodeLabelTitle {
 	justify-content: space-between;	
 	width: 35%;
 	font-size: 20px;
+}
+ /* icones do alerta */
+#ackAllDiv{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	font-size: 2.0rem;
+}
+ /* icones do alerta */
+#searchResults i {
+	font-size: 1.0rem;
 }
 
 .formLabelinput {
@@ -520,4 +536,6 @@ html > body .dojoTreeNodeLabelTitle {
 	font-size: 20px; /* Tamanho do ícone */
 	padding-left: 10px;
 }
+
+
 

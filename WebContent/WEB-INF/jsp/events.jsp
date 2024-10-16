@@ -162,52 +162,64 @@
     // dojo.event.connect(x,'onValueChanged','jumpToDateClicked');
     // });
   </script>
-  <div class="borderDiv marB marR">
-    <div class="smallTitle titlePadding" style="float:left;">
-    <a href="#" class="nav-link" title="<fmt:message key='events.alarms'/>">
-        <i class="bi bi-flag"></i>
-    </a>
-      <fmt:message key="events.pending"/>
+  <div class="borderDiv marB marR container">
+    <div class="left-box">
+      <div class="top-row-box mb-3">
+        <div class="box-description sound-icon">
+          <span class="smallTitle"><fmt:message key="events.pending"/></span>
+          <%-- <tag:help id="events"/> --%>
+          <i href="#" class="nav-link" title="<fmt:message key='events.alarms'/>"></i>
+          <i class="bi bi-flag ms-3 me-3"></i>
+        </div>
+        <div id="ackAllDiv" class="titlePadding" style="display:none;">
+          <span style="font-size: 16px;">
+            <fmt:message key="events.acknowledgeAll"/>
+            </span>
+            <a href="#" class="nav-link" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="<fmt:message key='events.acknowledgeAll'/>">
+              <i class="bi bi-check ms-3 me-3 text-blue-add"></i>
+            </a>
+          <div class="vr custom-vr me-2"></div>
+          <span style="font-size: 16px;">
+            <fmt:message key="events.silenceAll"/>
+          </span>
+          <a href="#" class="nav-link" onclick="silenceAll()" title="<fmt:message key='events.silenceAll'/>">
+            <i class="bi bi-volume-mute ms-3 me-3 text-blue-add"></i>
+          </a>
+          <br/>
+        </div>
+      </div>
+      <div id="pendingAlarms" style="clear:both;"></div>
+      <div id="noAlarms" style="display:none;padding:6px;text-align:center;">
+        <b><fmt:message key="events.emptyList"/></b>
+      </div>
+      <div id="hourglass" style="padding:6px;text-align:center;">
+        <i class="bi bi-hourglass-split"></i>
+      </div>
     </div>
-    <div id="ackAllDiv" class="titlePadding" style="display:none;float:right;">
-      <fmt:message key="events.acknowledgeAll"/><a href="#" class="nav-link" onclick="MiscDwr.acknowledgeAllPendingEvents()" title="<fmt:message key='events.acknowledgeAll'/>">
-          <i class="bi bi-check"></i>
-      </a>&nbsp;
-      <fmt:message key="events.silenceAll"/>
-        <a href="#" class="nav-link" onclick="silenceAll()" title="<fmt:message key='events.silenceAll'/>">
-            <i class="bi bi-volume-mute"></i>
-        </a><br/>
     </div>
-    <div id="pendingAlarms" style="clear:both;"></div>
-    <div id="noAlarms" style="display:none;padding:6px;text-align:center;">
-      <b><fmt:message key="events.emptyList"/></b>
-    </div>
-    <div id="hourglass" style="padding:6px;text-align:center;">
-      <i class="bi bi-hourglass-split"></i>
-    </div>
-  </div>
-  <div class="borderDiv marB marR">
-    <div class="smallTitle titlePadding">
+  <div class="borderDiv marB marR container">
+    <div class="top-row-box mb-3">
+        <div class="box-description sound-icon">
+          <span class="smallTitle"><fmt:message key="events.search"/></span>
+        </div>
+      </div>
+    <%-- <div class="smallTitle titlePadding">
       <fmt:message key="events.search"/>
-    </div>
+    </div> --%>
     <div>
-      <table>
-        <tr>
-          <td id="eventIdLabel" class="formLabel">
-            <fmt:message key="events.id"/>
-          </td>
-          <td class="formField">
-            <input id="eventId" type="text">
-          </td>
-        </tr>
-        <%-- Formulario Procura de eventos --%>
-        <tr>
-          <td class="formLabel">
-            <fmt:message key="events.search.type"/>
-          </td>
-          <td class="formField">
-            <select id="eventSourceType">
-              <option value="-1">
+      <table><div class="ms-5 me-5 mb-3 row g-1">
+        <div class="col">
+        <div class="mb-3 row">
+            <label for="eventIdLabel" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="events.id"/></label>
+            <div class="col-sm-3 custom-padding-is">
+              <input type="text" class="form-control form-control-sm" id="eventId">
+            </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="eventSourceType" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="events.search.type"/></label>
+          <div class="col-sm-6 custom-padding-is">
+            <select class="form-select form-select-sm" id="eventSourceType">
+            <option value="-1">
                 <fmt:message key="common.all"/>
               </option>
               <option value="<c:out value='<%= EventType.EventSources.DATA_POINT %>'/>">
@@ -235,14 +247,12 @@
                 <fmt:message key="eventHandlers.auditEvents"/>
               </option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="formLabel">
-            <fmt:message key="common.status"/>
-          </td>
-          <td class="formField">
-            <select id="eventStatus">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="eventStatus" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.status"/></label>
+          <div class="col-sm-6 custom-padding-is">
+            <select class="form-select form-select-sm" id="eventStatus">
               <option value="<c:out value='<%= EventsDwr.STATUS_ALL %>'/>">
                 <fmt:message key="common.all"/>
               </option>
@@ -256,47 +266,44 @@
                 <fmt:message key="common.nortn"/>
               </option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="formLabel">
-            <fmt:message key="common.alarmLevel"/>
-          </td>
-          <td class="formField">
-            <select id="alarmLevel">
+          </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="mb-3 row">
+          <label for="alarmLevel" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.alarmLevel"/></label>
+          <div class="col-sm-4 custom-padding-is">
+            <select class="form-select form-select-sm" id="alarmLevel">
               <tag:alarmLevelOptions allOption="true"/>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="formLabel">
-            <fmt:message key="events.search.keywords"/>
-          </td>
-          <td class="formField">
-            <input id="keywords" type="text"/>
-          </td>
-        </tr>
-        <tr>
-          <td id="maxResultsLabel" class="formLabel">
-            <fmt:message key="events.search.maxResults"/>
-          </td>
-          <td class="formField">
-            <input id="maxResults" type="text" value="100"/>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input id="searchBtn" type="button" value="<fmt:message key='events.search.search'/>" onclick="newSearch()"/>
+          </div>
+        </div>
+          <div class="mb-3 row">
+              <label for="keywords" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="events.search.keywords"/></label>
+              <div class="col-sm-9 custom-padding-is">
+                <input type="text" class="form-control form-control-sm" id="keywords">
+              </div>
+          </div>
+          <div class="mb-3 row">
+              <label for="maxResults" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="events.search.maxResults"/></label>
+              <div class="col-sm-4 custom-padding-is">
+                <input type="number" class="form-control form-control-sm" id="maxResults" min="1" max="1000000000" value="500">
+              </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="align-self-end">
+            <button id="searchBtn" type="button" class="btn btn-primary custom-btn-blue" name="searchBtn"  onclick="newSearch()"><fmt:message key="events.search.search"/></button>
+          </div>
+          <td colspan="24" align="center">
             <span id="searchMessage" class="formError"></span>
           </td>
-        </tr>
+        </div>
+        </div>
+        
+          
       </table>
     </div>
     <div id="searchResults"></div>
   </div>
-  <%-- <tag:newPageNotification href="./app.shtm#/alarms/scada" ref="alarmListNotification"/> --%>
-  <!-- <div id="datePickerDiv" style="position:relative; top:0px; left:0px;" onmouseover="cancelDatePickerExpiry()" onmouseout="expireDatePicker()"> -->
-  <%-- <div widgetId="datePicker" dojoType="datepicker" dayWidth="narrow" lang="${lang}"></div> --%>
-  <!-- </div> -->
-
 </tag:page>
