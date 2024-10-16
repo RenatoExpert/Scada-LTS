@@ -35,7 +35,7 @@ class InlineMenu extends Component {
 }
 
 
-class OverviewHeader extends Component {
+class UnitHeader extends Component {
 	constructor (map) {
 		let nodeTag = "div";
 		super(map, nodeTag);
@@ -43,10 +43,10 @@ class OverviewHeader extends Component {
 	}
 
 	#make_child () {
-		let menu = new InlineMenu(map, "erpm");
-		this.node.appendChild(menu);
+		let menu = new InlineMenu(this.map, "erpm");
+		this.node.appendChild(menu.node);
 	}
 }
 
-export default OverviewHeader;
+export default UnitHeader;
 
