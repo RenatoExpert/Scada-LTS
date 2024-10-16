@@ -29,16 +29,8 @@ class Map {
 				template: "system"
 			},
 			{
-				regex: /stations/,
-				template: "stations-l1"
-			},
-			{
-				regex: /stations:*/,
-				template: "stations-l2"
-			},
-			{
-				regex: /stations:*:*/,
-				template: "stations-l3"
+				regex: /erpm/,
+				template: "erpm"
 			}
 		];
 		for (let i = 0; i < routerTable.length; i++) {

@@ -9,7 +9,7 @@ class SystemBody extends Component {
 	}
 
 	#get_child () {
-		ASSETSAPI.fetch_svg("hp/bg/l1-system.svg").then(svg => {
+		ASSETSAPI.fetch_svg("hp/bg/system.svg").then(svg => {
 			this.node.appendChild(svg);
 		});
 	}

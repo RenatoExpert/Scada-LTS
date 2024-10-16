@@ -1,9 +1,9 @@
 import Component from '../../abstract/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
 
-import StationsOverview from './stations/StationsOverview.js';
+import ERPMOverview from './erpm/ERPMOverview.js';
 
-class StationsBody extends Component {
+class ERPMBody extends Component {
 	constructor (map) {
 		let nodeTag = "div";
 		super(map, nodeTag);
@@ -14,7 +14,7 @@ class StationsBody extends Component {
 		let child;
 		switch(this.map.levelmap.max) {
 			case 1:
-				child = new StationsOverview(this.map);
+				child = new ERPMOverview(this.map);
 				break;
 			/*
 			case 2:
@@ -31,5 +31,5 @@ class StationsBody extends Component {
 	}
 }
 
-export default StationsBody;
+export default ERPMBody;
 

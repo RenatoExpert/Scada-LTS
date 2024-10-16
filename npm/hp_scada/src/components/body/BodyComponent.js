@@ -2,6 +2,7 @@ import Component from '../../abstract/Component.js';
 
 import BannerBody from './BannerBody.js';
 import SystemBody from './SystemBody.js';
+import ERPMBody from './ERPMBody.js';
 /*
 import StationBody;
 import RectifiersBody;
@@ -27,7 +28,7 @@ class BodyComponent extends Component {
 				child = new SystemBody();
 				break;
 			case 'erpm':
-				child = new StationsBody();
+				child = new ERPMBody();
 				break;
 				/*
 			case 'rectifiers':
