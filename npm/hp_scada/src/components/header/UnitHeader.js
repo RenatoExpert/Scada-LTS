@@ -18,8 +18,8 @@ class InlineMenu extends Component {
 			flexWrap: "wrap",
 			padding: "0px 5px"
 		};
-		let children = this.map.tree.root.erpm;
-		Object.entries(children).forEach((nodeId, unit) => {
+		let erpm_set = this.map.tree.root.erpm;
+		Object.entries(erpm_set.children).forEach((nodeId, unit) => {
 			let button = document.createElement("button");
 			let newAddress = this.targetAddress + ":" + nodeId;
 			button.textContent = unit.label;
