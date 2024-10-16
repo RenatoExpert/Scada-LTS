@@ -26,10 +26,10 @@ class BodyComponent extends Component {
 			case 'system':
 				child = new SystemBody();
 				break;
-				/*
 			case 'erpm':
 				child = new StationsBody();
 				break;
+				/*
 			case 'rectifiers':
 				child = new RectifiersBody();
 				break;
