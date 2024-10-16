@@ -14,7 +14,8 @@ import GraphicBody;
 class BodyComponent extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-bodycomponent";
+		super(map, nodeTag, className);
 		this.#get_child();
 	}
 

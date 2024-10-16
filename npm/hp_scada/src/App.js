@@ -26,6 +26,7 @@ class App {
 			console.log({ map: this.map });
 			this.rootComponent = new RootComponent(this.map);
 			this.node = this.rootComponent.getNode();
+			this.node.className = "hp-app";
 		});
 	}
 

@@ -5,7 +5,8 @@ import NAVAPI from '../../lib/NAVAPI.js';
 class InlineMenu extends Component {
 	constructor (map, targetAddress) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-inlinemenu";
+		super(map, nodeTag, className);
 		this.targetAddress = targetAddress;
 		this.#make_children();
 	}

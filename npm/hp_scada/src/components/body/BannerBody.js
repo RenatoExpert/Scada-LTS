@@ -5,7 +5,8 @@ import NAVAPI from '../../lib/NAVAPI.js';
 class BannerBody extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-bannerbody";
+		super(map, nodeTag, className);
 		this.#get_child();
 	}
 

@@ -7,7 +7,8 @@ import UnitHeader from './UnitHeader.js';
 class HeaderComponent extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-headercomponent"
+		super(map, nodeTag, className);
 		let children = this.#make_menus();
 	}
 

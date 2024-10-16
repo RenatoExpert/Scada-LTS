@@ -4,7 +4,8 @@ import ASSETSAPI from '../../../lib/ASSETSAPI.js';
 class ERPMOverview extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-erpmoverview";
+		super(map, nodeTag, className);
 		this.#make_child();
 	}
 

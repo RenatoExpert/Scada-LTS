@@ -4,7 +4,8 @@ import ASSETSAPI from '../../lib/ASSETSAPI.js';
 class SystemBody extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-systembody";
+		super(map, nodeTag, className);
 		this.#get_child();
 	}
 
