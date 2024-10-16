@@ -10,7 +10,7 @@ class StationsOverview extends Component {
 	}
 
 	#make_child () {
-		let path = "hp/erpm.svg";
+		let path = "hp/stations.svg";
 		ASSETSAPI.fetch_svg(path).then(svg => {
 			this.node.appendChild(svg);
 		});
