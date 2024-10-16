@@ -17,18 +17,19 @@ class InlineMenu extends Component {
 			flexWrap: "wrap",
 			padding: "0px 5px"
 		};
-		for(let item in table) {
+		let children = this.map.getNodeByAddress(this.targetAddress).children;
+		Object.entries(children).forEach((nodeId, unit) => {
 			let button = document.createElement("button");
-			button.textContent = table[item].label;
+			let newAddress = this.targetAddress + ":" + nodeId;
+			button.textContent = unit.label;
 			button.onclick = () => {
-				NAVAPI.goto_id(this.targetAddress);
+				NAVAPI.goto_id(newAddress);
 			};
-			button.id = `button-${this.targetAddress}`;
+			button.id = `button-${newAddress}`;
 			button.style.width = "90px";
 			button.style.height = "45px";
 			this.node.append(button);
-		}
-
+		});
 	}
 }
 
