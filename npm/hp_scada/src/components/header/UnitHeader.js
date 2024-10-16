@@ -1,0 +1,50 @@
+import Component from '../../abstract/Component.js';
+import ASSETSAPI from '../../lib/ASSETSAPI.js';
+import NAVAPI from '../../lib/NAVAPI.js';
+
+class InlineMenu extends Component {
+	constructor (map, targetAddress) {
+		let nodeTag = "div";
+		super(map, nodeTag);
+		this.targetAddress = targetAddress;
+		this.#make_children();
+	}
+
+	#make_children () {
+		this.node.style = {
+			display: "inline-flex",
+			width: "1280px",
+			flexWrap: "wrap",
+			padding: "0px 5px"
+		};
+		for(let item in table) {
+			let button = document.createElement("button");
+			button.textContent = table[item].label;
+			button.onclick = () => {
+				NAVAPI.goto_id(this.targetAddress);
+			};
+			button.id = `button-${this.targetAddress}`;
+			button.style.width = "90px";
+			button.style.height = "45px";
+			this.node.append(button);
+		}
+
+	}
+}
+
+
+class OverviewHeader extends Component {
+	constructor (map) {
+		let nodeTag = "div";
+		super(map, nodeTag);
+		this.#make_child();
+	}
+
+	#make_child () {
+		let menu = new InlineMenu(map, "erpm");
+		this.node.appendChild(menu);
+	}
+}
+
+export default OverviewHeader;
+
