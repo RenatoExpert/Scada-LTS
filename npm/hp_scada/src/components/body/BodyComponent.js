@@ -25,10 +25,10 @@ class BodyComponent extends Component {
 				child = new BannerBody(this.map);
 				break;
 			case 'system':
-				child = new SystemBody();
+				child = new SystemBody(this.map);
 				break;
 			case 'erpm':
-				child = new ERPMBody();
+				child = new ERPMBody(this.map);
 				break;
 				/*
 			case 'rectifiers':
