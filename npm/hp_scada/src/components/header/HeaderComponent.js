@@ -17,13 +17,15 @@ class HeaderComponent extends Component {
 		} else {
 			let l1_menu = new OverviewHeader(this.map);
 			this.node.appendChild(l1_menu.node);
-			if (this.map.levelmap.max > 1) {
+			if (this.map.levelmap[1] == "erpm" && this.map.levelmap.max < 3) {
 				let l2_menu = new UnitHeader(this.map);
 				this.node.appendChild(l2_menu.node);
+				/*
 				if (this.map.level.max > 2) {
 					//let l3_menu = new DetailHeader(map);
 					//children.push(l3_menu);
 				}
+				*/
 			}
 		}
 	}
