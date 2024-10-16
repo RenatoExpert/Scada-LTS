@@ -9,7 +9,8 @@ class HeaderComponent extends Component {
 		let nodeTag = "div";
 		let className = "hp-headercomponent"
 		super(map, nodeTag, className);
-		let children = this.#make_menus();
+		this.#make_menus();
+		this.#make_subtitle();
 	}
 
 	#make_menus () {
@@ -28,6 +29,18 @@ class HeaderComponent extends Component {
 				*/
 			}
 		}
+	}
+
+	#make_subtitle () {
+		//	This must be a separated class in a separated file
+		let subtitle = document.createElement("div");
+		subtitle.id = "hp-headers-subtitle";
+		subtitle.className = "labelDiv";
+		subtitle.style.position = "absolute";
+		subtitle.style.display = "none";
+		subtitle.style.left = "200px";
+		subtitle.style.top = "200px";
+		this.node.appendChild(subtitle);
 	}
 }
 
