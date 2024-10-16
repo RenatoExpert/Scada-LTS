@@ -94,7 +94,7 @@ class OverviewHeader extends Component {
 			NAVAPI.goto_id("erpm");
 		});
 		this.#bind_button("l1-system", "Status do sistema",() => {
-			NAVAPI.goto_id("l1-estatisticas");
+			NAVAPI.goto_id("system");
 		});
 		this.#bind_button("l1-refresh", "Atualizar tela", () => {
 			location.reload();
