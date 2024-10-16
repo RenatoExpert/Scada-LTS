@@ -18,7 +18,7 @@ class InlineMenu extends Component {
 			flexWrap: "wrap",
 			padding: "0px 5px"
 		};
-		let children = this.map.levelmap[1].children;
+		let children = this.map.levelmap.last.children;
 		Object.entries(children).forEach((nodeId, unit) => {
 			let button = document.createElement("button");
 			let newAddress = this.targetAddress + ":" + nodeId;
