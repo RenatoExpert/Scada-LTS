@@ -2,6 +2,7 @@ import Component from '../../abstract/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
 
 import ERPMOverview from './erpm/ERPMOverview.js';
+import ERPMUnit from './erpm/ERPMUnit.js';
 
 class ERPMBody extends Component {
 	constructor (map) {
@@ -16,10 +17,10 @@ class ERPMBody extends Component {
 			case 1:
 				child = new ERPMOverview(this.map);
 				break;
-			/*
 			case 2:
-				child = new SystemBody();
+				child = new ERPMUnit(this.map);
 				break;
+			/*
 			case 3:
 				child = new StationsBody();
 				break;
