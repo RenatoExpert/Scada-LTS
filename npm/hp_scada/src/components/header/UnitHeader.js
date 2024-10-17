@@ -20,7 +20,7 @@ class InlineMenu extends Component {
 		};
 		let erpm_set = this.map.tree.root.erpm;
 		let children = erpm_set.children;
-		Object.entries(children).forEach([nodeId, unit] => {
+		Object.entries(children).forEach(([nodeId, unit]) => {
 			let button = document.createElement("button");
 			let newAddress = this.targetAddress + ":" + nodeId;
 			button.textContent = unit.label;
