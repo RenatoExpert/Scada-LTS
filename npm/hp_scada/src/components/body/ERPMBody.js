@@ -12,7 +12,7 @@ class ERPMBody extends Component {
 
 	#get_child () {
 		let child;
-		switch(this.map.levelmap.max) {
+		switch (this.map.levelmap.max) {
 			case 1:
 				child = new ERPMOverview(this.map);
 				break;
@@ -26,8 +26,10 @@ class ERPMBody extends Component {
 				*/
 			default:
 				console.warn(`map.levelmap.max must be between 1 and 3: ${this.map.levelmap.max}`);
+				child = document.createElement("div");
+				child.innerText("Internal Error\n check it on console");
 		}
-		return this.node.appendChild(child.node);
+		this.node.appendChild(child.node);
 	}
 }
 
