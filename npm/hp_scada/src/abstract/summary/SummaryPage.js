@@ -39,7 +39,7 @@ class SummaryPage extends Component {
 		}
 		if (this.index < this.last) {
 			let nextButton = new PageNext(this.index);
-			this.node.appendChild(nextButton.node):
+			this.node.appendChild(nextButton.node);
 		}
 	}
 
