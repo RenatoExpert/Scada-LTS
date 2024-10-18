@@ -58,6 +58,3 @@ class SummaryPage extends Component {
 
 export default SummaryPage;
 
-        create_dom_element (items_per_page) {
-        }
-
