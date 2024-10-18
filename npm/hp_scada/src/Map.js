@@ -12,6 +12,7 @@ class Map {
 	setParameters (params) {
 		this.params = params;
 		this.params.address = this.params.address || "banner";
+		this.params.page = parseInt(this.params.page) || 1;
 		console.log(params);
 		this.levelmap = new LevelMap(this.tree, params.address);
 		this.setTemplate();
