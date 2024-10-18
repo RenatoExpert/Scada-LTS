@@ -23,62 +23,83 @@
     function setFocus() {
         $("sqlString").focus();
     }
+
+    function showResultDiv() {
+        document.getElementById("resultDiv").style.display = "block";
+    }
+
+    window.onload = function() {
+        // Verifica se a div deve ser exibida após a recarga da página
+        if (${form.data != null}) {
+            showResultDiv();
+        }
+    }
   </script>
   
-  <table class="subPageHeader" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <table class="subPageHeader container">
     <tr>
       <td>
+      <div class="right-box text-center">
         <form action="sql.shtm" method="post">
-          <table>
+          <table class="mx-auto">
+            <spring:bind path="form.sqlString">
+              <tr>
+                <div class="top-row-box mb-3">
+                  <div class="box-description sound-icon">
+                    <span class="smallTitle"><fmt:message key="sql.sql"/></span>
+                    <tag:help id="directQuerying"/>
+                  </div>
+                </div>
+                <div class="top-row-box mb-3">
+                </td>
+                <td>
+                  <label for="sqlString" class="form-label">Preencher com QUERY SQL</label>
+                  <div class="d-flex flex-column align-items-start">
+                    <textarea class="form-control mb-3" id="sqlString" name="sqlString" rows="8" cols="80"><c:out value="${status.value}"/></textarea>
+                    <div class="align-self-end">
+                      <button type="submit" class="btn btn-primary custom-btn-blue" name="query" onclick="showResultDiv()"><fmt:message key="sql.query"/></button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </spring:bind>
             <tr>
               <td colspan="2"><fmt:message key="sql.warning"/></td>
             </tr>
-            <spring:bind path="form.sqlString">
-              <tr>
-                <td class="formLabelRequired">
-                  <fmt:message key="sql.sql"/>
-                  <tag:help id="directQuerying"/>
-                </td>
-                <td><textarea id="sqlString" name="sqlString" rows="8" cols="80"><c:out value="${status.value}"/></textarea></td>
-              </tr>
               <tr>
                 <c:if test="${form.error != null}"><td colspan="2" class="formError"><c:out value="${form.error}"/></td></c:if>
               </tr>
-            </spring:bind>
-            
-            <tr>
-              <td colspan="2" align="center">
-                <input type="submit" value="<fmt:message key="sql.query"/>" name="query"/>
-              </td>
-              <td></td>
-            </tr>
           </table>
         </form>
-        <br/>
-        
-        <c:if test="${form.data != null}">
-          <table cellspacing="1">
-            <tr class="rowHeader">
-              <c:forEach items="${form.headers}" var="rowHeader">
-                <td>${rowHeader}</td>
-              </c:forEach>
-            </tr>
-            
-            <c:forEach items="${form.data}" var="rowTable">
-              <tr class="rowTable">
-                <c:forEach items="${rowTable}" var="col">
-                  <td><c:out value="${col}"/></td>
+          <div class="top-row-box mb-3">
+          <div id="resultDiv" class="right-box table-responsive w-75 h-50 overflow-auto mx-auto" style="display: none;">
+          <div class="top-row-box mb-3">
+          <c:if test="${form.data != null}">
+            <table cellspacing="1" class="table table-light table-hover">
+              <tr class="rowHeader">
+                <c:forEach items="${form.headers}" var="rowHeader">
+                  <td>${rowHeader}</td>
                 </c:forEach>
               </tr>
-            </c:forEach>
-          </table>
-        </c:if>
+              
+              <c:forEach items="${form.data}" var="rowTable">
+                <tr class="rowTable">
+                  <c:forEach items="${rowTable}" var="col">
+                    <td><c:out value="${col}"/></td>
+                  </c:forEach>
+                </tr>
+              </c:forEach>
+            </table>
+          </c:if>
 
-        <c:if test="${form.updateResult > -1}">
-          ${form.updateResult} <fmt:message key="sql.rowsUpdated"/>
-        </c:if>
-
-        <br/>
+          <c:if test="${form.updateResult > -1}">
+            ${form.updateResult} <fmt:message key="sql.rowsUpdated"/>
+          </c:if>
+          
+          </div>
+          </div>
+          </div>
+      </div>
       </td>
     </tr>
   </table>

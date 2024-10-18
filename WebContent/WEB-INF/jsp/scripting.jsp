@@ -28,33 +28,34 @@
 
   <script type="text/javascript">
 
-  	var pathArray = location.href.split( '/' );
-  	var protocol = pathArray[0];
-  	var host = pathArray[2];
-  	var port = location.port;
-   	var appScada = pathArray[3];
-  	var url = protocol + '//' + host;
-  	var myLocation;
-  	if (!myLocation) {
-   		myLocation = location.protocol + "//" + location.host + "/" + appScada + "/";
-  	}
+    var pathArray = location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var port = location.port;
+    var appScada = pathArray[3];
+    var url = protocol + '//' + host;
+    var myLocation;
+    if (!myLocation) {
+      myLocation = location.protocol + "//" + location.host + "/" + appScada + "/";
+    }
     var urlGetDataPoints = "/api/datapoint/getAll";
-    function executeScript(){
-    	var xid = jQuery("#xid");
-    	// saveScript() nie zdarzy zapisac !!!
-    	jQuery.ajax({
-    		url: myLocation+"/script/execute/"+xid[0].value,
-    		type:"POST",
-    		success: function(){
-              setUserMessage("<fmt:message key="script.execute.success"/> ")
-        	},
-        	error: function(XMLHttpRequest, textStatus, errorThrown) {
-        		console.log(textStatus);
-        		console.log(XMLHttpRequest);
-        		setUserMessage("<fmt:message key="script.execute.error"/> "+XMLHttpRequest.responseText);
-        	}
-    	});
-    };
+    
+    function executeScript() {
+      var xid = jQuery("#xid");
+      // saveScript() nie zdarzy zapisac !!!
+      jQuery.ajax({
+        url: myLocation + "/script/execute/" + xid[0].value,
+        type: "POST",
+        success: function() {
+          setUserMessage("<fmt:message key='script.execute.success'/>");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(textStatus);
+          console.log(XMLHttpRequest);
+          setUserMessage("<fmt:message key='script.execute.error'/> " + XMLHttpRequest.responseText);
+        }
+      });
+    }
 
     var pointsArray = new Array();
     var contextArray = new Array();
@@ -65,7 +66,7 @@
         getPointsCB();
 
         jQuery("#allPointsList").chosen({
-       		allow_single_deselect: true,
+          allow_single_deselect: true,
 			placeholder_text_single: " ",
 			search_contains: true,
 			width: "400px"
@@ -76,9 +77,9 @@
     {
         jQuery.ajax({
             type: "GET",
-        	dataType: "text",
-        	url:myLocation+urlGetDataPoints,
-        	success: function(points){
+            dataType: "text",
+          url:myLocation+urlGetDataPoints,
+          success: function(points){
             points = JSON.parse(points);
             for(i = 0; i < points.length; i++) {
                 point = points[i];
@@ -90,15 +91,15 @@
             }
             document.getElementById("loader").style.display = "none";
             document.body.style.overflow="visible";
-        	},
-        	error: function(XMLHttpRequest, textStatus, errorThrown) {
-        	  console.log(textStatus);
-        	}
+            },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(textStatus);
+          }
         });
     }
 
     function initCB(scripts) {
-    	for (var i=0; i<scripts.length; i++) {
+      for (var i=0; i<scripts.length; i++) {
             appendScript(scripts[i].id);
             updateScript(scripts[i]);
         }
@@ -115,13 +116,13 @@
 
     var editingScript;
     function showScript(seId) {
-    	if (editingScript)
+      if (editingScript)
             stopImageFader($("se"+ editingScript.id +"Img"));
         hideContextualMessages("scriptDetails");
 
         ScriptsDwr.getScript(seId, function(s) {
-        	 if (!editingScript)
-                 show($("scriptDetails"));
+          if (!editingScript)
+              show($("scriptDetails"));
 
             editingScript = s;
             $set("xid", s.xid);
@@ -134,56 +135,58 @@
             writeContextArray();
 
             clearObjectsTable();
-		 	for (var i=0; i<s.objectsOnContext.length; i++)
-		 		 objectsContextArray.push({key: s.objectsOnContext[i].key, value: s.objectsOnContext[i].value});
-
-	        writeObjectsContextArray();
-	        setUserMessage();
+      for (var i=0; i<s.objectsOnContext.length; i++)
+        objectsContextArray.push({key: s.objectsOnContext[i].key, value: s.objectsOnContext[i].value});
+          writeObjectsContextArray();
+          setUserMessage();
         });
 
 		startImageFader($("se"+ seId +"Img"));
 
         if (seId == ${NEW_ID}) {
-        	hide($("deleteScriptImg"));
-        	hide($("executeScriptImg"));
+          hide($("deleteScriptImg"));
+          hide($("deleteScriptText"));
+          hide($("executeScriptImg"));
         }
         else {
-        	 show($("deleteScriptImg"));
-        	 show($("executeScriptImg"));
-        	 jQuery('#executeScriptImg').click(function() {
-        		 executeScript();
-        	 });
+            show($("deleteScriptImg"));
+            show($("deleteScriptText"));
+            show($("executeScriptImg"));
+            jQuery('#executeScriptImg').click(function() {
+              executeScript();
+          });
         }
 
     }
 
     function saveScript() {
-        ScriptsDwr.saveScript(editingScript.id,$get("xid"), $get("name"),
-                $get("script"),createContextArray(),objectsContextArray,
-                function(response) {
-		        	if (response.hasMessages)
-		                showDwrMessages(response.messages);
-		            else {
-		                if (editingScript.id == ${NEW_ID}) {
-		                    stopImageFader($("se"+ editingScript.id +"Img"));
-		                    editingScript.id = response.data.seId;
-		                    appendScript(editingScript.id);
-		                    startImageFader($("se"+ editingScript.id +"Img"));
-		                    show($("deleteScriptImg"));
-		                    show($("executeScriptImg"));
-		                    jQuery('#executeScriptImg').click(function() {
-		                    	executeScript();
-		                	});
-		                }
-		                setUserMessage("<fmt:message key="scripts.saved"/>");
-		                ScriptsDwr.getScript(editingScript.id, updateScript);
-		            }
-        		}
-        );
+      ScriptsDwr.saveScript(editingScript.id, $get("xid"), $get("name"),
+        $get("script"), createContextArray(), objectsContextArray,
+        function(response) {
+          if (response.hasMessages)
+            showDwrMessages(response.messages);
+          else {
+            if (editingScript.id == ${NEW_ID}) {
+              stopImageFader($("se" + editingScript.id + "Img"));
+              editingScript.id = response.data.seId;
+              appendScript(editingScript.id);
+              startImageFader($("se" + editingScript.id + "Img"));
+              show($("deleteScriptImg"));
+              show($("deleteScriptText"));
+              show($("executeScriptImg"));
+              jQuery('#executeScriptImg').click(function() {
+                executeScript();
+              });
+            }
+            setUserMessage("<fmt:message key='scripts.saved'/>");
+            ScriptsDwr.getScript(editingScript.id, updateScript);
+          }
+        }
+      );
     }
 
     function deleteScript() {
-    	ScriptsDwr.deleteScript(editingScript.id, function() {
+        ScriptsDwr.deleteScript(editingScript.id, function() {
             stopImageFader($("se"+ editingScript.id +"Img"));
             $("scriptsTable").removeChild($("se"+ editingScript.id));
             hide($("scriptDetails"));
@@ -232,11 +235,11 @@
                     function(data) { return data.pointName; },
                     function(data) { return data.pointType; },
                     function(data) {
-                            return "<input type='text' value='"+ data.scriptVarName +"' class='formShort' "+
+                            return "<input type='text' value='"+ data.scriptVarName +"' class='form-control form-control-sm' "+
                                     "onblur='updateScriptVarName("+ data.pointId +", this.value)'/>";
                     },
                     function(data) {
-                        return "<i class='bi bi-trash text-danger' onclick='removeFromContextArray(" + data.pointId + ")'></i>";
+                        return "<i class='bi bi-trash text-danger ms-3 fs-6' onclick='removeFromContextArray(" + data.pointId + ")'></i>";
                     }
                 ],
                 {
@@ -297,7 +300,7 @@
     }
 
     function clearObjectsTable() {
-    	objectsContextArray.length = 0;
+      objectsContextArray.length = 0;
         table = $("objectsContextTable");
 		for(i = 1; i < table.rows.length; i++) {
 			id = table.rows[i].cells[0].title;
@@ -316,28 +319,28 @@
 				alert('<fmt:message key="scripts.objectsContext.invalidVar"/>');
 				$(objectId+"ObjectAdd").checked = false;
 				return;
-			}
+      }
 
-        	objectNameField.disabled = true;
-        	objectsContextArray.push({"key":objectId, "value": varName });
-        } else {
-        	objectNameField.disabled = false;
-        	 for (var i=objectsContextArray.length-1; i>=0; i--) {
-                 if (objectsContextArray[i].key == objectId)
-                	 objectsContextArray.splice(i, 1);
-             }
-        }
+      objectNameField.disabled = true;
+      objectsContextArray.push({"key": objectId, "value": varName});
+    } else {
+      objectNameField.disabled = false;
+      for (var i = objectsContextArray.length - 1; i >= 0; i--) {
+        if (objectsContextArray[i].key == objectId)
+          objectsContextArray.splice(i, 1);
+      }
     }
+  }
 
-    function writeObjectsContextArray() {
-    	for (var i= 0; i < objectsContextArray.length; i++) {
-        	o = objectsContextArray[i];
-    		objectNameField = $(o.key+"ObjectVarName");
-    		objectNameField.disabled = true;
-    		objectNameField.value = o.value;
-    		$(o.key+"ObjectAdd").checked = true;
-        }
+  function writeObjectsContextArray() {
+    for (var i = 0; i < objectsContextArray.length; i++) {
+      o = objectsContextArray[i];
+      objectNameField = $(o.key + "ObjectVarName");
+      objectNameField.disabled = true;
+      objectNameField.value = o.value;
+      $(o.key + "ObjectAdd").checked = true;
     }
+  }
 
     function setUserMessage(message) {
         if (message) {
@@ -349,10 +352,10 @@
     }
 
     jQuery(document).ready(function(){
-    	(function($) {
+      (function($) {
 			loadjscssfile("resources/jQuery/plugins/chosen/chosen.min.css","css");
 			loadjscssfile("resources/jQuery/plugins/chosen/chosen.jquery.min.js","js");
-    	})(jQuery);
+    })(jQuery);
     });
 
 
@@ -361,124 +364,136 @@
   <style>body{ overflow:hidden;}</style>
 
   <div id="loader" style="background-color:rgba(0, 0, 0, 0.7); height: 100%; position:absolute; width:100%;">
-  	<div style="color:#ffffff; font-size:30px; text-align:center; margin-top:40vh;"><img src="images/ajax-loader.gif" style="height:20px;"/> LOADING... </div>
+    <div style="color:#ffffff; font-size:30px; text-align:center; margin-top:40vh;"><img src="images/ajax-loader.gif" style="height:20px;"/> LOADING... </div>
   </div>
 
-  <table id="scriptsList" class="subPageHeader">
+  <table id="scriptsList" class="subPageHeader container">
     <tr>
       <td valign="top">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td>
-                <span class="smallTitle"><fmt:message key="scripts.title"/></span>
-                <tag:help id="scripts"/>
-              </td>
-              <td align="right">
-                <i class="bi bi-journal-code" title="<fmt:message key='scripts.addSe'/>"
-                   onclick="showScript(${NEW_ID})" id="se${NEW_ID}Img"></i>
-              </td>
-              </tr>
-          </table>
+        <div class="left-menu">
+        <div class="top-row-box mb-3">
+        <div class="box-description sound-icon">
+          <span class="smallTitle"><fmt:message key="scripts.title"/></span>
+          <tag:help id="scripts"/>
+        </div>
+        <div class="sound-icon">
+          <i class="bi bi-plus-circle-fill text-blue-add" title="<sst:i18n key='scripts.addSe' escapeDQuotes='true'/>" 
+                onclick="showScript(${NEW_ID})" id="se${NEW_ID}Img"></i>
+                <%-- <span style="font-size: 16px;">
+                  <sst:i18n key='scripts.addSe' escapeDQuotes='true'/>
+                </span> --%>
+        </div>
+        </div>
+        <div class="top-row-box mb-3">
           <table id="scriptsTable">
             <tbody id="se_TEMPLATE_" onclick="showScript(getMangoId(this))" class="ptr" style="display:none">
               <tr>
                 <td>
-                  <i id="se_TEMPLATE_Img" class="bi bi-journal-code text-success" title="<fmt:message key='scripts.se'/>"></i>
+                  <i id="se_TEMPLATE_Img" class="bi bi-journal-code text-success  me-3 sound-icon" title="<fmt:message key='scripts.se'/>"></i>
                 </td>
-                <td class="link" id="se_TEMPLATE_Name"></td>
+                <td class="text-uppercase" id="se_TEMPLATE_Name"></td>
               </tr>
             </tbody>
           </table>
         </div>
+        </div>
       </td>
 
       <td valign="top" style="display:none; position: auto;" id="scriptDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="scripts.seDetails"/></span></td>
-              <td align="right">
-                <%-- <i id="executeScriptImg" class="bi bi-exclamation-circle" title="common.run"></i> --%>
-                <i class="bi bi-floppy2-fill text-success" onclick="saveScript();" title="<fmt:message key='common.save'/>"></i>
-                <i id="deleteScriptImg" class="bi bi-trash  text-danger" onclick="deleteScript();" title="<fmt:message key='common.delete'/>"></i>
-              </td>
-            </tr>
-          </table>
-
+        <div class="right-box">
+          <div class="top-row-box mb-3">
+              <div class="box-description">
+                <span class="smallTitle"><fmt:message key="scripts.seDetails"/></span>
+              </div>
+              <div class="edit-button">
+                  <i class="bi bi-floppy2-fill text-blue-add  me-1" onclick="saveScript();" title="<fmt:message key='common.save'/>"></i>
+                  <span style="font-size: 16px;">
+                    <fmt:message key='common.save'/>
+                  </span>
+                  <i id="deleteScriptImg" class="bi bi-trash  text-danger   me-1" onclick="deleteScript();" title="<fmt:message key='common.delete'/>"></i>
+                  <span id="deleteScriptText" style="font-size: 16px;">
+                  <fmt:message key='common.delete'/>
+                  </span>
+              </div>
+          </div>
           <table>
-          	<tr>
-	            <td class="formLabelRequired"><fmt:message key="dsEdit.points.name"/></td>
-	            <td class="formField"><input type="text" id="name"/></td>
-          	</tr>
+            <form>
+              <div class="custom-padding-form mb-3">
+                <div class="mb-3 row">
+                <label for="name" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="dsEdit.points.name"/></label>
+                <div class="col-sm-6 custom-padding-is">
+                  <input type="text" class="form-control form-control-sm" id="name">
+                </div>
+                </div>
+            <div class="mb-3 row">
+              <label for="xid" class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="common.xid"/></label>
+              <div class="col-sm-6 custom-padding-is">
+                <input type="text" class="form-control form-control-sm" id="xid">
+              </div>
+            </div>
+            </div>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
-            </tr>
+          <td class="formLabelRequired"><fmt:message key="scripts.pointsContext"/></td>
+          <td class="formField">
+            <select id="allPointsList"></select>
+            <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-6" onclick="addPointToContext();" title="<fmt:message key='common.add'/>"></i>
 
-            <tr>
-			    <td class="formLabelRequired"><fmt:message key="scripts.pointsContext"/></td>
-			    <td class="formField">
-			      <select id="allPointsList"></select>
-            <i class="bi bi-plus-circle-fill text-success" onclick="addPointToContext();" title="<fmt:message key='common.add'/>"></i>
-
-			      <table cellspacing="1" id="contextContainer">
-			        <tbody id="contextTableEmpty" style="display:none;">
-			          <tr><th colspan="4"><fmt:message key="dsEdit.meta.noPoints"/></th></tr>
-			        </tbody>
-			        <tbody id="contextTableHeaders" style="display:none;">
-			          <tr class="smRowHeader">
-			            <td><fmt:message key="dsEdit.meta.pointName"/></td>
-			            <td><fmt:message key="dsEdit.pointDataType"/></td>
-			            <td><fmt:message key="dsEdit.meta.var"/></td>
-			            <td></td>
-			          </tr>
-			        </tbody>
-			        <tbody id="contextTable"></tbody>
-			      </table>
-			    </td>
+            <table class="table table-light table-hover align-middle" cellspacing="1" id="contextContainer">
+              <tbody id="contextTableEmpty" style="display:none;">
+                <tr><th colspan="4"><fmt:message key="dsEdit.meta.noPoints"/></th></tr>
+              </tbody>
+              <tbody id="contextTableHeaders" style="display:none;">
+                <tr class="smRowHeader">
+                  <td><fmt:message key="dsEdit.meta.pointName"/></td>
+                  <td><fmt:message key="dsEdit.pointDataType"/></td>
+                  <td><fmt:message key="dsEdit.meta.var"/></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tbody id="contextTable"></tbody>
+              </div>
+            </form>
+            </table>
+          </td>
 			</tr>
 
 			<tr>
-			    <td class="formLabelRequired"><fmt:message key="scripts.objectsContext"/></td>
-			    <td class="formField">
-
-			      <table cellspacing="1" id="objectsContextTable">
-				      <tbody id="objectsContextTable">
-				        		<tr class="smRowHeader">
-									<td> <fmt:message key="scripts.objectsContext.name"/> </td>
-									<td> <fmt:message key="scripts.objectsContext.var"/> </td>
-									<td> <fmt:message key="scripts.objectsContext.add"/> </td>
-									<td> &nbsp; </td>
-								</tr>
-				        		<c:forEach var="object" items="<%=br.org.scadabr.rt.scripting.context.ScriptContextObject.Type.values()%>">
-								<tr style="width: 100%;" class="smRow">
-									<td title="${object.id}" style="display: none;"> </td>
-									<td> <fmt:message key="${object.key}"/>  </td>
-									<td> <input id="${object.id}ObjectVarName" type="text" value="var_${object.id}"/> </td>
-									<td> <input id="${object.id}ObjectAdd" type="checkbox" onchange="addObjectToContext(${object.id}, this.checked)"/> </td>
-									<td> <tag:help id="${object.help}"/> </td>
-								</tr>
-				        		</c:forEach>
-				       	</tbody>
-			      </table>
-			    </td>
-			</tr>
-
-            <tr>
-
-    			<td class="formLabelRequired">
-      				<fmt:message key="dsEdit.meta.script"/>
-              <i id="executeScriptImg" class="bi bi-gear-fill text-primary" title="<fmt:message key='common.run'/>"></i>
-      				<%-- <tag:img png="accept" onclick="validateScript();" title="dsEdit.meta.validate"/> --%>
-    			</td>
-
-    			<td class="formField"><textarea id="script" rows="10" cols="50"/></textarea></td>
-  			</tr>
-
-
-
+        <tr>
+          <td class="formLabelRequired"><fmt:message key="scripts.objectsContext"/></td>
+          <td class="formField">
+            <table class="table table-light table-hover align-middle" cellspacing="1" id="objectsContextTable">
+              <tbody id="objectsContextTable">
+                <tr class="smRowHeader">
+                  <td><fmt:message key="scripts.objectsContext.name"/></td>
+                  <td><fmt:message key="scripts.objectsContext.var"/></td>
+                  <td><fmt:message key="scripts.objectsContext.add"/></td>
+                  <td>&nbsp;</td>
+                </tr>
+                <c:forEach var="object" items="<%=br.org.scadabr.rt.scripting.context.ScriptContextObject.Type.values()%>">
+                  <tr style="width: 100%;" class="smRow">
+                    <td title="${object.id}" style="display: none;"></td>
+                    <td><fmt:message key="${object.key}"/></td>
+                    <td><input class="form-control form-control-sm" id="${object.id}ObjectVarName" type="text" value="var_${object.id}"/></td>
+                    <td><input class="form-check-input custom-checkbox" id="${object.id}ObjectAdd" type="checkbox" onchange="addObjectToContext(${object.id}, this.checked)"/></td>
+                    <td><tag:help id="${object.help}"/></td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      <tr>
+      <tr>
+        <td class="formLabelRequired">
+          <fmt:message key="dsEdit.meta.script"/>
+          <i id="executeScriptImg" class="bi bi-gear-fill text-blue-add bi bi-gear-fill  ms-3 fs-6" title="<fmt:message key='common.run'/>"></i>
+          <%-- <tag:img png="accept" onclick="validateScript();" title="dsEdit.meta.validate"/> --%>
+        </td>
+        <td>
+          <textarea class="form-control mb-3" id="script" rows="10" cols="50"></textarea>
+        </td>
+      </tr>
           </table>
           <table>
             <tr>
@@ -488,6 +503,5 @@
         </div>
       </td>
     </tr>
-    <%-- <tag:newPageNotification href="./app.shtm#/scripts" ref="scriptsNotification"/> --%>
   </table>
 </tag:page>

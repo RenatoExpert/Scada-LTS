@@ -545,11 +545,11 @@ function setAlarmLevelText(alarmLevel, textNode) {
 
 function setUserImg(admin, disabled, imgNode) {
     if (disabled)
-        updateIcon(imgNode, "bi bi-person-fill text-secondary", mango.i18n["common.disabled"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-secondary align-middle me-3 fs-5", mango.i18n["common.disabled"], true);
     else if (admin)
-        updateIcon(imgNode, "bi bi-person-fill text-danger", mango.i18n["common.administrator"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-danger align-middle me-3 fs-5", mango.i18n["common.administrator"], true);
     else
-        updateIcon(imgNode, "bi bi-person-fill text-success", mango.i18n["common.user"], true);
+        updateIcon(imgNode, "bi bi-person-fill text-success align-middle me-3 fs-5", mango.i18n["common.user"], true);
 }
 
 function setScheduledEventImg(disabled, imgNode) {
@@ -595,9 +595,9 @@ function setPublisherStatusImg(enabled, imgNode) {
 
 function setPointLinkImg(disabled, imgNode) {
     if (disabled)
-        updateIcon(imgNode, "bi bi-link-45deg", mango.i18n["js.disabledPointLink"], true);
+        updateIcon(imgNode, "bi bi-x-octagon text-danger  me-3 sound-icon", mango.i18n["js.disabledPointLink"], true);
     else
-        updateIcon(imgNode, "bi bi-link", mango.i18n["pointLinks.pointLink"], true);
+        updateIcon(imgNode, "bi bi-arrow-left-right text-success me-3 sound-icon", mango.i18n["pointLinks.pointLink"], true);
 }
 
 function updateImg(imgNode, src, text, visible, styleType) {

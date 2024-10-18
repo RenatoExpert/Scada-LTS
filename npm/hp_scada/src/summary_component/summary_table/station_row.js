@@ -1,5 +1,5 @@
-import utils from '../../utils/utils.js';
 import api from '../../api/api.js';
+import utils from '../../utils/utils.js';
 
 class Numeric_display {
 	constructor (station_tag, suffix, engineering_unit, clock) {

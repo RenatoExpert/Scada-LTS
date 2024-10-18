@@ -21,25 +21,25 @@
 --%><c:if test="${event.userNotified}">
   <c:choose>
     <c:when test="${event.acknowledged}">
-        <a href="#" class="nav-link" title="<fmt:message key='events.acknowledged'/>" style="display:inline;">
-            <i class="bi bi-check-circle"></i>
+        <a href="#" class="nav-link" title="<fmt:message key='events.acknowledged'/>" style="display: inline-block;">
+            <i class="bi bi-check-circle-fill text-success ms-1 me-1"></i>
         </a>
     </c:when>
     <c:otherwise>
       <c:if test="${not event.active}">
-          <a href="#" id="ackImg${event.id}" class="nav-link" onclick="ackEvent(${event.id})" title="<fmt:message key='events.acknowledge'/>" style="display:inline;">
-              <i class="bi bi-check"></i>
+          <a href="#" id="ackImg${event.id}" class="nav-link" onclick="ackEvent(${event.id})" title="<fmt:message key='events.acknowledge'/>" style="display: inline-block;">
+              <i class="bi bi-check text-blue-add ms-1 me-1"></i>
           </a>
       </c:if>
       <c:choose>
         <c:when test="${event.silenced}">
-          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.unsilence'/>" style="display:inline;">
-              <i class="bi bi-volume-mute"></i>
+          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.unsilence'/>" style="display: inline-block;">
+              <i class="bi bi-volume-mute text-blue-add ms-1 me-1"></i>
           </a>
         </c:when>
         <c:otherwise>
-          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.silence'/>" style="display:inline;">
-              <i class="bi bi-volume-up"></i>
+          <a href="#" id="silenceImg${event.id}" class="nav-link" onclick="toggleSilence(${event.id})" title="<fmt:message key='events.silence'/>" style="display: inline-block;">
+              <i class="bi bi-volume-up text-danger ms-1 me-1"></i>
           </a>
         </c:otherwise>
       </c:choose>
