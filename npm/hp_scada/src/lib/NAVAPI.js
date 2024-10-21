@@ -6,6 +6,10 @@ function getCurrentAddress () {
 	return getCurrentParameter("address");
 }
 
+function getCurrentReference () {
+	return getCurrentParameter("reference");
+}
+
 function getCurrentViewId () {
 	return getCurrentParameter("viewId");
 }
@@ -14,21 +18,23 @@ function getCurrentPage () {
 	return getCurrentParameter("page");
 }
 
-function makeURL (newAddress, reference, viewId, page) {
-	reference = reference || getCurrentAddress();
-	viewId = viewId || new URLSearchParams(window.location.search).get("viewId");
-	page = page || getCurrentPage();
-	let link = `?address=${newAddress}&reference=${reference}&viewId=${viewId}&page=${page}`;
+function makeURL (address, reference, viewId, page) {
+	let link = `?address=${address}&reference=${reference}&viewId=${viewId}&page=${page}`;
 	return link;
 }
 
 class NAVAPI {
-	static goto_id (id, reference, viewId) {
-		window.location.href = makeURL(id, reference, viewId, null);
+	static goto_id (newAddress, reference, viewId) {
+		reference = reference || getCurrentAddress();
+		viewId = viewId || getCurrentViewId();
+		window.location.href = makeURL(newAddress, reference, viewId, null);
 	}
 
 	static page_url (pageIndex) {
-		return makeURL(undefined, undefined, undefined, pageIndex);
+		let address = getCurrentAddress();
+		let reference = getCurrentReference();
+		let viewId = getCurrentViewId();
+		return makeURL(address, referece, viewId, pageIndex);
 	}
 }
 
