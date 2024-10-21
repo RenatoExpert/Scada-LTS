@@ -19,6 +19,7 @@ function makeURL (newAddress, reference, viewId, page) {
 	viewId = viewId || new URLSearchParams(window.location.search).get("viewId");
 	page = page || getCurrentPage();
 	let link = `?address=${newAddress}&reference=${reference}&viewId=${viewId}&page=${page}`;
+	return link;
 }
 
 class NAVAPI {
