@@ -28,7 +28,7 @@ class LevelMap {
 		let path = [];
 		let current_level;
 		for (let i = 1; i <= this.max; i++) {
-			current_level = this.levelmap[i];
+			current_level = this[i];
 			path.push(current_level.name);
 		}
 		return path;
