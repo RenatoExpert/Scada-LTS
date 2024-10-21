@@ -1,8 +1,8 @@
 import Summary from '../../abstract/Summary.js';
 
 class ERPMSummary extends Summary {
-	constructor (entries) {
-		super (entries);
+	constructor (entries, map) {
+		super (entries, map);
 	}
 }
 
