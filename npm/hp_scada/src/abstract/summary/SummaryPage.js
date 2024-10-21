@@ -5,7 +5,7 @@ class SummaryPage extends Component {
 		let nodeTag = "nav";
 		let className = "hp-summarypage";
 		super(map, nodeTag, className);
-		console.log(SummaryPage: this);
+		console.log({ SummaryPage: this });
 		this.entries = entries;
 		this.max_per_page = 20;
 		this.#defineCount();
