@@ -1,3 +1,4 @@
+import NAVAPI from '../../lib/NAVAPI.js';
 import Component from '../Component.js';
 import PageInfo from './PageInfo.js';
 
@@ -48,7 +49,7 @@ class SummaryPage extends Component {
 			let next = document.createElement("a");
 			next.innerText = "avançar";
 			next.style.display = this.index < this.last ? 'inline' : 'none';
-			next.href = this.map.gen_page_url(this.index + 1);
+			next.href = NAVAPI.page_url(this.index + 1);
 			this.node.append(next);
 		}
                 Array.prototype.slice.call(this.node.children).forEach(child => {
