@@ -2,6 +2,31 @@ import NAVAPI from '../../lib/NAVAPI.js';
 import Component from '../Component.js';
 import PageInfo from './PageInfo.js';
 
+class PageButton {
+	constructor (targetPage, text) {
+		this.node = document.createElement("a");
+		this.node.innerText = text;
+		this.node.style.display = 'inline';
+		this.node.href = NAVAPI.page_url(targetPage);
+		this.node.append(next);
+		this.node.style.paddingLeft = "20px";
+	}
+}
+
+class PagePrevious extends PageButton {
+	constructor (index) {
+		let targetPage = index - 1;
+		super(targetPage, "anterior");
+	}
+}
+
+class PageNext extends PageButton {
+	constructor (index) {
+		let targetPage = index + 1;
+		super(targetPage, "próximo");
+	}
+}
+
 class SummaryPage extends Component {
 	constructor (entries, map) {
 		let nodeTag = "nav";
@@ -12,7 +37,6 @@ class SummaryPage extends Component {
 		this.#defineCount();
 		this.#defineIndex();
 		this.#defineLast();
-		this.#defineRange();
 		this.#makeChildren();
 		console.log({ SummaryPage: this });
 	}
@@ -42,19 +66,6 @@ class SummaryPage extends Component {
 			let nextButton = new PageNext(this.index);
 			this.node.appendChild(nextButton.node);
 		}
-	}
-
-	#defineRange () {
-		if (this.index < this.last) {
-			let next = document.createElement("a");
-			next.innerText = "avançar";
-			next.style.display = this.index < this.last ? 'inline' : 'none';
-			next.href = NAVAPI.page_url(this.index + 1);
-			this.node.append(next);
-		}
-                Array.prototype.slice.call(this.node.children).forEach(child => {
-                        child.style.paddingLeft = "20px";
-                });
 	}
 }
 
