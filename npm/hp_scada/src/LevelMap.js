@@ -9,27 +9,26 @@ function get_view_by_path (tree, path) {
 class LevelMap {
 	constructor (tree, view_address) {
 		this.tree = tree;
-		let levelmap = {};
 		let level_names = view_address.split(':');
 		for (let i = 1; i <= level_names.length; i++) {
 			let name = level_names[i - 1];
-			let path = this.#make_path_from_levelmap(levelmap, name);
-			let view = get_view_by_path(this.tree, path);
-			levelmap.last = levelmap[i] = {
+			let path = this.#make_path_from_levelmap(name);
+			let view = get_view_by_path(path);
+			this.last = this[i] = {
 				...view,
 				name,
 				path
 			};
-			levelmap.max = i;
+			this.max = i;
 		}
-		levelmap.last = levelmap[levelmap.max];
-		return levelmap;
+		this.last = this[this.max];
 	}
 
-	#make_path_from_levelmap (levelmap, target) {
+	#make_path_from_levelmap (target) {
 		let path = [];
 		let current_level;
-		for (let i = 1; current_level = levelmap[i]; i++) {
+		for (let i = 1; i <= this.max; i++) {
+			current_level = this.levelmap[i];
 			path.push(current_level.name);
 		}
 		return path;
