@@ -8,7 +8,6 @@ class PageButton {
 		this.node.innerText = text;
 		this.node.style.display = 'inline';
 		this.node.href = NAVAPI.page_url(targetPage);
-		this.node.append(next);
 		this.node.style.paddingLeft = "20px";
 	}
 }
