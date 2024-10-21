@@ -1,5 +1,5 @@
 import Component from '../Component.js';
-import PageInfo from '../PageInfo.js';
+import PageInfo from './PageInfo.js';
 
 class SummaryPage extends Component {
 	constructor (entries, map) {
