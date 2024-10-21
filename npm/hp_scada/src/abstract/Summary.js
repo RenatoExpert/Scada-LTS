@@ -4,6 +4,7 @@ import SummaryPage from './summary/SummaryPage.js';
 class Summary extends Component {
 	constructor (entries, map, nodeTag = "div", className = "hp-summary") {
 		super(map, nodeTag, className);
+		console.log(Summary: this);
 		this.#makeChildren(entries);
 	}
 
