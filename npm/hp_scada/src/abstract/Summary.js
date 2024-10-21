@@ -1,4 +1,4 @@
-import Component from './Summary.js';
+import Component from './Component.js';
 import SummaryPage from './summary/SummaryPage.js';
 
 class Summary extends Component {
