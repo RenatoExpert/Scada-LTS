@@ -11,7 +11,7 @@ class LevelMap {
 		this.tree = tree;
 		let all_names = view_address.split(':');
 		let path = [];
-		for (let i = 1; i <= level_names.length; i++) {
+		for (let i = 1; i <= all_names.length; i++) {
 			let name = all_names[i - 1];
 			path.push(name);
 			let view = get_view_by_path(tree, path);
