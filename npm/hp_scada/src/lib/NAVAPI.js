@@ -14,7 +14,7 @@ function getCurrentPage () {
 	return getCurrentParameter("page");
 }
 
-function makeURL (newAddress, reference, viewId) {
+function makeURL (newAddress, reference, viewId, page) {
 	reference = reference || getCurrentAddress();
 	viewId = viewId || new URLSearchParams(window.location.search).get("viewId");
 	page = page || getCurrentPage();
