@@ -1,12 +1,11 @@
 import Component from '../Component.js';
 
-
-
 class SummaryPage extends Component {
 	constructor (entries, map) {
 		let nodeTag = "nav";
 		let className = "hp-summarypage";
 		super(map, nodeTag, className);
+		console.log(SummaryPage: this);
 		this.entries = entries;
 		this.max_per_page = 20;
 		this.#defineCount();
