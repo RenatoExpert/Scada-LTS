@@ -13,7 +13,7 @@ class LevelMap {
 		for (let i = 1; i <= level_names.length; i++) {
 			let name = level_names[i - 1];
 			let path = this.#make_path_from_levelmap(name);
-			let view = get_view_by_path(path);
+			let view = get_view_by_path(tree, path);
 			this.last = this[i] = {
 				...view,
 				name,
