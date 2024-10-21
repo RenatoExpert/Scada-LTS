@@ -34,7 +34,7 @@ class NAVAPI {
 		let address = getCurrentAddress();
 		let reference = getCurrentReference();
 		let viewId = getCurrentViewId();
-		return makeURL(address, referece, viewId, pageIndex);
+		return makeURL(address, reference, viewId, pageIndex);
 	}
 }
 
