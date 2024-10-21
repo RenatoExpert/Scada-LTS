@@ -43,15 +43,16 @@ class SummaryPage extends Component {
 	}
 
 	#defineRange () {
-                let next = document.createElement("a");
-                next.innerText = "avançar";
-                next.style.display = current_page < last_page ? 'inline' : 'none';
-                next.href = this.map.gen_page_url(current_page + 1);
-                nav.append(next);
-                Array.prototype.slice.call(nav.children).forEach(child => {
+		if (this.index < this.last) {
+			let next = document.createElement("a");
+			next.innerText = "avançar";
+			next.style.display = this.index < this.last ? 'inline' : 'none';
+			next.href = this.map.gen_page_url(this.index + 1);
+			this.node.append(next);
+		}
+                Array.prototype.slice.call(this.node.children).forEach(child => {
                         child.style.paddingLeft = "20px";
                 });
-                this.dom_element = nav;
 	}
 }
 
