@@ -28,7 +28,7 @@ class NAVAPI {
 	}
 
 	static page_url (pageIndex) {
-		return makeURL(null, null, null, pageIndex);
+		return makeURL(undefined, undefined, undefined, pageIndex);
 	}
 }
 
