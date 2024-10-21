@@ -12,7 +12,7 @@ class ERPMUnit extends Component {
 	#make_child () {
 		let unit_children = this.map.levelmap[2].children;
 		let unit_entries = Object.entries(unit_children);
-		let summary = new ERPMSummary(unit_entries);
+		let summary = new ERPMSummary(unit_entries, this.map);
 		this.node.appendChild(summary.node);
 	}
 }
