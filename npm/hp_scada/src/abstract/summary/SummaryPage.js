@@ -13,7 +13,7 @@ class SummaryPage extends Component {
 		this.#defineIndex();
 		this.#defineLast();
 		this.#defineRange();
-		this.#makeChildren(entries);
+		this.#makeChildren();
 	}
 
 	#defineCount () {
