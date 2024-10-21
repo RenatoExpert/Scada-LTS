@@ -513,19 +513,34 @@ function getMangoId(node) {
     return node.mangoId;
 }
 
-function setAlarmLevelImg(alarmLevel, imgNode) {
+// function setAlarmLevelImg(alarmLevel, imgNode) {
+//     if (alarmLevel == 0)
+//         updateImg(imgNode, "images/flag_green.png", mango.i18n["common.alarmLevel.none"], false);
+//     else if (alarmLevel == 1)
+//         updateImg(imgNode, "images/flag_blue.png", mango.i18n["common.alarmLevel.info"], true);
+//     else if (alarmLevel == 2)
+//         updateImg(imgNode, "images/flag_yellow.png", mango.i18n["common.alarmLevel.urgent"], true);
+//     else if (alarmLevel == 3)
+//         updateImg(imgNode, "images/flag_orange.png", mango.i18n["common.alarmLevel.critical"], true);
+//     else if (alarmLevel == 4)
+//         updateImg(imgNode, "images/flag_red.png", mango.i18n["common.alarmLevel.lifeSafety"], true);
+//     else
+//         updateImg(imgNode, "(unknown)", "(unknown)", true);
+// }
+
+function setAlarmLevelImg(alarmLevel, iconNode) {
     if (alarmLevel == 0)
-        updateImg(imgNode, "images/flag_green.png", mango.i18n["common.alarmLevel.none"], false);
+        updateIcon(iconNode, "bi bi-flag-fill text-success", mango.i18n["common.alarmLevel.none"], false);
     else if (alarmLevel == 1)
-        updateImg(imgNode, "images/flag_blue.png", mango.i18n["common.alarmLevel.info"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-primary", mango.i18n["common.alarmLevel.info"], true);
     else if (alarmLevel == 2)
-        updateImg(imgNode, "images/flag_yellow.png", mango.i18n["common.alarmLevel.urgent"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-warning", mango.i18n["common.alarmLevel.urgent"], true);
     else if (alarmLevel == 3)
-        updateImg(imgNode, "images/flag_orange.png", mango.i18n["common.alarmLevel.critical"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-orange", mango.i18n["common.alarmLevel.critical"], true);
     else if (alarmLevel == 4)
-        updateImg(imgNode, "images/flag_red.png", mango.i18n["common.alarmLevel.lifeSafety"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-danger", mango.i18n["common.alarmLevel.lifeSafety"], true);
     else
-        updateImg(imgNode, "(unknown)", "(unknown)", true);
+        updateIcon(iconNode, "(unknown)", "(unknown)", true);
 }
 
 function setAlarmLevelText(alarmLevel, textNode) {
