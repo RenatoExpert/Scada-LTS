@@ -1,5 +1,6 @@
 import Component from './Component.js';
 import SummaryPage from './summary/SummaryPage.js';
+import SummaryTable from './summary/SummaryTable.js';
 
 function howManyPages (count, max_per_page) {
 	let avg = count / max_per_page;
