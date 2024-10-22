@@ -27,31 +27,14 @@ class PageNext extends PageButton {
 }
 
 class SummaryPage extends Component {
-	constructor (entries, map) {
+	constructor (currentPage, lastPage) {
 		let nodeTag = "nav";
 		let className = "hp-summarypage";
 		super(map, nodeTag, className);
-		this.entries = entries;
-		this.max_per_page = 20;
-		this.#defineCount();
-		this.#defineIndex();
-		this.#defineLast();
+		this.index = currentPage;
+		this.last = lastPage;
 		this.#makeChildren();
 		console.log({ SummaryPage: this });
-	}
-
-	#defineCount () {
-		this.count = this.entries.length;
-	}
-
-	#defineIndex () {
-		this.index = this.map.params.page;
-	}
-
-	#defineLast () {
-		let avg = this.count / this.max_per_page;
-		let floor = Math.floor(avg) + 1;
-		this.last = floor;
 	}
 
 	#makeChildren () {

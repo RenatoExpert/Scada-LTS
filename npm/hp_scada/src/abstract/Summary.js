@@ -1,15 +1,24 @@
 import Component from './Component.js';
 import SummaryPage from './summary/SummaryPage.js';
 
+function howManyPages (count, max_per_page) {
+	let avg = count / max_per_page;
+	let floor = Math.floor(avg) + 1;
+	return floor;
+}
+
 class Summary extends Component {
 	constructor (entries, map, nodeTag = "div", className = "hp-summary") {
 		super(map, nodeTag, className);
+		this.max_per_page = 20;
+		this.last = howManyPages(entries.length, this.max_per_page);
+		this.index = this.map.params.page;
+		this.#makeChildren();
 		console.log({ Summary: this });
-		this.#makeChildren(entries);
 	}
 
-	#makeChildren (entries) {
-		let page = new SummaryPage(entries, this.map);
+	#makeChildren () {
+		let page = new SummaryPage(this.index, this.last);
 		this.node.appendChild(page.node);
 	}
 }
