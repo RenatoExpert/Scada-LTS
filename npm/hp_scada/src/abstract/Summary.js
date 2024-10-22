@@ -20,6 +20,8 @@ class Summary extends Component {
 	#makeChildren () {
 		let page = new SummaryPage(this.index, this.last);
 		this.node.appendChild(page.node);
+		let table = new SummaryTable(this.map, this.index, this.max_per_page);
+		this.node.appendChild(table.node);
 	}
 }
 
