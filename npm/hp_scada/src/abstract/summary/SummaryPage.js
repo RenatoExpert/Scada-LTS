@@ -30,7 +30,7 @@ class SummaryPage extends Component {
 	constructor (currentPage, lastPage) {
 		let nodeTag = "nav";
 		let className = "hp-summarypage";
-		super(map, nodeTag, className);
+		super(null, nodeTag, className);
 		this.index = currentPage;
 		this.last = lastPage;
 		this.#makeChildren();
