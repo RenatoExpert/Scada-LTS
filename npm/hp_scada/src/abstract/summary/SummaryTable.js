@@ -34,10 +34,12 @@ class SummaryTable extends Component {
 		this.node.append(header.node);
 		let from = this.index * this.table_size;
 		let to = from + this.table_size - 1;
+		/*
 		entries.slice(from, to).forEach(child => {
 			let row = new TableRow(this.table_model, child);
 			this.node.append(row.node);
 		});
+		*/
 	}
 }
 
