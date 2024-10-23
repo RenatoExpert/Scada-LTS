@@ -9,11 +9,15 @@ function howManyPages (count, max_per_page) {
 }
 
 class Summary extends Component {
-	constructor (entries, map, nodeTag = "div", className = "hp-summary") {
+	constructor (entries, map, table_particle, table_model) {
+		let nodeTag = "div";
+		let className = "hp-summary";
 		super(map, nodeTag, className);
 		this.max_per_page = 20;
 		this.last = howManyPages(entries.length, this.max_per_page);
 		this.index = this.map.params.page;
+		this.table_particle = table_particle;
+		this.table_model = table_model;
 		this.#makeChildren();
 		console.log({ Summary: this });
 	}
@@ -21,7 +25,7 @@ class Summary extends Component {
 	#makeChildren () {
 		let page = new SummaryPage(this.index, this.last);
 		this.node.appendChild(page.node);
-		let table = new SummaryTable(this.map, this.index, this.max_per_page);
+		let table = new SummaryTable(this.map, this.index, this.max_per_page, this.table_particle, this.table_model);
 		this.node.appendChild(table.node);
 	}
 }

@@ -1,8 +1,9 @@
 import Component from '../Component.js';
+import TableHeader from './TableHeader.js';
 import TableRow from './TableRow.js';
 
 class SummaryTable extends Component {
-	constructor (map, currentPage, max_per_page, table_model, table_particle) {
+	constructor (map, currentPage, max_per_page, table_particle, table_model) {
 		let nodeTag = "table";
 		let className = "hp-summarytable";
 		super(map, nodeTag, className);
@@ -28,8 +29,8 @@ class SummaryTable extends Component {
 	}
 
 	#makeChildren () {
-		let header_row = new Header_row(this.table_model);
-		this.node.append(header_row.node);
+		let header = new TableHeader(this.table_model);
+		this.node.append(header.node);
 		let from = this.index * this.table_size;
 		let to = from + this.table_size - 1;
 		entries.slice(from, to).forEach(child => {
