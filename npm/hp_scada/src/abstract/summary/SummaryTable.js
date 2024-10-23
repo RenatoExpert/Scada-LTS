@@ -37,7 +37,7 @@ class SummaryTable extends Component {
 		let children = this.map.levelmap[2].children;
 		let entries = Object.keys(children);
 		entries.slice(from, to).forEach(childName => {
-			let childLabel = children[childName];
+			let childLabel = children[childName].label;
 			let row = new TableRow(this.model, childName, childLabel);
 			this.node.append(row.node);
 		});
