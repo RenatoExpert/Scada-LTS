@@ -17,7 +17,7 @@ class TableRow extends Component {
 		this.model.forEach(column => {
 			let td = document.createElement("td");
 			let col;
-			if (item.type == "SELFLABEL") {
+			if (column.type == "SELFLABEL") {
 				col = document.createElement("spam");
 				col.innerText = this.label;
 				/*
