@@ -8,6 +8,7 @@ class TableRow extends Component {
 		this.model = model;
 		this.name = name;
 		this.label = label;
+		console.log(TableRow: this);
 		this.#makeChildren();
 	}
 
