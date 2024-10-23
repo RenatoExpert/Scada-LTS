@@ -38,7 +38,8 @@ class SummaryTable extends Component {
 		let entries = Object.keys(children);
 		entries.slice(from, to).forEach(childName => {
 			let childLabel = children[childName].label;
-			let row = new TableRow(this.model, childName, childLabel);
+			let isaTag = `${this.map.levelmap[1].name}:${this.map.levelmap[2].name}:${childName}`;
+			let row = new TableRow(this.model, childName, childLabel, isaTag);
 			this.node.append(row.node);
 		});
 	}
