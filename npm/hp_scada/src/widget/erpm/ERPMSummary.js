@@ -59,7 +59,6 @@ let table_model = [
 
 class ERPMSummary extends Summary {
 	constructor (entries, map) {
-		console.log({ ERPMSummary: this });
 		console.log({ table_model });
 		super (entries, map, table_particle, table_model);
 		console.log({ ERPMSummary: this });
