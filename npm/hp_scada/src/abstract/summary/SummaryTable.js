@@ -34,12 +34,13 @@ class SummaryTable extends Component {
 		this.node.append(header.node);
 		let from = this.index * this.table_size;
 		let to = from + this.table_size - 1;
-		/*
-		entries.slice(from, to).forEach(child => {
-			let row = new TableRow(this.table_model, child);
+		let children = this.map.levelmap[2].children;
+		let entries = Object.keys(children);
+		entries.slice(from, to).forEach(childName => {
+			let childLabel = children[childName];
+			let row = new TableRow(this.table_model, childName, childLabel);
 			this.node.append(row.node);
 		});
-		*/
 	}
 }
 

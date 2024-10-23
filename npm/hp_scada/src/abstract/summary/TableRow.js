@@ -1,14 +1,22 @@
 import Component from '../Component.js';
 
 class TableRow extends Component {
-	constructor (table_info) {
+	constructor (model, name, label) {
 		let nodeTag = "tr";
 		let className = "hp-tablerow";
 		super(null, nodeTag, className);
+		this.model = model;
+		this.name = name;
+		this.label = label;
 		this.#makeChildren();
 	}
 
 	#makeChildren () {
+		this.model.forEach(column => {
+			let td = document.createElement("td");
+			td.innerText = this.label;
+			this.node.append(td);
+		});
 	}
 }
 
