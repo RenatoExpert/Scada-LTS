@@ -25,6 +25,7 @@ class SummaryTable extends Component {
 		this.table_size = max_per_page;
 		this.model = table_model;
 		this.particle = table_particle;
+		console.log({ SummaryTable: this });
 		this.#makeChildren();
 	}
 
