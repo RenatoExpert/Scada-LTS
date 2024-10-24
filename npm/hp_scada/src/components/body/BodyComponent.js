@@ -2,7 +2,8 @@ import Component from '../../abstract/Component.js';
 
 import BannerBody from './BannerBody.js';
 import SystemBody from './SystemBody.js';
-import ERPMBody from './ERPMBody.js';
+import ERPMBody from './erpm/ERPMBody.js';
+
 /*
 import StationBody;
 import RectifiersBody;

@@ -1,8 +1,8 @@
-import Component from '../../abstract/Component.js';
-import ASSETSAPI from '../../lib/ASSETSAPI.js';
+import Component from '../../../abstract/Component.js';
+import ASSETSAPI from '../../../lib/ASSETSAPI.js';
 
-import ERPMOverview from './erpm/ERPMOverview.js';
-import ERPMUnit from './erpm/ERPMUnit.js';
+import ERPMOverview from './overview/ERPMOverview.js';
+import ERPMUnit from './unit/ERPMUnit.js';
 
 class ERPMBody extends Component {
 	constructor (map) {
