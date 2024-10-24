@@ -1,4 +1,4 @@
-import Component from '../../../../abstract/Component.js';
+import Component from '../../../../prototype/Component.js';
 import ERPMSummary from './ERPMSummary.js';
 
 class ERPMUnit extends Component {

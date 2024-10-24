@@ -1,4 +1,4 @@
-import Summary from '../../../../abstract/Summary.js';
+import Summary from '../../../../prototype/Summary.js';
 
 //	Make a separated file for particle and model
 let table_particle = "FQ";

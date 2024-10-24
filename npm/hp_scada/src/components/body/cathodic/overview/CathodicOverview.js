@@ -1,4 +1,4 @@
-import Component from '../../../../abstract/Component.js';
+import Component from '../../../../prototype/Component.js';
 import CathodicSummary from './CathodicSummary.js';
 
 class CathodicOverview extends Component {

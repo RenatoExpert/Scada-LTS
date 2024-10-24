@@ -1,4 +1,4 @@
-import Component from '../../../../abstract/Component.js';
+import Component from '../../../../prototype/Component.js';
 import RectifiersSummary from './RectifiersSummary.js';
 
 class RectifiersOverview extends Component {

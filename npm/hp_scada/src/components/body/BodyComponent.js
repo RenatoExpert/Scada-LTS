@@ -1,4 +1,4 @@
-import Component from '../../abstract/Component.js';
+import Component from '../../prototype/Component.js';
 
 import BannerBody from './BannerBody.js';
 import SystemBody from './SystemBody.js';

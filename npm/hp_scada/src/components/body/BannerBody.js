@@ -1,4 +1,4 @@
-import Component from '../../abstract/Component.js';
+import Component from '../../prototype/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
 import NAVAPI from '../../lib/NAVAPI.js';
 

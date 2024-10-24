@@ -1,4 +1,4 @@
-import Component from '../abstract/Component.js';
+import Component from '../prototype/Component.js';
 import HeaderComponent from './header/HeaderComponent.js';
 import BodyComponent from './body/BodyComponent.js';
 

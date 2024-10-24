@@ -1,4 +1,4 @@
-import Summary from '../../../../abstract/Summary.js';
+import Summary from '../../../../prototype/Summary.js';
 
 let table_model = [
 	{
