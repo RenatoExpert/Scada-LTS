@@ -30,6 +30,12 @@ class NAVAPI {
 		window.location.href = makeURL(newAddress, reference, viewId, null);
 	}
 
+	static append_address (childName) {
+		let newAddress = getCurrentAddress + ":" + childName;
+		goto_id(newAddress);
+		console.log({ append_address: { childName, newAddress } });
+	}
+
 	static page_url (pageIndex) {
 		let address = getCurrentAddress();
 		let reference = getCurrentReference();
