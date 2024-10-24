@@ -11,7 +11,7 @@ class RectifiersOverview extends Component {
 
 	#make_child () {
 		let overview_children = this.map.levelmap[1].children;
-		let overview_entries = Object.entries(unit_children);
+		let overview_entries = Object.entries(overview_children);
 		let summary = new RectifiersSummary(overview_entries, this.map);
 		this.node.appendChild(summary.node);
 	}
