@@ -7,7 +7,8 @@ import ERPMUnit from './unit/ERPMUnit.js';
 class ERPMBody extends Component {
 	constructor (map) {
 		let nodeTag = "div";
-		super(map, nodeTag);
+		let className = "hp-erpmbody";
+		super(map, nodeTag, className);
 		this.#get_child();
 	}
 
