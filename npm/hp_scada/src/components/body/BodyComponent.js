@@ -4,6 +4,7 @@ import BannerBody from './BannerBody.js';
 import SystemBody from './SystemBody.js';
 import ERPMBody from './erpm/ERPMBody.js';
 import RectifiersBody from './rectifiers/RectifiersBody.js';
+import CathodicBody from './cathodic/CathodicBody.js';
 
 /*
 import CathodicBody;
@@ -34,10 +35,10 @@ class BodyComponent extends Component {
 			case 'rectifiers':
 				child = new RectifiersBody(this.map);
 				break;
-				/*
 			case 'cathodic':
-				child = new CathodicBody();
+				child = new CathodicBody(this.map);
 				break;
+				/*
 			case 'relatory':
 				child = new RelatoryBody();
 				break;

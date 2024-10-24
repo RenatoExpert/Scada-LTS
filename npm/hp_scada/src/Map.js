@@ -36,6 +36,10 @@ class Map {
 			{
 				regex: /rectifiers/,
 				template: "rectifiers"
+			},
+			{
+				regex: /cathodic/,
+				template: "cathodic"
 			}
 		];
 		for (let i = 0; i < routerTable.length; i++) {
