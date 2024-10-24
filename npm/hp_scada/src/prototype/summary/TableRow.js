@@ -1,4 +1,5 @@
 import Component from '../Component.js';
+import NAVAPI from '../../lib/NAVAPI.js';
 //import IsConnected from '../display/IsConnected.js';
 
 class TableRow extends Component {
@@ -12,6 +13,9 @@ class TableRow extends Component {
 		this.isatag = isatag;
 		console.log({ TableRow: this });
 		this.#makeChildren();
+		this.node.addEventListener("click", e => {
+			NAVAPI.append_address(name);
+		});
 	}
 
 	#makeChildren () {
