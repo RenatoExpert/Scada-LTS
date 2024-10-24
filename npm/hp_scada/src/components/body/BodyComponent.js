@@ -32,7 +32,7 @@ class BodyComponent extends Component {
 				child = new ERPMBody(this.map);
 				break;
 			case 'rectifiers':
-				child = new RectifiersBody();
+				child = new RectifiersBody(this.map);
 				break;
 				/*
 			case 'cathodic':
