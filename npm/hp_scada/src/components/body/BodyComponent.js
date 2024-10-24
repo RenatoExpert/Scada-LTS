@@ -3,10 +3,9 @@ import Component from '../../abstract/Component.js';
 import BannerBody from './BannerBody.js';
 import SystemBody from './SystemBody.js';
 import ERPMBody from './erpm/ERPMBody.js';
+import RectifiersBody from './rectifiers/RectifiersBody.js';
 
 /*
-import StationBody;
-import RectifiersBody;
 import CathodicBody;
 import RelatoryBody;
 import GraphicBody;
@@ -32,10 +31,10 @@ class BodyComponent extends Component {
 			case 'erpm':
 				child = new ERPMBody(this.map);
 				break;
-				/*
 			case 'rectifiers':
 				child = new RectifiersBody();
 				break;
+				/*
 			case 'cathodic':
 				child = new CathodicBody();
 				break;
