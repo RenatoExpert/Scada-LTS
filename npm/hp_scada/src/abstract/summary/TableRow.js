@@ -21,6 +21,7 @@ class TableRow extends Component {
 			if (column.type == "SELFLABEL") {
 				col = document.createElement("spam");
 				col.innerText = this.label;
+				/*
 			} else if (item.type == "ISCONNECTED") {
 				col = new IsConnected(this.isatag, suffix, "Conectado", "Desconectado").node;
 				/*
