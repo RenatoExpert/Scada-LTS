@@ -33,7 +33,7 @@ class SummaryTable extends Component {
 	#makeChildren () {
 		let header = new TableHeader(this.model);
 		this.node.append(header.node);
-		let from = this.index * this.table_size;
+		let from = (this.index - 1) * this.table_size;
 		let to = from + this.table_size - 1;
 		let slice = this.entries.slice(from, to);
 		slice.forEach(([childName, child]) => {
