@@ -576,23 +576,23 @@ function setScheduledEventImg(disabled, imgNode) {
 
 function setCompoundEventImg(disabled, imgNode) {
     if (disabled)
-        updateIcon(imgNode, "bi bi-bell-slash-fill text-secondary", mango.i18n["js.disabledCed"], true, "block");
+        updateIcon(imgNode, "bi bi-bell-slash-fill text-secondary align-middle me-2 fs-5", mango.i18n["js.disabledCed"], true, "block");
     else
-        updateIcon(imgNode, "bi bi-bell-fill text-primary", mango.i18n["compoundDetectors.compoundEventDetector"], true, "block");
+        updateIcon(imgNode, "bi bi-bell-fill text-primary align-middle me-2 fs-5", mango.i18n["compoundDetectors.compoundEventDetector"], true, "block");
 }
 
 function setDataSourceStatusImg(disabled, imgNode) {
     if (disabled)
-        updateIcon(imgNode, "bi bi-database-fill-check text-success", mango.i18n["common.enabledToggle"], true);
+        updateIcon(imgNode, "bi bi-database-fill-check text-success align-middle me-2 fs-5", mango.i18n["common.enabledToggle"], true);
     else
-        updateIcon(imgNode, "bi bi-database-fill-x text-danger", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-database-fill-x text-danger align-middle me-2 fs-5", mango.i18n["common.disabledToggle"], true);
 }
 
 function setDataPointStatusImg(enabled, imgNode) {
     if (enabled)
-        updateIcon(imgNode, "bi bi-puzzle-fill text-success", mango.i18n["common.enabledToggle"], true);
+        updateIcon(imgNode, "bi bi-puzzle-fill text-success align-middle me-2 fs-5", mango.i18n["common.enabledToggle"], true);
     else
-        updateIcon(imgNode, "bi bi-puzzle-fill text-danger", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-puzzle-fill text-danger align-middle me-2 fs-5", mango.i18n["common.disabledToggle"], true);
 }
 
 // function setPublisherStatusImg(enabled, imgNode) {
@@ -603,9 +603,9 @@ function setDataPointStatusImg(enabled, imgNode) {
 // }
 function setPublisherStatusImg(enabled, imgNode) {
     if (enabled)
-        updateIcon(imgNode, "bi bi-wifi text-primary", mango.i18n["common.enabledToggle"], true);
+        updateIcon(imgNode, "bi bi-wifi text-primary align-middle me-2 fs-5", mango.i18n["common.enabledToggle"], true);
     else
-        updateIcon(imgNode, "bi bi-wifi-off text-danger", mango.i18n["common.disabledToggle"], true);
+        updateIcon(imgNode, "bi bi-wifi-off text-danger align-middle me-2 fs-5", mango.i18n["common.disabledToggle"], true);
 }
 
 function setPointLinkImg(disabled, imgNode) {

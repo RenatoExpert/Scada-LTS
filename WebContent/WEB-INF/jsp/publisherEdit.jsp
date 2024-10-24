@@ -63,11 +63,11 @@
     }
   </script>
   
-  <table cellspacing="0" cellpadding="0" border="0">
+  <table  class="subPageHeader container">
     <tr>
       <td>
         <c:if test="${!empty publisherEvents}">
-          <table class="borderDiv marB">
+          <table class="right-box my-3">
             <tr><td class="smallTitle"><fmt:message key="publisherEdit.currentAlarms"/></td></tr>
             <c:forEach items="${publisherEvents}" var="event">
               <tr><td class="formError">
@@ -81,70 +81,81 @@
         
         <div id="message" class="formError" style="display:none;"></div>
         
-        <div class="borderDiv marR marB">
+        <div class="right-box my-3">
           <table>
-            <tr>
-              <td colspan="2" class="smallTitle">
-                <i class="bi bi-broadcast-pin" title="<fmt:message key='common.edit'/>"></i>
-                <fmt:message key="publisherEdit.generalProperties"/> <tag:help id="generalPublisherProperties"/>
-              </td>
-            </tr>
+            <div class="container">
+            <div class="col-12 m-3">
+              <div class="smallTitle">
+                <%-- <i class="bi bi-broadcast-pin" title="<fmt:message key='common.edit'/>"></i> --%>
+                <fmt:message key="publisherEdit.generalProperties"/>
+                <tag:help id="generalPublisherProperties"/>
+              </div>
+            </div>
+            </div>
+
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="publisherEdit.name"/></td>
-              <td class="formField">
-                <input type="text" id="name" value="${publisher.name}"/>
-                <div id="nameMsg" class="formError" style="display:none;"></div>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField">
-                <input type="text" id="xid" value="${publisher.xid}"/>
-                <div id="xidMsg" class="formError" style="display:none;"></div>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.enabled"/></td>
-              <td class="formField"><sst:checkbox id="enabled" selectedValue="${publisher.enabled}"/></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="publisherEdit.cacheWarning"/></td>
-              <td class="formField">
-                <input type="text" id="cacheWarningSize" value="${publisher.cacheWarningSize}" class="formShort"/>
-                <div id="cacheWarningSizeMsg" class="formError" style="display:none;"></div>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="publisherEdit.updateEvent"/></td>
-              <td class="formField">
-                <sst:select id="changesOnly" value="${publisher.changesOnly}">
-                  <sst:option value="false"><fmt:message key="publisherEdit.updateEvent.all"/></sst:option>
-                  <sst:option value="true"><fmt:message key="publisherEdit.updateEvent.changes"/></sst:option>
-                </sst:select>
-              </td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="publisherEdit.snapshot"/></td>
-              <td class="formField"><sst:checkbox id="sendSnapshot" onclick="sendSnapshotChanged()"
-                      selectedValue="${publisher.sendSnapshot}"/></td>
-            </tr>
-            
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="publisherEdit.snapshotPeriod"/></td>
-              <td class="formField">
-                <input type="text" id="snapshotSendPeriods" value="${publisher.snapshotSendPeriods}" class="formShort"/>
-                <sst:select id="snapshotSendPeriodType" value="${publisher.snapshotSendPeriodType}">
-                  <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
-                </sst:select>
-                <div id="snapshotSendPeriodsMsg" class="formError" style="display:none;"></div>
-              </td>
-            </tr>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-6 col-12">
+                  <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.name"/></label>
+                    <div class="col-sm-8 my-2">
+                      <input class="form-control form-control-sm" type="text" id="name" value="${publisher.name}"/>
+                      <div id="nameMsg" class="formError" style="display:none;"></div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="xid" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="common.xid"/></label>
+                    <div class="col-sm-8 my-2">
+                      <input class="form-control form-control-sm" type="text" id="xid" value="${publisher.xid}"/>
+                      <div id="xidMsg" class="formError" style="display:none;"></div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="enabled" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="common.enabled"/></label>
+                    <div class="col-sm-5 my-2">
+                      <input type="checkbox" class="form-check-input custom-checkbox" id="enabled" selectedValue="${publisher.enabled}"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="caccol-sm-10heWarningSize" class="col-sm-4 col-form-label custom-padding-l"><fmt:message key="publisherEdit.cacheWarning"/></label>
+                    <div class="col-sm-5 my-2">
+                      <input class="form-control form-control-sm" type="text" id="cacheWarningSize" value="${publisher.cacheWarningSize}" class="formShort"/>
+                      <div id="cacheWarningSizeMsg" class="formError" style="display:none;"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-lg-6 col-12">
+                  <div class="form-group row">
+                    <label for="changesOnly" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.updateEvent"/></label>
+                    <div class="col-sm-8 my-2">
+                      <select id="changesOnly" class="form-select form-select-sm my-2" value="${publisher.changesOnly}">
+                        <option value="false"><fmt:message key="publisherEdit.updateEvent.all"/></option>
+                        <option value="true"><fmt:message key="publisherEdit.updateEvent.changes"/></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="sendSnapshot" class="col-sm-6 col-form-label custom-padding-l"><fmt:message key="publisherEdit.snapshot"/></label>
+                    <div class="col-sm-5 my-2">
+                      <input type="checkbox" class="form-check-input custom-checkbox" id="sendSnapshot" onclick="sendSnapshotChanged()" selectedValue="${publisher.sendSnapshot}"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="snapshotSendPeriods" class="col-sm-6 col-form-label custom-padding-l"><fmt:message key="publisherEdit.snapshotPeriod"/></label>
+                    <div class="col-sm-5 my-2">
+                      <input class="form-control form-control-sm" type="text" id="snapshotSendPeriods" value="${publisher.snapshotSendPeriods}" class="formShort"/>
+                      <select class="form-select form-select-sm my-2" id="snapshotSendPeriodType" value="${publisher.snapshotSendPeriodType}">
+                        <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
+                      </select>
+                      <div id="snapshotSendPeriodsMsg" class="formError" style="display:none;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </table>
         </div>
         
@@ -168,8 +179,8 @@
     
     <tr>
       <td align="center">
-        <input type="button" value="<fmt:message key="common.save"/>" onclick="savePublisher()"/>
-        <input type="button" value="<fmt:message key="common.cancel"/>" onclick="window.location='publishers.shtm'"/>
+        <button type="button" class="btn btn-primary custom-btn-blue mx-2" name="savePublisher" onclick="savePublisher()"><fmt:message key="common.save"/></button>
+        <button type="button" class="btn btn-primary custom-btn-blue mx-2" name="common.cancel" onclick="window.location='publishers.shtm'"><fmt:message key="common.cancel"/></button>
       </td>
     </tr>
   </table>

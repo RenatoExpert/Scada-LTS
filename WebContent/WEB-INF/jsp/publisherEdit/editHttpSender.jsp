@@ -116,7 +116,7 @@
           dwr.util.addRows("staticHeaderList", staticHeaderList, [
                   function(data) { return data.key +"="+ data.value; },
                   function(data, options) {
-                      return "<i class='bi bi-trash text-danger' title='<fmt:message key="publisherEdit.httpSender.removeHeader"/>' "+
+                      return "<i class='bi bi-trash text-danger align-middle me-2 fs-5' title='<fmt:message key="publisherEdit.httpSender.removeHeader"/>' "+
                               "onclick='removeStaticHeader("+ options.rowIndex + ");'></i>";
                   }
                   ], null);
@@ -160,7 +160,7 @@
           dwr.util.addRows("staticParameterList", staticParameterList, [
                   function(data) { return data.key +"="+ data.value; },
                   function(data, options) {
-                      return "<i class='bi bi-trash text-danger' title='<fmt:message key="publisherEdit.httpSender.removeParam"/>' "+
+                      return "<i class='bi bi-trash text-danger align-middle me-2 fs-5' title='<fmt:message key="publisherEdit.httpSender.removeParam"/>' "+
                               "onclick='removeStaticParameter("+ options.rowIndex + ");'></i>";
                   }
                   ], null);
@@ -206,18 +206,18 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +"'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
-                          return "<input type='text' value='"+ data.parameterName +"' "+
+                          return "<input class='form-control form-control-sm' type='text' value='"+ data.parameterName +"' "+
                                   "onblur='updateParameterName("+ data.id +", this.value)'/>";
                   },
                   function(data) {
-                          return "<input type='checkbox' "+ (data.includeTimestamp ? "checked='checked' " : "") +
+                          return "<input type='checkbox' class='form-check-input custom-checkbox' "+ (data.includeTimestamp ? "checked='checked' " : "") +
                                   "onclick='updateIncludeTimestamp("+ data.id +", this.checked)'/>";
                   },
                   function(data) { 
-                          return "<i class='bi bi-trash text-danger' "+
+                          return "<i class='bi bi-trash text-danger align-middle me-2 fs-5' "+
                                   "onclick='removeFromSelectedPoints("+ data.id +")'></i>";
                   }
               ],
@@ -378,123 +378,183 @@
   }
 </script>
 
-<table id="publisherEditor" cellpadding="0" cellspacing="0">
-  <tr>
-    <td valign="top">
-      <div class="borderDiv marR marB">
-        <table>
-          <tr>
-            <td colspan="2" class="smallTitle"><fmt:message key="publisherEdit.httpSender.props"/> <tag:help id="httpSenderPublishing"/></td>
-          </tr>
+<table id="publisherEditor" class="container">
+  <div>
+    <td class="top w-100">
+      <div class="right-box my-3">
+        <table class="w-100">
+          <div class="container">
+          <div class="col-12 m-3">
+            <div class="smallTitle">
+              <fmt:message key="publisherEdit.httpSender.props"/>
+              <tag:help id="httpSenderPublishing"/>
+            </div>
+          </div>
+          </div>
           
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.method"/></td>
-            <td class="formField">
-              <sst:select id="usePost" value="${publisher.usePost}">
-                <sst:option value="false">GET</sst:option>
-                <sst:option value="true">POST</sst:option>
-              </sst:select>
-            </td>
-          </tr>
+          <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
 
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.useJSON"/></td>
-            <td class="formField"><sst:checkbox id="useJSON" /></td>
-          </tr>
+                  <div class="form-group row">
+                    <label for="usePost" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.method"/></label>
+                    <div class="col-sm-8 my-2">
+                    <select id="usePost" class="form-select form-select-sm my-2" value="${publisher.usePost}">
+                      <option value="false">GET</option>
+                      <option value="true">POST</option>
+                    </select>
+                    </div>
+                  </div>
 
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.url"/></td>
-            <td class="formField">
-              <input type="text" id="url" value="${publisher.url}" class="formLong"/>
-              <div id="urlMsg" class="formError" style="display:none;"></div>
-            </td>
-          </tr>
+                  <div class="form-group row">
+                    <label for="useJSON" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.useJSON"/></label>
+                    <div class="col-sm-5 my-2">
+                    <input type="checkbox" class="form-check-input custom-checkbox" id="useJSON"/>
+                    </div>
+                  </div>
 
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.credentials"/></td>
-            <td class="formField">
-              <fmt:message key="publisherEdit.httpSender.username"/> <input type="text" id="username" class="formShort"/>
-              <fmt:message key="publisherEdit.httpSender.password"/> <input type="password" id="password" class="formShort"/>
-            </td>
-          </tr>
+                  <div class="form-group row">
+                    <label for="url" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.url"/></label>
+                    <div class="col-sm-8 my-2">
+                    <input class="form-control form-control-sm" type="text" id="url" value="${publisher.url}"/>
+                    <div id="urlMsg" class="formError" style="display:none;"></div>
+                    </div>
+                  </div>
+          
+                  <div class="form-group row">
+                    <label for="raiseResultWarning" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.raiseResultWarning"/></label>
+                    <div class="col-sm-5 my-2">
+                    <input type="checkbox" class="form-check-input custom-checkbox" id="raiseResultWarning" selectedValue="${publisher.raiseResultWarning}"/>
+                    </div>
+                  </div>
 
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.staticHeaders"/></td>
-            <td class="formField">
-              <fmt:message key="publisherEdit.httpSender.headerKey"/> <input type="text" id="sheaderKey" class="formShort"/>
-              <fmt:message key="publisherEdit.httpSender.headerValue"/> <input type="text" id="sheaderValue" class="formShort"/>
-              <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>" onclick="addStaticHeader()"></i>
+                  <div class="form-group row">
+                    <label for="dateFormat" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.dateFormat"/></label>
+                    <div class="col-sm-8 my-2">
+                    <select class="form-select form-select-sm my-2" id="dateFormat" value="${publisher.dateFormat}">
+                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_BASIC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.basic"/></option>
+                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_TZ) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.tz"/></option>
+                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_UTC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.utc"/></option>
+                    </select>
+                    </div>
+                  </div>
+
+                  <tr><div class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></div></tr>
+
+          </div>
+                
+          <div class="col-lg-6 col-12">
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.credentials"/></label>
+                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label for="username" class="form-label"><fmt:message key="publisherEdit.httpSender.username"/></label>
+                    <input class="form-control form-control-sm" type="text" id="username"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="form-label"><fmt:message key="publisherEdit.httpSender.password"/></label>
+                    <input class="form-control form-control-sm" type="password" id="password"/>
+                  </div>
+                  </div>
+                </div>
+
+                <tr><div class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></div></tr>
+
+                <tr>
+                  <td class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.staticHeaders"/></td>
+                  <td class="formField">
+                    <fmt:message key="publisherEdit.httpSender.headerKey"/> <input class="form-control form-control-sm" type="text" id="sheaderKey"/>
+                    <fmt:message key="publisherEdit.httpSender.headerValue"/> <input class="form-control form-control-sm" type="text" id="sheaderValue"/>
+                    <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>" onclick="addStaticHeader()"></i>
+                    <table  class="table table-light table-hover align-middle">
+                      <tr id="noStaticHeadersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticHeaders"/></td></tr>
+                      <tbody id="staticHeaderList"></tbody>
+                    </table>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="col-sm-2 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.staticParams"/></td>
+                  <td class="formField">
+                    <fmt:message key="publisherEdit.httpSender.paramKey"/> <input class="form-control form-control-sm" type="text" id="sparamKey"/>
+                    <fmt:message key="publisherEdit.httpSender.paramValue"/> <input class="form-control form-control-sm" type="text" id="sparamValue"/>
+                    <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticParam'/>" onclick="addStaticParameter()"></i>
+                    <table  class="table table-light table-hover align-middle">
+                      <tr id="noStaticParametersMsg" style="display:none"><td>
+                      <fmt:message key="publisherEdit.httpSender.noStaticParams"/></td>
+                      </tr>
+                      <tbody id="staticParameterList"></tbody>
+                    </table>
+                  </td>
+                </tr>
+                
+          </div>
+
+          <td class="formLabelRequired">
               <table>
-                <tr id="noStaticHeadersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticHeaders"/></td></tr>
-                <tbody id="staticHeaderList"></tbody>
+                
               </table>
-            </td>
-          </tr>
-          
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.staticParams"/></td>
-            <td class="formField">
-              <fmt:message key="publisherEdit.httpSender.paramKey"/> <input type="text" id="sparamKey" class="formShort"/>
-              <fmt:message key="publisherEdit.httpSender.paramValue"/> <input type="text" id="sparamValue" class="formShort"/>
-              <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='publisherEdit.httpSender.addStaticParam'/>" onclick="addStaticParameter()"></i>
+          </td>
+
+          <td valign="top" class="formField">
+            <div id="httpSenderTest" class="right-box w-100">
               <table>
-                <tr id="noStaticParametersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticParams"/></td></tr>
-                <tbody id="staticParameterList"></tbody>
+                <tr><td class="smallTitle"><fmt:message key="publisherEdit.httpSender.sendTest"/></td></tr>
+                <tr>
+                  <td align="center">
+                      <button  id="httpSendTestBtn" type="button" class="btn btn-primary custom-btn-blue m-2" name="httpSendTestBtn" onclick="httpSendTest()">
+                      <fmt:message key="publisherEdit.httpSender.sendStaticParams"/></button>
+                      <button  id="httpSendTestCancelBtn" type="button" class="btn btn-primary custom-btn-blue m-2" name="httpSendTestCancelBtn" onclick="httpSendTestCancel()">
+                      <fmt:message key="publisherEdit.httpSender.cancel"/></button>
+                    </td>
+                </tr>
+                <tr><td id="httpSendTestMessage" class="formError"></td></tr>
+                <tr><td class="formField"><pre id="httpSendTestData"></pre></td></tr>
               </table>
-            </td>
-          </tr>
-          
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.raiseResultWarning"/></td>
-            <td class="formField"><sst:checkbox id="raiseResultWarning"
-                    selectedValue="${publisher.raiseResultWarning}"/></td>
-          </tr>
-          
-          <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.dateFormat"/></td>
-            <td class="formField">
-              <sst:select id="dateFormat" value="${publisher.dateFormat}">
-                <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_BASIC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.basic"/></sst:option>
-                <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_TZ) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.tz"/></sst:option>
-                <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_UTC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.utc"/></sst:option>
-              </sst:select>
-            </td>
-          </tr>
+            </div>
+          </td>
+
         </table>
       </div>
     </td>
-
-    <td valign="top">
-      <div id="httpSenderTest" class="borderDiv marB">
-        <table>
-          <tr><td class="smallTitle"><fmt:message key="publisherEdit.httpSender.sendTest"/></td></tr>
-          <tr>
-            <td align="center">
-              <input id="httpSendTestBtn" type="button" value="<fmt:message key="publisherEdit.httpSender.sendStaticParams"/>" onclick="httpSendTest();"/>
-              <input id="httpSendTestCancelBtn" type="button" value="<fmt:message key="publisherEdit.httpSender.cancel"/>" onclick="httpSendTestCancel();"/>
-            </td>
-          </tr>
-          <tr><td id="httpSendTestMessage" class="formError"></td></tr>
-          <tr><td class="formField"><pre id="httpSendTestData"></pre></td></tr>
-        </table>
-      </div>
-    </td>
-  </tr>
+  </div>
 </table>
 
+<%-- <table cellpadding="0" cellspacing="0"><tr><td>
+      <td valign="top" class="right-box w-100">
+      <tr><div class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></div></tr>
+        <div id="httpSenderTest" class="right-box w-100">
+          <table>
+            <tr><td class="smallTitle"><fmt:message key="publisherEdit.httpSender.sendTest"/></td></tr>
+            <tr>
+              <td align="center">
+                <button  id="httpSendTestBtn" type="button" class="btn btn-primary custom-btn-blue mx-2" name="httpSendTestBtn" onclick="httpSendTest()">
+                <fmt:message key="publisherEdit.httpSender.sendStaticParams"/></button>
+                <button  id="httpSendTestCancelBtn" type="button" class="btn btn-primary custom-btn-blue mx-2" name="httpSendTestCancelBtn" onclick="httpSendTestCancel()">
+                <fmt:message key="publisherEdit.httpSender.cancel"/></button>
+              </td>
+            </tr>
+            <tr><td id="httpSendTestMessage" class="formError"></td></tr>
+            <tr><td class="formField"><pre id="httpSendTestData"></pre></td></tr>
+          </table>
+        </div>
+      </td>
+</td></tr></table> --%>
+
 <table cellpadding="0" cellspacing="0"><tr><td>
-  <div class="borderDiv">
-    <table width="100%">
+  <div class="right-box my-3">
+    <table class="w-100">
       <tr>
         <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
         <td align="right">
-          <select id="availablePoints"></select>
-          <i class="bi bi-plus-circle-fill text-success" onclick="selectPoint()"></i>
+          <select class="form-select form-select-sm my-2" id="availablePoints"></select>
+          <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" onclick="selectPoint()"></i>
         </td>
       </tr>
     </table>
     
-    <table cellspacing="1" cellpadding="0">
+    <table cellspacing="1" cellpadding="0" class="table table-light table-hover align-middle">
       <tr class="rowHeader">
         <td><fmt:message key="publisherEdit.point.name"/></td>
         <td><fmt:message key="publisherEdit.point.status"/></td>
@@ -503,7 +563,7 @@
         <td><fmt:message key="publisherEdit.httpSender.point.timestamp"/></td>
         <td></td>
       </tr>
-      <tbody id="selectedPointsEmpty" style="display:none;"><tr><td colspan="5"><fmt:message key="publisherEdit.noPoints"/></td></tr></tbody>
+      <tbody id="selectedPointsEmpty" style="display:none;"><tr><td colspan="6"><fmt:message key="publisherEdit.noPoints"/></td></tr></tbody>
       <tbody id="selectedPoints"></tbody>
     </table>
     <div id="pointsMsg" class="formError" style="display:none;"></div>
