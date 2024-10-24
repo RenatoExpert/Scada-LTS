@@ -49,7 +49,7 @@ class RectifiersSummary extends Summary {
 	constructor (entries, map) {
 		console.log({ table_model });
 		super (entries, map, table_particle, table_model);
-		console.log({ ERPMSummary: this });
+		console.log({ RectifiersSummary: this });
 	}
 }
 
