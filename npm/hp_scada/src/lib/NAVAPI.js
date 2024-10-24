@@ -32,7 +32,7 @@ class NAVAPI {
 
 	static append_address (childName) {
 		let newAddress = getCurrentAddress + ":" + childName;
-		goto_id(newAddress);
+		this.goto_id(newAddress);
 		console.log({ append_address: { childName, newAddress } });
 	}
 
