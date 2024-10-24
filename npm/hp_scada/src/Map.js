@@ -32,6 +32,10 @@ class Map {
 			{
 				regex: /erpm/,
 				template: "erpm"
+			},
+			{
+				regex: /rectifiers/,
+				template: "rectifiers"
 			}
 		];
 		for (let i = 0; i < routerTable.length; i++) {
