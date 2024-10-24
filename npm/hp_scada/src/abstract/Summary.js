@@ -13,6 +13,7 @@ class Summary extends Component {
 		let nodeTag = "div";
 		let className = "hp-summary";
 		super(map, nodeTag, className);
+		this.entries = entries;
 		this.max_per_page = 20;
 		this.last = howManyPages(entries.length, this.max_per_page);
 		this.index = this.map.params.page;
@@ -26,7 +27,7 @@ class Summary extends Component {
 	#makeChildren () {
 		let page = new SummaryPage(this.index, this.last);
 		this.node.appendChild(page.node);
-		let table = new SummaryTable(this.map, this.index, this.max_per_page, this.table_particle, this.table_model);
+		let table = new SummaryTable(this.entries, this.map, this.index, this.max_per_page, this.table_particle, this.table_model);
 		this.node.appendChild(table.node);
 	}
 }

@@ -3,7 +3,7 @@ import TableHeader from './TableHeader.js';
 import TableRow from './TableRow.js';
 
 class SummaryTable extends Component {
-	constructor (map, currentPage, max_per_page, table_particle, table_model) {
+	constructor (entries, map, currentPage, max_per_page, table_particle, table_model) {
 		let nodeTag = "table";
 		let className = "hp-summarytable";
 		super(map, nodeTag, className);
@@ -25,6 +25,7 @@ class SummaryTable extends Component {
 		this.table_size = max_per_page;
 		this.model = table_model;
 		this.particle = table_particle;
+		this.entries = entries;
 		console.log({ SummaryTable: this });
 		this.#makeChildren();
 	}
@@ -34,9 +35,7 @@ class SummaryTable extends Component {
 		this.node.append(header.node);
 		let from = this.index * this.table_size;
 		let to = from + this.table_size - 1;
-		let children = this.map.levelmap[2].children;
-		let entries = Object.keys(children);
-		entries.slice(from, to).forEach(childName => {
+		this.entries.slice(from, to).forEach(childName => {
 			let childLabel = children[childName].label;
 			let isaTag = `${this.map.levelmap[1].name}:${this.map.levelmap[2].name}:${childName}`;
 			let row = new TableRow(this.model, childName, childLabel, isaTag);
