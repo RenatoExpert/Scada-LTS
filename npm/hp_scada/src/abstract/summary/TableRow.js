@@ -1,5 +1,5 @@
 import Component from '../Component.js';
-import IsConnected from '../display/IsConnected.js';
+//import IsConnected from '../display/IsConnected.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
