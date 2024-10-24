@@ -1,5 +1,5 @@
 import Component from '../../../../abstract/Component.js';
-import ERPMSummary from '../../../../widget/erpm/ERPMSummary.js';
+import ERPMSummary from './widget/erpm/ERPMSummary.js';
 
 class ERPMUnit extends Component {
 	constructor (map) {
