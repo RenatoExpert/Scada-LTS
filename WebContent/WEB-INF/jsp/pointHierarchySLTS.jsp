@@ -281,20 +281,37 @@ var connectCallback = function(frame) {
 };
 
 
-function setAlarmLevelImg(alarmLevel, imgNode) {
+function setAlarmLevelImg(alarmLevel, iconNode) {
     if (alarmLevel == 0)
-        updateImg(imgNode, "images/flag_green.png", "Green Flag", false, "none");
+        updateIcon(iconNode, "bi bi-flag-fill text-success", "Green Flag", false, "none");
     else if (alarmLevel == 1)
-        updateImg(imgNode, "images/flag_blue.png", "Blue Flag", true, "visible");
+        updateIcon(iconNode, "bi bi-flag-fill text-primary", "Blue Flag", true, "visible");
     else if (alarmLevel == 2)
-        updateImg(imgNode, "images/flag_yellow.png", "Yellow Flag", true, "visible");
+        updateIcon(iconNode, "bi bi-flag-fill text-warning", "Yellow Flag", true, "visible");
     else if (alarmLevel == 3)
-        updateImg(imgNode, "images/flag_orange.png", "Orange Flag", true, "visible");
+        updateIcon(iconNode, "bi bi-flag-fill text-orange", "Orange Flag", true, "visible"); // text-orange is not a default Bootstrap class, you might need to define it
     else if (alarmLevel == 4)
-        updateImg(imgNode, "images/flag_red.png", "Red Flag", true, "visible");
+        updateIcon(iconNode, "bi bi-flag-fill text-danger", "Red Flag", true, "visible");
     else
-        updateImg(imgNode, "(unknown)", "(unknown)", true, "visible");
+        updateIcon(iconNode, "bi bi-question-circle-fill", "(unknown)", true, "visible");
 }
+
+function updateIcon(imgNode, className, text, visible, styleType) {
+            if (visible) {
+                if (imgNode != null) {
+                    imgNode = getNodeIfString(imgNode);
+                    show(imgNode, styleType);
+                    if (className)
+                        imgNode.className = className;
+                    if (text) {
+                        imgNode.title = text;
+                        imgNode.alt = text;
+                    }
+                }
+            }
+            else
+                hide(imgNode);
+        }
 
 function setAlarmLevelText(alarmLevel, textNode) {
     textNode = document.getElementById(textNode);
