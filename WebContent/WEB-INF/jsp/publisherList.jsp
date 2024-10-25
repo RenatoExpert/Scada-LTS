@@ -39,12 +39,12 @@
                 function(p) { return p.configDescription; },
                 function(p) {
                     if (p.enabled)
-                        return '<i class="bi bi-wifi text-primary" title="<fmt:message key="common.enabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
-                        return '<i class="bi bi-wifi-off text-danger" title="<fmt:message key="common.disabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
+                        return '<i class="bi bi-wifi text-primary align-middle me-2 fs-5" title="<fmt:message key="common.enabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
+                        return '<i class="bi bi-wifi-off text-danger align-middle me-2 fs-5" title="<fmt:message key="common.disabledToggle"/>" onclick="togglePublisher('+ p.id +')" id="pImg'+ p.id +'"></i>';
                 },
                 function(p) {
-                    return '<a href="publisher_edit.shtm?pid='+ p.id +'"><i class="bi bi-pencil-square" border="0" title="<fmt:message key="common.edit"/>"></i></a> '+
-                        '<i class="bi bi-trash text-danger" title="<fmt:message key="common.delete"/>" id="deleteImg'+ p.id +'" onclick="deletePublisher('+ p.id +')"</i>';
+                    return '<a href="publisher_edit.shtm?pid='+ p.id +'"><i class="bi bi-pencil-square align-middle me-2 fs-5" border="0" title="<fmt:message key="common.edit"/>"></i></a> '+
+                        '<i class="bi bi-trash text-danger align-middle me-2 fs-5" title="<fmt:message key="common.delete"/>" id="deleteImg'+ p.id +'" onclick="deletePublisher('+ p.id +')"</i>';
                 }
             ],
             {
@@ -93,33 +93,41 @@
     }
   </script>
   
-  <table cellspacing="0" cellpadding="0">
-    <tr>
-      <td>
-        <i class="bi bi-broadcast-pin" title="<sst:i18n key='publisherList.publishers' escapeDQuotes='true'/>"></i>
-        <span class="smallTitle"><fmt:message key="publisherList.publishers"/></span>
-        <tag:help id="publisherList"/>
-      </td>
-      <td align="right">
-        <select id="publisherTypes"></select>
-        <i class="bi bi-plus-circle-fill text-success" title="<sst:i18n key='common.add' escapeDQuotes='true'/>" onclick="addPublisher()"></i>
-      </td>
-    </tr>
-    
-    <tr>
-      <td colspan="2">
-        <table cellspacing="1" cellpadding="0" border="0">
-          <tr class="rowHeader">
-            <td><fmt:message key="publisherList.name"/></td>
-            <td><fmt:message key="publisherList.type"/></td>
-            <td><fmt:message key="publisherList.config"/></td>
-            <td><fmt:message key="publisherList.status"/></td>
-            <td></td>
-          </tr>
-          <tbody id="noPublishers" style="display:none"><tr><td colspan="5"><fmt:message key="publisherList.noRows"/></td></tr></tbody>
-          <tbody id="publisherList"></tbody>
-        </table>
-      </td>
-    </tr>
+  <table class="subPageHeader container">
+    <div>
+    <td valign="top">
+    <div class="right-box m-3" style="height: 500px;">
+        <div class="d-flex justify-content-between align-items-center m-3">
+          <div class="d-flex align-items-center">
+            <%-- <i class="bi bi-broadcast-pin" title="<sst:i18n key='publisherList.publishers' escapeDQuotes='true'/>"></i> --%>
+            <span class="smallTitle"><fmt:message key="publisherList.publishers"/></span>
+            <tag:help id="publisherList"/>
+          </div>
+          <div class="d-flex align-items-center">
+            <select class="form-select form-select-sm" id="publisherTypes"></select>
+            <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<sst:i18n key='common.add' escapeDQuotes='true'/>" onclick="addPublisher()"></i>
+          </div>
+        </div>
+        <div class="container">
+          <div class="d-flex justify-content-center">
+            <div class="right-box">
+              <table cellspacing="1" class="table table-light table-hover">
+                <div class="rowHeader">
+                  <td><fmt:message key="publisherList.name"/></td>
+                  <td><fmt:message key="publisherList.type"/></td>
+                  <td><fmt:message key="publisherList.config"/></td>
+                  <td><fmt:message key="publisherList.status"/></td>
+                  <td></td>
+                </div>
+                <tbody id="noPublishers" style="display:none">
+                <div><td colspan="5"><fmt:message key="publisherList.noRows"/></td></div></tbody>
+                <tbody id="publisherList"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    </td>
+    </div>
   </table>
 </tag:page>

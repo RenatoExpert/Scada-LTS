@@ -68,7 +68,7 @@
     
     function createEventTypeNode(widgetId, eventType, parent) {
         var node = dojo.widget.createWidget("TreeNode", {
-                title: "<img id='"+ widgetId +"Img'/> "+ eventType.description +" ("+ eventType.eventDetectorKey +")",
+                title: "<i id='"+ widgetId +"Img'></i> "+ eventType.description +" ("+ eventType.eventDetectorKey +")",
                 widgetId: widgetId,
                 object: eventType.eventDetectorKey
         });
@@ -193,110 +193,121 @@
     }
   </script>
   
-  <table class="subPageHeader">
+  <table class="subPageHeader  container">
     <tr>
-      <td rowspan="2" valign="top">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td>
-                <span class="smallTitle"><fmt:message key="compoundDetectors.compoundEventDetectors"/></span>
-                <tag:help id="compoundEventDetectors"/>
-              </td>
-              <td align="right">
-                  <i class="bi bi-calendar-week" title="<fmt:message key='common.add'/>" id="ced${NEW_ID}Img" onclick="showCompoundEvent(${NEW_ID})"></i>
-              </td>
-            </tr>
-          </table>
+    <td class="d-flex align-items-start">
+        <div class="left-menu">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <span class="smallTitle"><fmt:message key="compoundDetectors.compoundEventDetectors"/></span>
+          <tag:help id="compoundEventDetectors"/>
+        </div>
+        <div>
+            <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" id="ced${NEW_ID}Img" onclick="showCompoundEvent(${NEW_ID})"></i>
+                      <%-- <span style="font-size: 16px;">
+                      <sst:i18n key='common.add' escapeDQuotes='true'/>
+                      </span> --%>
+        </div>
+        </div>
+        <div class="top-row-d-flex justify-content-between container py-2 box mb-3">
           <table id="compoundEventsTable">
             <tbody id="ced_TEMPLATE_" onclick="showCompoundEvent(getMangoId(this))" class="ptr" style="display:none;">
               <tr>
                 <td>
-                    <i id="ced_TEMPLATE_Img" class="bi bi-bell" title="<fmt:message key='compoundDetectors.compoundEventDetector'/>"></i>
+                    <i id="ced_TEMPLATE_Img" class="bi bi-bell align-middle ms-3 fs-5" title="<fmt:message key='compoundDetectors.compoundEventDetector'/>"></i>
                 </td>
-                <td class="link" id="ced_TEMPLATE_Name"></td>
-              </tr>
-            </tbody>
+                <td class="text-uppercase fs-7" id="ced_TEMPLATE_Name"></td>
+              </tr></tbody>
           </table>
+        </div>
         </div>
       </td>
   
       <td valign="top" style="display:none;" id="compoundEventDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="compoundDetectors.details"/></span></td>
-              <td align="right">
-                  <i class="bi bi-floppy2-fill text-success" onclick="saveCompoundEvent();" title="<fmt:message key='common.save'/>"></i>
-                  <i id="deleteCompoundEventImg" class="bi bi-trash  text-danger" onclick="deleteCompoundEvent();" title="<fmt:message key='common.delete'/>"></i>
-              </td>
-            </tr>
-          </table>
+        <div class="right-box">
+            <div class="d-flex justify-content-between container py-2 box mb-3">
+              <div>
+                <span class="smallTitle"><fmt:message key="compoundDetectors.details"/></span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <i class="bi bi-floppy2-fill text-blue-add  me-2 fs-5" onclick="saveCompoundEvent();" title="<fmt:message key='common.save'/>"></i>
+                  <span style="font-size: 16px;">
+                  <sst:i18n key='common.save' escapeDQuotes='true'/>
+                  </span>
+                <i id="deleteCompoundEventImg" class="bi bi-trash  text-danger ms-2 me-2 fs-5" onclick="deleteCompoundEvent();" title="<fmt:message key='common.delete'/>">
+                  <span style="font-size: 16px; color: var(--slts-color-primary-text);">
+                  <sst:i18n key='common.delete' escapeDQuotes='true'/>
+                  </span></i>
+              </div>
+          </div>
   
-          <table>
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
-            </tr>
+          <table class="m-4">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.xid"/></div>
+              <div class="formField col-sm-5"><input class="form-control form-control-sm my-2"type="text" id="xid"/></div>
+            </div>
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="compoundDetectors.name"/></td>
-              <td class="formField"><input type="text" id="name"/></td>
-            </tr>
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="compoundDetectors.name"/></div>
+              <div class="formField col-sm-5"><input class="form-control form-control-sm my-2" type="text" id="name"/></div>
+            </div>
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-              <td class="formField">
-                <select id="alarmLevel" onchange="updateAlarmLevelImage(this.value)">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.alarmLevel"/></div>
+              <div class="formField col-sm-5 col-sm-5">
+                <select class="form-select form-select-sm my-2" id="alarmLevel" onchange="updateAlarmLevelImage(this.value)">
                   <tag:alarmLevelOptions/>
                 </select>
                 <tag:img id="alarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
-              </td>
-            </tr>
+              </div>
+            </div>
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.rtn"/></td>
-              <td class="formField"><input type="checkbox" id="rtn"/></td>
-            </tr>
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.rtn"/></div>
+              <div class="formField col-sm-5 col-sm-5"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="rtn"/></div>
+            </div>
             
-            <tr>
-              <td class="formLabelRequired">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
                 <fmt:message key="compoundDetectors.condition"/>
-                <i class="bi bi-check-circle-fill text-success" onclick="validate();" title="<fmt:message key='compoundDetectors.validate'/>"></i><br/>
+                <i class="bi bi-check-circle-fill text-success  me-2 fs-5" onclick="validate();" title="<fmt:message key='compoundDetectors.validate'/>"></i><br/>
                 <br/>
+                <div class="d-flex flex-column align-items-center">
                 <a href="#" onclick="insertText(' && '); return false;"><fmt:message key="compoundDetectors.and"/></a><br/>
                 <a href="#" onclick="insertText(' || '); return false;"><fmt:message key="compoundDetectors.or"/></a><br/>
                 <a href="#" onclick="insertText('!'); return false;"><fmt:message key="compoundDetectors.not"/></a><br/>
-              </td>
-              <td class="formField"><textarea rows="10" cols="60" id="condition"></textarea></td>
-            </tr>
+                </div>
+              </div>
+              <div class="formField col-sm-5 col-sm-5"><textarea class="form-control mb-3" rows="10" cols="60" id="condition"></textarea></div>
+            </div>
             
-            <tr>
-              <td class="formLabelRequired"><fmt:message key="common.disabled"/></td>
-              <td class="formField"><input type="checkbox" id="disabled"/></td>
-            </tr>
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.disabled"/></div>
+              <div class="formField col-sm-5 col-sm-5"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="disabled"/></div>
+            </div>
+              <tr><div class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></div></tr>
+              <tr>
+                <div valign="top" style="display:none;" id="eventTypes">
+                <div class="m-3">
+                  <div class="right-box">
+                    <span class="smallTitle"><fmt:message key="compoundDetectors.eventTypes"/></span>
+                    <div dojoType="TreeBasicController" widgetId="controller"></div>
+                    <div id="tree">
+                      <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
+                        <div dojoType="TreeNode" title="<fmt:message key="compoundDetectors.pointEventDetector"/>" widgetId="rootPoint"></div>
+                        <div dojoType="TreeNode" title="<fmt:message key="scheduledEvents.ses"/>" widgetId="rootScheduled"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </tr>
           </table>
-          
           <table>
             <tr>
               <td colspan="2" id="userMessage" class="formError" style="display:none;"></td>
             </tr>
           </table>
-        </div>
-      </td>
-    </tr>
-    
-    <tr>
-      <td valign="top" style="display:none;" id="eventTypes">
-        <div class="borderDivPadded">
-          <span class="smallTitle"><fmt:message key="compoundDetectors.eventTypes"/></span>
-          <div dojoType="TreeBasicController" widgetId="controller"></div>
-          <div id="tree">
-            <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
-              <div dojoType="TreeNode" title="<fmt:message key="compoundDetectors.pointEventDetector"/>" widgetId="rootPoint"></div>
-              <div dojoType="TreeNode" title="<fmt:message key="scheduledEvents.ses"/>" widgetId="rootScheduled"></div>
-            </div>
-          </div>
         </div>
       </td>
     </tr>

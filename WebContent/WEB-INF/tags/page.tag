@@ -283,7 +283,7 @@
             }
             else
                 hide(imgNode);
-        } 
+        }
 
         window.addEventListener('beforeunload', (event) => {
             try {
