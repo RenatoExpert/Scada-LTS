@@ -521,36 +521,23 @@
   </div>
 </table>
 
-<%-- <table cellpadding="0" cellspacing="0"><tr><td>
-      <td valign="top" class="right-box w-100">
-      <tr><div class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></div></tr>
-        <div id="httpSenderTest" class="right-box w-100">
-          <table>
-            <tr><td class="smallTitle"><fmt:message key="publisherEdit.httpSender.sendTest"/></td></tr>
-            <tr>
-              <td align="center">
-                <button  id="httpSendTestBtn" type="button" class="btn btn-primary custom-btn-blue mx-2" name="httpSendTestBtn" onclick="httpSendTest()">
-                <fmt:message key="publisherEdit.httpSender.sendStaticParams"/></button>
-                <button  id="httpSendTestCancelBtn" type="button" class="btn btn-primary custom-btn-blue mx-2" name="httpSendTestCancelBtn" onclick="httpSendTestCancel()">
-                <fmt:message key="publisherEdit.httpSender.cancel"/></button>
-              </td>
-            </tr>
-            <tr><td id="httpSendTestMessage" class="formError"></td></tr>
-            <tr><td class="formField"><pre id="httpSendTestData"></pre></td></tr>
-          </table>
-        </div>
-      </td>
-</td></tr></table> --%>
-
 <table cellpadding="0" cellspacing="0"><tr><td>
-  <div class="right-box my-3">
+  <div class="right-box my-3 w-100">
     <table class="w-100">
       <tr>
-        <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
-        <td align="right">
-          <select class="form-select form-select-sm my-2" id="availablePoints"></select>
-          <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" onclick="selectPoint()"></i>
-        </td>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-auto smallTitle">
+              <fmt:message key="publisherEdit.points"/>
+            </div>
+            <div class="col-auto">
+              <select class="form-select form-select-sm my-2" id="availablePoints"></select>
+            </div>
+            <div class="col-auto">
+              <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" onclick="selectPoint()"></i>
+            </div>
+          </div>
+        </div>
       </tr>
     </table>
     
