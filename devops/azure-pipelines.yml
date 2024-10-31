@@ -7,7 +7,7 @@ trigger:
       - refs/heads/release
 
 pool:
-  vmImage: ubuntu-24.04
+  vmImage: ubuntu-latest
 
 resources:
   repositories:
