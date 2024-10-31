@@ -39,7 +39,7 @@ stages:
       steps:
       - template: java/azure/webapp/steps/docker-build-template-v1.yml@templates
         parameters:
-          repository: $(dockerRepository)
+          repository: $(imageName)
           dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
           containerRegistry: scadaregistry
           
