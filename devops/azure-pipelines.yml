@@ -28,14 +28,8 @@ variables:
 - name: dockerRepository
   value: scada-dev
 
-    
-
-  
-
-
 - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
   - template: variables-dev.yml
-
       
 stages:
   - stage: Build
@@ -45,9 +39,9 @@ stages:
       steps:
       - template: java/azure/webapp/steps/docker-build-template-v1.yml@templates
         parameters:
-          repository: scada-back
+          repository: $(dockerRepository)
           dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
-          containerRegistry: $containerRegistry
+          containerRegistry: scadaregistry
           
 
           
