@@ -226,11 +226,11 @@
           <tr class="rowTable<#if rowTable == 1>Alt</#if>">
             <td align="center">${event.id?c}</td>
             <td align="center">
-              <#if event.alarmLevel == 0><i class="bi bi-flag-fill text-success" alt="<@fmt key="common.alarmLevel.none"/>"></i>
-              <#elseif event.alarmLevel == 1><i class="bi bi-flag-fill text-primary" alt="<@fmt key="common.alarmLevel.info"/>"></i>
-              <#elseif event.alarmLevel == 2><i class="bi bi-flag-fill text-warning" alt="<@fmt key="common.alarmLevel.urgent"/>"></i>
-              <#elseif event.alarmLevel == 3><i class="bi bi-flag-fill text-orange" alt="<@fmt key="common.alarmLevel.critical"/>"></i>
-              <#elseif event.alarmLevel == 4><i class="bi bi-flag-fill text-danger" alt="<@fmt key="common.alarmLevel.lifeSafety"/>"></i>
+              <#if event.alarmLevel == 0><i class="bi bi-flag-fill text-success align-middle ms-3 fs-5" alt="<@fmt key="common.alarmLevel.none"/>"></i>
+              <#elseif event.alarmLevel == 1><i class="bi bi-flag-fill text-primary align-middle ms-3 fs-5" alt="<@fmt key="common.alarmLevel.info"/>"></i>
+              <#elseif event.alarmLevel == 2><i class="bi bi-flag-fill text-warning align-middle ms-3 fs-5" alt="<@fmt key="common.alarmLevel.urgent"/>"></i>
+              <#elseif event.alarmLevel == 3><i class="bi bi-flag-fill text-orange align-middle ms-3 fs-5" alt="<@fmt key="common.alarmLevel.critical"/>"></i>
+              <#elseif event.alarmLevel == 4><i class="bi bi-flag-fill text-danger align-middle ms-3 fs-5" alt="<@fmt key="common.alarmLevel.lifeSafety"/>"></i>
               <#else>(<@fmt key="common.alarmLevel.unknown"/>  ${event.alarmLevel})
               </#if>
             </td>

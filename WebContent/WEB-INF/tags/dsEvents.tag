@@ -18,12 +18,13 @@
 --%><%@include file="/WEB-INF/tags/decl.tagf"%><%--
 --%><%@tag body-content="empty"%><%--
 --%><table width="100%">
+<tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
   <tr><td class="smallTitle">
-    <i class="bi bi-flag"></i>
+    <i class="bi bi-flag align-middle ms-3 fs-5"></i>
     <fmt:message key="dsEdit.events.alarmLevels"/>
   </td></tr>
 </table>
-<table cellspacing="1">
+<table cellspacing="1" class="m-3">
   <c:choose>
     <c:when test="${empty dataSource.eventTypes}">
       <tr><td><b><fmt:message key="dsEdit.events.noEvents"/></b></td></tr>
@@ -32,11 +33,11 @@
       <c:forEach items="${dataSource.eventTypes}" var="type">
         <tr>
           <td><b><sst:i18n message="${type.description}"/></b></td>
-          <td>
-            <sst:select id="alarmLevel${type.typeRef2}" onchange="alarmLevelChanged(${type.typeRef2})" value="${type.alarmLevel}">
+          <td class="d-flex align-items-center justify-content-center">
+            <select class="form-select form-select-sm my-2" id="alarmLevel${type.typeRef2}" onchange="alarmLevelChanged(${type.typeRef2})" value="${type.alarmLevel}">
               <tag:alarmLevelOptions sst="true"/>
-            </sst:select>
-            <tag:img id="alarmLevelImg${type.typeRef2}" png="flag_green" style="display:none;"/>
+            </select>
+            <i id="alarmLevelImg${type.typeRef2}" class="bi bi-flag-fill align-middle ms-3 fs-5" style="display:none;"></i>
             <script type="text/javascript">setAlarmLevelImg(${type.alarmLevel}, 'alarmLevelImg${type.typeRef2}')</script>
           </td>
         </tr>

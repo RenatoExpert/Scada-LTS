@@ -72,7 +72,7 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-blue-add  align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
                           return "<input class='form-control form-control-sm' type='text' value='"+ data.feedId +"' "+
@@ -198,7 +198,7 @@
               <select class="form-select form-select-sm my-2" id="availablePoints"></select>
             </div>
             <div class="col-auto">
-              <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" onclick="selectPoint()"></i>
+              <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" onclick="selectPoint()"></i>
             </div>
           </div>
         </div>

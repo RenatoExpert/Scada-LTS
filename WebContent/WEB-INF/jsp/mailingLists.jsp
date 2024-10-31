@@ -500,12 +500,12 @@
           <table class="w-75">
             <tr>
                 <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
-                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" class="form-control form-control-sm my-2" type="text" id="xid"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" type="text" id="xid"/></td>
             </tr>
 
             <tr>
                 <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.name"/></td>
-                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" class="form-control form-control-sm my-2" id="name" type="text" onmousedown="this.focus()"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" id="name" type="text" onmousedown="this.focus()"/></td>
             </tr>
 
             <tr>

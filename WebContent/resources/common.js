@@ -530,15 +530,15 @@ function getMangoId(node) {
 
 function setAlarmLevelImg(alarmLevel, iconNode) {
     if (alarmLevel == 0)
-        updateIcon(iconNode, "bi bi-flag-fill text-success", mango.i18n["common.alarmLevel.none"], false);
+        updateIcon(iconNode, "bi bi-flag-fill text-success align-middle ms-3 fs-5", mango.i18n["common.alarmLevel.none"], false);
     else if (alarmLevel == 1)
-        updateIcon(iconNode, "bi bi-flag-fill text-primary", mango.i18n["common.alarmLevel.info"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-primary align-middle ms-3 fs-5", mango.i18n["common.alarmLevel.info"], true);
     else if (alarmLevel == 2)
-        updateIcon(iconNode, "bi bi-flag-fill text-warning", mango.i18n["common.alarmLevel.urgent"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-warning align-middle ms-3 fs-5", mango.i18n["common.alarmLevel.urgent"], true);
     else if (alarmLevel == 3)
-        updateIcon(iconNode, "bi bi-flag-fill text-orange", mango.i18n["common.alarmLevel.critical"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-orange align-middle ms-3 fs-5", mango.i18n["common.alarmLevel.critical"], true);
     else if (alarmLevel == 4)
-        updateIcon(iconNode, "bi bi-flag-fill text-danger", mango.i18n["common.alarmLevel.lifeSafety"], true);
+        updateIcon(iconNode, "bi bi-flag-fill text-danger align-middle ms-3 fs-5", mango.i18n["common.alarmLevel.lifeSafety"], true);
     else
         updateIcon(iconNode, "(unknown)", "(unknown)", true);
 }

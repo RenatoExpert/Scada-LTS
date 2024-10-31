@@ -25,52 +25,52 @@
 --%><c:choose>
   <c:when test="${event.active && event.alarmLevel == 0}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>">
-          <i class="bi bi-flag-fill text-success"></i>
+          <i class="bi bi-flag-fill text-success align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.alarmLevel == 0}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none.rtn'/>">
-          <i class="bi bi-flag text-success"></i>
+          <i class="bi bi-flag text-success align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.active && event.alarmLevel == 1}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.info'/>">
-          <i class="bi bi-flag-fill text-primary"></i>
+          <i class="bi bi-flag-fill text-primary align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.alarmLevel == 1}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.info.rtn'/>">
-          <i class="bi bi-flag text-primary"></i>
+          <i class="bi bi-flag text-primary align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.active && event.alarmLevel == 2}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.urgent'/>">
-          <i class="bi bi-flag-fill text-warning"></i>
+          <i class="bi bi-flag-fill text-warning align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.alarmLevel == 2}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.urgent.rtn'/>">
-          <i class="bi bi-flag text-warning"></i>
+          <i class="bi bi-flag text-warning align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.active && event.alarmLevel == 3}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.critical'/>">
-          <i class="bi bi-flag-fill text-orange"></i>
+          <i class="bi bi-flag-fill text-orange align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.alarmLevel == 3}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.critical.rtn'/>">
-          <i class="bi bi-flag text-orange"></i>
+          <i class="bi bi-flag text-orange align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.active && event.alarmLevel == 4}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.lifeSafety'/>">
-          <i class="bi bi-flag-fill text-danger"></i>
+          <i class="bi bi-flag-fill text-danger align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:when test="${event.alarmLevel == 4}">
       <a href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.lifeSafety.rtn'/>">
-          <i class="bi bi-flag text-danger"></i>
+          <i class="bi bi-flag text-danger align-middle ms-3 fs-5"></i>
       </a>
   </c:when>
   <c:otherwise>(<fmt:message key="common.alarmLevel.unknown"/> ${event.alarmLevel})</c:otherwise>

@@ -206,7 +206,7 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-blue-add  align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
                           return "<input class='form-control form-control-sm' type='text' value='"+ data.parameterName +"' "+
@@ -466,7 +466,7 @@
                   <td class="formField">
                     <fmt:message key="publisherEdit.httpSender.headerKey"/> <input class="form-control form-control-sm" type="text" id="sheaderKey"/>
                     <fmt:message key="publisherEdit.httpSender.headerValue"/> <input class="form-control form-control-sm" type="text" id="sheaderValue"/>
-                    <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>" onclick="addStaticHeader()"></i>
+                    <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>" onclick="addStaticHeader()"></i>
                     <table  class="table table-light table-hover align-middle">
                       <tr id="noStaticHeadersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticHeaders"/></td></tr>
                       <tbody id="staticHeaderList"></tbody>
@@ -479,7 +479,7 @@
                   <td class="formField">
                     <fmt:message key="publisherEdit.httpSender.paramKey"/> <input class="form-control form-control-sm" type="text" id="sparamKey"/>
                     <fmt:message key="publisherEdit.httpSender.paramValue"/> <input class="form-control form-control-sm" type="text" id="sparamValue"/>
-                    <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticParam'/>" onclick="addStaticParameter()"></i>
+                    <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticParam'/>" onclick="addStaticParameter()"></i>
                     <table  class="table table-light table-hover align-middle">
                       <tr id="noStaticParametersMsg" style="display:none"><td>
                       <fmt:message key="publisherEdit.httpSender.noStaticParams"/></td>
@@ -534,7 +534,7 @@
               <select class="form-select form-select-sm my-2" id="availablePoints"></select>
             </div>
             <div class="col-auto">
-              <i class="bi bi-plus-circle-fill text-success align-middle me-2 fs-5" onclick="selectPoint()"></i>
+              <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" onclick="selectPoint()"></i>
             </div>
           </div>
         </div>
