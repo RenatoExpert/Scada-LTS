@@ -19,6 +19,8 @@ resources:
 variables:
 - name: containerRegistry
   value: scadaregistry
+- name: dockerNamespace
+  value: scadaregistrydev.azurecr.io
 - name: imageName
   value: scada-dev
 - name: azureSubscription
@@ -59,13 +61,10 @@ stages:
            steps:
              - template: java/azure/webapp/steps/webapp-deploy-template-v1.yml@templates
                parameters:
-                 dockerNamespace: $(parameters.dockerNamespace)
-                 dockerRepository: $(parameters.dockerRepository)
-                 webAppName: scada-dev
-                 containerRegistry: $(parameters.containerRegistry)
-                 imageName: $(imageName)
-                 appSettingsValues: $(parameters.appSettingsValues) 
-                 azureSubscription: $(azureSubscription) 
-                 dockerRegistryServiceConnection: $(parameters.dockerRegistryServiceConnection) 
+                 webAppName: FUNPLACE-AWP-BACK-HML
+                 dockerNamespace: $(dockerNamespace)
+                 dockerRepository: $(dockerRepository)
+                 appSettingsValues: $(appSettingsValues) 
+                 azureSubscription: $(azureSubscription)
 
    
