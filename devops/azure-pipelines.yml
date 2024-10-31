@@ -18,7 +18,7 @@ resources:
 
 variables:
 - name: containerRegistry
-  value: scadaregistrydev.azurecr.io
+  value: scadaregistry
 - name: imageName
   value: scada-dev
 - name: azureSubscription
@@ -47,7 +47,9 @@ stages:
         parameters:
           repository: scada-back
           dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
-          containerRegistry: scadaregistry
+          containerRegistry: $containerRegistry
+          
+
           
 
   - stage: DeployDEV
