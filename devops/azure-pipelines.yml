@@ -61,7 +61,7 @@ stages:
            steps:
              - template: java/azure/webapp/steps/webapp-deploy-template-v1.yml@templates
                parameters:
-                 webAppName: FUNPLACE-AWP-BACK-HML
+                 webAppName: scada-dev
                  dockerNamespace: $(dockerNamespace)
                  dockerRepository: $(dockerRepository)
                  appSettingsValues: $(appSettingsValues) 
