@@ -27,6 +27,9 @@ variables:
   value: scadaregistry
 - name: dockerRepository
   value: scada-dev
+
+    
+
   
 
 
@@ -45,6 +48,7 @@ stages:
           repository: funplace-worker
           dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
           containerRegistry: scadaregistry
+          
 
   - stage: DeployDEV
     displayName: 'Deploy DEV'
