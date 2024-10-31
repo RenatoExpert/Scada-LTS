@@ -45,7 +45,7 @@ stages:
       steps:
       - template: java/azure/webapp/steps/docker-build-template-v1.yml@templates
         parameters:
-          repository: funplace-worker
+          repository: scada-back
           dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
           containerRegistry: scadaregistry
           
