@@ -1,0 +1,71 @@
+---
+name: scada_dev_v$(Build.BuildId)
+
+trigger:
+  branches:
+    include:
+      - refs/heads/release
+
+pool:
+  vmImage: ubuntu-24.04
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: 'devops-template'
+      ref: master
+
+variables:
+- name: containerRegistry
+  value: scadaregistrydev.azurecr.io
+- name: imageName
+  value: scada-dev
+- name: azureSubscription
+  value: scada
+- name: dockerRegistryServiceConnection
+  value: scadaregistry
+- name: dockerRepository
+  value: scada-dev
+  
+
+
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
+  - template: variables-dev.yml
+
+      
+stages:
+  - stage: Build
+    displayName: 'Build'
+    jobs: 
+    - job: Build
+      steps:
+      - template: java/azure/webapp/steps/docker-build-template-v1.yml@templates
+        parameters:
+          repository: funplace-worker
+          dockerfile: '$(Pipeline.Workspace)/**/Dockerfile'
+          containerRegistry: scadaregistry
+
+  - stage: DeployDEV
+    displayName: 'Deploy DEV'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
+    jobs:
+    - deployment:
+      environment: Development
+      strategy:
+       runOnce:
+         deploy:
+           steps:
+             - template: java/azure/webapp/steps/webapp-deploy-template-v1.yml@templates
+               parameters:
+                 dockerNamespace: $(parameters.dockerNamespace)
+                 dockerRepository: $(parameters.dockerRepository)
+                 webAppName: scada-dev
+                 containerRegistry: $(parameters.containerRegistry)
+                 imageName: $(imageName)
+                 appSettingsValues: $(parameters.appSettingsValues) 
+                 azureSubscription: $(azureSubscription) 
+                 dockerRegistryServiceConnection: $(parameters.dockerRegistryServiceConnection) 
+
+   
