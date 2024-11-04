@@ -114,13 +114,13 @@
     
      function togglePanel(imgNode, panelId) {
 				if (!imgNode.minimized) {
-					imgNode.className = "bi bi-arrows-expand";
+					imgNode.className = "bi bi-arrows-expand align-middle ms-3 fs-5";
 					imgNode.title = "<fmt:message key="common.maximize"/>";
 					hide(panelId);
 					imgNode.minimized = true;
 				}
 				else {
-					imgNode.className = "bi bi-arrows-collapse";
+					imgNode.className = "bi bi-arrows-collapse align-middle ms-3 fs-5";
 					imgNode.title = "<fmt:message key="common.minimize"/>";
 					show(panelId);
 					imgNode.minimized = false;
@@ -161,41 +161,41 @@
     });
   </script>
   
-  <table width="100%">
+  <table class="w-100">
     <tr>
       <td valign="top" align="right">
         <fmt:message key="pointDetails.goto"/>:&nbsp;
-        <sst:select id="datPointDetailsPointSelect" value="${point.id}" onchange="window.location='data_point_details.shtm?dpid='+ this.value;">
+        <select class="form-select form-select-sm my-2" id="datPointDetailsPointSelect" value="${point.id}" onchange="window.location='data_point_details.shtm?dpid='+ this.value;">
           <c:forEach items="${userPoints}" var="point">
             <sst:option value="${point.id}">${point.extendedName}</sst:option>
           </c:forEach>
-        </sst:select>
+        </select>
 
         <c:if test="${!empty prevId}">
-            <i class="bi bi-caret-left-square-fill text-success" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
+            <i class="bi bi-caret-left-square-fill text-success align-middle ms-3 fs-5" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
         </c:if>
         
         <c:if test="${!empty nextId}">
-            <i class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='pagination.next'/>" onclick="window.location='data_point_details.shtm?dpid=${nextId}'" style="cursor: pointer;"></i>
+            <i class="bi bi-caret-right-square-fill text-success align-middle ms-3 fs-5" title="<fmt:message key='pagination.next'/>" onclick="window.location='data_point_details.shtm?dpid=${nextId}'" style="cursor: pointer;"></i>
         </c:if>
       </td>
     </tr>
   </table>
   
-  <table width="100%" cellspacing="0" cellpadding="0">
+  <table class="w-100" cellspacing="0" cellpadding="0">
     <tr>
       <td valign="top">
         <div class="borderDiv marB marR">
           <table>
             <tr>
-              <td class="smallTitle" colspan="2"><i class="bi bi-search" title="<fmt:message key='common.point'/>"></i>
+              <td class="smallTitle" colspan="2"><i class="bi bi-search align-middle ms-3 fs-5" title="<fmt:message key='common.point'/>"></i>
                 ${point.name}
                 <c:if test="${pointEditor}">
                     <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointDetails.editPoint'/>">
-                        <i class="bi bi-pencil-square"></i>
+                        <i class="bi bi-pencil-square align-middle ms-3 fs-5"></i>
                     </a>
                     <a href="data_source_edit.shtm?dsid=${point.dataSourceId}&pid=${point.id}" title="<fmt:message key='pointDetails.editDataSource'/>">
-                        <i class="bi bi-database-fill-gear"></i>
+                        <i class="bi bi-database-fill-gear align-middle ms-3 fs-5"></i>
                     </a>
                 </c:if>
               </td>
@@ -210,13 +210,14 @@
             </tr>
             <tr id="pointChangeNode" style="display:none">
               <td class="formLabelRequired">
-                <i id="pointChanging" class="bi bi-tools" title="<fmt:message key='common.set'/>"></i>
+                <i id="pointChanging" class="bi bi-tools align-middle ms-3 fs-5" title="<fmt:message key='common.set'/>"></i>
                 <fmt:message key="common.set"/>
               </td>
-              <td id="pointChange" class="formField"></td>
+              <td id="pointChange" class="formField d-flex align-items-center justify-content-center"></td>
             </tr>
             <tr>
               <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
+              <%-- WebContent/WEB-INF/snippet/changeContentText.jsp --%>
               <td class="formField">${point.xid}</td>
             </tr>
             <tr><td colspan="2" id="pointMessages"></td></tr>
@@ -224,19 +225,19 @@
         </div>
         
         <div class="borderDiv marB marR">
-          <table width="100%">
+          <table class="w-100">
             <tr>
               <td class="smallTitle"><fmt:message key="pointDetails.statistics"/></td>
               <td id="statsAsof"></td>
               <td align="right">
                 <fmt:message key="pointDetails.timePeriod"/>:
-                <input id="statsChartDuration" style="text-align:right;" type="text" class="formVeryShort"
+                <input class="form-control form-control-sm my-2" id="statsChartDuration" style="text-align:right;" type="text" class="formVeryShort"
                         value='${empty periodCount ? "1" : periodCount}'/>
-                <sst:select id="statsChartDurationType" value="${periodType}">
+                <select  class="form-select form-select-sm my-2" id="statsChartDurationType" value="${periodType}">
                   <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true"/>
-                </sst:select>
+                </select>
                   <a href="#" id="statsChartImg" title="<fmt:message key='pointDetails.getStatistics'/>" onclick="getStatsChart()">
-                      <i class="bi bi-play-circle-fill text-primary"></i>
+                      <i class="bi bi-play-circle-fill text-primary align-middle me-5 fs-3"></i>
                   </a>
               </td>
             </tr>
@@ -247,22 +248,22 @@
       
       <td valign="top">
         <div class="borderDiv marB marR">
-          <table width="100%">
+          <table class="w-100">
             <tr>
               <td class="smallTitle"><fmt:message key="pointDetails.history"/></td>
               <td id="historyTableAsof"></td>
               <td align="right">
                 <fmt:message key="pointDetails.show"/>
-                <input id="historyLimit" type="text" style="text-align:right;" value="${historyLimit}"
+                <input class="form-control form-control-sm my-2" id="historyLimit" type="text" style="text-align:right;" value="${historyLimit}"
                         class="formVeryShort"/>
                 <fmt:message key="pointDetails.mostRecentRecords"/>
                 <a href="#" id="historyLimitImg" title="<fmt:message key='pointDetails.getData'/>" onclick="getHistoryTableData()">
-                    <i class="bi bi-play-circle-fill text-primary"></i>
+                    <i class="bi bi-play-circle-fill text-primary align-middle ms-3 fs-3"></i>
                 </a>
               </td>
             </tr>
           </table>
-          <table cellspacing="1">
+          <table cellspacing="1" class="table table-light table-hover">
             <tr class="rowHeader">
               <td><fmt:message key="common.value"/></td>
               <td><fmt:message key="common.time"/></td>
@@ -275,12 +276,12 @@
       
       <td valign="top">
         <div class="borderDiv marB">
-          <table width="100%">
+          <table class="w-100">
             <tr>
               <td class="smallTitle"><fmt:message key="notes.userNotes"/></td>
               <td align="right">
                   <a href="#" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_POINT']}, ${point.id})">
-                      <i class="bi bi-chat-dots"></i>
+                      <i class="bi bi-chat-dots align-middle ms-3 fs-5"></i>
                   </a>
               </td>
             </tr>
@@ -294,15 +295,15 @@
       <tr>
         <td colspan="3">
           <!--  chart with editable properties and annotations -->
-          <div class="borderDiv marB">
-            <table width="100%">
+          <div class="left-menu h-100">
+            <table class="w-100 my-3">
               <tr>
                 <td class="smallTitle"><fmt:message key="pointDetails.chart"/></td>
                 <td id="imageChartAsof"></td>
                 <td align="right"><tag:dateRange/></td>
                 <td>
                   <a href="#" id="imageChartImg" title="<fmt:message key='pointDetails.imageChartButton'/>" onclick="getImageChart()">
-                      <i class="bi bi-play-circle-fill text-primary"></i>
+                      <i class="bi bi-play-circle-fill text-primary align-middle ms-3 fs-3"></i>
                   </a>
               </tr>
               <tr><td colspan="3" id="imageChartDiv"></td></tr>
@@ -316,13 +317,13 @@
       <tr>
         <td colspan="3">
           <div class="borderDiv marB">
-            <table width="100%">
+            <table class="w-100">
               <tr>
                 <td class="smallTitle"><fmt:message key="pointDetails.flipbook"/></td>
                 <td id="flipbookAsof"></td>
                 <td align="right">
                   <fmt:message key="pointDetails.images"/>:
-                  <input id="flipbookLimit" style="text-align:right;" type="text" value="${flipbookLimit}"
+                  <input class="form-control form-control-sm my-2" id="flipbookLimit" style="text-align:right;" type="text" value="${flipbookLimit}"
                           class="formVeryShort"/>
                   <a href="#" id="flipbookChartImg" title="<fmt:message key='pointDetails.getImages'/>" onclick="getFlipbookChart()">
                       <i class="bi bi-play-circle-fill text-primary"></i>
@@ -340,18 +341,18 @@
     <tr>
       <td colspan="3">
         <div class="borderDiv marB">
-          <table width="100%">
+          <table class="w-100">
             <tr>
               <td class="smallTitle"><fmt:message key="pointDetails.events"/></td>
               <td align="right">
-                <i class="bi bi-arrows-collapse" title="<fmt:message key='common.maximize'/>" onclick="togglePanel(this, 'eventsTable');"></i>
+                <i class="bi bi-arrows-collapse align-middle ms-3 fs-5" title="<fmt:message key='common.maximize'/>" onclick="togglePanel(this, 'eventsTable');"></i>
                 <a href="#" title="<fmt:message key='common.refresh'/>">
-                    <i class="bi bi-arrow-clockwise"></i>
+                    <i class="bi bi-arrow-clockwise align-middle ms-3 fs-5"></i>
                 </a>
               </td>
             </tr>
           </table>
-          <table id="eventsTable" cellspacing="1" cellpadding="0" width="100%">
+          <table id="eventsTable" cellspacing="1" cellpadding="0" class="w-100">
             <tr class="rowHeader">
               <td><fmt:message key="pointDetails.id"/></td>
               <td><fmt:message key="common.alarmLevel"/></td>
@@ -367,11 +368,11 @@
                 <td align="center"><tag:eventIcon event="${event}"/></td>
                 <td>${sst:time(event.activeTimestamp)}</td>
                 <td>
-                  <table cellspacing="0" cellpadding="0" width="100%">
+                  <table cellspacing="0" cellpadding="0" class="w-100">
                     <tr>
                       <td><b><sst:i18n message="${event.message}"/></b></td>
                       <td align="right">
-                          <i class="bi bi-plus-square" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})" style="cursor: pointer;"></i>
+                          <i class="bi bi-plus-square align-middle ms-3 fs-5" title="<fmt:message key='notes.addNote'/>" onclick="openCommentDialog(${applicationScope['constants.UserComment.TYPE_EVENT']}, ${event.id})" style="cursor: pointer;"></i>
                       </td>
                     </tr>
                   </table>
@@ -379,7 +380,7 @@
                     <c:forEach items="${event.eventComments}" var="comment">
                       <tr>
                         <td valign="top" width="16">
-                            <i class="bi bi-chat-left-text" title="<fmt:message key='notes.note'/>"></i>
+                            <i class="bi bi-chat-left-text align-middle ms-3 fs-5" title="<fmt:message key='notes.note'/>"></i>
                         </td>
                         <td valign="top">
                           <span class="copyTitle">
@@ -434,7 +435,7 @@
       <td valign="top">
         <div class="borderDiv marR">
           <span class="smallTitle" style="margin:3px;"><fmt:message key="pointDetails.views"/></span>
-          <table width="100%" cellspacing="1">
+          <table class="w-100" cellspacing="1">
             <tr class="rowHeader">
               <td><fmt:message key="pointDetails.name"/></td>
               <td></td>
@@ -457,7 +458,7 @@
       <td colspan="2" valign="top">
         <div class="borderDiv">
           <span class="smallTitle" style="margin:3px;"><fmt:message key="pointDetails.userAccess"/></span>
-          <table width="100%" cellspacing="1">
+          <table class="w-100" cellspacing="1">
             <tr class="rowHeader">
               <td width="16"></td>
               <td><fmt:message key="pointDetails.username"/></td>

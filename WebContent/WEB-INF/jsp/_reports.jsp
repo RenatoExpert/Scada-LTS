@@ -552,7 +552,7 @@
             <tr>
               <td class="formLabelRequired"><fmt:message key="common.points"/></td>
               <td class="formField">
-                <select id="allPointsList"></select>
+                <select class="form-select form-select-sm my-2" id="allPointsList"></select>
                 <tag:img png="add" onclick="addPointToReport();" title="common.add"/>
                 
                 <table cellspacing="1">
@@ -576,7 +576,7 @@
             <tr>
               <td class="formLabelRequired"><fmt:message key="reports.events"/></td>
               <td class="formField">
-                <select id="includeEvents">
+                <select class="form-select form-select-sm my-2" id="includeEvents">
                   <option value="<c:out value="<%= ReportVO.EVENTS_NONE %>"/>"><fmt:message key="reports.events.none"/></option>
                   <option value="<c:out value="<%= ReportVO.EVENTS_ALARMS %>"/>"><fmt:message key="reports.events.alarms"/></option>
                   <option value="<c:out value="<%= ReportVO.EVENTS_ALL %>"/>"><fmt:message key="reports.events.all"/></option>
@@ -607,7 +607,7 @@
                                   checked="checked"/><label for="relprev"><fmt:message key="reports.previous"/></label></td>
                           <td valign="top">
                             <input type="text" id="prevPeriodCount" class="formVeryShort"/>
-                            <select id="prevPeriodType">
+                            <select class="form-select form-select-sm my-2" id="prevPeriodType">
                               <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
                             </select><br/>
                             <span class="formError" id="previousPeriodCountError"></span>
@@ -619,7 +619,7 @@
                                   for="relpast"><fmt:message key="reports.past"/></label></td>
                           <td valign="top">
                             <input type="text" id="pastPeriodCount" class="formVeryShort"/>
-                            <select id="pastPeriodType">
+                            <select class="form-select form-select-sm my-2" id="pastPeriodType">
                               <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
                             </select><br/>
                             <span class="formError" id="pastPeriodCountError"></span>
@@ -648,20 +648,20 @@
                         <tr>
                           <td><fmt:message key="common.dateRangeFrom"/></td>
                           <td><input type="text" id="fromYear" class="formVeryShort"/></td>
-                          <td><select id="fromMonth"><tag:monthOptions/></select></td>
-                          <td><select id="fromDay"><tag:dayOptions/></select></td>
-                          <td><select id="fromHour"><tag:hourOptions/></select></td>
-                          <td><select id="fromMinute"><tag:minuteOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="fromMonth"><tag:monthOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="fromDay"><tag:dayOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="fromHour"><tag:hourOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="fromMinute"><tag:minuteOptions/></select></td>
                           <td><input type="checkbox" name="fromNone" id="fromNone"
                                   onclick="updateDateRangeFields()"/><label for="fromNone"><fmt:message key="common.inception"/></label></td>
                         </tr>
                         <tr>
                           <td><fmt:message key="common.dateRangeTo"/></td>
                           <td><input type="text" id="toYear" class="formVeryShort"/></td>
-                          <td><select id="toMonth"><tag:monthOptions/></select></td>
-                          <td><select id="toDay"><tag:dayOptions/></select></td>
-                          <td><select id="toHour"><tag:hourOptions/></select></td>
-                          <td><select id="toMinute"><tag:minuteOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="toMonth"><tag:monthOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="toDay"><tag:dayOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="toHour"><tag:hourOptions/></select></td>
+                          <td><select class="form-select form-select-sm my-2" id="toMinute"><tag:minuteOptions/></select></td>
                           <td><input type="checkbox" name="toNone" id="toNone" 
                                   onclick="updateDateRangeFields()"/><label for="toNone"><fmt:message key="common.latest"/></label></td>
                         </tr>
@@ -687,7 +687,7 @@
                 <td class="formField">
                   <table cellpadding="0" cellspacing="0">
                     <tr><td>
-                      <select id="schedulePeriod" onchange="updateSchedulePeriodFields()">
+                      <select class="form-select form-select-sm my-2" id="schedulePeriod" onchange="updateSchedulePeriodFields()">
                         <tag:timePeriodOptions h="true" d="true" w="true" mon="true" y="true" singular="true"/>
                         <option value="<c:out value="<%= ReportVO.SCHEDULE_CRON %>"/>"><fmt:message key="reports.cron"/></option>
                       </select>
