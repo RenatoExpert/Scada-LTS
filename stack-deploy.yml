@@ -1,7 +1,7 @@
 # docker stack deploy --compose-file compose-deploy.yml tree-renato
 services:
     database:
-      image: bitnami/mysql:8.0.35
+      image: mysql/mysql-server:8.0.32
       environment:
           - MYSQL_ROOT_PASSWORD=root
           - MYSQL_USER=root
