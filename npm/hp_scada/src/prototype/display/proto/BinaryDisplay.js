@@ -5,27 +5,17 @@ class BinaryDisplay extends StatefulComponent {
 		let map = null;
 		let nodeTag = "div";
 		let className = "BinaryDisplay";
-		super(map, nodeTag, className);
+		let datapoint = `${station_tag}-${suffix}`;
+		super(datapoint, className);
 		this.case_true = case_true;
 		this.case_false = case_false;
-		this.datapoint = `${station_tag}-${suffix}`;
-		this.create_dom_element();
 		this.render_value(false);
+		this.update_value('52');
 	}
 
-	create_dom_element () {
-		let td = document.createElement("td");
-		td.innerText = "???";
-		this.dom_element = td;
-	}
-
-	render_value (value) {
+	update_value () {
 		let text = value == "true" ? this.case_true : this.case_false;
-		this.dom_element.innerHTML = text;
-	}
-
-	get_dom_element () {
-		return this.dom_element;
+		this.node.innerHTML = text;
 	}
 }
 
