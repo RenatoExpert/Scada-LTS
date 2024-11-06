@@ -1,6 +1,6 @@
 import Component from '../Component.js';
 import NAVAPI from '../../lib/NAVAPI.js';
-//import IsConnected from '../display/IsConnected.js';
+import IsConnected from '../display/IsConnected.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
@@ -25,9 +25,9 @@ class TableRow extends Component {
 			if (column.type == "SELFLABEL") {
 				col = document.createElement("spam");
 				col.innerText = this.label;
-				/*
 			} else if (item.type == "ISCONNECTED") {
 				col = new IsConnected(this.isatag).node;
+				/*
 				/*
 				let suffix = "SG-1";
 				let obj = new Check_display(this.station_tag, suffix, this.clock, "Conectado", "Desconectado");
