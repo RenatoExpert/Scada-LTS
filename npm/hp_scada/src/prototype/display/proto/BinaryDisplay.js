@@ -1,6 +1,6 @@
-import Component from '../../Component.js';
+import StatefulComponent from '../../StatefulComponent.js';
 
-class BinaryDisplay extends Component {
+class BinaryDisplay extends StatefulComponent {
 	constructor (station_tag, suffix, case_true, case_false) {
 		let map = null;
 		let nodeTag = "div";
@@ -11,7 +11,6 @@ class BinaryDisplay extends Component {
 		this.datapoint = `${station_tag}-${suffix}`;
 		this.create_dom_element();
 		this.render_value(false);
-		this.value_fetch();
 	}
 
 	create_dom_element () {
