@@ -2,6 +2,10 @@ import Component from '../../Component.js';
 
 class BinaryDisplay extends Component {
 	constructor (station_tag, suffix, case_true, case_false) {
+		let map = null;
+		let nodeTag = "div";
+		let className = "BinaryDisplay";
+		super(map, nodeTag, className);
 		this.case_true = case_true;
 		this.case_false = case_false;
 		this.datapoint = `${station_tag}-${suffix}`;
