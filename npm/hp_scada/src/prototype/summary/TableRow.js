@@ -1,6 +1,6 @@
 import Component from '../Component.js';
 import NAVAPI from '../../lib/NAVAPI.js';
-import IsConnected from '../display/IsConnected.js';
+import IsConnected from '../display/implement/IsConnected.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
