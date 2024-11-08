@@ -9,6 +9,7 @@ class BinaryDisplay extends StatefulComponent {
 		super(datapoint, className);
 		this.case_true = case_true;
 		this.case_false = case_false;
+		this.case_undefined = "Aguardando...";
 		this.update_value();
 		setTimeout(() => {
 			this.update_value(true);
@@ -16,8 +17,12 @@ class BinaryDisplay extends StatefulComponent {
 	}
 
 	update_value (value) {
-		let text = value == "true" ? this.case_true : this.case_false;
-		text = value || "Aguardando...";
+		let text = "";
+		if (value === undefined) {
+			text = this.case_undefined;
+		} else {
+			text = value "true" ? this.case_true : this.case_false;
+		}
 		this.node.innerHTML = text;
 	}
 }
