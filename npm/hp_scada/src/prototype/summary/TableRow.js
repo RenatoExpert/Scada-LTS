@@ -1,7 +1,7 @@
 import Component from '../Component.js';
 import NAVAPI from '../../lib/NAVAPI.js';
 import IsConnected from '../display/implement/IsConnected.js';
-import IsConnected from '../display/implement/Modem.js';
+import Modem from '../display/implement/Modem.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
