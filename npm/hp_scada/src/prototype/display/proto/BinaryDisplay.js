@@ -21,7 +21,7 @@ class BinaryDisplay extends StatefulComponent {
 		if (value === undefined) {
 			text = this.case_undefined;
 		} else {
-			text = value "true" ? this.case_true : this.case_false;
+			text = value ? this.case_true : this.case_false;
 		}
 		this.node.innerHTML = text;
 	}
