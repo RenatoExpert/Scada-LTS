@@ -33,16 +33,17 @@ class TableData extends Component {
 
 	#makeChild (column, isatag) {
 		let type = column.type;
+		let child;
 		if (type == "SELFLABEL") {
-			col = new Label(column.label)
+			child = new Label(column.label)
 		} else if (type == "ISCONNECTED") {
-			col = new IsConnected(isatag);
+			child = new IsConnected(isatag);
 		} else if (type == "COMSTATUS") {
-			col = new Modem(isatag);
+			child = new Modem(isatag);
 		} else {
-			col = new Unknown();
+			child = new Unknown();
 		}
-		this.node.append(col.node);
+		this.node.append(child.node);
 	}
 }
 
