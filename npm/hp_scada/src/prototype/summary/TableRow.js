@@ -1,7 +1,6 @@
 import Component from '../Component.js';
 import NAVAPI from '../../lib/NAVAPI.js';
-import IsConnected from '../display/implement/IsConnected.js';
-import Modem from '../display/implement/Modem.js';
+import TableData from '../display/implement/TableData.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
@@ -22,42 +21,8 @@ class TableRow extends Component {
 	#makeChildren () {
 		this.model.forEach(column => {
 			let td = document.createElement("td");
-			let col;
-			if (column.type == "SELFLABEL") {
-				col = document.createElement("spam");
-				col.innerText = this.label;
-			} else if (column.type == "ISCONNECTED") {
-				col = new IsConnected(this.isatag).node;
-			} else if (column.type == "COMSTATUS") {
-				col = new Modem(this.isatag).node;
-				/*
-				/*
-				let suffix = "SG-1";
-				let obj = new Check_display(this.station_tag, suffix, this.clock, "Conectado", "Desconectado");
-				col = obj.get_dom_element();
-
-				let suffix = "SG-1";
-				let obj = new Check_display(this.station_tag, suffix, this.clock, "OK", "Err");
-				col = obj.get_dom_element();
-			} else if (item.type == "CLOCK") {
-				col = this.clock.get_dom_element();
-			} else if (item.type == "NUMBER") {
-				let obj = new Numeric_display(this.station_tag, item.suffix, item.eunit, this.clock);
-				col = obj.get_dom_element();
-			} else if (item.type == "BUTTON") {
-				let button = document.createElement("button");
-				button.textContent = item.label;
-				let xid = item.target;
-				button.onclick = () => {
-					utils.goto_id(xid);
-				};
-				col = button
-				*/
-			} else {
-				col = document.createElement("spam");
-				col.innerText = "Unknown Column Type";
-			}
-			td.append(col);
+			let col = new TableData(column, this.isatag);
+			td.append(col.node);
 			this.node.append(td);
 		});
 	}
