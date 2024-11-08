@@ -9,7 +9,6 @@ class BinaryDisplay extends StatefulComponent {
 		super(datapoint, className);
 		this.case_true = case_true;
 		this.case_false = case_false;
-		this.render_value(false);
 		this.update_value('52');
 	}
 
