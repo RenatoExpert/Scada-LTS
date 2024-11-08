@@ -20,8 +20,8 @@
 --%><%@attribute name="comments" type="java.util.List" required="true" %><%--
 --%><c:forEach items="${comments}" var="comment">
   <tr>
-    <td valign="top" width="16">
-    <i class="bi bi-chat-left-text" title="notes.note"></i></td>
+    <td valign="top" width="16" class="align-middle">
+    <i class="bi bi-chat-left-text align-middle m-3 fs-5" title="notes.note"></i></td>
     <td valign="top">
       <span class="copyTitle">
         ${comment.prettyTime} <fmt:message key="notes.by"/>

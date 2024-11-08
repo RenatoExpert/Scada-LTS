@@ -172,11 +172,11 @@
         </select>
 
         <c:if test="${!empty prevId}">
-            <i class="bi bi-caret-left-square-fill text-success align-middle ms-3 fs-5" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
+            <i class="bi bi-caret-left-square-fill text-blue-add  align-middle ms-3 fs-5" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
         </c:if>
         
         <c:if test="${!empty nextId}">
-            <i class="bi bi-caret-right-square-fill text-success align-middle ms-3 fs-5" title="<fmt:message key='pagination.next'/>" onclick="window.location='data_point_details.shtm?dpid=${nextId}'" style="cursor: pointer;"></i>
+            <i class="bi bi-caret-right-square-fill text-blue-add  align-middle ms-3 fs-5" title="<fmt:message key='pagination.next'/>" onclick="window.location='data_point_details.shtm?dpid=${nextId}'" style="cursor: pointer;"></i>
         </c:if>
       </td>
     </tr>
@@ -185,10 +185,10 @@
   <table class="w-100" cellspacing="0" cellpadding="0">
     <tr>
       <td valign="top">
-        <div class="borderDiv marB marR">
+        <div class="left-menu h-100 my-3">
           <table>
             <tr>
-              <td class="smallTitle" colspan="2"><i class="bi bi-search align-middle ms-3 fs-5" title="<fmt:message key='common.point'/>"></i>
+              <td class="smallTitle" colspan="2"><i class="bi bi-search align-middle me-3 fs-5" title="<fmt:message key='common.point'/>"></i>
                 ${point.name}
                 <c:if test="${pointEditor}">
                     <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointDetails.editPoint'/>">
@@ -201,69 +201,73 @@
               </td>
             </tr>
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.value"/></td>
+              <td class="formLabelRequired align-middle "><fmt:message key="common.value"/></td>
               <td id="pointValue" class="formField"></td>
             </tr>
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.time"/></td>
+              <td class="formLabelRequired align-middle"><fmt:message key="common.time"/></td>
               <td id="pointValueTime" class="formField"></td>
             </tr>
             <tr id="pointChangeNode" style="display:none">
-              <td class="formLabelRequired">
+              <td class="formLabelRequired align-middle">
                 <i id="pointChanging" class="bi bi-tools align-middle ms-3 fs-5" title="<fmt:message key='common.set'/>"></i>
                 <fmt:message key="common.set"/>
               </td>
               <td id="pointChange" class="formField d-flex align-items-center justify-content-center"></td>
             </tr>
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
+            <tr>
+              <td class="formLabelRequired align-middle"><fmt:message key="common.xid"/></td>
               <%-- WebContent/WEB-INF/snippet/changeContentText.jsp --%>
               <td class="formField">${point.xid}</td>
             </tr>
-            <tr><td colspan="2" id="pointMessages"></td></tr>
+            <td colspan="2" id="pointMessages"></td></tr>
           </table>
         </div>
         
-        <div class="borderDiv marB marR">
-          <table class="w-100">
+        <div class="left-menu h-100 my-3">
+            <table class="w-100 my-3">
             <tr>
-              <td class="smallTitle"><fmt:message key="pointDetails.statistics"/></td>
-              <td id="statsAsof"></td>
-              <td align="right">
-                <fmt:message key="pointDetails.timePeriod"/>:
-                <input class="form-control form-control-sm my-2" id="statsChartDuration" style="text-align:right;" type="text" class="formVeryShort"
+              <div class="my-3">
+                <span class="smallTitle"><fmt:message key="pointDetails.statistics"/></span>
+                <div id="statsAsof"></div>
+              </div>
+              <%-- <td class="smallTitle"><fmt:message key="pointDetails.statistics"/></td> --%>
+              <td><fmt:message key="pointDetails.timePeriod"/>:</td>
+              <td class="d-flex align-items-center justify-content-center">
+                <%-- <fmt:message key="pointDetails.timePeriod"/>: --%>
+                <input class="form-control form-control-sm m-2" id="statsChartDuration" style="text-align:right;" type="text" class="formVeryShort"
                         value='${empty periodCount ? "1" : periodCount}'/>
-                <select  class="form-select form-select-sm my-2" id="statsChartDurationType" value="${periodType}">
+                <select  class="form-select form-select-sm m-2" id="statsChartDurationType" value="${periodType}">
                   <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true"/>
                 </select>
                   <a href="#" id="statsChartImg" title="<fmt:message key='pointDetails.getStatistics'/>" onclick="getStatsChart()">
-                      <i class="bi bi-play-circle-fill text-primary align-middle me-5 fs-3"></i>
+                      <i class="bi bi-play-circle-fill text-blue-add  align-middle me-5 fs-3"></i>
                   </a>
               </td>
             </tr>
           </table>
-          <div id="statsChartData" style="padding:0px 0px 5px 5px;"></div>
+          <div class="my-3" id="statsChartData" style="padding:0px 0px 5px 5px;"></div>
         </div>
       </td>
       
-      <td valign="top">
-        <div class="borderDiv marB marR">
-          <table class="w-100">
+      <td valign="top" class="pb-3">
+        <div class="left-menu h-100 my-3">
+            <table class="w-100 my-3">
             <tr>
-              <td class="smallTitle"><fmt:message key="pointDetails.history"/></td>
+              <td  class="p-2 text-center smallTitle"><fmt:message key="pointDetails.history"/></td>
               <td id="historyTableAsof"></td>
-              <td align="right">
-                <fmt:message key="pointDetails.show"/>
-                <input class="form-control form-control-sm my-2" id="historyLimit" type="text" style="text-align:right;" value="${historyLimit}"
-                        class="formVeryShort"/>
-                <fmt:message key="pointDetails.mostRecentRecords"/>
-                <a href="#" id="historyLimitImg" title="<fmt:message key='pointDetails.getData'/>" onclick="getHistoryTableData()">
-                    <i class="bi bi-play-circle-fill text-primary align-middle ms-3 fs-3"></i>
-                </a>
+              <td align="right" class="d-flex align-items-center justify-content-center">
+                <td class="p-2 text-center"><fmt:message key="pointDetails.show"/></td>
+                <td class="col-2 text-center"><input class="form-control form-control-sm my-2 formVeryShort" id="historyLimit" type="text" style="text-align:right;" value="${historyLimit}"/></td>
+                <td class="p-2 text-center"><fmt:message key="pointDetails.mostRecentRecords"/></td>
+                <td><a href="#" id="historyLimitImg" title="<fmt:message key='pointDetails.getData'/>" onclick="getHistoryTableData()">
+                    <i class="bi bi-play-circle-fill text-blue-add  align-middle ms-3 fs-3"></i>
+                </a></td>
               </td>
             </tr>
           </table>
-          <table cellspacing="1" class="table table-light table-hover">
+          <table cellspacing="1" class="text-center table table-light table-hover">
             <tr class="rowHeader">
               <td><fmt:message key="common.value"/></td>
               <td><fmt:message key="common.time"/></td>
@@ -275,8 +279,8 @@
       </td>
       
       <td valign="top">
-        <div class="borderDiv marB">
-          <table class="w-100">
+        <div class="left-menu h-100 my-3">
+            <table class="w-100 my-3">
             <tr>
               <td class="smallTitle"><fmt:message key="notes.userNotes"/></td>
               <td align="right">
@@ -286,14 +290,14 @@
               </td>
             </tr>
           </table>
-          <table id="pointComments${point.id}"><tag:comments comments="${point.comments}"/></table>
+          <table id="pointComments${point.id}" class="table table-light table-hover align-middle"><tag:comments comments="${point.comments}"/></table>
         </div>
       </td>
     </tr>
     
     <c:if test="${!empty periodType}">
       <tr>
-        <td colspan="3">
+        <td colspan="3" class="pb-3">
           <!--  chart with editable properties and annotations -->
           <div class="left-menu h-100">
             <table class="w-100 my-3">
@@ -303,7 +307,7 @@
                 <td align="right"><tag:dateRange/></td>
                 <td>
                   <a href="#" id="imageChartImg" title="<fmt:message key='pointDetails.imageChartButton'/>" onclick="getImageChart()">
-                      <i class="bi bi-play-circle-fill text-primary align-middle ms-3 fs-3"></i>
+                      <i class="bi bi-play-circle-fill text-blue-add  align-middle ms-3 fs-3"></i>
                   </a>
               </tr>
               <tr><td colspan="3" id="imageChartDiv"></td></tr>
@@ -315,7 +319,7 @@
     
     <c:if test="${!empty flipbookLimit}">
       <tr>
-        <td colspan="3">
+        <td colspan="3" class="pb-3">
           <div class="borderDiv marB">
             <table class="w-100">
               <tr>
@@ -326,7 +330,7 @@
                   <input class="form-control form-control-sm my-2" id="flipbookLimit" style="text-align:right;" type="text" value="${flipbookLimit}"
                           class="formVeryShort"/>
                   <a href="#" id="flipbookChartImg" title="<fmt:message key='pointDetails.getImages'/>" onclick="getFlipbookChart()">
-                      <i class="bi bi-play-circle-fill text-primary"></i>
+                      <i class="bi bi-play-circle-fill text-blue-add "></i>
                   </a>
                 </td>
               </tr>
@@ -339,9 +343,9 @@
     </c:if>
   
     <tr>
-      <td colspan="3">
-        <div class="borderDiv marB">
-          <table class="w-100">
+      <td colspan="3" class="pb-3">
+        <div class="left-menu h-100">
+            <table class="w-100 my-3">
             <tr>
               <td class="smallTitle"><fmt:message key="pointDetails.events"/></td>
               <td align="right">
@@ -352,7 +356,7 @@
               </td>
             </tr>
           </table>
-          <table id="eventsTable" cellspacing="1" cellpadding="0" class="w-100">
+          <table id="eventsTable" cellspacing="1" cellpadding="0" class="w-100 table table-light table-hover" >
             <tr class="rowHeader">
               <td><fmt:message key="pointDetails.id"/></td>
               <td><fmt:message key="common.alarmLevel"/></td>
@@ -432,8 +436,8 @@
     <c:set var="isRoleUser" value="${isRoles && sessionUser.getAttribute('roles').contains('ROLE_USER')}" />
     <c:if test="${isRoleAdmin || isRoleUser}">
     <tr>
-      <td valign="top">
-        <div class="borderDiv marR">
+      <td valign="top" class="pb-3">
+        <div class="left-menu h-100">
           <span class="smallTitle" style="margin:3px;"><fmt:message key="pointDetails.views"/></span>
           <table class="w-100" cellspacing="1">
             <tr class="rowHeader">
@@ -441,11 +445,13 @@
               <td></td>
             </tr>
             <c:forEach items="${views}" var="view" varStatus="status">
-              <tr class="rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
+              <tr class="my-3 rowTable<c:if test="${status.index % 2 == 1}">Alt</c:if>">
                 <td>${view.name}</td>
-                <td align="center"><a href="views.shtm?viewId=${view.id}"><tag:img png="icon_view"
-                        title="pointDetails.gotoView"/></a></td>
-              </tr>
+                <td align="center">
+                  <a href="views.shtm?viewId=${view.id}" title="<fmt:message key='pointDetails.gotoView'/>">
+                      <i class="bi bi-diagram-3 align-middle ms-3 fs-5"></i>
+                  </a>
+                </td>
             </c:forEach>
             <c:if test="${empty views}">
               <tr class="rowTable"><td colspan="2"><fmt:message key="pointDetails.notInView"/></td></tr>
@@ -456,9 +462,9 @@
       </c:if>
       <c:if test="${isRoleAdmin}">
       <td colspan="2" valign="top">
-        <div class="borderDiv">
+        <div class="left-menu h-100">
           <span class="smallTitle" style="margin:3px;"><fmt:message key="pointDetails.userAccess"/></span>
-          <table class="w-100" cellspacing="1">
+          <table cellspacing="1"  class="text-center table table-light table-hover w-100 my-3">
             <tr class="rowHeader">
               <td width="16"></td>
               <td><fmt:message key="pointDetails.username"/></td>
