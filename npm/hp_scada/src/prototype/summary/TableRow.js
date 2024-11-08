@@ -28,7 +28,7 @@ class TableRow extends Component {
 				col.innerText = this.label;
 			} else if (column.type == "ISCONNECTED") {
 				col = new IsConnected(this.isatag).node;
-			} else if (item.type == "COMSTATUS") {
+			} else if (column.type == "COMSTATUS") {
 				col = new Modem(this.isatag).node;
 				/*
 				/*
