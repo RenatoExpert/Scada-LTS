@@ -21,7 +21,7 @@ class TableRow extends Component {
 	#makeChildren () {
 		this.model.forEach(column => {
 			let td = document.createElement("td");
-			let col = new TableData(column, this.isatag);
+			let col = new TableData(this.label, column, this.isatag);
 			td.append(col.node);
 			this.node.append(td);
 		});
