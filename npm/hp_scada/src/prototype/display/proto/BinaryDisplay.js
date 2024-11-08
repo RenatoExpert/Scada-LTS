@@ -1,7 +1,7 @@
 import StatefulComponent from '../../StatefulComponent.js';
 
 class BinaryDisplay extends StatefulComponent {
-	constructor (station_tag, suffix, case_true, case_false) {
+	constructor (station_tag, suffix, case_true, case_false, case_undefined) {
 		let map = null;
 		let nodeTag = "div";
 		let className = "BinaryDisplay";
@@ -9,7 +9,7 @@ class BinaryDisplay extends StatefulComponent {
 		super(datapoint, className);
 		this.case_true = case_true;
 		this.case_false = case_false;
-		this.case_undefined = "Aguardando...";
+		this.case_undefined = case_undefined;
 		this.update_value();
 		//	Apagar isso futuramente
 		setTimeout(() => {
