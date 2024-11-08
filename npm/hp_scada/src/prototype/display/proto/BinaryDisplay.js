@@ -12,7 +12,7 @@ class BinaryDisplay extends StatefulComponent {
 		this.update_value('52');
 	}
 
-	update_value () {
+	update_value (value) {
 		let text = value == "true" ? this.case_true : this.case_false;
 		this.node.innerHTML = text;
 	}
