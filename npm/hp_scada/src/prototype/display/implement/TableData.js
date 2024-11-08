@@ -46,7 +46,7 @@ class TableData extends Component {
 	}
 }
 
-export default TableDataBuilder;
+export default TableData;
 
 				/*
 				/*
