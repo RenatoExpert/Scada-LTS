@@ -1,6 +1,7 @@
 import Component from '../Component.js';
 import NAVAPI from '../../lib/NAVAPI.js';
 import IsConnected from '../display/implement/IsConnected.js';
+import IsConnected from '../display/implement/Modem.js';
 
 class TableRow extends Component {
 	constructor (model, name, label, isatag) {
@@ -27,12 +28,14 @@ class TableRow extends Component {
 				col.innerText = this.label;
 			} else if (column.type == "ISCONNECTED") {
 				col = new IsConnected(this.isatag).node;
+			} else if (item.type == "COMSTATUS") {
+				col = new Modem(this.isatag).node;
 				/*
 				/*
 				let suffix = "SG-1";
 				let obj = new Check_display(this.station_tag, suffix, this.clock, "Conectado", "Desconectado");
 				col = obj.get_dom_element();
-			} else if (item.type == "COMSTATUS") {
+
 				let suffix = "SG-1";
 				let obj = new Check_display(this.station_tag, suffix, this.clock, "OK", "Err");
 				col = obj.get_dom_element();
