@@ -11,6 +11,7 @@ class BinaryDisplay extends StatefulComponent {
 		this.case_false = case_false;
 		this.case_undefined = "Aguardando...";
 		this.update_value();
+		//	Apagar isso futuramente
 		setTimeout(() => {
 			this.update_value(true);
 		}, 5e3);
