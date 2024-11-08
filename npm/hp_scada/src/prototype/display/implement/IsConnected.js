@@ -5,8 +5,8 @@ class IsConnected extends BinaryDisplay {
 		let suffix = "comstatus";
 		let trueLabel = "Conectado";
 		let falseLabel = "Desconectado";
-		let case_undefined = "Aguardando...";
-		super(isaTag, suffix, trueLabel, falseLabel, case_undefined);
+		let undefinedLabel = "Aguardando...";
+		super(isaTag, suffix, trueLabel, falseLabel, undefinedLabel);
 	}
 }
 
