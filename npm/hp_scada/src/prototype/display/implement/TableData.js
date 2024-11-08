@@ -23,11 +23,12 @@ class Unknown extends Component {
 }
 
 class TableData extends Component {
-	constructor (column, isatag) {
+	constructor (label, column, isatag) {
 		let map = null;
 		let nodetag = "td";
 		let className = "TableData"
 		super(map, nodetag, className);
+		this.label = label;
 		this.#makeChild(column, isatag);
 	}
 
@@ -35,7 +36,7 @@ class TableData extends Component {
 		let type = column.type;
 		let child;
 		if (type == "SELFLABEL") {
-			child = new Label(column.label)
+			child = new Label(this.label)
 		} else if (type == "ISCONNECTED") {
 			child = new IsConnected(isatag);
 		} else if (type == "COMSTATUS") {
