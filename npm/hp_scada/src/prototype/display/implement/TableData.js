@@ -1,5 +1,6 @@
 import IsConnected from "./IsConnected.js";
 import Modem from "./Modem.js";
+import NumericDisplay from "../../NumericDisplay.js";
 import Component from "../../Component.js";
 
 class Label extends Component {
@@ -41,6 +42,10 @@ class TableData extends Component {
 			child = new IsConnected(isatag);
 		} else if (type == "COMSTATUS") {
 			child = new Modem(isatag);
+		} else if (type == "NUMBER") {
+			let suffix = "EDI-1";
+			let eunit = "Vdc";
+			child = new NumericDisplay(isatag, suffix, eunit);
 		} else {
 			child = new Unknown();
 		}
