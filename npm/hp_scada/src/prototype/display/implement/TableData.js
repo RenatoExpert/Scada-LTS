@@ -1,6 +1,6 @@
 import IsConnected from "./IsConnected.js";
 import Modem from "./Modem.js";
-import NumericDisplay from "../../NumericDisplay.js";
+import NumericDisplay from "../proto/NumericDisplay.js";
 import Component from "../../Component.js";
 
 class Label extends Component {
