@@ -1,6 +1,6 @@
 import StatefulComponent from '../../StatefulComponent.js';
 
-class NumeriDisplay extends StatefulComponent {
+class NumericDisplay extends StatefulComponent {
 	constructor (station_tag, suffix, engineering_unit) {
 		let map = null;
 		let nodeTag = "div";
