@@ -1,5 +1,6 @@
 import Component from '../../prototype/Component.js';
 import ASSETSAPI from '../../lib/ASSETSAPI.js';
+import DOMAPI from '../../lib/DOMAPI.js';
 
 class SystemBody extends Component {
 	constructor (map) {
@@ -11,6 +12,7 @@ class SystemBody extends Component {
 
 	#get_child () {
 		ASSETSAPI.fetch_svg("hp/bg/system.svg").then(svg => {
+			DOMAPI.BindNavButton(svg, "hellofoo");
 			this.node.appendChild(svg);
 		});
 	}
