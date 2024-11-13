@@ -12,9 +12,16 @@ class SystemBody extends Component {
 
 	#get_child () {
 		ASSETSAPI.fetch_svg("hp/bg/system.svg").then(svg => {
-			let rectId = "l1-rectifiers";
-			let rectifiersButton = svg.querySelector("#" + rectId);
-			DOMAPI.BindNavButton(rectifiersButton, "hellofoo");
+			{
+				let rectId = "l1-rectifiers";
+				let rectifiersButton = svg.querySelector("#" + rectId);
+				DOMAPI.BindNavButton(rectifiersButton, "rectifiers");
+			}
+			{
+				let rectId = "l1-cathodic";
+				let rectifiersButton = svg.querySelector("#" + rectId);
+				DOMAPI.BindNavButton(rectifiersButton, "cathodic");
+			}
 			this.node.appendChild(svg);
 		});
 	}
