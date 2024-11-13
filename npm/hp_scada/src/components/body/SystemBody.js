@@ -13,7 +13,7 @@ class SystemBody extends Component {
 	#get_child () {
 		ASSETSAPI.fetch_svg("hp/bg/system.svg").then(svg => {
 			let rectId = "l1-rectifiers";
-			let rectifiersButton = document.getElementById(rectId);
+			let rectifiersButton = svg.getElementById(rectId);
 			DOMAPI.BindNavButton(rectifiersButton, "hellofoo");
 			this.node.appendChild(svg);
 		});
