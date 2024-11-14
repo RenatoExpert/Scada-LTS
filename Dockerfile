@@ -149,7 +149,7 @@ FROM scratch AS dir_package
 COPY --from=dir_build /output /output
 
 FROM tomcat:9.0.87-jdk11-corretto-al2 as dir_deploy
-EXPOSE 8080
+EXPOSE 80
 WORKDIR /usr/local/tomcat/
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
@@ -171,7 +171,7 @@ WORKDIR /output
 COPY --from=war_build /src/build/libs/Scada-LTS.war .
 
 FROM tomcat:9.0.87-jdk11-corretto-al2 as war_deploy
-EXPOSE 8080
+EXPOSE 80
 WORKDIR /usr/local/tomcat/
 COPY WebContent/WEB-INF/lib/mysql-connector-java-5.1.49.jar	lib/mysql-connector-java-5.1.49.jar
 COPY tomcat/lib/activation.jar					lib/activation.jar
