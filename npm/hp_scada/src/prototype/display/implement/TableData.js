@@ -1,8 +1,8 @@
 import IsConnected from "./IsConnected.js";
 import Modem from "./Modem.js";
 import NumericDisplay from "../proto/NumericDisplay.js";
-import DailyRelatory from "./DailyRelatory.js";
-import HourlyRelatory from "./HourlyRelatory.js";
+import Daily from "./Daily.js";
+import Hourly from "./Hourly.js";
 import Component from "../../Component.js";
 
 class Label extends Component {
@@ -49,9 +49,9 @@ class TableData extends Component {
 			let eunit = "Vdc";
 			child = new NumericDisplay(isatag, suffix, eunit);
 		} else if (type == "DAILY") {
-			child = new DailyRelatory(isatag);
+			child = new Daily(isatag);
 		} else if (type == "HOURLY") {
-			child = new HourlyRelatory(isatag);
+			child = new Hourly(isatag);
 		} else {
 			child = new Unknown();
 		}
