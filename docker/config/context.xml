@@ -31,6 +31,6 @@
               driverClassName="com.mysql.jdbc.Driver"
               defaultTransactionIsolation="READ_COMMITTED"
               connectionProperties="useSSL=false;allowPublicKeyRetrieval=true"
-              url="scada.mysql.database.azure.com:3306"
+              url="scada.mysql.database.azure.com:3306/scada"
     />
 </Context>
