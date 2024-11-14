@@ -25,13 +25,13 @@ let table_model = [
 	},
 	{
 		"header": "Relatório Horário",
-		"type": "BUTTON",
+		"type": "DAILY",
 		"label": "Relatório Horário",
 		"target": "l1-hourly_cathodic"
 	},
 	{
 		"header": "Relatório Diário",
-		"type": "BUTTON",
+		"type": "HOURLY",
 		"label": "Relatório Diário",
 		"target": "l1-daily_cathodic"
 	}

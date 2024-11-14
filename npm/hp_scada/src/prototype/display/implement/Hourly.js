@@ -2,8 +2,9 @@ import ButtonDisplay from "../proto/ButtonDisplay.js";
 
 class Hourly extends ButtonDisplay {
 	constructor (isatag) {
+		let text = "Relatório Horário";
 		let target = `relatory:hourly:${isatag}`;
-		super(target);
+		super(text, target);
 	}
 }
 
