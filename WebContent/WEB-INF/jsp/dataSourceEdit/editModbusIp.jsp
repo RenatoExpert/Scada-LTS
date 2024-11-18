@@ -66,7 +66,7 @@
 </script>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusIp.transportType"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusIp.transportType"/></td>
   <td class="formField">
     <sst:select id="transportType" value="${dataSource.transportType}" onchange="checkTransportType(this.value)">
       <sst:option value="<%= ModbusIpDataSourceVO.TransportType.TCP.toString() %>"><fmt:message key="dsEdit.modbusIp.transportType.tcp"/></sst:option>
@@ -78,21 +78,21 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusIp.host"/></td>
-  <td class="formField"><input id="host" type="text" value="${dataSource.host}"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusIp.host"/></td>
+  <td class="formField"><input id="host" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.host}"/></td>
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusIp.port"/></td>
-  <td class="formField"><input id="port" type="text" value="${dataSource.port}"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusIp.port"/></td>
+  <td class="formField"><input id="port" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.port}"/></td>
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusIp.encapsulated"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusIp.encapsulated"/></td>
   <td class="formField"><sst:checkbox id="encapsulated" selectedValue="${dataSource.encapsulated}"/></td>
 </tr>
 
 <tr id="socketMonitorRow">
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusIp.createSocketMonitorPoint"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusIp.createSocketMonitorPoint"/></td>
   <td class="formField"><sst:checkbox id="createSocketMonitorPoint" selectedValue="${dataSource.createSocketMonitorPoint}"/></td>
 </tr>

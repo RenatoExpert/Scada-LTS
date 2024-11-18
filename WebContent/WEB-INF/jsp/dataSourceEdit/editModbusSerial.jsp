@@ -54,7 +54,7 @@
   <td class="formField">
     <c:choose>
       <c:when test="${!empty commPortError}">
-        <input id="commPortId" type="hidden" value=""/>
+        <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
         <span class="formError">${commPortError}</span>
       </c:when>
       <c:otherwise>

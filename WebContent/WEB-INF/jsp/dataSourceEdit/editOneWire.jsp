@@ -200,7 +200,7 @@
           <td class="formField">
             <c:choose>
               <c:when test="${!empty commPortError}">
-                <input id="commPortId" type="hidden" value=""/>
+                <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
                 <span class="formError">${commPortError}</span>
               </c:when>
               <c:otherwise>
@@ -216,9 +216,9 @@
         
         <tr>
           <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input class="form-control form-control-sm my-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
-            <select class="form-select form-select-sm my-2" id="updatePeriodType" value="${dataSource.updatePeriodType}">
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+            <select class="w-25 form-select form-select-sm my-2" id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
             </select>
           </td>
@@ -226,9 +226,9 @@
         
         <tr>
           <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.scheduledRescan"/></td>
-          <td class="formField">
-            <input class="form-control form-control-sm my-2" type="text" id="rescanPeriods" value="${dataSource.rescanPeriods}" class="formShort"/>
-            <select class="form-select form-select-sm my-2" id="rescanPeriodType" value="${dataSource.rescanPeriodType}" onchange="rescanChanged()">
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="rescanPeriods" value="${dataSource.rescanPeriods}" class="formShort"/>
+            <select class="w-25 form-select form-select-sm my-2" id="rescanPeriodType" value="${dataSource.rescanPeriodType}" onchange="rescanChanged()">
               <sst:option value="<%= Integer.toString(OneWireDataSourceVO.RESCAN_NONE) %>"><fmt:message key="dsEdit.1wire.none"/></sst:option>
               <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true"/>
             </select>

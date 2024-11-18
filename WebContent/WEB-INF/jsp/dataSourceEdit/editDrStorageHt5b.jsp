@@ -70,6 +70,31 @@
   
   function refreshValueList(prefix, arr) {
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType", "commPortId", "baudRate", "dataBits", "stopBits", "parity", "pointType"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.drStorageHt5b.desc"/></c:set>
@@ -77,11 +102,11 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.asciiSerial.commPortId" /></td>
 	<td class="formField"><c:choose>
 		<c:when test="${!empty commPortError}">
-			<input id="commPortId" type="hidden" value="" />
+			<input class="w-75 form-control form-control-sm my-2" id="commPortId" type="hidden" value="" />
 			<span class="formError">${commPortError}</span>
 		</c:when>
 		<c:otherwise>
@@ -95,7 +120,7 @@
 </tr>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.asciiSerial.baud" /></td>
 	<td class="formField"><sst:select id="baudRate"
 		value="${dataSource.baudRate}">
@@ -116,7 +141,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.dataBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.dataBits"/></td>
   <td class="formField">
     <sst:select id="dataBits" value="${dataSource.dataBits}">
       <sst:option value="5">5</sst:option>
@@ -128,7 +153,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.stopBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.stopBits"/></td>
   <td class="formField">
     <sst:select id="stopBits" value="${dataSource.stopBits}">
       <sst:option value="1">1</sst:option>
@@ -139,7 +164,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.parity"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.parity"/></td>
   <td class="formField">
     <sst:select id="parity" value="${dataSource.parity}">
       <sst:option value="0"><fmt:message key="dsEdit.modbusSerial.parity.none"/></sst:option>
@@ -152,9 +177,9 @@
 </tr>
 
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
@@ -162,23 +187,23 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.retries"/></td>
-    <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.retries"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.timeout"/></td>
-    <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.timeout"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
     <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.initString"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.initString"/></td>
     <td class="formField">
-    	<input id="initString" type="text" value=""/>
+    	<input id="initString" class="w-75 form-control form-control-sm my-2" type="text" value=""/>
     </td>
   </tr>
   
@@ -187,7 +212,7 @@
 <tag:pointList pointHelpId="drStorageHt5bPP">
 
 	 <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.drStorageHt5b.pointType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.drStorageHt5b.pointType"/></td>
     <td class="formField">
     	<sst:select id="pointType"
 			value="${dataPoint.pointType}">

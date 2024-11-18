@@ -79,6 +79,27 @@
 	  mbe_new = mbe.substr(0,id*3) + select.value + mbe.substr(id*3+3);
 	  $set("mapaBytesEnvio",mbe_new);
   }
+  //função para adicionar classes aos selects estilo bootstrap
+  function addClassToSelects() {
+    var selectGroups = [
+      {
+        ids: ["commPortId", "baudRate", "dataBits", "stopBits", "parity", "pollingMode", "updatePeriodType"],
+        classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+      }
+    ];
+
+    selectGroups.forEach(function(group) {
+      group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+          selectElement.classList.add(...group.classes);
+        }
+      });
+    });
+  }
+
+  // Chama a função após a página ser carregada
+	window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.radiuino.desc"/></c:set>
@@ -86,7 +107,7 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.radiuino.commPortId" /></td>
 	<td class="formField"><c:choose>
 		<c:when test="${!empty commPortError}">
@@ -104,7 +125,7 @@
 </tr>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.radiuino.baud" /></td>
 	<td class="formField"><sst:select id="baudRate"
 		value="${dataSource.baudRate}">
@@ -125,7 +146,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.dataBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.dataBits"/></td>
   <td class="formField">
     <sst:select id="dataBits" value="${dataSource.dataBits}">
       <sst:option value="5">5</sst:option>
@@ -137,7 +158,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.stopBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.stopBits"/></td>
   <td class="formField">
     <sst:select id="stopBits" value="${dataSource.stopBits}">
       <sst:option value="1">1</sst:option>
@@ -148,7 +169,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.parity"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.parity"/></td>
   <td class="formField">
     <sst:select id="parity" value="${dataSource.parity}">
       <sst:option value="0"><fmt:message key="dsEdit.modbusSerial.parity.none"/></sst:option>
@@ -161,7 +182,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.pollingMode"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.pollingMode"/></td>
   <td class="formField">
     <sst:select id="pollingMode" value="${dataSource.pollingMode}">
       <sst:option value="true"><fmt:message key="dsEdit.radiuino.pollingMode.true"/></sst:option>
@@ -171,9 +192,9 @@
 </tr>
 
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
     <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
+      <input class="w-75 form-control form-control-sm my-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
@@ -181,25 +202,25 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.retries"/></td>
-    <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.retries"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.timeout"/></td>
-    <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.timeout"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
   </tr>  
   
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsEventsFoot.jspf" %>
 
 <tag:pointList pointHelpId="radiuinoPP">
 	<tr>
-		<td class="formLabelRequired"><fmt:message
+		<td class="formLabelRequired align-middle my-2"><fmt:message
 				key="dsEdit.radiuino.endereco" /></td>
-		<td class="formField"><input id="enderecoSensor" type="text"
+		<td class="formField"><input id="enderecoSensor" class="w-75 form-control form-control-sm my-2" type="text"
 			value="" /></td>
 	</tr>
 	<tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.radiuino.radiuinoDataType"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.radiuino.radiuinoDataType"/></td>
           <td class="formField">
             <select id="test_radiuinoDataType">
               <option value="<c:out value="<%= RadiuinoDataType.BINARY %>"/>"><fmt:message key="dsEdit.radiuino.radiuinoDataType.binary"/></option>
@@ -212,7 +233,7 @@
           </td>
         </tr>
 	<tr>
-		<td class="formLabelRequired"><fmt:message
+		<td class="formLabelRequired align-middle my-2"><fmt:message
 				key="dsEdit.radiuino.indiceByte" /></td>
 		<td class="formField">
 		    <select id="indiceByte">
@@ -272,14 +293,14 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="formLabelRequired"><fmt:message
+		<td class="formLabelRequired align-middle my-2"><fmt:message
 				key="dsEdit.radiuino.multiplicador" /></td>
-		<td class="formField"><input id="multiplicador" type="text" /></td>
+		<td class="formField"><input id="multiplicador" class="w-75 form-control form-control-sm my-2" type="text" /></td>
 	</tr>
 	<tr>
-		<td class="formLabelRequired"><fmt:message
+		<td class="formLabelRequired align-middle my-2"><fmt:message
 				key="dsEdit.radiuino.offset" /></td>
-		<td class="formField"><input id="offset" type="text" /></td>
+		<td class="formField"><input id="offset" class="w-75 form-control form-control-sm my-2" type="text" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>
@@ -287,9 +308,9 @@
 		<legend><span id="spanAvancado" onclick="changeAvancado();" style="cursor:hand;">+ </span><fmt:message key="dsEdit.radiuino.avancado"/></legend>
 			<table id="tableAvancado" style="display:none;">
 			<tr>
-				<td class="formLabelRequired" style="text-align: center;"><fmt:message
+				<td class="formLabelRequired align-middle my-2" style="text-align: center;"><fmt:message
 						key="dsEdit.radiuino.mapaBytesRequisicao" /></td>
-				<td class="formField"><input id="mapaBytesRequisicao" type="hidden" /></td>
+				<td class="formField"><input id="mapaBytesRequisicao" class="w-75 form-control form-control-sm my-2" type="hidden" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="max-width: 630px;">
@@ -305,9 +326,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="formLabelRequired" style="text-align: center;"><fmt:message
+				<td class="formLabelRequired align-middle my-2" style="text-align: center;"><fmt:message
 						key="dsEdit.radiuino.mapaBytesEnvio" /></td>
-				<td class="formField"><input id="mapaBytesEnvio" type="hidden"/></td>
+				<td class="formField"><input id="mapaBytesEnvio" class="w-75 form-control form-control-sm my-2" type="hidden"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="max-width: 630px;">
@@ -327,9 +348,9 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="formLabelRequired"><fmt:message
+		<td class="formLabelRequired align-middle my-2"><fmt:message
 				key="dsEdit.radiuino.settableOverride" /></td>
 		<td class="formField"><input id="settableOverride"
-			type="checkbox" /></td>
+			class="form-check-input custom-checkbox my-2" type="checkbox" /></td>
 	</tr>
 </tag:pointList>

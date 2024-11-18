@@ -33,10 +33,10 @@
 </script>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3Ip.host"/></td>
-  <td class="formField"><input id="host" type="text" value="${dataSource.host}"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3Ip.host"/></td>
+  <td class="formField"><input id="host" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.host}"/></td>
 </tr>
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3Ip.port"/></td>
-  <td class="formField"><input id="port" type="text" value="${dataSource.port}"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3Ip.port"/></td>
+  <td class="formField"><input id="port" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.port}"/></td>
 </tr>

@@ -69,15 +69,37 @@
       else
           hide("binaryZeroValueRow");
   }
+
+  //função para adicionar classes aos selects estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.pachube.desc"/></c:set>
 <c:set var="dsHelpId" value="pachubeDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -85,42 +107,43 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pachube.apiKey"/></td>
-          <td class="formField"><input id="apiKey" type="text" value="${dataSource.apiKey}" class="formLong"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pachube.apiKey"/></td>
+          <td class="formField"><input id="apiKey" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.apiKey}" class="formLong"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pachube.timeout"/></td>
-          <td class="formField"><input id="timeoutSeconds" type="text" value="${dataSource.timeoutSeconds}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pachube.timeout"/></td>
+          <td class="formField"><input id="timeoutSeconds" class="w-25 form-control form-control-sm my-2" type="text" value="${dataSource.timeoutSeconds}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pachube.retries"/></td>
-          <td class="formField"><input id="retries" type="text" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pachube.retries"/></td>
+          <td class="formField"><input id="retries" class="w-25 form-control form-control-sm my-2" type="text" value="${dataSource.retries}"/></td>
         </tr>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsEventsFoot.jspf" %>
 
 <tag:pointList pointHelpId="pachubePP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId" onchange="dataTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId" onchange="dataTypeChanged()">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pachube.feedId"/></td>
-    <td class="formField"><input type="text" id="feedId"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pachube.feedId"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="feedId"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired">
+    <td class="formLabelRequired align-middle my-2">
       <fmt:message key="dsEdit.pachube.dataStreamId"/>
-      <tag:img id="valueTestImg" png="accept" title="dsEdit.pachube.testValue" onclick="testValueParams()"/>
+      <i id="valueTestImg" class="bi bi-gear-fill text-blue-add bi bi-gear-fill  ms-3 fs-6" title="<fmt:message key='dsEdit.pachube.testValue'/>"  onclick="testValueParams()"></i>
+      <%-- <tag:img id="valueTestImg" png="accept" title="dsEdit.pachube.testValue" onclick="testValueParams()"/> --%>
     </td>
-    <td class="formField"><input type="text" id="dataStreamId"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="dataStreamId"/></td>
   </tr>
   
   <tbody id="valueTestRow" style="display:none">
@@ -133,12 +156,12 @@
   <tbody id="binaryZeroValueRow">
     <tr>
       <td><fmt:message key="dsEdit.pachube.binaryZeroValue"/></td>
-      <td class="formField"><input type="text" id="binary0Value"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="binary0Value"/></td>
     </tr>
   </tbody>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.settable"/></td>
-    <td class="formField"><input type="checkbox" id="settable"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.settable"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="settable"/></td>
   </tr>
 </tag:pointList>

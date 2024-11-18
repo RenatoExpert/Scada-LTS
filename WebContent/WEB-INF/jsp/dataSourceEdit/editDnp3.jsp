@@ -179,6 +179,35 @@
       dwr.util.addOptions(startDD, arr);
       startDD.value = currentStart;
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType", "commPortId", "baudRate", "dataBits", "stopBits", "parity"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["rbePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:choose>
@@ -194,12 +223,12 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.sourceAddress"/></td>
-    <td class="formField"><input id="sourceAddress" type="text" value="${dataSource.sourceAddress}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.sourceAddress"/></td>
+    <td class="formField"><input id="sourceAddress" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.sourceAddress}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.slaveAddress"/></td>
-    <td class="formField"><input id="slaveAddress" type="text" value="${dataSource.slaveAddress}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.slaveAddress"/></td>
+    <td class="formField"><input id="slaveAddress" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.slaveAddress}"/></td>
   </tr>
   <c:choose>
     <c:when test="${dataSource.type.id == applicationScope['constants.DataSourceVO.Types.DNP3_SERIAL']}">
@@ -210,31 +239,31 @@
     </c:when>
   </c:choose>
   <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
           <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.retries"/></td>
-    <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.retries"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.timeout"/></td>
-    <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.timeout"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.rbePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="rbePollPeriods" value="${dataSource.rbePollPeriods}" class="formShort" />
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.rbePeriod"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-25 form-control form-control-sm me-2" type="text" id="rbePollPeriods" value="${dataSource.rbePollPeriods}" class="formShort" />
       <sst:select id="rbePeriodType" value="${dataSource.rbePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.staticPeriod"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.staticPeriod"/></td>
     <td class="formField">
-      <input type="text" id="staticPollPeriods" value="${dataSource.staticPollPeriods}" class="formShort" />
+      <input class="w-75 form-control form-control-sm my-2" type="text" id="staticPollPeriods" value="${dataSource.staticPollPeriods}" class="formShort" />
     </td>
   </tr>
   
@@ -242,25 +271,25 @@
 
 <tag:pointList pointHelpId="dnp3PP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.addMany"/></td>
-    <td class="formField"><input type="checkbox" id="addMany" onchange="changeAddMany();"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.addMany"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="addMany" onchange="changeAddMany();"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.minIndex"/></td>
-    <td class="formField"><input id="minIndex" disabled="disabled" type="text" value=""/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.minIndex"/></td>
+    <td class="formField"><input id="minIndex" disabled="disabled" class="w-75 form-control form-control-sm my-2" type="text" value=""/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.maxIndex"/></td>
-    <td class="formField"><input id="maxIndex" disabled="disabled" type="text" value=""/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.maxIndex"/></td>
+    <td class="formField"><input id="maxIndex" disabled="disabled" class="w-75 form-control form-control-sm my-2" type="text" value=""/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.index"/></td>
-    <td class="formField"><input id="index" type="text" value="0"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.index"/></td>
+    <td class="formField"><input id="index" class="w-75 form-control form-control-sm my-2" type="text" value="0"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.dataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.dataType"/></td>
     <td class="formField">
-      <select id="datatype" onchange="changeDataType();">
+      <select class="w-50 form-select form-select-sm my-2" id="datatype" onchange="changeDataType();">
         <option value="<c:out value="<%= Dnp3PointLocatorVO.BINARY_INPUT %>"/>">BINARY INPUT</option>
         <option value="<c:out value="<%= Dnp3PointLocatorVO.BINARY_OUTPUT %>"/>">BINARY OUTPUT</option>
         <option value="<c:out value="<%= Dnp3PointLocatorVO.ANALOG_INPUT %>"/>">ANALOG INPUT</option>
@@ -271,9 +300,9 @@
   </tr>
   <tbody id="divWrittable" style="display: none;">
    <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.operateMode"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.operateMode"/></td>
     <td class="formField">
-      <select id="operateMode">
+      <select class="w-50 form-select form-select-sm my-2" id="operateMode">
         <!--<option value="<c:out value="<%= Dnp3PointLocatorVO.SBO %>"/>">Select Before Operate</option>-->
         <option value="<c:out value="<%= Dnp3PointLocatorVO.DIRECT %>"/>">Direct Operate</option>
         <!--<option value="<c:out value="<%= Dnp3PointLocatorVO.DIRECT_NO_ACK %>"/>">Direct Operate No Ack</option>-->
@@ -283,9 +312,9 @@
   </tbody>
   <tbody id="divBinWrittable" style="display: none;">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.controlCommand"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.controlCommand"/></td>
     <td class="formField">
-      <select id="controlCommand">
+      <select class="w-50 form-select form-select-sm my-2" id="controlCommand">
         <option value="<c:out value="<%= Dnp3PointLocatorVO.CLOSE_TRIP %>"/>">Close/Trip</option>
         <option value="<c:out value="<%= Dnp3PointLocatorVO.PULSE %>"/>">Pulse ON/OFF</option>
         <option value="<c:out value="<%= Dnp3PointLocatorVO.LATCH %>"/>">Latch ON/OFF</option>
@@ -293,12 +322,12 @@
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.timeOn"/></td>
-    <td class="formField"><input id="timeOn" type="text" value="0"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.timeOn"/></td>
+    <td class="formField"><input id="timeOn" class="w-75 form-control form-control-sm my-2" type="text" value="0"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.dnp3.timeOff"/></td>
-    <td class="formField"><input id="timeOff" type="text" value="0"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.dnp3.timeOff"/></td>
+    <td class="formField"><input id="timeOff" class="w-75 form-control form-control-sm my-2" type="text" value="0"/></td>
   </tr>
   </tbody>
 </tag:pointList>

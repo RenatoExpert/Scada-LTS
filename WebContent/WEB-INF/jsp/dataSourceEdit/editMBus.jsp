@@ -368,6 +368,27 @@
     function updatePhoneNumber() {
        setDisabled("phoneNumberText", !$get("phoneNumber"));
     }
+    //função para adicionar classes aos selects e checkbox estilo bootstrap
+    function addClassToSelects() {
+    var selectGroups = [
+        {
+        ids: ["updatePeriodType", "secAddrMedium"],
+        classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+        }
+    ];
+
+    selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+        selectElement.classList.add(...group.classes);
+        }
+        });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelects;
 
 </script>
 
@@ -376,9 +397,9 @@
 <%@include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 <!-- Disable modem for now-->
 <tr>
-    <td colspan="2">
-        <input type="radio" name="connectionType" id="useTcpIpConnection" value="TCP_IP" <c:if test="${dataSource.tcpIp}">checked="checked"</c:if> onclick="updateConnetionType()" disabled="disabled">
-        <label class="formLabelRequired" for="useDirectConnection"><fmt:message key="dsEdit.mbus.useTcpIpConnection"/></label>
+    <td colspan="2" class="d-flex align-items-center justify-content-start">
+        <input class="form-check-input m-3 fs-5" type="radio" name="connectionType" id="useTcpIpConnection" value="TCP_IP" <c:if test="${dataSource.tcpIp}">checked="checked"</c:if> onclick="updateConnetionType()" disabled="disabled">
+        <label class="formLabelRequired align-middle my-2 text-uppercase fs-7" for="useDirectConnection"><fmt:message key="dsEdit.mbus.useTcpIpConnection"/></label>
     </td>
 </tr>
 <tr>
@@ -386,38 +407,38 @@
         <table>
             <tr>
                 <td width="30" />
-                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.tcpAddr"/></td>
-                <td class="formField"><input type="text" id="ipAddressOrHostname" value="${dataSource.tcpIp ? dataSource.connection.host : ""}" /></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.tcpAddr"/></td>
+                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="ipAddressOrHostname" value="${dataSource.tcpIp ? dataSource.connection.host : ""}" /></td>
             </tr>
             <tr>
                 <td width="30" />
-                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.tcpPort"/>
-                <td class="formField"><input type="text" id="tcpPort" value="${dataSource.tcpIp ? dataSource.connection.port: ""}" /></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.tcpPort"/>
+                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tcpPort" value="${dataSource.tcpIp ? dataSource.connection.port: ""}" /></td>
             </tr>
             <tr>
                 <td width="30" />
-                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.tcpIpBitPerSecond"/></td>
-                <td class="formField"><input type="text" id="tcpIpBitPerSecond" value="${dataSource.tcpIp ? dataSource.connection.bitPerSecond: ""}" /></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.tcpIpBitPerSecond"/></td>
+                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tcpIpBitPerSecond" value="${dataSource.tcpIp ? dataSource.connection.bitPerSecond: ""}" /></td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
-    <td colspan="2">
-        <input type="radio" name="connectionType" id="useDirectConnection" value="SERIAL_DIRECT" <c:if test="${dataSource.serialDirect}">checked="checked"</c:if> onclick="updateConnectionType()" disabled="disabled">
-        <label class="formLabelRequired" for="useDirectConnection"><fmt:message key="dsEdit.mbus.useDirectConnection"/></label>
+    <td colspan="2" class="d-flex align-items-center justify-content-start">
+        <input class="form-check-input m-3 fs-5" type="radio" name="connectionType" id="useDirectConnection" value="SERIAL_DIRECT" <c:if test="${dataSource.serialDirect}">checked="checked"</c:if> onclick="updateConnectionType()" disabled="disabled">
+        <label class="formLabelRequired align-middle my-2 text-uppercase fs-7" for="useDirectConnection"><fmt:message key="dsEdit.mbus.useDirectConnection"/></label>
     </td>
     <td/>
 </tr>
 <tr>
-    <td colspan="2">
+    <td colspan="2" class="d-flex align-items-center justify-content-start">
         <table>
             <tr>
                 <td width="30" />
-                <td colspan=""2">
-                    <input type="checkbox" name="phoneNumber" id="phoneNumber" <c:if test="${dataSource.serialAtModem}"> checked="checked"</c:if> onclick="updatePhoneNumber()" />
-                    <label class="formLabelRequired" for="phoneNumber"><fmt:message key="dsEdit.mbus.phoneNumber"/></label>
-                    <input type="text" id="phoneNumberText" value="${dataSource.serialAtModem ? dataSource.connection.phoneNumber : ""}" />
+                <td colspan=""2" class="d-flex align-items-center justify-content-start">
+                    <input class="form-check-input custom-checkbox my-2" type="checkbox" name="phoneNumber" id="phoneNumber" <c:if test="${dataSource.serialAtModem}"> checked="checked"</c:if> onclick="updatePhoneNumber()" />
+                    <label class="formLabelRequired align-middle my-2" for="phoneNumber"><fmt:message key="dsEdit.mbus.phoneNumber"/></label>
+                    <input class="w-75 form-control form-control-sm my-2" type="text" id="phoneNumberText" value="${dataSource.serialAtModem ? dataSource.connection.phoneNumber : ""}" />
                 </td>
             </tr>
         </table>
@@ -438,16 +459,16 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/editSerialSettings.jsp" %>
 
 <tr>
-    <td colspan="3">
-        <label class="formLabelRequired" for="responseTimeOutOffset" ><fmt:message key="dsEdit.mbus.responseTimeOutOffset"/></label>
-        <input class="formShort" type="text" id="responseTimeOutOffset" value="${dataSource.connection.responseTimeOutOffset}" />
-        <label class="formLabelRequired">ms</label>
+    <td colspan="3" class="d-flex align-items-center justify-content-start">
+        <label class="formLabelRequired align-middle my-2" for="responseTimeOutOffset" ><fmt:message key="dsEdit.mbus.responseTimeOutOffset"/></label>
+        <input class="w-25 form-control form-control-sm ms-5" type="text" id="responseTimeOutOffset" value="${dataSource.connection.responseTimeOutOffset}" />
+        <label class="formLabelRequired align-middle my-2">ms</label>
     </td>
 </tr>
 <tr>
-    <td colspan="3">
-        <label class="formLabelRequired" for="updatePeriods" ><fmt:message key="dsEdit.updatePeriod"/></label>
-        <input class="formShort" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" />
+    <td colspan="3" class="d-flex align-items-center justify-content-start">
+        <label class="formLabelRequired align-middle my-2" for="updatePeriods" ><fmt:message key="dsEdit.updatePeriod"/></label>
+        <input class="w-25 form-control form-control-sm ms-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" />
         <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
             <tag:timePeriodOptions sst="true" s="true" min="true" h="true" d="true" w="true" mon="true"/>
         </sst:select>
@@ -460,14 +481,14 @@
 </td>
 
 <td valign="top">
-    <div class="borderDiv marB">
-        <table>
+    <div class="right-box w-75">
+      <table class="m-3">
             <tbody>
                 <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.mbus.search"/></td></tr>
                 <tr>
-                    <td>
-                        <input type="radio" name="addressingType" id="usePrimnaryAddressing" value="PRIMARY" onclick="updateAddressing()">
-                        <label class="formLabelRequired" for="usePrimnaryAddressing"><fmt:message key="dsEdit.mbus.usePrimaryAddressing"/></label>
+                    <td class="d-flex align-items-center justify-content-start">
+                        <input class="form-check-input m-3 fs-5" type="radio" name="addressingType" id="usePrimnaryAddressing" value="PRIMARY" onclick="updateAddressing()">
+                        <label class="formLabelRequired align-middle my-2 text-uppercase fs-7" for="usePrimnaryAddressing"><fmt:message key="dsEdit.mbus.usePrimaryAddressing"/></label>
                     </td>
                 </tr>
                 <tr>
@@ -475,20 +496,20 @@
                         <table>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.firstHexAddress"/></td>
-                                <td class="formField"><input type="text" id="firstPrimaryAddress" value="00"/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.firstHexAddress"/></td>
+                                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="firstPrimaryAddress" value="00"/></td>
                             </tr>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.lastHexAddress"/></td>
-                                <td class="formField"><input type="text" id="lastPrimaryAddress" value="FA"/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.lastHexAddress"/></td>
+                                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="lastPrimaryAddress" value="FA"/></td>
                             </tr>
                         </table>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <input type="radio" name="addressingType" id="useSecondaryAddressing" checked="checked" value="SECONDARY" onclick="updateAddressing()">
-                        <label class="formLabelRequired" for="useSecondaryAddressing"><fmt:message key="dsEdit.mbus.useSecondaryAddressing"/></label>
+                    <td colspan="2" class="d-flex align-items-center justify-content-start">
+                        <input class="form-check-input m-3 fs-5" type="radio" name="addressingType" id="useSecondaryAddressing" checked="checked" value="SECONDARY" onclick="updateAddressing()">
+                        <label class="formLabelRequired align-middle my-2 text-uppercase fs-7" for="useSecondaryAddressing"><fmt:message key="dsEdit.mbus.useSecondaryAddressing"/></label>
                     </td>
                 </tr>
                 <tr>
@@ -496,17 +517,17 @@
                         <table>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.id"/></td>
-                                <td class="formField"><input type="text" id="secAddrId" value=""/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.id"/></td>
+                                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="secAddrId" value=""/></td>
                             </tr>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.man"/></td>
-                                <td class="formField"><input type="text" id="secAddrMan" value=""/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.man"/></td>
+                                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="secAddrMan" value=""/></td>
                             </tr>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.secAddrMedium"/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.secAddrMedium"/></td>
                                 <td class="formField">
                                     <sst:select id="secAddrMedium" value="">
                                         <sst:option></sst:option>
@@ -518,8 +539,8 @@
                             </tr>
                             <tr>
                                 <td width="30" />
-                                <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.version"/></td>
-                                <td class="formField"><input type="text" id="secAddrVersion" value=""/></td>
+                                <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.version"/></td>
+                                <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="secAddrVersion" value=""/></td>
                             </tr>
                         </table>
                     </td>
@@ -529,8 +550,10 @@
         <table>
             <tr>
                 <td colspan="2" align="center">
-                        <input id="searchBtn" type="button" value="<fmt:message key="dsEdit.mbus.search"/>" onclick="search();"/>
-                        <input id="cancelSearchBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelSearch();"/>
+                        <button id="searchBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="search();" ><fmt:message key="dsEdit.mbus.search"/></button>
+                        <%-- <input id="searchBtn" type="button" value="<fmt:message key="dsEdit.mbus.search"/>" onclick="search();"/> --%>
+                        <button id="cancelSearchBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="cancelSearch();" ><fmt:message key="common.cancel"/></button>
+                        <%-- <input id="cancelSearchBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelSearch();"/> --%>
                 </td>
             </tr>
 
@@ -538,7 +561,7 @@
 
             <tr>
                 <td colspan="2">
-                    <table cellspacing="1">
+                    <table cellspacing="1" class="fs-6 text-center table table-light table-hover my-2">
                         <tr class="rowHeader">
                             <td><fmt:message key="dsEdit.mbus.addressHex"/></td>
                             <td><fmt:message key="dsEdit.mbus.identNumber"/></td>
@@ -561,100 +584,100 @@
             <tag:pointList pointHelpId="mbusPP">
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.correctionFactor"/></td>
-                    <td class="formField"><input type="text" id="correctionFactor"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.correctionFactor"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="correctionFactor"/></td>
                 </tr>
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.addressing"/></td>
-                    <td class="formField"><input type="text" id="addressing" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.addressing"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="addressing" disabled="disabled"/></td>
                 </tr>
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.addressHex"/></td>
-                    <td class="formField"><input type="text" id="addressHex" disabled="disabled"/></td>
-                </tr>
-
-                <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.identNumber"/></td>
-                    <td class="formField"><input type="text" id="identNumber" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.addressHex"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="addressHex" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.medium"/></td>
-                    <td class="formField"><input type="text" id="medium" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.identNumber"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="identNumber" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.manufacturer"/></td>
-                    <td class="formField"><input type="text" id="manufacturer" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.medium"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="medium" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.versionHex"/></td>
-                    <td class="formField"><input type="text" id="versionHex" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.manufacturer"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="manufacturer" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.responseFrame"/></td>
-                    <td class="formField"><input type="text" id="responseFrame" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.versionHex"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="versionHex" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.difCode"/></td>
-                    <td class="formField"><input type="text" id="difCode" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.responseFrame"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="responseFrame" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.functionField"/></td>
-                    <td class="formField"><input type="text" id="functionField" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.difCode"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="difCode" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.deviceUnit"/></td>
-                    <td class="formField"><input type="text" id="deviceUnit" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.functionField"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="functionField" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.tariff"/></td>
-                    <td class="formField"><input type="text" id="tariff" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.deviceUnit"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="deviceUnit" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.storageNumber"/></td>
-                    <td class="formField"><input type="text" id="storageNumber" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.tariff"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tariff" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.vifType"/></td>
-                    <td class="formField"><input type="text" id="vifType" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.storageNumber"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="storageNumber" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.vifLabel"/></td>
-                    <td class="formField"><input type="text" id="vifLabel" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.vifType"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="vifType" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.unitOfMeasurement"/></td>
-                    <td class="formField"><input type="text" id="unitOfMeasurement" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.vifLabel"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="vifLabel" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.siPrefix"/></td>
-                    <td class="formField"><input type="text" id="siPrefix" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.unitOfMeasurement"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="unitOfMeasurement" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.exponent"/></td>
-                    <td class="formField"><input type="text" id="exponent" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.siPrefix"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="siPrefix" disabled="disabled"/></td>
                 </tr>
 
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.vifeTypes"/></td>
-                    <td class="formField"><input type="text" id="vifeTypes" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.exponent"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="exponent" disabled="disabled"/></td>
+                </tr>
+
+                <tr>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.vifeTypes"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="vifeTypes" disabled="disabled"/></td>
                 </tr>
                 <tr>
-                    <td class="formLabelRequired"><fmt:message key="dsEdit.mbus.vifeLabels"/></td>
-                    <td class="formField"><input type="text" id="vifeLabels" disabled="disabled"/></td>
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.mbus.vifeLabels"/></td>
+                    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="vifeLabels" disabled="disabled"/></td>
                 </tr>
 
             </tag:pointList>

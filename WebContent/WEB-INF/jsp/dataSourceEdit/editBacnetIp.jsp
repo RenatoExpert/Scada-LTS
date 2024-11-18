@@ -233,15 +233,37 @@
   function settableChanged() {
       setDisabled("writePriority", !$get("settable"));
   }
+  
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.bacnetIp.desc"/></c:set>
 <c:set var="dsHelpId" value="bacnetIpDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-center">
+            <input class="w-75 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -249,46 +271,46 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.deviceId"/></td>
-          <td class="formField"><input id="deviceId" type="text" value="${dataSource.deviceId}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.deviceId"/></td>
+          <td class="formField"><input id="deviceId" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.deviceId}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.broadcastAddress"/></td>
-          <td class="formField"><input id="broadcastAddress" type="text" value="${dataSource.broadcastAddress}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.broadcastAddress"/></td>
+          <td class="formField"><input id="broadcastAddress" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.broadcastAddress}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.port"/></td>
-          <td class="formField"><input id="port" type="text" value="${dataSource.port}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.port"/></td>
+          <td class="formField"><input id="port" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.port}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.timeout"/></td>
-          <td class="formField"><input id="timeout" type="text" value="${dataSource.timeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.timeout"/></td>
+          <td class="formField"><input id="timeout" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.timeout}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.segmentTimeout"/></td>
-          <td class="formField"><input id="segTimeout" type="text" value="${dataSource.segTimeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.segmentTimeout"/></td>
+          <td class="formField"><input id="segTimeout" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.segTimeout}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.segmentWindow"/></td>
-          <td class="formField"><input id="segWindow" type="text" value="${dataSource.segWindow}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.segmentWindow"/></td>
+          <td class="formField"><input id="segWindow" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.segWindow}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.retries"/></td>
-          <td class="formField"><input id="retries" type="text" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.retries"/></td>
+          <td class="formField"><input id="retries" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.retries}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.covLease"/></td>
-          <td class="formField"><input id="covSubscriptionTimeoutMinutes" type="text" 
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.covLease"/></td>
+          <td class="formField"><input id="covSubscriptionTimeoutMinutes" class="w-75 form-control form-control-sm my-2" type="text" 
                   value="${dataSource.covSubscriptionTimeoutMinutes}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.maxReadMultSeg"/></td>
-          <td class="formField"><input id="maxReadMultipleReferencesSegmented" type="text" 
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.maxReadMultSeg"/></td>
+          <td class="formField"><input id="maxReadMultipleReferencesSegmented" class="w-75 form-control form-control-sm my-2" type="text" 
                   value="${dataSource.maxReadMultipleReferencesSegmented}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.maxReadMultNonseg"/></td>
-          <td class="formField"><input id="maxReadMultipleReferencesNonsegmented" type="text" 
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.maxReadMultNonseg"/></td>
+          <td class="formField"><input id="maxReadMultipleReferencesNonsegmented" class="w-75 form-control form-control-sm my-2" type="text" 
                   value="${dataSource.maxReadMultipleReferencesNonsegmented}"/></td>
         </tr>
       </table>
@@ -296,19 +318,20 @@
       <tag:dsEvents/>
     </div>
   </td>
-  
-  <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+  <td valign="top" class="d-flex flex-column align-items-stretch justify-content-center">
+    <div class="right-box w-50 my-3">
+      <table  class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.bacnetIp.discovery"/></td></tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.port"/></td>
-          <td class="formField"><input id="whoIsPort" type="text" class="formShort"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.port"/></td>
+          <td class="formField"><input id="whoIsPort" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
         </tr>
         <tr>
           <td colspan="2" align="center">
-            <input id="sendWhoIsBtn" type="button" value="<fmt:message key="dsEdit.bacnetIp.sendWhoIs"/>" onclick="sendWhoIs();"/>
-            <input id="cancelWhoIsBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelWhoIs();"/>
+            <button id="sendWhoIsBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="sendWhoIs();" ><fmt:message key="dsEdit.bacnetIp.sendWhoIs"/></button>
+            <%-- <input id="sendWhoIsBtn" type="button" value="<fmt:message key="dsEdit.bacnetIp.sendWhoIs"/>" onclick="sendWhoIs();"/> --%>
+            <button id="cancelWhoIsBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="cancelWhoIs();" ><fmt:message key="common.cancel"/></button>
+            <%-- <input id="cancelWhoIsBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelWhoIs();"/> --%>
           </td>
         </tr>
         
@@ -335,32 +358,33 @@
       </table>
     </div>
     
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-50">
+      <table  class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.bacnetIp.objectList"/></td></tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceIp"/></td>
-          <td class="formField"><input id="objListIp" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceIp"/></td>
+          <td class="formField"><input id="objListIp" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDevicePort"/></td>
-          <td class="formField"><input id="objListPort" type="text" class="formShort"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDevicePort"/></td>
+          <td class="formField"><input id="objListPort" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkNumber"/></td>
-          <td class="formField"><input id="objListNetNumber" type="text" class="formShort"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkNumber"/></td>
+          <td class="formField"><input id="objListNetNumber" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkAddress"/></td>
-          <td class="formField"><input id="objListNetAddr" type="text" class="formShort"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkAddress"/></td>
+          <td class="formField"><input id="objListNetAddr" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceInstanceNumber"/></td>
-          <td class="formField"><input id="objListDevId" type="text" class="formShort"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceInstanceNumber"/></td>
+          <td class="formField"><input id="objListDevId" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
         </tr>
         <tr>
           <td colspan="2" align="center">
-            <input id="sendObjListBtn" type="button" value="<fmt:message key="dsEdit.bacnetIp.sendObjList"/>" onclick="sendObjListRequest();"/>
+            <button id="sendObjListBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="sendObjListRequest();" ><fmt:message key="dsEdit.bacnetIp.sendObjList"/></button>
+            <%-- <input id="sendObjListBtn" type="button" value="<fmt:message key="dsEdit.bacnetIp.sendObjList"/>" onclick="sendObjListRequest();"/> --%>
           </td>
         </tr>
         
@@ -372,34 +396,34 @@
 
 <tag:pointList pointHelpId="bacnetIpPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceIp"/></td>
-    <td class="formField"><input type="text" id="remoteDeviceIp"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceIp"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="remoteDeviceIp"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDevicePort"/></td>
-    <td class="formField"><input type="text" id="remoteDevicePort"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDevicePort"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="remoteDevicePort"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkNumber"/></td>
-    <td class="formField"><input type="text" id="networkNumber"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkNumber"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="networkNumber"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkAddress"/></td>
-    <td class="formField"><input type="text" id="networkAddress"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceNetworkAddress"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="networkAddress"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.remoteDeviceInstanceNumber"/></td>
-    <td class="formField"><input type="text" id="remoteDeviceInstanceNumber"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.remoteDeviceInstanceNumber"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="remoteDeviceInstanceNumber"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.objectType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.objectType"/></td>
     <td class="formField">
-      <select name="objectTypeId" onchange="objectTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" name="objectTypeId" onchange="objectTypeChanged()">
         <option value="<c:out value="<%= ObjectType.accessDoor.intValue() %>"/>"><fmt:message key="dsEdit.bacnetIp.objectType.accessDoor"/></option>
         <option value="<c:out value="<%= ObjectType.accumulator.intValue() %>"/>"><fmt:message key="dsEdit.bacnetIp.objectType.accumulator"/></option>
         <option value="<c:out value="<%= ObjectType.analogInput.intValue() %>"/>"><fmt:message key="dsEdit.bacnetIp.objectType.analogInput"/></option>
@@ -421,29 +445,29 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.objectInstanceNumber"/></td>
-    <td class="formField"><input type="text" id="objectInstanceNumber"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.objectInstanceNumber"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="objectInstanceNumber"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.useCov"/></td>
-    <td class="formField"><input type="checkbox" id="useCovSubscription"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.useCov"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="useCovSubscription"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.settable"/></td>
-    <td class="formField"><input type="checkbox" id="settable" onclick="settableChanged()"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.settable"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="settable" onclick="settableChanged()"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.bacnetIp.writePriority"/></td>
-    <td class="formField"><input type="text" id="writePriority"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.bacnetIp.writePriority"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="writePriority"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>

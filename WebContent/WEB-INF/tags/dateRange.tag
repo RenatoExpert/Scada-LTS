@@ -21,28 +21,28 @@
   <tr>
     <td class="p-2 text-center"><fmt:message key="common.dateRangeFrom"/></td>
     <td><input class="form-control form-control-sm my-2" type="text" id="fromYear" class="formVeryShort" value="${fromYear}"/></td>
-    <td><select class="form-select form-select-sm my-2" id="fromMonth" value="${fromMonth}"><tag:monthOptions sst="true"/></select></td>
-    <td><select class="form-select form-select-sm my-2" id="fromDay" value="${fromDay}"><tag:dayOptions sst="true"/></select></td>
+    <td><sst:select id="fromMonth" value="${fromMonth}"><tag:monthOptions sst="true"/></sst:select></td>
+    <td><sst:select id="fromDay" value="${fromDay}"><tag:dayOptions sst="true"/></sst:select></td>
     <td>,</td>
-    <td><select class="form-select form-select-sm my-2" id="fromHour" value="${fromHour}"><tag:hourOptions sst="true"/></select></td>
+    <td><sst:select id="fromHour" value="${fromHour}"><tag:hourOptions sst="true"/></sst:select></td>
     <td>:</td>
-    <td><select class="form-select form-select-sm my-2" id="fromMinute" value="${fromMinute}"><tag:minuteOptions sst="true"/></select></td>
+    <td><sst:select id="fromMinute" value="${fromMinute}"><tag:minuteOptions sst="true"/></sst:select></td>
     <td>:</td>
-    <td><select class="form-select form-select-sm my-2" id="fromSecond" value="${fromSecond}"><tag:secondOptions sst="true"/></select></td>
+    <td><sst:select id="fromSecond" value="${fromSecond}"><tag:secondOptions sst="true"/></sst:select></td>
     <td></td><td class="p-2 text-center"><input class="form-check-input custom-checkbox my-2" type="checkbox" name="fromNone" id="fromNone" onclick="updateDateRange()"/>
     <td class="p-2 text-center"><label for="fromNone"><fmt:message key="common.inception"/></label></td></td>
   </tr>
   <tr>
     <td class="p-2 text-center"><fmt:message key="common.dateRangeTo"/></td>
     <td><input class="form-control form-control-sm my-1" type="text" id="toYear" class="formVeryShort" value="${toYear}"/></td>
-    <td><select class="form-select form-select-sm my-2" id="toMonth" value="${toMonth}"><tag:monthOptions sst="true"/></select></td>
-    <td><select class="form-select form-select-sm my-2" id="toDay" value="${toDay}"><tag:dayOptions sst="true"/></select></td>
+    <td><sst:select id="toMonth" value="${toMonth}"><tag:monthOptions sst="true"/></sst:select></td>
+    <td><sst:select id="toDay" value="${toDay}"><tag:dayOptions sst="true"/></sst:select></td>
     <td>,</td>
-    <td><select class="form-select form-select-sm my-2" id="toHour" value="${toHour}"><tag:hourOptions sst="true"/></select></td>
+    <td><sst:select id="toHour" value="${toHour}"><tag:hourOptions sst="true"/></sst:select></td>
     <td>:</td>
-    <td><select class="form-select form-select-sm my-2" id="toMinute" value="${toMinute}"><tag:minuteOptions sst="true"/></select></td>
+    <td><sst:select id="toMinute" value="${toMinute}"><tag:minuteOptions sst="true"/></sst:select></td>
     <td>:</td>
-    <td><select class="form-select form-select-sm my-2" id="toSecond" value="${toSecond}"><tag:secondOptions sst="true"/></select></td>
+    <td><sst:select id="toSecond" value="${toSecond}"><tag:secondOptions sst="true"/></sst:select></td>
     <td></td><td class="p-2 text-center"><input class="form-check-input custom-checkbox my-2" type="checkbox" name="toNone" id="toNone" checked="checked" onclick="updateDateRange()"/>
     <td class="p-2 text-center"><label for="toNone"><fmt:message key="common.latest"/></label></td></td>
   </tr>

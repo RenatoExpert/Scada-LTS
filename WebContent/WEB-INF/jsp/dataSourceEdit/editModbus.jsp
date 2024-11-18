@@ -271,6 +271,36 @@
 	  if (node)
 		  setDisabled(node, val);
   }
+
+  //função para adicionar classes aos selects estilo bootstrap
+  function addClassToSelectsIds() {
+  var selectGroups = [
+    {
+    ids: ["range", "test_modbusDataType", "test_range", "dataTest_range", "modbusDataType"],
+    classes: ["w-75", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["updatePeriodType", "transportType", "commPortId", "baudRate", "flowControlIn", "flowControlOut", "dataBits", "stopBits", "parity", "encoding", "echo", "concurrency"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize", "contiguousBatches", "createSlaveMonitorPoints", "encapsulated", "createSocketMonitorPoint"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelectsIds;
 </script>
 
 <c:choose>
@@ -285,9 +315,9 @@
 </c:choose>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -295,43 +325,43 @@
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
           <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.timeout"/></td>
-          <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.timeout"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.retries"/></td>
-          <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.retries"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.contiguousBatches"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.contiguousBatches"/></td>
           <td class="formField"><sst:checkbox id="contiguousBatches" selectedValue="${dataSource.contiguousBatches}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.createSlaveMonitorPoints"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.createSlaveMonitorPoints"/></td>
           <td class="formField"><sst:checkbox id="createSlaveMonitorPoints" selectedValue="${dataSource.createSlaveMonitorPoints}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.maxReadBitCount"/></td>
-          <td class="formField"><input type="text" id="maxReadBitCount" value="${dataSource.maxReadBitCount}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.maxReadBitCount"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="maxReadBitCount" value="${dataSource.maxReadBitCount}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.maxReadRegisterCount"/></td>
-          <td class="formField"><input type="text" id="maxReadRegisterCount" value="${dataSource.maxReadRegisterCount}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.maxReadRegisterCount"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="maxReadRegisterCount" value="${dataSource.maxReadRegisterCount}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.maxWriteRegisterCount"/></td>
-          <td class="formField"><input type="text" id="maxWriteRegisterCount" value="${dataSource.maxWriteRegisterCount}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.maxWriteRegisterCount"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="maxWriteRegisterCount" value="${dataSource.maxWriteRegisterCount}"/></td>
         </tr>
               
         <c:choose>
@@ -348,36 +378,38 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB marR" style="float:left;">
-      <table>
+    <div class="right-box w-50 m-3" style="float:left;">
+      <table class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.modbus.nodeScan"/></td></tr>
         <tr>
           <td colspan="2" align="center">
-            <input id="scanBtn" type="button" value="<fmt:message key="dsEdit.modbus.scanForNodes"/>" onclick="scan();"/>
-            <input id="scanCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="scanCancel();"/>
+            <button id="scanBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="scan();" ><fmt:message key="dsEdit.modbus.scanForNodes"/></button>
+            <%-- <input id="scanBtn" type="button" value="<fmt:message key="dsEdit.modbus.scanForNodes"/>" onclick="scan();"/> --%>
+            <button id="scanCancelBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="scanCancel();" ><fmt:message key="common.cancel"/></button>
+            <%-- <input id="scanCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="scanCancel();"/> --%>
           </td>
         </tr>
         
         <tr><td colspan="2" id="scanMessage" class="formError"></td></tr>
         
-        <tr>
-          <td class="formLabel"><fmt:message key="dsEdit.modbus.nodesFound"/></td>
-          <td class="formField"><select id="scanNodes" size="8"></select></td>
+        <tr class="d-flex align-items-center justify-content-start w-100">
+          <td class="formLabelRequired align-middle my-2 text-uppercase"><fmt:message key="dsEdit.modbus.nodesFound"/></td>
+          <td class="formField"><select id="scanNodes" class="form-select w-75" size="10"></select></td>
         </tr>
       </table>
     </div>
     
-    <div class="borderDiv marB marR" style="float:left;">
-      <table>
+    <div class="right-box w-50 m-3" style="float:left;">
+      <table class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.modbus.dataTest"/></td></tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.slaveId"/></td>
-          <td class="formField"><input type="text" id="dataTest_slaveId" value="1"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.slaveId"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="dataTest_slaveId" value="1"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerRange"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerRange"/></td>
           <td class="formField">
             <select id="dataTest_range">
               <option value="<c:out value="<%= RegisterRange.COIL_STATUS %>"/>"><fmt:message key="dsEdit.modbus.coilStatus"/></option>
@@ -389,18 +421,19 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.offset"/></td>
-          <td class="formField"><input type="text" id="dataTest_offset" value="0"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.offset"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="dataTest_offset" value="0"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerCount"/></td>
-          <td class="formField"><input type="text" id="dataTest_length" value="100"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerCount"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="dataTest_length" value="100"/></td>
         </tr>
         
         <tr>
           <td colspan="2" align="center">
-            <input id="dataTestBtn" type="button" value="<fmt:message key="dsEdit.modbus.dataTest.read"/>" onclick="dataTest();"/>
+            <button id="dataTestBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="dataTest();" ><fmt:message key="dsEdit.modbus.dataTest.read"/></button>
+            <%-- <input id="dataTestBtn" type="button" value="<fmt:message key="dsEdit.modbus.dataTest.read"/>" onclick="dataTest();"/> --%>
           </td>
         </tr>
         
@@ -410,17 +443,17 @@
       </table>
     </div>
     
-    <div class="borderDiv marB" id="locatorTestDiv" style="clear:both;">
-      <table>
+    <div class="right-box w-50 m-3" id="locatorTestDiv" style="clear:both;">
+      <table class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.modbus.locatorTest"/></td></tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.slaveId"/></td>
-          <td class="formField"><input type="text" id="test_slaveId" value="1"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.slaveId"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="test_slaveId" value="1"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerRange"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerRange"/></td>
           <td class="formField">
             <select id="test_range" onchange="changeRange('test_')">
               <option value="<c:out value="<%= RegisterRange.COIL_STATUS %>"/>"><fmt:message key="dsEdit.modbus.coilStatus"/></option>
@@ -432,7 +465,7 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.modbusDataType"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.modbusDataType"/></td>
           <td class="formField">
             <select id="test_modbusDataType" onchange="changeDataType('test_')">
               <option value="<c:out value="<%= DataType.BINARY %>"/>"><fmt:message key="dsEdit.modbus.modbusDataType.binary"/></option>
@@ -460,29 +493,31 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.offset"/></td>
-          <td class="formField"><input type="text" id="test_offset" value="0"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.offset"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="test_offset" value="0"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.bit"/></td>
-          <td class="formField"><input id="test_bit" type="text" value="0"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.bit"/></td>
+          <td class="formField"><input id="test_bit" class="w-75 form-control form-control-sm my-2" type="text" value="0"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerCount"/></td>
-          <td class="formField"><input id="test_registerCount" type="text" value="0"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerCount"/></td>
+          <td class="formField"><input id="test_registerCount" class="w-75 form-control form-control-sm my-2" type="text" value="0"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.charset"/></td>
-          <td class="formField"><input id="test_charset" type="text" value="ASCII"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.charset"/></td>
+          <td class="formField"><input id="test_charset" class="w-75 form-control form-control-sm my-2" type="text" value="ASCII"/></td>
         </tr>
         
         <tr>
           <td colspan="2" align="center">
-            <input id="locatorTestBtn" type="button" value="<fmt:message key="dsEdit.modbus.locatorTest.test"/>" onclick="locatorTest();"/>
-            <input type="button" value="<fmt:message key="dsEdit.modbus.addPoint"/>" onclick="addPoint();"/>
+            <button id="locatorTestBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="locatorTest();" ><fmt:message key="dsEdit.modbus.locatorTest.test"/></button>
+            <%-- <input id="locatorTestBtn" type="button" value="<fmt:message key="dsEdit.modbus.locatorTest.test"/>" onclick="locatorTest();"/> --%>
+            <button class="btn btn-primary custom-btn-blue ms-3" onclick="addPoint();" ><fmt:message key="dsEdit.modbus.addPoint"/></button>
+            <%-- <input type="button" value="<fmt:message key="dsEdit.modbus.addPoint"/>" onclick="addPoint();"/> --%>
           </td>
         </tr>
         
@@ -493,13 +528,13 @@
 
 <tag:pointList pointHelpId="modbusPP">
   <tr id="slaveIdRow">
-    <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.slaveId"/></td>
-    <td class="formField"><input type="text" id="slaveId"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.slaveId"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="slaveId"/></td>
   </tr>
   
   <tbody id="nonSlaveMonitor">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerRange"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerRange"/></td>
       <td class="formField">
         <select id="range" onchange="changeRange('')">
           <option value="<c:out value="<%= RegisterRange.COIL_STATUS %>"/>"><fmt:message key="dsEdit.modbus.coilStatus"/></option>
@@ -511,7 +546,7 @@
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.modbusDataType"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.modbusDataType"/></td>
       <td class="formField">
         <select id="modbusDataType" onchange="changeDataType('')">
           <option value="<c:out value="<%= DataType.BINARY %>"/>"><fmt:message key="dsEdit.modbus.modbusDataType.binary"/></option>
@@ -539,38 +574,38 @@
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.offset"/></td>
-      <td class="formField"><input type="text" id="offset"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.offset"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="offset"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.bit"/></td>
-      <td class="formField"><input id="bit" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.bit"/></td>
+      <td class="formField"><input id="bit" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.registerCount"/></td>
-      <td class="formField"><input id="registerCount" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.registerCount"/></td>
+      <td class="formField"><input id="registerCount" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.charset"/></td>
-      <td class="formField"><input id="charset" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.charset"/></td>
+      <td class="formField"><input id="charset" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.settableOverride"/></td>
-      <td class="formField"><input id="settableOverride" type="checkbox"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.settableOverride"/></td>
+      <td class="formField"><input id="settableOverride" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
     </tr>
     
     <tr>
       <td class="formLabel"><fmt:message key="dsEdit.modbus.multiplier"/></td>
-      <td class="formField"><input type="text" id="multiplier"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="multiplier"/></td>
     </tr>
     
     <tr>
       <td class="formLabel"><fmt:message key="dsEdit.modbus.additive"/></td>
-      <td class="formField"><input type="text" id="additive"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="additive"/></td>
     </tr>
   </tbody>
 </tag:pointList>

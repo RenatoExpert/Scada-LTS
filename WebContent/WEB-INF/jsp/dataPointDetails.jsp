@@ -159,17 +159,44 @@
 			loadjscssfile("resources/jQuery/plugins/chosen/chosen.jquery.min.js","js");
 		})(jQuery);
     });
+
+    
+    //função para adicionar classes aos selects e checkbox estilo bootstrap
+    function addClassToSelectsPointDetails() {
+    var selectGroups = [
+      {
+      ids: ["datPointDetailsPointSelect", "statsChartDurationType"],
+      classes: ["w-50", "form-select", "form-select-sm", "me-2"]
+      },
+      {
+        ids: ["fromMonth", "fromDay", "fromHour", "fromMinute", "fromSecond", "toMonth", "toDay", "toHour", "toMinute", "toSecond"],
+        classes: ["form-select", "form-select-sm", "my-2"]
+      }
+    ];
+
+    selectGroups.forEach(function(group) {
+      group.ids.forEach(function(id) {
+      var selectElement = document.getElementById(id);
+      if (selectElement) {
+        selectElement.classList.add(...group.classes);
+      }
+      });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelectsPointDetails;
   </script>
   
   <table class="w-100">
     <tr>
       <td valign="top" align="right">
         <fmt:message key="pointDetails.goto"/>:&nbsp;
-        <select class="form-select form-select-sm my-2" id="datPointDetailsPointSelect" value="${point.id}" onchange="window.location='data_point_details.shtm?dpid='+ this.value;">
+        <sst:select id="datPointDetailsPointSelect" value="${point.id}" onchange="window.location='data_point_details.shtm?dpid='+ this.value;">
           <c:forEach items="${userPoints}" var="point">
             <sst:option value="${point.id}">${point.extendedName}</sst:option>
           </c:forEach>
-        </select>
+        </sst:select>
 
         <c:if test="${!empty prevId}">
             <i class="bi bi-caret-left-square-fill text-blue-add  align-middle ms-3 fs-5" title="<fmt:message key='pagination.previous'/>" onclick="window.location='data_point_details.shtm?dpid=${prevId}'" style="cursor: pointer;"></i>
@@ -238,9 +265,9 @@
                 <%-- <fmt:message key="pointDetails.timePeriod"/>: --%>
                 <input class="form-control form-control-sm m-2" id="statsChartDuration" style="text-align:right;" type="text" class="formVeryShort"
                         value='${empty periodCount ? "1" : periodCount}'/>
-                <select  class="form-select form-select-sm m-2" id="statsChartDurationType" value="${periodType}">
+                <sst:select id="statsChartDurationType" value="${periodType}">
                   <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true"/>
-                </select>
+                </sst:select>
                   <a href="#" id="statsChartImg" title="<fmt:message key='pointDetails.getStatistics'/>" onclick="getStatsChart()">
                       <i class="bi bi-play-circle-fill text-blue-add  align-middle me-5 fs-3"></i>
                   </a>

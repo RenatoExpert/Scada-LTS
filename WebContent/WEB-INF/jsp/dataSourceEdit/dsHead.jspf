@@ -28,8 +28,8 @@
               ${dsDesc}
               <tag:help id="${dsHelpId}"/>
         </div>
-        <div>
-              <i class="bi bi-database-fill-x  text-danger align-middle ms-3 fs-5" onclick="toggleDataSource()" id="dsStatusImg" style="display:none; cursor: pointer;"></i>
+        <div class="d-flex align-items-center justify-content-center">
+              <i class="bi bi-database-fill-x  text-danger align-middle me-3 fs-5" onclick="toggleDataSource()" id="dsStatusImg" style="display:none; cursor: pointer;"></i>
               <i id="dsSaveImg" class="bi bi-floppy2-fill text-blue-add  me-2 fs-5" onclick="saveDataSource()" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
               <span style="font-size: 16px;" class="me-3">
                 <sst:i18n key='common.save' escapeDQuotes='true'/>

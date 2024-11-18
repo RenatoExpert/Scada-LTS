@@ -114,15 +114,36 @@
       var timeRegexLen = $get("timeRegex").trim().length;
       display("timeFormatRow", timeRegexLen > 0);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.pop3.desc"/></c:set>
 <c:set var="dsHelpId" value="pop3DS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.checkPeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.checkPeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -130,19 +151,19 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.server"/></td>
-          <td class="formField"><input id="pop3Server" type="text" value="${dataSource.pop3Server}"
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.server"/></td>
+          <td class="formField"><input id="pop3Server" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.pop3Server}"
                   class="formLong"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.username"/></td>
-          <td class="formField"><input id="username" type="text" value="${dataSource.username}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.username"/></td>
+          <td class="formField"><input id="username" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.username}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.password"/></td>
-          <td class="formField"><input id="password" type="text" value="${dataSource.password}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.password"/></td>
+          <td class="formField"><input id="password" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.password}"/></td>
         </tr>
       </table>
       <tag:dsEvents/>
@@ -150,34 +171,36 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-50">
+      <table class="m-3">
         <tr><td class="smallTitle"><fmt:message key="dsEdit.pop3.testContent"/></td></tr>
-        <tr><td><textarea id="testData" cols="60" rows="10"></textarea></td></tr>
+        <tr><td class="my-3 d-flex align-items-center justify-content-center"><textarea class="w-75 form-control mb-3" id="testData" rows="10" cols="100"/></textarea></td></tr>
+        <%-- <tr><td><textarea id="testData" cols="60" rows="10"></textarea></td></tr> --%>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsFoot.jspf" %>
 
 <tag:pointList pointHelpId="pop3PP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId" onchange="dataTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId" onchange="dataTypeChanged()">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.findInSubject"/></td>
-    <td class="formField"><input type="checkbox" id="findInSubject"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.findInSubject"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="findInSubject"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired">
+    <td class="formLabelRequired align-middle my-2">
       <fmt:message key="dsEdit.pop3.valueRegex"/>
-      <tag:img id="valueTestImg" png="accept" title="dsEdit.pop3.testValue" onclick="testValueParams()"/>
+      <i id="valueTestImg" onclick="testValueParams()" class="bi bi-gear-fill text-blue-add bi bi-gear-fill  ms-3 fs-6" title="<fmt:message key='dsEdit.pop3.testValue'/>"></i>
+      <%-- <tag:img id="valueTestImg" png="accept" title="dsEdit.pop3.testValue" onclick="testValueParams()"/> --%>
     </td>
-    <td class="formField">
-      <input type="text" id="valueRegex" class="formLong"/>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-75 form-control form-control-sm me-2" type="text" id="valueRegex" class="formLong"/>
       <tag:help id="regex"/>
     </td>
   </tr>
@@ -190,32 +213,33 @@
   </tbody>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.ignoreIfMissing"/></td>
-    <td class="formField"><input type="checkbox" id="ignoreIfMissing"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.ignoreIfMissing"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="ignoreIfMissing"/></td>
   </tr>
   
   <tbody id="valueFormatRow">
     <tr>
       <td id="valueFormatLabel" class="formLabel"></td>
       <td class="formField">
-        <input type="text" id="valueFormat"/>
+        <input class="w-75 form-control form-control-sm my-2" type="text" id="valueFormat"/>
         <span id="numberFormatHelp"><tag:help id="numberFormats"/></span>
       </td>
     </tr>
   </tbody>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.useMessageTime"/></td>
-    <td class="formField"><input type="checkbox" id="useReceivedTime" onclick="useReceivedTimeChanged()"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.useMessageTime"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="useReceivedTime" onclick="useReceivedTimeChanged()"/></td>
   </tr>
   
   <tr>
     <td class="formLabel">
       <fmt:message key="dsEdit.pop3.timeRegex"/>
-      <tag:img id="timeTestImg" png="accept" title="dsEdit.pop3.testTime" onclick="testTimeParams()"/>
+      <i id="timeTestImg" onclick="testTimeParams()" class="bi bi-gear-fill text-blue-add ms-3 fs-6" title="<fmt:message key='dsEdit.pop3.testTime'/>"></i>
+      <%-- <tag:img id="timeTestImg" png="accept" title="dsEdit.pop3.testTime" onclick="testTimeParams()"/> --%>
     </td>
-    <td class="formField">
-      <input type="text" id="timeRegex" onkeyup="timeRegexKU()" class="formLong"/>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-75 form-control form-control-sm my-2" type="text" id="timeRegex" onkeyup="timeRegexKU()" class="formLong"/>
       <tag:help id="regex"/>
     </td>
   </tr>
@@ -229,9 +253,9 @@
   
   <tbody id="timeFormatRow">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.pop3.timeFormat"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pop3.timeFormat"/></td>
       <td class="formField">
-        <input type="text" id="timeFormat"/>
+        <input class="w-75 form-control form-control-sm my-2" type="text" id="timeFormat"/>
         <tag:help id="datetimeFormats"/>
       </td>
     </tr>

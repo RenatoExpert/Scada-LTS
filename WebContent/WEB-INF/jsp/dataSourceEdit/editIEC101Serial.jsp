@@ -34,11 +34,11 @@
 </script>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusSerial.port"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusSerial.port"/></td>
   <td class="formField">
     <c:choose>
       <c:when test="${!empty commPortError}">
-        <input id="commPortId" type="hidden" value=""/>
+        <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
         <span class="formError">${commPortError}</span>
       </c:when>
       <c:otherwise>
@@ -53,7 +53,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusSerial.baud"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusSerial.baud"/></td>
   <td class="formField">
     <sst:select id="baudRate" value="${dataSource.baudRate}">
       <sst:option>110</sst:option>
@@ -76,7 +76,7 @@
 
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusSerial.dataBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusSerial.dataBits"/></td>
   <td class="formField">
     <sst:select id="dataBits" value="${dataSource.dataBits}">
       <sst:option value="5">5</sst:option>
@@ -88,7 +88,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusSerial.stopBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusSerial.stopBits"/></td>
   <td class="formField">
     <sst:select id="stopBits" value="${dataSource.stopBits}">
       <sst:option value="1">1</sst:option>
@@ -99,7 +99,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.modbusSerial.parity"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbusSerial.parity"/></td>
   <td class="formField">
     <sst:select id="parity" value="${dataSource.parity}">
       <sst:option value="0"><fmt:message key="dsEdit.modbusSerial.parity.none"/></sst:option>

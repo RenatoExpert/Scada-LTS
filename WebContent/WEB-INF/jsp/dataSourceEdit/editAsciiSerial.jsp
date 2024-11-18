@@ -142,6 +142,35 @@
   
   function refreshValueList(prefix, arr) {
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["commPortId", "baudRate", "dataBits", "stopBits", "parity", "stopMode", "charStopMode", "bufferSize"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.asciiSerial.desc"/></c:set>
@@ -149,11 +178,11 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.asciiSerial.commPortId" /></td>
 	<td class="formField"><c:choose>
 		<c:when test="${!empty commPortError}">
-			<input id="commPortId" type="hidden" value="" />
+			<input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value="" />
 			<span class="formError">${commPortError}</span>
 		</c:when>
 		<c:otherwise>
@@ -167,7 +196,7 @@
 </tr>
 
 <tr>
-	<td class="formLabelRequired"><fmt:message
+	<td class="formLabelRequired align-middle my-2"><fmt:message
 		key="dsEdit.asciiSerial.baud" /></td>
 	<td class="formField"><sst:select id="baudRate"
 		value="${dataSource.baudRate}">
@@ -188,7 +217,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.dataBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.dataBits"/></td>
   <td class="formField">
     <sst:select id="dataBits" value="${dataSource.dataBits}">
       <sst:option value="5">5</sst:option>
@@ -200,7 +229,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.stopBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.stopBits"/></td>
   <td class="formField">
     <sst:select id="stopBits" value="${dataSource.stopBits}">
       <sst:option value="1">1</sst:option>
@@ -211,7 +240,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.parity"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.parity"/></td>
   <td class="formField">
     <sst:select id="parity" value="${dataSource.parity}">
       <sst:option value="0"><fmt:message key="dsEdit.modbusSerial.parity.none"/></sst:option>
@@ -224,9 +253,9 @@
 </tr>
 
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class=" w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
@@ -234,21 +263,22 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.retries"/></td>
-    <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.retries"/></td>
+    <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.timeout"/></td>
-    <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
-  </tr>
-  
-  <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
-    <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.timeout"/></td>
+    <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
   </tr>
   
   <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.stopMode"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="quantize" selectedValue="${dataSource.quantize}"/></td>
+    <%-- <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td> --%>
+  </tr>
+  
+  <tr>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.stopMode"/></td>
   <td class="formField">
     <sst:select id="stopMode" onchange="changeStopMode()" value="${dataSource.stopMode}">
       <sst:option value="0"><fmt:message key="dsEdit.asciiSerial.stopMode.nChar"/></sst:option>
@@ -259,13 +289,13 @@
 </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.nChar"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.nChar"/></td>
     <td class="formField">
-    	<input id="nChar" type="text" value="${dataSource.nChar}"/>
+    	<input id="nChar" class=" w-75 form-control form-control-sm my-2" type="text" value="${dataSource.nChar}"/>
     </td>
   </tr>
   <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.charStopMode"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.charStopMode"/></td>
   <td class="formField">
     <sst:select id="charStopMode" onchange="changeCharStopMode()" value="${dataSource.charStopMode}">
       <sst:option value="0"><fmt:message key="dsEdit.asciiSerial.charStopMode.charASCII"/></sst:option>
@@ -274,27 +304,27 @@
   </td>
 </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.charStopMode.charASCII"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.charStopMode.charASCII"/></td>
     <td class="formField">
-    	<input id="charX" type="text" value="${dataSource.charX}" disabled="disabled"/>
+    	<input id="charX" class=" w-75 form-control form-control-sm my-2" type="text" value="${dataSource.charX}" disabled="disabled"/>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.charStopMode.hexValue"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.charStopMode.hexValue"/></td>
     <td class="formField">
-    	<input id="hexValue" type="text" value="${dataSource.hexValue}" disabled="disabled"/>
+    	<input id="hexValue" class=" w-75 form-control form-control-sm my-2" type="text" value="${dataSource.hexValue}" disabled="disabled"/>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.stopTimeout"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.stopTimeout"/></td>
     <td class="formField">
-    	<input id="stopTimeout" type="text" value="${dataSource.stopTimeout}" disabled="disabled"/>
+    	<input id="stopTimeout" class=" w-75 form-control form-control-sm my-2" type="text" value="${dataSource.stopTimeout}" disabled="disabled"/>
     </td>
   </tr>
    
   <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.bufferSize"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.bufferSize"/></td>
   <td class="formField">
     <sst:select id="bufferSize" value="${dataSource.bufferSize}">
       <sst:option value="2">2</sst:option>
@@ -310,9 +340,9 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.initString"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.initString"/></td>
     <td class="formField">
-    	<input id="initString" type="text" value=""/>
+    	<input id="initString" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
     </td>
   </tr>
   
@@ -320,38 +350,38 @@
 
 <tag:pointList pointHelpId="asciiSerialPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select id="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" id="dataTypeId">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   <tr>
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiSerial.command"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiSerial.command"/></td>
 	    <td class="formField">
-	    	<input id="command" type="text" value=""/>
+	    	<input id="command" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
 	    </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.valueRegex"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.valueRegex"/></td>
     <td class="formField">
-    	<input id="valueRegex" type="text" value=""/>
-    	<select id="valueSuggestions" onchange="valueSuggestChanged();">
+    	<input id="valueRegex" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
+    	<select class="w-50 form-select form-select-sm my-2" id="valueSuggestions" onchange="valueSuggestChanged();">
     		<option value=""> &nbsp; </option>
         	<option value="((\b[0-9]+)?\.)?[0-9]+\b"> <fmt:message key="dsEdit.asciiFile.regex.number"/>  </option>
       	</select>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampCheck"/></td>
-    <td class="formField"><input id="customTimestamp" type="checkbox" onchange="checkTimestampChanged();"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampCheck"/></td>
+    <td class="formField"><input id="customTimestamp" class="form-check-input custom-checkbox my-2" type="checkbox" onchange="checkTimestampChanged();"/></td>
   </tr>
 	  <tr id="tsDiv1">
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampFormat"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampFormat"/></td>
 	    <td class="formField">
-	    	<input id="timestampFormat" type="text" value=""/>
-	    	<select id="timestampSuggestions" onchange="timestampSuggestChanged();">
+	    	<input id="timestampFormat" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
+	    	<select class="w-50 form-select form-select-sm my-2" id="timestampSuggestions" onchange="timestampSuggestChanged();">
 	    		<option value=""> &nbsp; </option>
 	        	<option value="20\d{2}\/((0[1-9])|(1[0-2]))\/((0[1-9])|([1-2][0-9])|(3[0-1]))\s(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])" title="yyyy/MM/dd KK:mm:ss"> YYYY/MM/DD HH:MM:SS (2010/12/25 18:30:00) </option>
 	        	<option value="20\d{2}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[0-1]))\s(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])" title="yyyy-MM-dd KK:mm:ss"> YYYY-MM-DD HH:MM:SS (2010-12-25 18:30:00)  </option>
@@ -361,9 +391,9 @@
 	    </td>
 	  </tr>
 	  <tr id="tsDiv2">
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampRegex"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampRegex"/></td>
 	    <td class="formField">
-	    	<input id="timestampRegex" type="text" value=""/>
+	    	<input id="timestampRegex" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
 	    </td>
 	  </tr>
 	  

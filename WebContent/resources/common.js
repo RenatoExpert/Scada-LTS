@@ -817,6 +817,20 @@ function writeIcon(id, iconClass, title, onclick) {
     return result;
 }
 
+function writeIconFive(id, src, iconClass, title, onclick) {
+    var result = '<i ';
+    if (id)
+        result += ' id="'+ id +'"';
+    if (src)
+        result += ' src="'+ src +'"';
+    if (iconClass && !src)
+        result += ' class="'+ iconClass +'"';
+    if (title)
+        result += ' alt="'+ title +'" title="'+ title +'"';
+    result += ' onclick="'+ onclick +'"/>';
+    return result;
+}
+
 function writeImage(id, src, png, title, onclick) {
     var result = '<img class="ptr"';
     if (id)

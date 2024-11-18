@@ -45,6 +45,28 @@
       
       DataSourceEditDwr.saveInternalPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelectsInternal() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelectsInternal;
+  
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.internal.desc"/></c:set>
@@ -52,8 +74,8 @@
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
   <tr>
     <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
@@ -65,7 +87,7 @@
   <tr>
     <td class="formLabelRequired"><fmt:message key="dsEdit.internal.attribute"/></td>
     <td class="formField">
-      <select id="attributeId">
+      <select class="w-75 form-select form-select-sm my-2" id="attributeId">
         <tag:exportCodesOptions optionList="<%= InternalPointLocatorVO.ATTRIBUTE_CODES.getIdKeys() %>"/>
       </select>
     </td>

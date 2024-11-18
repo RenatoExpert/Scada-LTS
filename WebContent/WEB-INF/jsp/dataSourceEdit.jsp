@@ -228,7 +228,7 @@
     function markRow(elements, mark) {
     	if(mark==true) {
 	    	for(var ichild = 0; ichild<elements.length; ichild++) {
-					elements[ichild].style.backgroundColor = "#77c055";
+					elements[ichild].style.backgroundColor = "#29bdef";
 					elements[ichild].style.color = "white";
 			}
     	} else {
@@ -330,7 +330,7 @@
     }
   </script>
 
-    <table class="right-box my-3 w-100 subPageHeader container" id="alarmsTable" style="display: block; max-height: 300px; overflow-y: auto; width: 59%;">
+    <table class="right-box w-100 subPageHeader container" id="alarmsTable" style="display: block; max-height: 300px; overflow-y: auto; width: 59%;">
         <tr>
             <td>
                 <table class="w-100  m-3">

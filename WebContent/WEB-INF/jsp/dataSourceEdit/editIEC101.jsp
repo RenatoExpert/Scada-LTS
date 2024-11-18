@@ -78,6 +78,35 @@
 		  hide('singleCommandQualifier');
 	  }
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["linkLayerAddressSize", "asduAddressSize", "cotSize", "objectAddressSize", "stopBits", "parity", "pointType", "baudRate", "dataBits", "commPortId"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 
   
 </script>
@@ -94,7 +123,7 @@
 </c:choose>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 		<tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.linkLayerAddressSize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.linkLayerAddressSize"/></td>
           <td class="formField">
 	          <sst:select id="linkLayerAddressSize" value="${dataSource.linkLayerAddressSize}">
 			      <sst:option value="0">None</sst:option>
@@ -105,11 +134,11 @@
           
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.linkLayerAddress"/></td>
-          <td class="formField"><input type="text" id="linkLayerAddress" value="${dataSource.linkLayerAddress}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.linkLayerAddress"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="linkLayerAddress" value="${dataSource.linkLayerAddress}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.asduAddressSize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.asduAddressSize"/></td>
           <td class="formField">
           	<sst:select id="asduAddressSize" value="${dataSource.asduAddressSize}">
 			      <sst:option value="1">1 byte</sst:option>
@@ -118,11 +147,11 @@
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.asduAddress"/></td>
-          <td class="formField"><input type="text" id="asduAddress" value="${dataSource.asduAddress}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.asduAddress"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="asduAddress" value="${dataSource.asduAddress}"/></td>
         </tr>
          <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.cotSize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.cotSize"/></td>
           <td class="formField">
           	<sst:select id="cotSize" value="${dataSource.cotSize}">
 			      <sst:option value="1">1 byte</sst:option>
@@ -131,7 +160,7 @@
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.objectAddressSize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.objectAddressSize"/></td>
           <td class="formField">
           	<sst:select id="objectAddressSize" value="${dataSource.objectAddressSize}">
 			      <sst:option value="1">1 byte</sst:option>
@@ -142,34 +171,34 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
             </sst:select>
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.giRelativePeriod"/></td>
-          <td class="formField"><input type="text" id="giRelativePeriod" value="${dataSource.giRelativePeriod}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.giRelativePeriod"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="giRelativePeriod" value="${dataSource.giRelativePeriod}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.clockSynchRelativePeriod"/></td>
-          <td class="formField"><input type="text" id="clockSynchRelativePeriod" value="${dataSource.clockSynchRelativePeriod}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.clockSynchRelativePeriod"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="clockSynchRelativePeriod" value="${dataSource.clockSynchRelativePeriod}"/></td>
         </tr>
              	 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.timeout"/></td>
-          <td class="formField"><input type="text" id="timeout" value="${dataSource.timeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.timeout"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeout" value="${dataSource.timeout}"/></td>
         </tr>
               
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.modbus.retries"/></td>
-          <td class="formField"><input type="text" id="retries" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.modbus.retries"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="retries" value="${dataSource.retries}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
           <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
   		</tr>
               
@@ -190,13 +219,13 @@
 
 <tag:pointList pointHelpId="iec101PP">
 	<tr>
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.objectAddress"/></td>
-	    <td class="formField"><input type="text" id="objectAddress"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.objectAddress"/></td>
+	    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="objectAddress"/></td>
 	</tr>
 	<tr>
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.iec101DataType"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.iec101DataType"/></td>
 	    <td class="formField">
-	      <select id="iec101DataType" onchange="settableChanged()">
+	      <select class="w-50 form-select form-select-sm my-2" id="iec101DataType" onchange="settableChanged()">
 	        <option value="<c:out value="<%= IEC101Master.SINGLE_POINT_INFORMATION%>"/>"><fmt:message key="dsEdit.iec101.iec101DataType.singlePoint"/></option>
 	        <option value="<c:out value="<%= IEC101Master.DOUBLE_POINT_INFORMATION %>"/>"><fmt:message key="dsEdit.iec101.iec101DataType.doublePoint"/></option>
 	        <option value="<c:out value="<%= IEC101Master.NORMALIZED_MEASURE %>"/>"><fmt:message key="dsEdit.iec101.iec101DataType.normalizedMeasure"/></option>
@@ -204,29 +233,29 @@
 	    </td>
   	</tr>
   	<tr>
-    	<td class="formLabelRequired"><fmt:message key="dsEdit.settable"/></td>
-    	<td class="formField"><input type="checkbox" id="settable" onchange="settableChanged()"/></td>
+    	<td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.settable"/></td>
+    	<td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="settable" onchange="settableChanged()"/></td>
   	</tr>
   	<tbody id="commandFields">
   		<tr>
-		    <td class="formLabelRequired">Control Mode</td>
+		    <td class="formLabelRequired align-middle my-2">Control Mode</td>
 		    <td class="formField">
-		      <select id="controlMode">
+		      <select class="w-50 form-select form-select-sm my-2" id="controlMode">
 		        <option value="<c:out value="<%= IEC101Master.SELECT_AND_EXECUTE%>"/>"><fmt:message key="dsEdit.iec101.selectExecute"/></option>
 		        <option value="<c:out value="<%= IEC101Master.EXECUTE_ONLY%>"/>"><fmt:message key="dsEdit.iec101.execute"/></option>
 		      </select>
 		    </td>
   		</tr>
   		<tr>
-		    <td class="formLabelRequired"><fmt:message key="dsEdit.iec101.offset"/></td>
-		    <td class="formField"><input type="text" id="offset"/></td>
+		    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.iec101.offset"/></td>
+		    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="offset"/></td>
 		</tr>
   	</tbody>
   	<tbody id="singleCommandQualifier">
 		<tr>
-		    <td class="formLabelRequired">Qualifier</td>
+		    <td class="formLabelRequired align-middle my-2">Qualifier</td>
 		    <td class="formField">
-		      <select id="qualifier">
+		      <select class="w-50 form-select form-select-sm my-2" id="qualifier">
 		        <option value="<c:out value="<%= IEC101Master.DEFAULT%>"/>"><fmt:message key="dsEdit.iec101.default"/></option>
 		        <option value="<c:out value="<%= IEC101Master.SHORT_PULSE%>"/>"><fmt:message key="dsEdit.iec101.shortPulse"/></option>
 		        <option value="<c:out value="<%= IEC101Master.LONG_PULSE%>"/>"><fmt:message key="dsEdit.iec101.longPulse"/></option>
