@@ -1,9 +1,10 @@
+import Component from "../../Component.js";
 import IsConnected from "./IsConnected.js";
 import Modem from "./Modem.js";
 import NumericDisplay from "../proto/NumericDisplay.js";
 import Daily from "./Daily.js";
 import Hourly from "./Hourly.js";
-import Component from "../../Component.js";
+import Update from "./Update.js";
 
 class Label extends Component {
 	constructor (text) {
@@ -52,6 +53,8 @@ class TableData extends Component {
 			child = new Daily(isatag);
 		} else if (type == "HOURLY") {
 			child = new Hourly(isatag);
+		} else if (type == "CLOCK") {
+			child = new Update(isatag);
 		} else {
 			child = new Unknown();
 		}
