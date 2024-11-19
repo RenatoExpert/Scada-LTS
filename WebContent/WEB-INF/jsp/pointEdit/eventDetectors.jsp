@@ -19,7 +19,7 @@
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.vo.event.PointEventDetectorVO"%>
 <div class="right-box my-3">
-  <table class="w-100" id="eventDetectorTable">
+  <table class="w-100 my-3" id="eventDetectorTable">
     <tr><td colspan="2">
       <span class="smallTitle ms-3"><fmt:message key="pointEdit.detectors.eventDetectors"/></span>
       <tag:help id="eventDetectors"/>
@@ -103,7 +103,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -124,9 +124,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Limit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -149,7 +149,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -175,9 +175,9 @@
         </td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -200,7 +200,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -221,9 +221,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_State" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -246,7 +246,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -281,7 +281,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -302,9 +302,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_ChangeCount" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -327,7 +327,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -344,9 +344,9 @@
         </td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -369,7 +369,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -386,9 +386,9 @@
         </td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -411,7 +411,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -432,9 +432,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_State" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -457,7 +457,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -482,9 +482,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Weight" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
@@ -507,7 +507,7 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
         <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
@@ -532,9 +532,9 @@
         <td class="formField"><input id="eventDetector_TEMPLATE_Weight" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+        <td class="FormLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
           <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>

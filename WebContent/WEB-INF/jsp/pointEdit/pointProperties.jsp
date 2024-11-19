@@ -31,7 +31,7 @@
 		<tr>
 			<td colspan="3">
 				<i class="bi bi-pencil-square align-middle ms-3 fs-6"></i>
-				<span class="smallTitle">
+				<span class="smallTitle m-3">
 					<fmt:message key="pointEdit.props.props"/>
 				</span>
 				<tag:help id="dataPointEditing"/>

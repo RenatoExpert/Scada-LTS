@@ -43,7 +43,7 @@
       <td></td>
     </tr>
     
-    <tr>
+    <tr class="d-flex justify-content-center my-2">
       <td colspan="2"><fmt:message key="pointEdit.buttons.note"/></td>
     </tr>
   </table>
