@@ -104,7 +104,7 @@
         <tr>
           <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.purge.olderThan"/></td>
           <td class="w-100 d-flex align-items-center justify-content-start">
-            <input id="purgeNowPeriod" class="w-25 form-control form-control-sm my-2" type="text" value="${form.purgePeriod}" class="formShort"/>
+            <input id="purgeNowPeriod" class="w-25 form-control form-control-sm me-2" type="text" value="${form.purgePeriod}" class="formShort"/>
             <sst:select id="purgeNowType" value="${form.purgeType}">
               <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true" y="true"/>
             </sst:select>
@@ -123,7 +123,7 @@
     
     <tr>
       <td colspan="2" align="center">
-        <button id="purgeNowBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="purgeNow();" ><fmt:message key="pointEdit.purge.purgeNow"/></button>
+        <button id="purgeNowBtn" class="btn btn-primary custom-btn-blue me-3" onclick="purgeNow();" ><fmt:message key="pointEdit.purge.purgeNow"/></button>
         <%-- <input id="purgeNowBtn" type="button" value="<fmt:message key="pointEdit.purge.purgeNow"/>" onclick="purgeNow();"/> --%>
       </td>
     </tr>

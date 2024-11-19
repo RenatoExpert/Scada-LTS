@@ -228,7 +228,7 @@
         <tr>
           <td class="w-25 formLabelRequired align-middle mx-2"><fmt:message key="pointEdit.logging.purge"/></td>
           <td class="d-flex align-items-center justify-content-start">
-            <fmt:message key="pointEdit.logging.after"/> <input id="purgePeriod" class="w-25 form-control form-control-sm ms-2" type="text" name="purgePeriod" value="${form.purgePeriod}" class="formShort"/>
+            <fmt:message key="pointEdit.logging.after"/> <input id="purgePeriod" class="w-25 form-control form-control-sm mx-2" type="text" name="purgePeriod" value="${form.purgePeriod}" class="formShort"/>
             <sst:select id="purgeType" name="purgeType" value="${form.purgeType}">
               <tag:timePeriodOptions sst="true" d="true" w="true" mon="true" y="true"/>
             </sst:select>

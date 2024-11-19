@@ -44,16 +44,8 @@
 	function addClassToSelectsDataPointEdit() {
 	var selectGroups = [
 		{
-		ids: ["loggingType", "intervalLoggingPeriodType", "intervalLoggingType", "purgeStrategy", "engineeringUnits", "eventTextRendererSelect", "textRendererSelect", "chartRendererSelect", "purgeNowStrategy"],
+		ids: ["purgeNowType", "purgeType", "loggingType", "intervalLoggingPeriodType", "intervalLoggingType", "purgeStrategy", "engineeringUnits", "eventTextRendererSelect", "textRendererSelect", "chartRendererSelect", "purgeNowStrategy"],
 		classes: ["w-50", "form-select", "form-select-sm", "my-2"]
-		},
-    {
-		ids: ["purgeType"],
-		classes: ["w-25", "form-select", "form-select-sm", "my-2"]
-		},
-    {
-		ids: ["purgeNowType"],
-		classes: ["w-100", "form-select", "form-select-sm", "my-2"]
 		},
 		{
 		ids: ["discardExtremeValues"],

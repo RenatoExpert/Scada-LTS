@@ -90,7 +90,7 @@
 		<tr>
 			<td>
 				<div class="right-box my-3" style="margin:20px; padding:10px; border-color:blue; max-width: 800px;">
-					<table class="w-100" cellpadding="0" cellspacing="0">
+					<table class="w-100 my-3" cellpadding="0" cellspacing="0">
 						<tr>
 							<td colspan="4">
 								<span class="smallTitle">
@@ -103,7 +103,7 @@
 								<fmt:message key="pointEdit.basing_on.select"/>
 							</td>
 							<td colspan="2" class="formField">
-								<select class="w-50 form-select form-select-sm my-2" id="selected_base_on_existing_point_chooser">
+								<select class="w-75 form-select form-select-sm my-2" id="selected_base_on_existing_point_chooser">
 									<c:forEach items="${userPoints}" var="point">
 										<sst:option value="${point.id}">
 											${point.extendedName}
@@ -117,7 +117,7 @@
 								<button id="baseOnExistingPointBtn" class="btn btn-primary custom-btn-blue m-3" onclick="baseOnExistingPoint()" ><fmt:message key="pointEdit.basing_on.apply"/></button>
 								<%-- <input id="baseOnExistingPointBtn" type="button" value="<fmt:message key="pointEdit.basing_on.apply"/>" onclick="baseOnExistingPoint()"> --%>
 							</td>
-							<td colspan="3">
+							<td>
 								<input class="form-check-input custom-checkbox my-2" type="checkbox" id="checkGetAlertError" value="true" checked>
 								<label for="checkGetAlertError">
 									<td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.basing_on.warning_on"/></td>
