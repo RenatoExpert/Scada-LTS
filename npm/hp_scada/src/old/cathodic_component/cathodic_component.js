@@ -41,8 +41,8 @@ class Cathodic_component extends Summary_component {
 			}
 		];
 		console.log('table_model', { table_model });
-		let table_particle = "EU";
-		super(map, table_model);
+		let table_particle = "EP";
+		super(map, table_model, table_particle);
 	}
 }
 
