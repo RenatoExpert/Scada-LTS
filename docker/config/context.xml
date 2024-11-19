@@ -26,11 +26,11 @@
                                                         org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer;
                                                         org.apache.tomcat.jdbc.pool.interceptor.ResetAbandonedTimer;
                                                         org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport(threshold=1500)"
-              username="root"
-              password="root"
+              username="scada"
+              password="ol2Kjpi10105ZdsJ093aF3Ku"
               driverClassName="com.mysql.jdbc.Driver"
               defaultTransactionIsolation="READ_COMMITTED"
               connectionProperties="useSSL=false;allowPublicKeyRetrieval=true"
-              url="jdbc:mysql://database:3306/scadalts"
+              url="jdbc:mysql://scada.mysql.database.azure.com:3306/scada"
     />
 </Context>
