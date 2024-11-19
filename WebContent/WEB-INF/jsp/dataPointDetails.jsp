@@ -218,7 +218,7 @@
               <td class="smallTitle" colspan="2"><i class="bi bi-search align-middle me-3 fs-5" title="<fmt:message key='common.point'/>"></i>
                 ${point.name}
                 <c:if test="${pointEditor}">
-                    <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointDetails.editPoint'/>">
+                    <a href="data_point_edit.shtm?dpid=${point.id}" title="<fmt:message key='pointDetails.editPoint'/>" style="display: inline-block;">
                         <i class="bi bi-pencil-square align-middle ms-3 fs-5"></i>
                     </a>
                     <a href="data_source_edit.shtm?dsid=${point.dataSourceId}&pid=${point.id}" title="<fmt:message key='pointDetails.editDataSource'/>">
@@ -431,7 +431,10 @@
                   <c:choose>
                     <c:when test="${event.active}">
                       <fmt:message key="common.active"/>
-                      <a href="events.shtm"><tag:img png="flag_white" title="common.active"/></a>
+                      <a href="events.shtm">
+                      <i class="bi bi-flag align-middle ms-3 fs-5" title="<fmt:message key='common.active'/>"></i>
+                      <%-- <tag:img png="flag_white" title="common.active"/> --%>
+                      </a>
                     </c:when>
                     <c:when test="${!event.rtnApplicable}"><fmt:message key="common.nortn"/></c:when>
                     <c:otherwise>

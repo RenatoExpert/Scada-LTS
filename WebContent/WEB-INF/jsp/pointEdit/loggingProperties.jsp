@@ -114,8 +114,8 @@
   });
 </script>
 
-<div class="borderDiv marB marR">
-  <table>
+<div class="right-box my-3">
+  <table class="w-100 m-3">
     <tr><td colspan="3">
       <span class="smallTitle"><fmt:message key="pointEdit.logging.props"/></span>
       <tag:help id="pointValueLogging"/>
@@ -123,7 +123,7 @@
     
     <spring:bind path="form.loggingType">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.logging.type"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.type"/></td>
         <td class="formField">
           <sst:select id="loggingType" name="loggingType" onchange="changeLoggingType();" value="${status.value}">
             <sst:option value="<%= Integer.toString(DataPointVO.LoggingTypes.ON_CHANGE) %>"><fmt:message key="pointEdit.logging.type.change"/></sst:option>
@@ -139,9 +139,9 @@
     
     <tbody id="intervalLoggingSection" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.logging.period"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.period"/></td>
         <td class="formField">
-          <fmt:message key="pointEdit.logging.every"/> <input type="text" name="intervalLoggingPeriod" value="${form.intervalLoggingPeriod}" class="formShort"/>
+          <fmt:message key="pointEdit.logging.every"/> <input class="w-75 form-control form-control-sm my-2" type="text" name="intervalLoggingPeriod" value="${form.intervalLoggingPeriod}" class="formShort"/>
           <sst:select name="intervalLoggingPeriodType" value="${form.intervalLoggingPeriodType}">
             <tag:timePeriodOptions sst="true" s="true" min="true" h="true" d="true" w="true" mon="true" y="true"/>
           </sst:select>
@@ -154,7 +154,7 @@
       
       <spring:bind path="form.intervalLoggingType">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.valueType"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.valueType"/></td>
           <td class="formField">
             <sst:select id="intervalLoggingType" name="intervalLoggingType" value="${form.intervalLoggingType}">
               <sst:option value="<%= Integer.toString(DataPointVO.IntervalLoggingTypes.INSTANT) %>"><fmt:message key="pointEdit.logging.valueType.instant"/></sst:option>
@@ -171,9 +171,9 @@
     <tbody id="toleranceSection" style="display:none;">
       <spring:bind path="form.tolerance">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.tolerance"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.tolerance"/></td>
           <td class="formField">
-            <input id="tolerance" type="text" name="tolerance" value="${status.value}" class="formShort"/>
+            <input id="tolerance" class="w-75 form-control form-control-sm my-2" type="text" name="tolerance" value="${status.value}" class="formShort"/>
           </td>
           <c:if test="${error.tolerance != null}"><td class="formError"><fmt:message key="${error.tolerance}"/></td></c:if>
         </tr>
@@ -183,7 +183,7 @@
     <tbody id="discardSection" style="display:none;">
       <spring:bind path="form.discardExtremeValues">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.discard"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.discard"/></td>
           <td class="formField">
             <sst:checkbox id="discardExtremeValues" name="discardExtremeValues" selectedValue="${status.value}"
                     onclick="changeDiscard()"/>
@@ -193,18 +193,18 @@
       </spring:bind>
       <spring:bind path="form.discardLowLimit">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.discardLow"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.discardLow"/></td>
           <td class="formField">
-            <input id="discardLowLimit" type="text" name="discardLowLimit" value="${status.value}" class="formShort"/>
+            <input id="discardLowLimit" class="w-75 form-control form-control-sm my-2" type="text" name="discardLowLimit" value="${status.value}" class="formShort"/>
           </td>
           <c:if test="${error.discardLowLimit != null}"><td class="formError"><fmt:message key="${error.discardLowLimit}"/></td></c:if>
         </tr>
       </spring:bind>
       <spring:bind path="form.discardHighLimit">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.discardHigh"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.discardHigh"/></td>
           <td class="formField">
-            <input id="discardHighLimit" type="text" name="discardHighLimit" value="${status.value}" class="formShort"/>
+            <input id="discardHighLimit" class="w-75 form-control form-control-sm my-2" type="text" name="discardHighLimit" value="${status.value}" class="formShort"/>
           </td>
           <c:if test="${error.discardHighLimit != null}"><td class="formError"><fmt:message key="${error.discardHighLimit}"/></td></c:if>
         </tr>
@@ -213,7 +213,7 @@
 
     <spring:bind path="form.purgeStrategy">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.logging.purgeStrategy"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.purgeStrategy"/></td>
         <td class="formField">
           <sst:select id="purgeStrategy" name="purgeStrategy" onchange="changePurgeStrategy();" value="${status.value}">
             <sst:option value="<%= Integer.toString(DataPointVO.PurgeStrategy.PERIOD) %>"><fmt:message key="pointEdit.purge.type.period"/></sst:option>
@@ -226,9 +226,9 @@
 
     <tbody id="purgePeriodSection" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.purge"/></td>
-          <td class="formField">
-            <fmt:message key="pointEdit.logging.after"/> <input id="purgePeriod" type="text" name="purgePeriod" value="${form.purgePeriod}" class="formShort"/>
+          <td class="w-25 formLabelRequired align-middle mx-2"><fmt:message key="pointEdit.logging.purge"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <fmt:message key="pointEdit.logging.after"/> <input id="purgePeriod" class="w-25 form-control form-control-sm ms-2" type="text" name="purgePeriod" value="${form.purgePeriod}" class="formShort"/>
             <sst:select id="purgeType" name="purgeType" value="${form.purgeType}">
               <tag:timePeriodOptions sst="true" d="true" w="true" mon="true" y="true"/>
             </sst:select>
@@ -240,9 +240,9 @@
     <tbody id="purgeLimitSection" style="display:none;">
         <spring:bind path="form.purgeValuesLimit">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="pointEdit.purge.type.limit"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.purge.type.limit"/></td>
               <td class="formField">
-                <input id="purgeValuesLimit" type="text" name="purgeValuesLimit" value="${status.value}" class="formShort"/>
+                <input id="purgeValuesLimit" class="w-75 form-control form-control-sm my-2" type="text" name="purgeValuesLimit" value="${status.value}" class="formShort"/>
               </td>
               <c:if test="${error.purgeValuesLimit != null}"><td class="formError"><fmt:message key="${error.purgeValuesLimit}"/></td></c:if>
             </tr>
@@ -251,10 +251,11 @@
       
     <spring:bind path="form.defaultCacheSize">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.logging.defaultCache"/></td>
-        <td class="formField">
-          <input id="defaultCacheSize" type="text" name="defaultCacheSize" value="${status.value}" class="formShort"/>
-          <input id="clearCacheBtn" type="button" value="<fmt:message key="pointEdit.logging.clearCache"/>" onclick="clearPointCache();"/>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.defaultCache"/></td>
+        <td class="w-100 d-flex align-items-center justify-content-start">
+          <input id="defaultCacheSize" class="w-25 form-control form-control-sm my-2" type="text" name="defaultCacheSize" value="${status.value}" class="formShort"/>
+          <button id="clearCacheBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="clearPointCache();" ><fmt:message key="pointEdit.logging.clearCache"/></button>
+          <%-- <input id="clearCacheBtn" type="button" value="<fmt:message key="pointEdit.logging.clearCache"/>" onclick="clearPointCache();"/> --%>
         </td>
          <c:if test="${error.defaultCacheSize != null}"><td class="formError"><fmt:message key="${error.defaultCacheSize}"/></td></c:if>
       </tr>

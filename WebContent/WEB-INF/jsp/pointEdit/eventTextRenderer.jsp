@@ -17,15 +17,15 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
-<div class="borderDiv marB marR">
-  <table>
+<div class="right-box my-3">
+  <table class="w-100 m-3">
     <tr><td colspan="3">
       <span class="smallTitle"><fmt:message key="pointEdit.event.text.props"/></span>
       <tag:help id="eventTextRenderers"/>
     </td></tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.text.type"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.type"/></td>
       <td class="formField">
         <sst:select id="eventTextRendererSelect" onchange="eventTextRendererEditor.change();"
                     value="${form.eventTextRenderer.typeName}">
@@ -38,21 +38,21 @@
 
     <tbody id="eventTextRendererBinary" style="display:none;">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.text.zero"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.zero"/></td>
       <td class="formField">
         <table cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><input class="formLong" id="eventTextRendererBinaryZero" type="text"/></td>
+            <td valign="top"><input class="formLong" id="eventTextRendererBinaryZero" class="w-75 form-control form-control-sm my-2" type="text"/></td>
           </tr>
         </table>
       </td>
     </tr>
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.text.one"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.one"/></td>
       <td class="formField">
         <table cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><input class="formLong" id="eventTextRendererBinaryOne" type="text"/></td>
+            <td valign="top"><input class="formLong" id="eventTextRendererBinaryOne" class="w-75 form-control form-control-sm my-2" type="text"/></td>
           </tr>
         </table>
       </td>
@@ -68,8 +68,8 @@
             <td></td>
           </tr>
           <tr>
-            <td valign="top"><input type="text" id="eventTextRendererMultistateKey" value="" class="formVeryShort"/></td>
-            <td valign="top"><input class="formLong" type="text" id="eventTextRendererMultistateText"/></td>
+            <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="eventTextRendererMultistateKey" value="" class="formVeryShort"/></td>
+            <td valign="top"><input class="formLong" class="w-75 form-control form-control-sm my-2" type="text" id="eventTextRendererMultistateText"/></td>
             <td valign="top">
               <tag:img png="add" title="common.add" onclick="return eventTextRendererEditor.addMultistateEventValue();"/>
             </td>
@@ -92,9 +92,9 @@
             <td></td>
           </tr>
           <tr>
-            <td valign="top"><input type="text" id="eventTextRendererRangeFrom" value="" class="formVeryShort"/></td>
-            <td valign="top"><input type="text" id="eventTextRendererRangeTo" value="" class="formVeryShort"/></td>
-            <td valign="top"><input class="formLong" type="text" id="eventTextRendererRangeText" value=""/></td>
+            <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="eventTextRendererRangeFrom" value="" class="formVeryShort"/></td>
+            <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="eventTextRendererRangeTo" value="" class="formVeryShort"/></td>
+            <td valign="top"><input class="formLong" class="w-75 form-control form-control-sm my-2" type="text" id="eventTextRendererRangeText" value=""/></td>
             <td valign="top">
               <tag:img png="add" title="common.add" onclick="return eventTextRendererEditor.addRangeEventValue();"/>
             </td>

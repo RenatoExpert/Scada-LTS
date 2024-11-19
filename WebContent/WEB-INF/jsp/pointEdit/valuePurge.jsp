@@ -80,8 +80,8 @@
     });
 </script>
 
-<div class="borderDiv marB marR" style="margin:20px; padding:10px 10px 10px 10px; border-color:blue; max-width: 800px;">
-  <table>
+<div class="right-box my-3" style="margin:20px; padding:10px 10px 10px 10px; border-color:blue; max-width: 800px;">
+	<table class="w-100 m-3">
     <tr><td colspan="3">
       <span class="smallTitle"><fmt:message key="pointEdit.purge.purgeNow"/></span>
       <tag:help id="pointValueLogPurging"/>
@@ -89,7 +89,7 @@
 
     <spring:bind path="form.purgeStrategy">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.logging.purgeStrategy"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.logging.purgeStrategy"/></td>
           <td class="formField">
             <sst:select id="purgeNowStrategy" name="purgeNowStrategy" onchange="changePurgeNowStrategy();" value="${status.value}">
               <sst:option value="<%= Integer.toString(DataPointVO.PurgeStrategy.PERIOD) %>"><fmt:message key="pointEdit.purge.type.period"/></sst:option>
@@ -102,9 +102,9 @@
 
     <tbody id="purgeNowPeriodSection">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="pointEdit.purge.olderThan"/></td>
-          <td class="formField">
-            <input id="purgeNowPeriod" type="text" value="${form.purgePeriod}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.purge.olderThan"/></td>
+          <td class="w-100 d-flex align-items-center justify-content-start">
+            <input id="purgeNowPeriod" class="w-25 form-control form-control-sm my-2" type="text" value="${form.purgePeriod}" class="formShort"/>
             <sst:select id="purgeNowType" value="${form.purgeType}">
               <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true" mon="true" y="true"/>
             </sst:select>
@@ -114,23 +114,25 @@
 
     <tbody id="purgeNowLimitSection" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.purge.type.limit"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.purge.type.limit"/></td>
         <td class="formField">
-          <input id="purgeNowValuesLimit" type="text" name="purgeNowValuesLimit" value="${form.purgeValuesLimit}" class="formShort"/>
+          <input id="purgeNowValuesLimit" class="w-75 form-control form-control-sm my-2" type="text" name="purgeNowValuesLimit" value="${form.purgeValuesLimit}" class="formShort"/>
         </td>
       </tr>
     </tbody>
     
     <tr>
       <td colspan="2" align="center">
-        <input id="purgeNowBtn" type="button" value="<fmt:message key="pointEdit.purge.purgeNow"/>" onclick="purgeNow();"/>
+        <button id="purgeNowBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="purgeNow();" ><fmt:message key="pointEdit.purge.purgeNow"/></button>
+        <%-- <input id="purgeNowBtn" type="button" value="<fmt:message key="pointEdit.purge.purgeNow"/>" onclick="purgeNow();"/> --%>
       </td>
     </tr>
     
     <tbody id="purgeNowWarn" style="display:none">
       <tr>
         <td colspan="2" align="center" class="formError">
-          <img id="purgeNowImg" src="images/warn.png"/>
+          <i class="bi bi-exclamation-circle-fill text-warning align-middle me-3 fs-5" title="<fmt:message key='pointEdit.purge.warn'/>"></i>
+          <%-- <img id="purgeNowImg" src="images/warn.png"/> --%>
           <fmt:message key="pointEdit.purge.warn"/>
         </td>
       </tr>

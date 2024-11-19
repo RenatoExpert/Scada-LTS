@@ -17,15 +17,15 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
-<div class="borderDiv marB marR">
-  <table>
+<div class="right-box my-3">
+	<table class="w-100 m-3">
     <tr><td colspan="3">
       <span class="smallTitle"><fmt:message key="pointEdit.chart.props"/></span>
       <tag:help id="chartRenderers"/>
     </td></tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.chart.type"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.type"/></td>
       <td class="formField">
         <sst:select id="chartRendererSelect" onchange="chartRendererEditor.change()"
                 value="${form.chartRenderer.typeName}">
@@ -39,15 +39,15 @@
     <tbody id="chartRendererNone" style="display:none;"></tbody>
     <tbody id="chartRendererTable" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.chart.limit"/></td>
-        <td class="formField"><input id="chartRendererTableLimit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.limit"/></td>
+        <td class="formField"><input id="chartRendererTableLimit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
     </tbody>
     <tbody id="chartRendererImage" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.chart.timePeriod"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.timePeriod"/></td>
         <td class="formField">
-          <input id="chartRendererImageNumberOfPeriods" type="text" class="formVeryShort"/>
+          <input id="chartRendererImageNumberOfPeriods" class="w-75 form-control form-control-sm my-2" type="text" class="formVeryShort"/>
           <select id="chartRendererImageTimePeriod">
             <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true"/>
           </select>
@@ -56,23 +56,23 @@
     </tbody>
     <tbody id="chartRendererStats" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.chart.timePeriod"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.timePeriod"/></td>
         <td class="formField">
-          <input id="chartRendererStatsNumberOfPeriods" type="text" class="formVeryShort"/>
+          <input id="chartRendererStatsNumberOfPeriods" class="w-75 form-control form-control-sm my-2" type="text" class="formVeryShort"/>
           <select id="chartRendererStatsTimePeriod">
             <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true"/>
           </select>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.chart.includeSum"/></td>
-        <td class="formField"><input id="chartRendererStatsIncludeSum" type="checkbox"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.includeSum"/></td>
+        <td class="formField"><input id="chartRendererStatsIncludeSum" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
       </tr>
     </tbody>
     <tbody id="chartRendererImageFlipbook" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.chart.limit"/></td>
-        <td class="formField"><input id="chartRendererImageFlipbookLimit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.chart.limit"/></td>
+        <td class="formField"><input id="chartRendererImageFlipbookLimit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
     </tbody>
     

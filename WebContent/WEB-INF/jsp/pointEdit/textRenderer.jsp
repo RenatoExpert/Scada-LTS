@@ -17,15 +17,15 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
-<div class="borderDiv marB marR">
-  <table>
+<div class="right-box my-3">
+	<table class="w-100 m-3">
     <tr><td colspan="3">
       <span class="smallTitle"><fmt:message key="pointEdit.text.props"/></span>
       <tag:help id="textRenderers"/>
     </td></tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.text.type"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.type"/></td>
       <td class="formField">
         <sst:select id="textRendererSelect" onchange="textRendererEditor.change();"
                 value="${form.textRenderer.typeName}">
@@ -38,24 +38,24 @@
     
     <tbody id="textRendererAnalog" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.text.format"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.format"/></td>
         <td class="formField">
-          <input id="textRendererAnalogFormat" type="text"/>
+          <input id="textRendererAnalogFormat" class="w-75 form-control form-control-sm my-2" type="text"/>
           <tag:help id="numberFormats"/>
         </td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.text.suffix"/></td>
-        <td class="formField"><input id="textRendererAnalogSuffix" type="text"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.suffix"/></td>
+        <td class="formField"><input id="textRendererAnalogSuffix" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
     </tbody>
     <tbody id="textRendererBinary" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.text.zero"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.zero"/></td>
         <td class="formField">
           <table cellspacing="0" cellpadding="0">
             <tr>
-              <td valign="top"><input id="textRendererBinaryZero" type="text"/></td>
+              <td valign="top"><input id="textRendererBinaryZero" class="w-75 form-control form-control-sm my-2" type="text"/></td>
               <td width="10"></td>
               <td valign="top" align="center">
                 <div dojoType="ColorPalette" palette="3x4" id="textRendererBinaryZeroColour"></div>
@@ -66,11 +66,11 @@
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.text.one"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.one"/></td>
         <td class="formField">
           <table cellspacing="0" cellpadding="0">
             <tr>
-              <td valign="top"><input id="textRendererBinaryOne" type="text"/></td>
+              <td valign="top"><input id="textRendererBinaryOne" class="w-75 form-control form-control-sm my-2" type="text"/></td>
               <td width="10"></td>
               <td valign="top" align="center">
                 <div dojoType="ColorPalette" palette="3x4" id="textRendererBinaryOneColour"></div>
@@ -92,8 +92,8 @@
               <td></td>
             </tr>
             <tr>
-              <td valign="top"><input type="text" id="textRendererMultistateKey" value="" class="formVeryShort"/></td>
-              <td valign="top"><input type="text" id="textRendererMultistateText" value="" class="formShort"/></td>
+              <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="textRendererMultistateKey" value="" class="formVeryShort"/></td>
+              <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="textRendererMultistateText" value="" class="formShort"/></td>
               <td valign="top" align="center">
                 <div dojoType="ColorPalette" palette="3x4" id="textRendererMultistateColour"></div>
                 <a href="#" onclick="textRendererEditor.handlerMultistateColour(null); return false;">(<fmt:message key="pointEdit.text.default"/>)</a>
@@ -111,14 +111,14 @@
     </tbody>
     <tbody id="textRendererPlain" style="display:none;">
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.text.suffix"/></td>
-        <td class="formField"><input id="textRendererPlainSuffix" type="text"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.suffix"/></td>
+        <td class="formField"><input id="textRendererPlainSuffix" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
     </tbody>
     <tbody id="textRendererRange" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.text.format"/></td>
-        <td class="formField"><input id="textRendererRangeFormat" type="text"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.format"/></td>
+        <td class="formField"><input id="textRendererRangeFormat" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
       <tr>
         <td colspan="2">
@@ -131,9 +131,9 @@
               <td></td>
             </tr>
             <tr>
-              <td valign="top"><input type="text" id="textRendererRangeFrom" value="" class="formVeryShort"/></td>
-              <td valign="top"><input type="text" id="textRendererRangeTo" value="" class="formVeryShort"/></td>
-              <td valign="top"><input type="text" id="textRendererRangeText" value=""/></td>
+              <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="textRendererRangeFrom" value="" class="formVeryShort"/></td>
+              <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="textRendererRangeTo" value="" class="formVeryShort"/></td>
+              <td valign="top"><input class="w-75 form-control form-control-sm my-2" type="text" id="textRendererRangeText" value=""/></td>
               <td valign="top" align="center">
                 <div dojoType="ColorPalette" palette="3x4" id="textRendererRangeColour"></div>
                 <a href="#" onclick="textRendererEditor.handlerRangeColour(null); return false;">(<fmt:message key="pointEdit.text.default"/>)</a>
@@ -149,15 +149,15 @@
     </tbody>
     <tbody id="textRendererTime" style="display:none;">
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.text.format"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.text.format"/></td>
         <td class="formField">
-          <input id="textRendererTimeFormat" type="text"/>
+          <input id="textRendererTimeFormat" class="w-75 form-control form-control-sm my-2" type="text"/>
           <tag:help id="datetimeFormats"/>
         </td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.text.conversionExponent"/></td>
-        <td class="formField"><input id="textRendererTimeConversionExponent" type="text"/></td>
+        <td class="formField"><input id="textRendererTimeConversionExponent" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
     </tbody>
   </table>

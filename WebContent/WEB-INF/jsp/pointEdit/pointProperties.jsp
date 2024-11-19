@@ -26,40 +26,40 @@
 	});
 </script>
 
-<div class="borderDiv marB marR">
-	<table>
+<div class="right-box my-3">
+	<table class="w-100 m-3">
 		<tr>
 			<td colspan="3">
-				<i class="bi bi-pencil-square"></i>
+				<i class="bi bi-pencil-square align-middle ms-3 fs-6"></i>
 				<span class="smallTitle">
 					<fmt:message key="pointEdit.props.props"/>
 				</span>
 				<tag:help id="dataPointEditing"/>
 				<a href="data_point_details.shtm?dpid=${form.id}">
-					<i class="bi bi-search" title="<fmt:message key='pointEdit.props.details'/>"></i>
+					<i class="bi bi-search align-middle ms-3 fs-6" title="<fmt:message key='pointEdit.props.details'/>"></i>
 				</a>
 			</td>
 		</tr>
 
 		<tr>
-			<td class="formLabelRequired">
+			<td class="formLabelRequired align-middle my-2">
 				<fmt:message key="pointEdit.props.ds"/>
 			</td>
-			<td colspan="2" class="formField">
+			<td colspan="2" class="formLabelRequired align-middle my-2">
 				${dataSource.name}
 				<a href="data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}">
-					<i class="bi bi-database-fill-gear" title="<fmt:message key='pointEdit.props.editDs'/>"></i>
+					<i class="bi bi-database-fill-gear align-middle ms-3 fs-6" title="<fmt:message key='pointEdit.props.editDs'/>"></i>
 				</a>
 			</td>
 		</tr>
 
 		<spring:bind path="form.name">
 			<tr>
-				<td class="formLabelRequired">
+				<td class="formLabelRequired align-middle my-2">
 					<fmt:message key="pointEdit.props.name"/>
 				</td>
 				<td class="formField">
-					<input type="text" name="name" value="${status.value}"/>
+					<input class="w-75 form-control form-control-sm my-2" type="text" name="name" value="${status.value}"/>
 				</td>
 				<c:if test="${error.name != null}">
 					<td class="formError">
@@ -71,11 +71,11 @@
 
 		<spring:bind path="form.description">
 			<tr>
-				<td class="formLabelRequired">
+				<td class="formLabelRequired align-middle my-2">
 					<fmt:message key="pointEdit.props.description"/>
 				</td>
 				<td class="formField">
-					<input type="text" class="formLong" name="description" value="${status.value}"/>
+					<input class="w-75 form-control form-control-sm my-2" type="text" class="formLong" name="description" value="${status.value}"/>
 				</td>
 				<c:if test="${error.description != null}">
 					<td class="formError">
@@ -88,11 +88,11 @@
 		<tbody id="engineeringUnitsSection" style="display:none;">
 			<spring:bind path="form.engineeringUnits">
 				<tr>
-					<td class="formLabelRequired">
+					<td class="formLabelRequired align-middle my-2">
 						<fmt:message key="pointEdit.props.engineeringUnits"/>
 					</td>
 					<td class="formField">
-						<sst:select name="engineeringUnits" value="${status.value}">
+						<sst:select id="engineeringUnits" name="engineeringUnits" value="${status.value}">
 							<tag:engineeringUnits/>
 						</sst:select>
 					</td>

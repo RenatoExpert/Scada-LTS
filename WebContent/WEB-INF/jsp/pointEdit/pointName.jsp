@@ -21,6 +21,7 @@
 <script type="text/javascript">
   var dataTypeId = ${form.pointLocator.dataTypeId};
 </script>
+
 <script type="text/javascript">
   function doSave(taskName) {
       $("taskName").name = taskName;
@@ -39,6 +40,37 @@
   function doSaveForm() {
       document.forms[0].submit();
   }
+  	//função para adicionar classes aos selects e checkbox estilo bootstrap
+	function addClassToSelectsDataPointEdit() {
+	var selectGroups = [
+		{
+		ids: ["loggingType", "intervalLoggingPeriodType", "intervalLoggingType", "purgeStrategy", "engineeringUnits", "eventTextRendererSelect", "textRendererSelect", "chartRendererSelect", "purgeNowStrategy"],
+		classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+		},
+    {
+		ids: ["purgeType"],
+		classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+		},
+    {
+		ids: ["purgeNowType"],
+		classes: ["w-100", "form-select", "form-select-sm", "my-2"]
+		},
+		{
+		ids: ["discardExtremeValues"],
+		classes: ["form-check-input", "custom-checkbox", "my-2"]
+		}
+	];
+
+	selectGroups.forEach(function(group) {
+		group.ids.forEach(function(id) {
+		var selectElement = document.getElementById(id);
+		if (selectElement) {
+		selectElement.classList.add(...group.classes);
+		}
+		});
+	});
+	}
+  
   jQuery(document).ready(function(){
 	  (function($) {
 			loadjscssfile("resources/jQuery/plugins/chosen/chosen.min.css","css"); 	
@@ -46,6 +78,7 @@
 	  	})(jQuery);	  
   });
   window.onload = function() {
+    addClassToSelectsDataPointEdit();
 	  jQuery("#allPointsList").chosen({
 	      	allow_single_deselect: true,
 			placeholder_text_single: " ",
@@ -55,10 +88,10 @@
   }
 </script>
 
-<table width="100%">
+<table class="w-100 container">
   <tr>
     <td valign="top">
-      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <table class="w-100" cellspacing="0" cellpadding="0" border="0">
         <spring:bind path="form">
         <c:if test="${error.status != null}">
             <tr><td colspan="2" class="formError"><fmt:message key="${error.status}"/></td></tr>
@@ -75,12 +108,12 @@
       </sst:select>
       
       <c:if test="${!empty prevId}">
-          <i class="bi bi-caret-left-square-fill text-success" title="<fmt:message key='pagination.previous'/>"
+          <i class="bi bi-caret-left-square-fill text-blue-add  align-middle ms-3 fs-5" title="<fmt:message key='pagination.previous'/>"
             onclick="window.location='data_point_edit.shtm?dpid=${prevId}'"></i>
       </c:if>
       
       <c:if test="${!empty nextId}">
-          <i class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='pagination.next'/>"
+          <i class="bi bi-caret-right-square-fill text-blue-add  align-middle ms-3 fs-5" title="<fmt:message key='pagination.next'/>"
             onclick="window.location='data_point_edit.shtm?dpid=${nextId}'"></i>
       </c:if>
     </td>
