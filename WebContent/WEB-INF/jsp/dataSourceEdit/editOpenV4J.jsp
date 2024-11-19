@@ -185,6 +185,35 @@
             }
         }
     }
+							 //função para adicionar classes aos selects estilo bootstrap
+    function addClassToSelects() {
+    var selectGroups = [
+      {
+      ids: ["editDataPoint", "editGroup"],
+      classes: ["w-75", "form-select", "form-select-sm", "my-2"]
+      },
+      {
+      ids: ["protocol", "updatePeriodType"],
+      classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+      },
+      {
+      ids: ["device"],
+      classes: ["w-25", "form-select", "form-select-sm", "me-2"]
+      }
+    ];
+
+    selectGroups.forEach(function(group) {
+      group.ids.forEach(function(id) {
+      var selectElement = document.getElementById(id);
+      if (selectElement) {
+        selectElement.classList.add(...group.classes);
+      }
+      });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.openv4j.desc"/></c:set>
@@ -192,11 +221,11 @@
 <%@include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
 
       <tr>
-        <td class="formLabelRequired"><fmt:message key="dsEdit.serial.port"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.port"/></td>
         <td class="formField">
           <c:choose>
             <c:when test="${!empty commPortError}">
-              <input id="commPortId" type="hidden" value=""/>
+              <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
               <span class="formError">${commPortError}</span>
             </c:when>
             <c:otherwise>
@@ -211,19 +240,20 @@
       </tr>
       
       <tr>
-        <td class="formLabelRequired"><fmt:message key="dsEdit.openv4j.device"/></td>
-        <td class="formField">
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.openv4j.device"/></td>
+        <td class="d-flex align-items-center justify-content-start">
           <sst:select id="device" value="${dataSource.device}" onchange="deviceChanged();">
             <c:forEach items="${dataSource.devices}" var="device">
               <sst:option value="${device}">${device.label}</sst:option>
             </c:forEach>
           </sst:select>
-          <input id="detectDeviceBtn" type="button" value="<fmt:message key="dsEdit.openv4j.detectDevice"/>" onclick="detectDevice();"/>
+          <button id="detectDeviceBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="detectDevice();" ><fmt:message key="dsEdit.openv4j.detectDevice"/></button>
+          <%-- <input id="detectDeviceBtn" type="button" value="<fmt:message key="dsEdit.openv4j.detectDevice"/>" onclick="detectDevice();"/> --%>
         </td>
       </tr>
       
       <tr>
-        <td class="formLabelRequired"><fmt:message key="dsEdit.openv4j.protocol"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.openv4j.protocol"/></td>
         <td class="formField">
           <sst:select id="protocol" value="${dataSource.protocol}">
             <c:forEach items="${dataSource.protocols}" var="protocol">
@@ -234,9 +264,9 @@
       </tr>
       
       <tr>
-        <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-        <td class="formField">
-          <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
           <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
             <tag:timePeriodOptions sst="true" s="true" min="true" h="true" d="true" w="true" mon="true"/>
           </sst:select>
@@ -248,13 +278,15 @@
 </td>
 
 <td valign="top">
-  <div class="borderDiv marB">
-    <table>
+  <div class="right-box w-25">
+    <table class="m-3">
       <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.openv4j.refresh"/></td></tr>
         <tr>
           <td colspan="2" align="center">
-            <input id="refreshBtn" type="button" value="<fmt:message key="dsEdit.openv4j.refresh"/>" onclick="refresh();"/>
-            <input id="cancelRefreshBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelRefresh();"/>
+            <button id="refreshBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="refresh();" ><fmt:message key="dsEdit.openv4j.refresh"/></button>
+            <%-- <input id="refreshBtn" type="button" value="<fmt:message key="dsEdit.openv4j.refresh"/>" onclick="refresh();"/> --%>
+            <button id="cancelRefreshBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="cancelRefresh();"><fmt:message key="common.cancel"/></button>
+            <%-- <input id="cancelRefreshBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="cancelRefresh();"/> --%>
           </td>
         </tr>
 
@@ -262,7 +294,7 @@
 
         <tr>
           <td colspan="2">
-            <table cellspacing="1">
+            <table cellspacing="1" class="fs-6 text-center table table-light table-hover my-2">
               <tr class="rowHeader">
                 <td><fmt:message key="dsEdit.openv4j.group"/></td>
                 <td><fmt:message key="dsEdit.openv4j.label"/></td>
@@ -279,7 +311,7 @@
         <tag:pointList pointHelpId="openv4jPP">
           <tbody id="editableAttributes">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.openv4j.group"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.openv4j.group"/></td>
               <td class="formField">
                 <sst:select id="editGroup" onchange="editGroupChanged()">
                   <c:forEach items="${dataSource.groups}" var="group">
@@ -290,15 +322,15 @@
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.openv4j.label"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.openv4j.label"/></td>
               <td class="formField"><select id="editDataPoint" onchange="editDataPointChanged()"/></td>
             </tr>
           </tbody>
 
           <tbody id="readonlyAttributes">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.openv4j.dataPointSettable"/></td>
-              <td class="formField"><input type="checkbox" id="dataPointSettable" disabled="disabled"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.openv4j.dataPointSettable"/></td>
+              <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="dataPointSettable" disabled="disabled"/></td>
             </tr>
           </tbody>
         </tag:pointList>

@@ -99,17 +99,38 @@
       else
           setDisabled("binary0Value", true);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["commPortId", "baudRate"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.nmea.props"/></c:set>
 <c:set var="dsHelpId" value="nmeaListenerDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.port"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.port"/></td>
           <td class="formField">
             <c:choose>
               <c:when test="${!empty commPortError}">
-                <input id="commPortId" type="hidden" value=""/>
+                <input class="form-control form-control-sm my-2" id="commPortId" type="hidden" value=""/>
                 <span class="formError">${commPortError}</span>
               </c:when>
               <c:otherwise>
@@ -124,7 +145,7 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.baud"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.baud"/></td>
           <td class="formField">
             <sst:select id="baudRate" value="${dataSource.baudRate}">
               <sst:option>1200</sst:option>
@@ -136,8 +157,8 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.resetTimeout"/></td>
-          <td class="formField"><input type="text" id="resetTimeout" value="${dataSource.resetTimeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.resetTimeout"/></td>
+          <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="resetTimeout" value="${dataSource.resetTimeout}"/></td>
         </tr>
       </table>
       <tag:dsEvents/>
@@ -145,14 +166,16 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-100">
+      <table class="w-100 m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.nmea.listener"/></td></tr>
         
         <tr>
           <td colspan="2">
-            <input id="listenBtn" type="button" value="<fmt:message key="dsEdit.nmea.listen"/>" onclick="listen();"/>
-            <input id="listenCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="listenCancel();"/>
+            <button id="listenBtn" class="btn btn-primary custom-btn-blue m-3" onclick="listen();" ><fmt:message key="dsEdit.nmea.listen"/></button>
+            <%-- <input id="listenBtn" type="button" value="<fmt:message key="dsEdit.nmea.listen"/>" onclick="listen();"/> --%>
+            <button id="listenCancelBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="listenCancel();" ><fmt:message key="common.cancel"/></button>
+            <%-- <input id="listenCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="listenCancel();"/> --%>
           </td>
         </tr>
         
@@ -165,26 +188,26 @@
 
 <tag:pointList pointHelpId="nmeaListenerPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId" onchange="dataTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId" onchange="dataTypeChanged()">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.binary0Value"/></td>
-    <td class="formField"><input type="text" id="binary0Value"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.binary0Value"/></td>
+    <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="binary0Value"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.messageName"/></td>
-    <td class="formField"><input type="text" id="messageName"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.messageName"/></td>
+    <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="messageName"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.nmea.fieldIndex"/></td>
-    <td class="formField"><input type="text" id="fieldIndex"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.nmea.fieldIndex"/></td>
+    <td class="formField"><input class=" w-75 form-control form-control-sm my-2" type="text" id="fieldIndex"/></td>
   </tr>
 </tag:pointList>

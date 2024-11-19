@@ -18,10 +18,11 @@
 --%>
 <%@ include file="/WEB-INF/snippet/common.jsp" %>
 <fmt:message key="common.enterSetPoint"/>:<br/>
-<input id="txtChange${componentId}" type="text" value="${mango:rawText(point, pointValue)}" 
+<input class="form-control form-control-sm my-2" id="txtChange${componentId}" type="text" value="${mango:rawText(point, pointValue)}" 
         onkeypress="if (event.keyCode==13) $('txtSet${componentId}').onclick();"/>
-<a id="txtSet${componentId}" class="ptr"
-        onclick="mango.view.setPoint(${point.id}, '${componentId}', $('txtChange${componentId}').value);"><fmt:message key="common.set"/></a>
+<tb></tb><button id="txtSet${componentId}" class="btn btn-primary custom-btn-blue ms-3"
+        onclick="mango.view.setPoint(${point.id}, '${componentId}', $('txtChange${componentId}').value);"><fmt:message key="common.set"/></button>
+        <%-- <button type="button" id="txtSet${componentId}" class="btn btn-primary custom-btn-blue" name="txtSet${componentId}"><sst:i18n key='common.set' escapeDQuotes='true' onclick="mango.view.setPoint(${point.id}, '${componentId}', $('txtChange${componentId}').value);"/></button> --%>
 <c:if test="${!hideClosingHint}" >
     </br>Double click to close
 </c:if>

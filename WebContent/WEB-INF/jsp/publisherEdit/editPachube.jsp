@@ -18,10 +18,10 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <script type="text/javascript">
-  var allPoints = new Array();  
-  var selectedPoints = new Array();  
+  var allPoints = new Array();
+  var selectedPoints = new Array();
   
-  dojo.addOnLoad(function() { 
+  dojo.addOnLoad(function() {
       PublisherEditDwr.initSender(function(response) {
           var i;
           var list = response.data.allPoints;
@@ -72,18 +72,16 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +"'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-blue-add  align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) {
-                          return "<input type='text' value='"+ data.feedId +"' "+
+                          return "<input class='form-control form-control-sm' type='text' value='"+ data.feedId +"' "+
                                   "onblur='updateFeedId("+ data.id +", this.value)'/>";
                   },
-                  function(data) {
-                	      return "<input type='text' value='"+ data.dataStreamId +"' "+
+                  function(data) {return "<input class='form-control form-control-sm' type='text' value='"+ data.dataStreamId +"' "+
                                   "onblur='updateDataStreamId("+ data.id +", this.value)'/>";
                   },
-                  function(data) { 
-                          return "<i class='bi bi-trash text-danger' "+
+                  function(data) {return "<i class='bi bi-trash text-danger align-middle me-2 fs-5' "+
                                   "onclick='removeFromSelectedPoints("+ data.id +")'></i>";
                   }
               ],
@@ -152,32 +150,32 @@
 <table cellpadding="0" cellspacing="0">
   <tr>
     <td valign="top">
-      <div class="borderDiv marR marB">
-        <table>
+      <div class="right-box my-3">
+        <table class="m-3">
           <tr>
-            <td colspan="2" class="smallTitle"><fmt:message key="publisherEdit.pachube.props"/> <tag:help id="pachubePublishing"/></td>
+            <td colspan="2" class="smallTitle"><fmt:message key="publisherEdit.pachube.props"/><tag:help id="pachubePublishing"/></td>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.pachube.apiKey"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.pachube.apiKey"/></td>
             <td class="formField">
-              <input type="text" id="apiKey" value="${publisher.apiKey}" class="formLong"/>
+              <input class='form-control form-control-sm my-2' type="text" id="apiKey" value="${publisher.apiKey}" class="formLong"/>
               <div id="apiKeyMsg" class="formError" style="display:none;"></div>
             </td>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.pachube.timeoutSeconds"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.pachube.timeoutSeconds"/></td>
             <td class="formField">
-              <input type="text" id="timeoutSeconds" value="${publisher.timeoutSeconds}"/>
+              <input class='form-control form-control-sm my-2' type="text" id="timeoutSeconds" value="${publisher.timeoutSeconds}"/>
               <div id="timeoutSecondsMsg" class="formError" style="display:none;"></div>
             </td>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.pachube.retries"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.pachube.retries"/></td>
             <td class="formField">
-              <input type="text" id="retries" value="${publisher.retries}"/>
+              <input class='form-control form-control-sm my-2' type="text" id="retries" value="${publisher.retries}"/>
               <div id="retriesMsg" class="formError" style="display:none;"></div>
             </td>
           </tr>
@@ -188,18 +186,28 @@
 </table>
 
 <table cellpadding="0" cellspacing="0"><tr><td>
-  <div class="borderDiv">
-    <table width="100%">
+  <div class="right-box my-3 w-100">
+    <table class="w-100">
       <tr>
-        <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
-        <td align="right">
-          <select id="availablePoints"></select>
-          <i class="bi bi-plus-circle-fill text-success" onclick="selectPoint()"></i>
-        </td>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-auto smallTitle">
+              <fmt:message key="publisherEdit.points"/>
+            </div>
+            <div class="col-auto">
+              <select class="form-select form-select-sm my-2" id="availablePoints"></select>
+            </div>
+            <div class="col-auto">
+              <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" onclick="selectPoint()"></i>
+            </div>
+          </div>
+        </div>
       </tr>
     </table>
+
+    <div id="httpSenderTest" ></div>
     
-    <table cellspacing="1" cellpadding="0">
+    <table cellspacing="1" cellpadding="0" class="table table-light table-hover align-middle">
       <tr class="rowHeader">
         <td><fmt:message key="publisherEdit.point.name"/></td>
         <td><fmt:message key="publisherEdit.point.status"/></td>

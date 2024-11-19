@@ -18,31 +18,33 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="org.scada_lts.web.mvc.controller.DataPointEditController"%>
-<table>
-  <tr>
-    <td colspan="2" align="center">
-      <input type="submit" value="<fmt:message key="common.save"/>"
-              onclick="return doSave('<%= DataPointEditController.SUBMIT_SAVE %>');"/>
-      <c:choose>
-        <c:when test="${form.enabled}">
-          <input type="submit" value="<fmt:message key="pointEdit.buttons.disable"/>"
-                  onclick="return doSave('<%= DataPointEditController.SUBMIT_DISABLE %>');"/>
-          <input type="submit" value="<fmt:message key="pointEdit.buttons.restart"/>" 
-                  onclick="return doSave('<%= DataPointEditController.SUBMIT_RESTART %>');"/>
-        </c:when>
-        <c:otherwise>
-          <input type="submit" value="<fmt:message key="pointEdit.buttons.enable"/>"
-                  onclick="return doSave('<%= DataPointEditController.SUBMIT_ENABLE %>');"/>
-        </c:otherwise>
-      </c:choose>
-      
-      <input type="button" value="<fmt:message key="common.cancel"/>"
-              onclick="window.location='data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}';"/>
-    </td>
-    <td></td>
-  </tr>
-  
-  <tr>
-    <td colspan="2"><fmt:message key="pointEdit.buttons.note"/></td>
-  </tr>
-</table>
+<div class="right-box my-3">
+	<table class="w-100 m-3">
+    <tr>
+      <td colspan="2" align="center">
+        <button type="submit" id="buttonsave" class="btn btn-primary custom-btn-blue ms-3" onclick="return doSave('<%= DataPointEditController.SUBMIT_SAVE %>');" ><fmt:message key="common.save"/></button>
+        <%-- <input type="submit" value="<fmt:message key="common.save"/>" onclick="return doSave('<%= DataPointEditController.SUBMIT_SAVE %>');"/> --%>
+        <c:choose>
+          <c:when test="${form.enabled}">
+            <button type="submit" id="buttondisable" class="btn btn-primary custom-btn-blue ms-3" onclick="return doSave('<%= DataPointEditController.SUBMIT_DISABLE %>');" ><fmt:message key="pointEdit.buttons.disable"/></button>
+            <%-- <input type="submit" value="<fmt:message key="pointEdit.buttons.disable"/>" onclick="return doSave('<%= DataPointEditController.SUBMIT_DISABLE %>');"/> --%>
+            <button type="submit" id="buttonrestart" class="btn btn-primary custom-btn-blue ms-3" onclick="return doSave('<%= DataPointEditController.SUBMIT_RESTART %>');" ><fmt:message key="pointEdit.buttons.restart"/></button>
+            <%-- <input type="submit" value="<fmt:message key="pointEdit.buttons.restart"/>" onclick="return doSave('<%= DataPointEditController.SUBMIT_RESTART %>');"/> --%>
+          </c:when>
+          <c:otherwise>
+            <button type="submit" id="buttonenable" class="btn btn-primary custom-btn-blue ms-3" onclick="return doSave('<%= DataPointEditController.SUBMIT_ENABLE %>');" ><fmt:message key="pointEdit.buttons.enable"/></button>
+            <%-- <input type="submit" value="<fmt:message key="pointEdit.buttons.enable"/>" onclick="return doSave('<%= DataPointEditController.SUBMIT_ENABLE %>');"/> --%>
+          </c:otherwise>
+        </c:choose>
+        
+        <button type="submit" id="buttoncancel" class="btn btn-primary custom-btn-blue ms-3" onclick="window.location='data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}';" ><fmt:message key="common.cancel"/></button>
+        <%-- <input type="button" value="<fmt:message key="common.cancel"/>" onclick="window.location='data_source_edit.shtm?dsid=${dataSource.id}&pid=${form.id}';"/> --%>
+      </td>
+      <td></td>
+    </tr>
+    
+    <tr>
+      <td colspan="2"><fmt:message key="pointEdit.buttons.note"/></td>
+    </tr>
+  </table>
+</div>

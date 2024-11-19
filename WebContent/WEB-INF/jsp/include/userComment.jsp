@@ -60,6 +60,10 @@
           commentsNode.appendChild(content);
           $("comment"+ comment.ts +"UserTime").textContent = comment.prettyTime + ' <fmt:message key="notes.by"/> ' + comment.username;
           $("comment"+ comment.ts +"Text").textContent = comment.comment;
+
+          
+          // Recarregar a página
+          location.reload();
       }
   }
   
@@ -73,6 +77,11 @@
       border : 1px solid #999;
       -moz-border-radius : 5px;
       padding : 4px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
   }
   #eventsTable .row td {
       vertical-align: top;
@@ -83,15 +92,15 @@
 </style>
 
 <div dojoType="dialog" id="CommentDialog" bgColor="white" bgOpacity="0.5" toggle="fade" toggleDuration="250">
-  <span class="smallTitle"><fmt:message key="notes.addNote"/></span>
-  <table>
+  <div class="m-3"><span class="smallTitle"><fmt:message key="notes.addNote"/></span></div>
+  <table class="m-3">
     <tr>
-      <td><textarea rows="8" cols="50" id="commentText"></textarea></td>
+      <td><textarea class="form-control mb-3" rows="8" cols="50" id="commentText"></textarea></td>
     </tr>
     <tr>
       <td align="center">
-        <input type="button" value="<fmt:message key="notes.save"/>" onclick="saveComment();"/>
-        <input type="button" value="<fmt:message key="notes.cancel"/>" onclick="closeCommentDialog();"/>
+      <button type="button" class="btn btn-primary custom-btn-blue mx-3" name="notes.save" onclick="saveComment()"><fmt:message key="notes.save"/></button>
+      <button type="button" class="btn btn-primary custom-btn-blue" name="notes.cancel" onclick="closeCommentDialog()"><fmt:message key="notes.cancel"/></button>
       </td>
     </tr>
   </table>

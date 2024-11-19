@@ -138,12 +138,12 @@
                   function(data) { return data.pointName; },
                   function(data) { return data.pointType; },
                   function(data) {
-                          return "<input type='text' value='"+ data.scriptVarName +"' class='formShort' "+
+                          return "<input class='w-75 form-control form-control-sm my-2' type='text' value='"+ data.scriptVarName +"' class='formShort' "+
                                   "onblur='updateScriptVarName("+ data.pointId +", this.value)'/>";
                   },
                   function(data) { 
-                          return "<img src='images/bullet_delete.png' class='ptr' "+
-                                  "onclick='removeFromContextArray("+ data.pointId +")'/>";
+                          return "<i class='bi bi-trash text-danger ms-3 fs-6' onclick='removeFromContextArray(" + data.pointId + ")'></i>";
+                                  <%-- "<img src='images/bullet_delete.png' class='ptr' "+ "onclick='removeFromContextArray("+ data.pointId +")'/>"; --%>
                   }
               ],
               {
@@ -205,6 +205,27 @@
   function updateEventChanged() {
       display("updateCronPatternRow", $get("updateEvent") == <%= MetaPointLocatorVO.UPDATE_EVENT_CRON %>);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["executionDelayPeriodTypeCode"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
   
   jQuery(document).ready(function(){    
   	(function($) {
@@ -221,26 +242,27 @@
 
 <tag:pointList pointHelpId="metaPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select id="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" id="dataTypeId">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.settable"/></td>
-    <td class="formField"><input type="checkbox" id="settable"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.settable"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="settable"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.meta.scriptContext"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.meta.scriptContext"/></td>
     <td class="formField">
-      <select id="allPointsList"></select>
-      <tag:img png="add" onclick="addPointToContext();" title="common.add"/>
+      <select class="w-50 form-select form-select-sm my-2" id="allPointsList"></select>
+      <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>"  onclick="addPointToContext();"></i>
+      <%-- <tag:img png="add" onclick="addPointToContext();" title="common.add"/> --%>
       
-      <table cellspacing="1" id="contextContainer">
+      <table cellspacing="1" id="contextContainer" class="fs-6 text-center table table-light table-hover my-2">
         <tbody id="contextTableEmpty" style="display:none;">
           <tr><th colspan="4"><fmt:message key="dsEdit.meta.noPoints"/></th></tr>
         </tbody>
@@ -258,16 +280,18 @@
   </tr>
   
   <tr>
-    <td class="formLabelRequired">
-      <fmt:message key="dsEdit.meta.script"/> <tag:img png="accept" onclick="validateScript();" title="dsEdit.meta.validate"/>
+    <td class="formLabelRequired align-middle my-2">
+      <fmt:message key="dsEdit.meta.script"/> 
+          <i id="accept" onclick="validateScript();" class="bi bi-gear-fill text-blue-add bi bi-gear-fill  ms-3 fs-6" title="<fmt:message key='dsEdit.meta.validate'/>"></i>
+          <%-- <tag:img png="accept" onclick="validateScript();" title="dsEdit.meta.validate"/> --%>
     </td>
-    <td class="formField"><textarea id="script" rows="10" cols="50"/></textarea></td>
+    <td class="formField"><textarea class="form-control mb-3 w-75" id="script" rows="10" cols="50"/></textarea></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.meta.event"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.meta.event"/></td>
     <td class="formField">
-      <select id="updateEvent" onchange="updateEventChanged()">
+      <select class="w-50 form-select form-select-sm my-2" id="updateEvent" onchange="updateEventChanged()">
         <option value="<c:out value="<%= MetaPointLocatorVO.UPDATE_EVENT_CONTEXT_UPDATE %>"/>"><fmt:message key="dsEdit.meta.event.context"/></option>
         <option value="<c:out value="<%= MetaPointLocatorVO.UPDATE_EVENT_CONTEXT_CHANGE %>"/>"><fmt:message key="dsEdit.meta.event.context.change"/></option>
         <option value="<c:out value="<%= Common.TimePeriods.MINUTES %>"/>"><fmt:message key="dsEdit.meta.event.minute"/></option>
@@ -282,14 +306,14 @@
   </tr>
   
   <tr id="updateCronPatternRow">
-    <td class="formLabelRequired"><fmt:message key="dsEdit.meta.event.cron"/></td>
-    <td class="formField"><input id="updateCronPattern" type="text"/> <tag:help id="cronPatterns"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.meta.event.cron"/></td>
+    <td class="formField"><input id="updateCronPattern" class="w-75 form-control form-control-sm my-2" type="text"/> <tag:help id="cronPatterns"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.meta.delay"/></td>
-    <td class="formField">
-        <input id="executionDelaySeconds" type="text" class="formShort"/>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.meta.delay"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+        <input id="executionDelaySeconds" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
         <sst:select id="executionDelayPeriodTypeCode">
           <tag:timePeriodOptions sst="true" ms="true" s="true" min="true"/>
         </sst:select>

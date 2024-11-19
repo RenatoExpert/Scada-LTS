@@ -50,23 +50,44 @@
           setDisabled("getStatusBtn", false);
       });
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["acceptPointUpdates"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.persistent.desc"/></c:set>
 <c:set var="dsHelpId" value="persistentDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.persistent.port"/></td>
-          <td class="formField"><input id="port" type="text" value="${dataSource.port}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.persistent.port"/></td>
+          <td class="formField"><input id="port" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.port}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.persistent.authorizationKey"/></td>
-          <td class="formField"><input id="authorizationKey" type="text" value="${dataSource.authorizationKey}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.persistent.authorizationKey"/></td>
+          <td class="formField"><input id="authorizationKey" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.authorizationKey}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.persistent.acceptPointUpdates"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.persistent.acceptPointUpdates"/></td>
           <td class="formField"><sst:checkbox id="acceptPointUpdates" selectedValue="${dataSource.acceptPointUpdates}"/></td>
         </tr>
         
@@ -77,12 +98,13 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-25">
+      <table class="m-3">
         <tr><td class="smallTitle"><fmt:message key="dsEdit.persistent.status"/></td></tr>
         <tr>
           <td align="center">
-            <input id="getStatusBtn" type="button" value="<fmt:message key="dsEdit.persistent.getStatus"/>" onclick="getRtStatus();"/>
+            <button id="getStatusBtn" class="btn btn-primary custom-btn-blue m-3" onclick="getRtStatus();" ><fmt:message key="dsEdit.persistent.getStatus"/></button>
+            <%-- <input id="getStatusBtn" type="button" value="<fmt:message key="dsEdit.persistent.getStatus"/>" onclick="getRtStatus();"/> --%>
           </td>
         </tr>
         

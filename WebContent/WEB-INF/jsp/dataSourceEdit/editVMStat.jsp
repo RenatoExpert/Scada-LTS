@@ -44,17 +44,38 @@
       
       DataSourceEditDwr.saveVMStatPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["outputScale"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.vmstat.desc"/></c:set>
 <c:set var="dsHelpId" value="vmstatDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.vmstat.pollSeconds"/></td>
-    <td class="formField"><input id="pollSeconds" type="text" value="${dataSource.pollSeconds}"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.vmstat.pollSeconds"/></td>
+    <td class="formField"><input id="pollSeconds" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.pollSeconds}"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.vmstat.outputScale"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.vmstat.outputScale"/></td>
     <td class="formField">
       <sst:select id="outputScale" value="${dataSource.outputScale}">
         <tag:exportCodesOptions sst="true" optionList="<%= VMStatDataSourceVO.OUTPUT_SCALE_CODES.getIdKeys() %>"/>
@@ -65,9 +86,9 @@
 
 <tag:pointList pointHelpId="vmstatPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.vmstat.attribute"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.vmstat.attribute"/></td>
     <td class="formField">
-      <select id="attributeId">
+      <select class="w-75 form-select form-select-sm my-2" id="attributeId">
         <tag:exportCodesOptions optionList="<%= VMStatPointLocatorVO.ATTRIBUTE_CODES.getIdKeys() %>"/>
       </select>
     </td>

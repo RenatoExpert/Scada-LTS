@@ -18,7 +18,7 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <c:choose>
-  <c:when test="${user.disabled}"><tag:img png="user_disabled" title="common.disabled"/></c:when>
-  <c:when test="${user.admin}"><tag:img png="user_suit" title="common.administrator"/></c:when>
-  <c:otherwise><tag:img png="user_green" title="common.user"/></c:otherwise>
+  <c:when test="${user.disabled}"><i class="bi bi-person-fill text-secondary align-middle m-3 fs-5" title="<fmt:message key='common.disabled'/>"></i></c:when>
+  <c:when test="${user.admin}"><i class="bi bi-person-fill text-danger align-middle m-3 fs-5" title="<fmt:message key='common.administrator'/>"></i></c:when>
+  <c:otherwise><i class="bi bi-person-fill text-success align-middle m-3 fs-5" title="<fmt:message key='common.user'/>"></i></c:otherwise>
 </c:choose>

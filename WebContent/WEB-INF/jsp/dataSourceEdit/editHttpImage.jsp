@@ -74,15 +74,36 @@
           show("scaleHeightRow");
       }
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.httpImage.desc"/></c:set>
 <c:set var="dsHelpId" value="httpImageDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
       </sst:select>
@@ -92,27 +113,28 @@
 
 <tag:pointList pointHelpId="httpImagePP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.url"/></td>
-    <td class="formField">
-      <input id="url" type="text" class="formLong"/>
-      <tag:img png="bullet_go" onclick="window.open($get('url'), 'httpImageTarget')" title="dsEdit.httpImage.openUrl"/>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.url"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input id="url" class="w-50 form-control form-control-sm my-2" type="text" class="formLong"/>
+      <i class="bi bi-caret-right-square-fill text-success align-middle ms-3 fs-5" title="<fmt:message key='dsEdit.httpImage.openUrl'/>" onclick="window.open($get('url'), 'httpImageTarget')"></i>
+      <%-- <tag:img png="bullet_go" onclick="window.open($get('url'), 'httpImageTarget')" title="dsEdit.httpImage.openUrl"/> --%>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.timeout"/></td>
-    <td class="formField"><input id="timeoutSeconds" type="text"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.timeout"/></td>
+    <td class="formField"><input id="timeoutSeconds" class="w-75 form-control form-control-sm my-2" type="text"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.retries"/></td>
-    <td class="formField"><input id="retries" type="text"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.retries"/></td>
+    <td class="formField"><input id="retries" class="w-75 form-control form-control-sm my-2" type="text"/></td>
   </tr>
 
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.scalingType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.scalingType"/></td>
     <td class="formField">
-      <select id="scaleType" onchange="scaleTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" id="scaleType" onchange="scaleTypeChanged()">
         <option value="<c:out value="<%= HttpImagePointLocatorVO.SCALE_TYPE_NONE %>"/>"><fmt:message key="dsEdit.httpImage.scalingType.none"/></option>
         <option value="<c:out value="<%= HttpImagePointLocatorVO.SCALE_TYPE_PERCENT %>"/>"><fmt:message key="dsEdit.httpImage.scalingType.percent"/></option>
         <option value="<c:out value="<%= HttpImagePointLocatorVO.SCALE_TYPE_BOX %>"/>"><fmt:message key="dsEdit.httpImage.scalingType.box"/></option>
@@ -122,32 +144,33 @@
   
   <tbody id="scalePercentRow">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.scalePercent"/></td>
-      <td class="formField"><input id="scalePercent" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.scalePercent"/></td>
+      <td class="formField"><input id="scalePercent" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
   </tbody>
   
   <tbody id="scaleWidthRow">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.scaleWidth"/></td>
-      <td class="formField"><input id="scaleWidth" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.scaleWidth"/></td>
+      <td class="formField"><input id="scaleWidth" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
   </tbody>
   
   <tbody id="scaleHeightRow">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.scaleHeight"/></td>
-      <td class="formField"><input id="scaleHeight" type="text"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.scaleHeight"/></td>
+      <td class="formField"><input id="scaleHeight" class="w-75 form-control form-control-sm my-2" type="text"/></td>
     </tr>
   </tbody>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.readLimit"/></td>
-    <td class="formField"><input id="readLimit" type="text"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.readLimit"/></td>
+    <td class="formField"><input id="readLimit" class="w-75 form-control form-control-sm my-2" type="text"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpImage.liveFeed"/></td>
-    <td class="formField"><textarea id="webcamLiveFeedCode" rows="10" cols="37"></textarea></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpImage.liveFeed"/></td>
+    <td class="formField"><textarea class="w-75 form-control m-3" id="webcamLiveFeedCode" rows="10" cols="50"/></textarea></td>
+    <%-- <td class="formField"><textarea id="webcamLiveFeedCode" rows="10" cols="37"></textarea></td> --%>
   </tr>
 </tag:pointList>

@@ -39,8 +39,8 @@
             var id = "toggleImg" + p.id;
             var onclick = "togglePoint(" + p.id + ")";
             if (p.enabled)
-                return writeIcon(id, "bi bi-puzzle-fill text-success", "<fmt:message key='common.enabledToggle'/>", onclick);
-            return writeIcon(id, "bi bi-puzzle-fill text-danger", "<fmt:message key='common.disabledToggle'/>", onclick);
+                return writeIcon(id, "bi bi-puzzle-fill text-success align-middle ms-3 fs-5", "<fmt:message key='common.enabledToggle'/>", onclick);
+            return writeIcon(id, "bi bi-puzzle-fill text-danger align-middle ms-3 fs-5", "<fmt:message key='common.disabledToggle'/>", onclick);
         });
         
         if (typeof appendPointListColumnFunctions == 'function')
@@ -49,13 +49,13 @@
         pointListColumnHeaders.push("");
         
         pointListColumnFunctions.push(function(p) {
-            return writeIcon("editImg" + p.id, "bi bi-database-fill-gear", "<fmt:message key='pointDetails.editPoint'/>", "editPoint(" + p.id + ")");
+            return writeIcon("editImg" + p.id, "bi bi-database-fill-gear align-middle ms-3 fs-5", "<fmt:message key='pointDetails.editPoint'/>", "editPoint(" + p.id + ")");
         });
 
         pointListColumnHeaders.push("");
 
         pointListColumnFunctions.push(function(p) {
-            return writeIcon("editImg" + p.id, "bi bi-pencil-square", "<fmt:message key='pointEdit.props.props'/>", "window.location='data_point_edit.shtm?dpid=" + p.id + "'");
+            return writeIcon("editImg" + p.id, "bi bi-pencil-square align-middle ms-3 fs-5", "<fmt:message key='pointEdit.props.props'/>", "window.location='data_point_edit.shtm?dpid=" + p.id + "'");
         });
 
         var headers = $("pointListHeaders");
@@ -228,7 +228,7 @@
     function markRow(elements, mark) {
     	if(mark==true) {
 	    	for(var ichild = 0; ichild<elements.length; ichild++) {
-					elements[ichild].style.backgroundColor = "#77c055";
+					elements[ichild].style.backgroundColor = "#29bdef";
 					elements[ichild].style.color = "white";
 			}
     	} else {
@@ -330,30 +330,30 @@
     }
   </script>
 
-	<table class="borderDiv marB subPageHeader" id="alarmsTable" style="display: block; max-height: 300px; overflow-y: auto; width: 59%;">
-		<tr>
-			<td>
-				<table width="100%">
-					<tr>
-						<td class="smallTitle"><fmt:message
-								key="dsEdit.currentAlarms" />
-						</td>
-                        <td align="right">
-                            <i class="bi bi-arrow-repeat" title="<fmt:message key='common.refresh'/>" onclick="getAlarms()" style="cursor: pointer;"></i>
+    <table class="right-box w-100 subPageHeader container" id="alarmsTable" style="display: block; max-height: 300px; overflow-y: auto; width: 59%;">
+        <tr>
+            <td>
+                <table class="w-100  m-3">
+                    <tr>
+                        <td class="smallTitle">
+                            <fmt:message key="dsEdit.currentAlarms" />
                         </td>
-						</td>
-					</tr>
-				</table>
-				<table>
-					<tr id="noAlarmsMsg">
-						<td><b><fmt:message key="dsEdit.noAlarms" />
-						</b>
-						</td>
-					</tr>
-					<tbody id="alarmsList"></tbody>
-				</table></td>
-		</tr>
-	</table>
+                        <td align="right">
+                            <i class="bi bi-arrow-repeat align-middle ms-3 fs-5" title="<fmt:message key='common.refresh'/>" onclick="getAlarms()" style="cursor: pointer;"></i>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr id="noAlarmsMsg">
+                        <td>
+                            <b><fmt:message key="dsEdit.noAlarms" /></b>
+                        </td>
+                    </tr>
+                    <tbody id="alarmsList"></tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
 
 	<c:choose>
 		<c:when

@@ -98,8 +98,8 @@
           dwr.util.addRows("ipWhiteList", ipWhiteList, [
                   function(data) { return ""; },
                   function(data) {
-                      return data +" <img src='images/bullet_delete.png' onclick='removeIpMask(\""+ data + "\");' "+
-                              "class='ptr' alt='<fmt:message key="common.delete"/>' title='<fmt:message key="common.delete"/>'/>";
+                      return data +" <i class='bi bi-trash text-danger align-middle ms-2 fs-5' onclick='removeIpMask(\""+ data + "\");' "+ "class='ptr' alt='<fmt:message key="common.delete"/>' title='<fmt:message key="common.delete"/>'></i>";
+                      <%-- return data +" <img src='images/bullet_delete.png' onclick='removeIpMask(\""+ data + "\");' "+ "class='ptr' alt='<fmt:message key="common.delete"/>' title='<fmt:message key="common.delete"/>'/>"; --%>
                   }
                   ], null);
       }
@@ -114,9 +114,8 @@
           dwr.util.addRows("deviceIdWhiteList", deviceIdWhiteList, [
                   function(data) { return ""; },
                   function(data) {
-                      return data +" <img src='images/bullet_delete.png' onclick='removeDeviceIdMask(\""+ data 
-                              +"\");' class='ptr' alt='<fmt:message key="common.delete"/>' "+
-                              "title='<fmt:message key="common.delete"/>'/>";
+                      return data +" <i class='bi bi-trash text-danger align-middle ms-2 fs-5' onclick='removeDeviceIdMask(\""+ data +"\");' class='ptr' alt='<fmt:message key="common.delete"/>' "+ "title='<fmt:message key="common.delete"/>'></i>";
+                      <%-- return data +" <img src='images/bullet_delete.png' onclick='removeDeviceIdMask(\""+ data +"\");' class='ptr' alt='<fmt:message key="common.delete"/>' "+ "title='<fmt:message key="common.delete"/>'/>"; --%>
                   }
                   ], null);
       }
@@ -211,13 +210,14 @@
 <c:set var="dsHelpId" value="httpReceiverDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpReceiver.ipWhiteList"/></td>
-          <td class="formField">
-            <table cellpadding="0" cellspacing="0">
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpReceiver.ipWhiteList"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <table cellpadding="0" cellspacing="0" class="d-flex align-items-center justify-content-start">
               <tr>
-                <td><input id="ipMask" type="text"/></td>
+                <td><input id="ipMask" class="w-100 form-control form-control-sm my-2" type="text"/></td>
                 <td width="10"></td>
-                <td><tag:img png="add" onclick="addIpMask()" title="common.add"/></td>
+                <td><i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" onclick="addIpMask()"></i></td>
+                <%-- <td><tag:img png="add" onclick="addIpMask()" title="common.add"/></td> --%>
               </tr>
             </table>
           </td>
@@ -230,13 +230,14 @@
         <tbody id="ipWhiteList"></tbody>
 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpReceiver.deviceWhiteList"/></td>
-          <td class="formField">
-            <table cellpadding="0" cellspacing="0">
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpReceiver.deviceWhiteList"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <table cellpadding="0" cellspacing="0" class="d-flex align-items-center justify-content-start">
               <tr>
-                <td><input id="deviceIdMask" type="text"/></td>
+                <td><input id="deviceIdMask" class="w-100 form-control form-control-sm my-2" type="text"/></td>
                 <td width="10"></td>
-                <td><tag:img png="add" onclick="addDeviceIdMask()" title="common.add"/></td>
+                <td><i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" onclick="addDeviceIdMask()"></i></td>
+                <%-- <td><tag:img png="add" onclick="addDeviceIdMask()" title="common.add"/></td> --%>
               </tr>
             </table>
           </td>
@@ -253,13 +254,15 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-50">
+      <table class="m-3">
         <tr><td class="smallTitle"><fmt:message key="dsEdit.httpReceiver.receiverListener"/></td></tr>
         <tr>
-          <td align="center">
-            <input id="httpListenBtn" type="button" value="<fmt:message key="dsEdit.httpReceiver.startListener"/>" onclick="httpListen();"/>
-            <input id="httpListenCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="httpListenCancel();"/>
+          <td align="center" class="m-3">
+            <button id="httpListenBtn" class="btn btn-primary custom-btn-blue m-3" onclick="httpListen();" ><fmt:message key="dsEdit.httpReceiver.startListener"/></button>
+            <%-- <input id="httpListenBtn" type="button" value="<fmt:message key="dsEdit.httpReceiver.startListener"/>" onclick="httpListen();"/> --%>
+            <button id="httpListenCancelBtn" class="btn btn-primary custom-btn-blue m-3" onclick="httpListenCancel();" ><fmt:message key="common.cancel"/></button>
+            <%-- <input id="httpListenCancelBtn" type="button" value="<fmt:message key="common.cancel"/>" onclick="httpListenCancel();"/> --%>
           </td>
         </tr>
         <tr><td id="httpListenMessage" class="formError"></td></tr>
@@ -268,21 +271,21 @@
 
 <tag:pointList pointHelpId="httpReceiverPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpReceiver.httpParamName"/></td>
-    <td class="formField"><input type="text" id="parameterName"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpReceiver.httpParamName"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="parameterName"/></td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select id="dataTypeId" onchange="changeDataTypeId();">
+      <select class="w-50 form-select form-select-sm my-2" id="dataTypeId" onchange="changeDataTypeId();">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpReceiver.binaryZeroValue"/></td>
-    <td class="formField"><input id="binary0Value" type="text"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpReceiver.binaryZeroValue"/></td>
+    <td class="formField"><input id="binary0Value" class="w-75 form-control form-control-sm my-2" type="text"/></td>
   </tr>
 </tag:pointList>

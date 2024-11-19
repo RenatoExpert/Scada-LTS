@@ -19,14 +19,7 @@
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.DataTypes"%>
 <link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css">
-<link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css">
-
-<style>
-  table {
-     border-collapse: separate !important;
-     border-spacing: 2px !important;
-  }
-</style>
+<%-- <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css"> --%>
 
 <script type="text/javascript">
 
@@ -98,8 +91,7 @@
       dwr.util.addRows("staticHeaderList", staticHeaderList, [
         function(data) { return data.key +"="+ data.value; },
         function(data, options) {
-          return "<img src='images/bullet_delete.png' class='ptr' title='<fmt:message key="dsEdit.httpRetriever.removeHeader"/>' "+
-                  "onclick='removeStaticHeader("+ options.rowIndex + ");'/>";
+          return "<i class='bi bi-trash text-danger align-middle ms-2 fs-5' title='<fmt:message key="dsEdit.httpRetriever.removeHeader"/>' "+ "onclick='removeStaticHeader("+ options.rowIndex + ");'></i>";
         }
       ], null);
     }
@@ -245,15 +237,41 @@
       refreshStaticHeaderList();
     }
   }
+
+  //função para adicionar classes aos selects estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["deviceCode", "accessMode"],
+    classes: ["w-75", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.httpRetriever.desc"/></c:set>
 <c:set var="dsHelpId" value="httpRetrieverDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -261,28 +279,29 @@
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.url"/></td>
-          <td class="formField">
-            <input id="url" type="text" value="${dataSource.url}" class="formLong"/>
-            <tag:img png="bullet_go" onclick="openURL()" title="dsEdit.httpRetriever.openUrl"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.url"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input id="url" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.url}" class="formLong"/>
+            <i class="bi bi-caret-right-square-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='dsEdit.httpRetriever.openUrl'/>"  onclick="openURL()"></i>
+            <%-- <tag:img png="bullet_go" onclick="openURL()" title="dsEdit.httpRetriever.openUrl"/> --%>
           </td>
         </tr>
 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.credentials"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.credentials"/></td>
           <td class="formField">
-            <fmt:message key="dsEdit.httpRetriever.username"/> <input type="text" id="username" class="formShort"/>
-            <fmt:message key="dsEdit.httpRetriever.password"/> <input type="password" id="password" class="formShort"/>
+            <fmt:message key="dsEdit.httpRetriever.username"/> <input class="w-25 form-control form-control-sm my-2" type="text" id="username" class="formShort"/>
+            <fmt:message key="dsEdit.httpRetriever.password"/> <input class="w-25 form-control form-control-sm my-2" type="password" id="password" class="formShort"/>
           </td>
         </tr>
 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="publisherEdit.httpSender.staticHeaders"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.httpSender.staticHeaders"/></td>
           <td class="formField">
-            <fmt:message key="publisherEdit.httpSender.headerKey"/> <input type="text" id="sheaderKey" class="formShort"/>
-            <fmt:message key="publisherEdit.httpSender.headerValue"/> <input type="text" id="sheaderValue" class="formShort"/>
-            <tag:img png="add" title="publisherEdit.httpSender.addStaticHeader" onclick="addStaticHeader()"/>
-            <table>
+            <fmt:message key="publisherEdit.httpSender.headerKey"/> <input class="w-75 form-control form-control-sm my-2" type="text" id="sheaderKey" class="formShort"/>
+            <fmt:message key="publisherEdit.httpSender.headerValue"/> <input class="w-75 form-control form-control-sm my-2" type="text" id="sheaderValue" class="formShort"/>
+            <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='publisherEdit.httpSender.addStaticHeader'/>"  onclick="addStaticHeader()"></i>
+            <table class="fs-6 text-center table table-light table-hover my-2">
               <tr id="noStaticHeadersMsg" style="display:none"><td><fmt:message key="publisherEdit.httpSender.noStaticHeaders"/></td></tr>
               <tbody id="staticHeaderList"></tbody>
             </table>
@@ -290,19 +309,20 @@
         </tr>
 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.timeout"/></td>
-          <td class="formField"><input id="timeoutSeconds" type="text" value="${dataSource.timeoutSeconds}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.timeout"/></td>
+          <td class="formField"><input id="timeoutSeconds" class="w-25 form-control form-control-sm my-2" type="text" value="${dataSource.timeoutSeconds}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.retries"/></td>
-          <td class="formField"><input id="retries" type="text" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.retries"/></td>
+          <td class="formField"><input id="retries" class="w-25 form-control form-control-sm my-2" type="text" value="${dataSource.retries}"/></td>
         </tr>
         <tr>
-
-          <td COLSPAN=2>
-              <div id="sleep-reactivation-ds"/>
-          </td>
+          <td class="formLabelRequired align-middle my-2 text-uppercase fs-7"><fmt:message key="dsEdit.dnp3.operateMode"/></td>
+        </tr>
+        <tr>
+          <%-- Buscando em -> scadalts-ui/src/components/forms/SleepAndReactivationDS.vue --%>
+          <td COLSPAN=2><div id="sleep-reactivation-ds"></td>
         </tr>
 
 
@@ -310,21 +330,22 @@
 
 <tag:pointList pointHelpId="httpRetrieverPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId" onchange="dataTypeChanged()">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId" onchange="dataTypeChanged()">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td class="formLabelRequired">
+    <td class="formLabelRequired align-middle my-2">
       <fmt:message key="dsEdit.httpRetriever.valueRegex"/>
-      <tag:img id="valueTestImg" png="accept" title="dsEdit.httpRetriever.testValue" onclick="testValueParams()"/>
+      <i id="valueTestImg" class="bi bi-gear-fill text-blue-add ms-3 fs-6" title="<fmt:message key='dsEdit.httpRetriever.testValue'/>"  onclick="testValueParams()"></i>
+      <%-- <tag:img id="valueTestImg" png="accept" title="dsEdit.httpRetriever.testValue" onclick="testValueParams()"/> --%>
     </td>
-    <td class="formField">
-      <input type="text" id="valueRegex" class="formLong"/>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-75 form-control form-control-sm my-2" type="text" id="valueRegex" class="formLong"/>
       <tag:help id="regex"/>
     </td>
   </tr>
@@ -337,15 +358,15 @@
   </tbody>
   
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.ignoreIfMissing"/></td>
-    <td class="formField"><input type="checkbox" id="ignoreIfMissing"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.ignoreIfMissing"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="ignoreIfMissing"/></td>
   </tr>
   
   <tbody id="valueFormatRow">
     <tr>
       <td id="valueFormatLabel" class="formLabel"></td>
       <td class="formField">
-        <input type="text" id="valueFormat"/>
+        <input class="w-75 form-control form-control-sm my-2" type="text" id="valueFormat"/>
         <span id="numberFormatHelp"><tag:help id="numberFormats"/></span>
       </td>
     </tr>
@@ -354,10 +375,11 @@
   <tr>
     <td class="formLabel">
       <fmt:message key="dsEdit.httpRetriever.timeRegex"/>
-      <tag:img id="timeTestImg" png="accept" title="dsEdit.httpRetriever.testTime" onclick="testTimeParams()"/>
+      <i id="timeTestImg" class="bi bi-gear-fill text-blue-add ms-3 fs-6" title="<fmt:message key='dsEdit.httpRetriever.testTime'/>"  onclick="testTimeParams()"></i>
+      <%-- <tag:img id="timeTestImg" png="accept" title="dsEdit.httpRetriever.testTime" onclick="testTimeParams()"/> --%>
     </td>
-    <td class="formField">
-      <input type="text" id="timeRegex" onkeyup="timeRegexKU()" class="formLong"/>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class="w-75 form-control form-control-sm my-2" type="text" id="timeRegex" onkeyup="timeRegexKU()" class="formLong"/>
       <tag:help id="regex"/>
     </td>
   </tr>
@@ -371,9 +393,9 @@
   
   <tbody id="timeFormatRow">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.httpRetriever.timeFormat"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.httpRetriever.timeFormat"/></td>
       <td class="formField">
-        <input type="text" id="timeFormat"/>
+        <input class="w-75 form-control form-control-sm my-2" type="text" id="timeFormat"/>
         <tag:help id="datetimeFormats"/>
       </td>
     </tr>

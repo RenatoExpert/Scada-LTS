@@ -146,32 +146,57 @@
           $set("compositeItemName", addPointData.compositeName);
       });
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize", "useLocalServer"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.jmx.desc"/></c:set>
 <c:set var="dsHelpId" value="jmxDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.jmx.useLocalServer"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.jmx.useLocalServer"/></td>
           <td class="formField">
             <sst:checkbox id="useLocalServer" selectedValue="${dataSource.useLocalServer}" onclick="useLocalServerChange()"/>
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.jmx.remoteServerAddr"/></td>
-          <td class="formField"><input id="remoteServerAddr" type="text" value="${dataSource.remoteServerAddr}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.jmx.remoteServerAddr"/></td>
+          <td class="formField"><input id="remoteServerAddr" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.remoteServerAddr}"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
             </sst:select>
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
           <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
         </tr>
       </table>
@@ -181,12 +206,13 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-25">
+      <table class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.jmx.inspect"/></td></tr>
         <tr>
           <td colspan="2" align="center">
-            <input id="objectNamesBtn" type="button" value="<fmt:message key="dsEdit.jmx.getObjectNames"/>" onclick="getObjectNames();"/>
+            <button id="objectNamesBtn" class="btn btn-primary custom-btn-blue m-3" onclick="getObjectNames();" ><fmt:message key="dsEdit.jmx.getObjectNames"/></button>
+            <%-- <input id="objectNamesBtn" type="button" value="<fmt:message key="dsEdit.jmx.getObjectNames"/>" onclick="getObjectNames();"/> --%>
           </td>
         </tr>
         
@@ -199,27 +225,27 @@
 
 <tag:pointList pointHelpId="jmxPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.jmx.objectName"/></td>
-    <td class="formField"><input type="text" id="objectName"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.jmx.objectName"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="objectName"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.jmx.attributeName"/></td>
-    <td class="formField"><input type="text" id="attributeName"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.jmx.attributeName"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="attributeName"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.jmx.compositeItemName"/></td>
-    <td class="formField"><input type="text" id="compositeItemName"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.jmx.compositeItemName"/></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="compositeItemName"/></td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select id="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" id="dataTypeId">
         <tag:dataTypeOptions excludeImage="true" excludeMultistate="true"/>
       </select>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.settable"/></td>
-    <td class="formField"><input type="checkbox" id="settable"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.settable"/></td>
+    <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="settable"/></td>
   </tr>
 </tag:pointList>

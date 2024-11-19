@@ -148,15 +148,45 @@
           show("isNotJndiResource");
       }
   }
+
+  //função para adicionar classes aos selects estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["deviceCode", "accessMode"],
+    classes: ["w-75", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["jndiResource", "rowBasedQuery"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.sql.desc"/></c:set>
 <c:set var="dsHelpId" value="sqlDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -164,49 +194,49 @@
         </tr>
 
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.sql.jndiResource"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.jndiResource"/></td>
           <td class="formField">
             <sst:checkbox id="jndiResource" selectedValue="${dataSource.jndiResource}" onclick="changeJndiResource()"/>
           </td>
         </tr>
 
         <tr id="isJndiResource" style="visible:none">
-          <td class="formLabelRequired"><fmt:message key="dsEdit.sql.jndiResourceName"/></td>
-          <td class="formField"><input id="jndiResourceName" type="text" value="${dataSource.jndiResourceName}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.jndiResourceName"/></td>
+          <td class="formField"><input id="jndiResourceName" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.jndiResourceName}"/></td>
         </tr>
 
         <tbody id="isNotJndiResource">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.sql.driverClassName"/></td>
-              <td class="formField"><input id="driverClassname" type="text" value="${dataSource.driverClassname}"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.driverClassName"/></td>
+              <td class="formField"><input id="driverClassname" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.driverClassname}"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.sql.connectionString"/></td>
-              <td class="formField"><input id="connectionUrl" type="text" value="${dataSource.connectionUrl}"
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.connectionString"/></td>
+              <td class="formField"><input id="connectionUrl" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.connectionUrl}"
                       class="formLong"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.sql.username"/></td>
-              <td class="formField"><input id="username" type="text" value="${dataSource.username}"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.username"/></td>
+              <td class="formField"><input id="username" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.username}"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="dsEdit.sql.password"/></td>
-              <td class="formField"><input id="password" type="text" value="${dataSource.password}"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.password"/></td>
+              <td class="formField"><input id="password" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.password}"/></td>
             </tr>
         </tbody>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.sql.select"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.select"/></td>
           <td class="formField">
-            <textarea id="selectStatement" rows="10" cols="45">${dataSource.selectStatement}</textarea>
+            <textarea class="w-75 form-control mb-3" id="selectStatement" rows="10" cols="45">${dataSource.selectStatement}</textarea>
           </td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.sql.rowQuery"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.sql.rowQuery"/></td>
           <td class="formField">
             <sst:checkbox id="rowBasedQuery" selectedValue="${dataSource.rowBasedQuery}"
                     onclick="rowBasedQueryChange()"/>
@@ -221,13 +251,14 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table cellspacing="1">
+    <div class="right-box w-25">
+      <table cellspacing="1" class="m-3">
         <tr><td class="smallTitle"><fmt:message key="dsEdit.sql.test"/></td></tr>
         
         <tr>
           <td align="center">
-            <input id="sqlTestBtn" type="button" value="<fmt:message key="dsEdit.sql.execute"/>" onclick="sqlTest();"/>
+            <button id="sqlTestBtn" class="btn btn-primary custom-btn-blue m-3" onclick="sqlTest();" ><fmt:message key="dsEdit.sql.execute"/></button>
+            <%-- <input id="sqlTestBtn" type="button" value="<fmt:message key="dsEdit.sql.execute"/>" onclick="sqlTest();"/> --%>
           </td>
         </tr>
         
@@ -237,28 +268,28 @@
 
 <tag:pointList pointHelpId="sqlPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select name="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" name="dataTypeId">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   
   <tr>
-    <td id="fieldNameLabel" class="formLabelRequired"></td>
-    <td class="formField"><input type="text" id="fieldName"/></td>
+    <td id="fieldNameLabel" class="formLabelRequired align-middle my-2"></td>
+    <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="fieldName"/></td>
   </tr>
   
   <tbody id="columnBasedProperties">
     <tr>
       <td class="formLabel"><fmt:message key="dsEdit.sql.timeColumn"/></td>
-      <td class="formField"><input type="text" id="timeOverrideName"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="timeOverrideName"/></td>
     </tr>
   </tbody>
   
   <tr>
     <td class="formLabel"><fmt:message key="dsEdit.sql.update"/></td>
-    <td class="formField"><textarea cols="35" rows="4" name="updateStatement"></textarea></td>
+    <td class="formField"><textarea class="w-75 form-control mb-3" cols="35" rows="4" name="updateStatement"></textarea></td>
   </tr>
 </tag:pointList>

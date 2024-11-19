@@ -403,15 +403,13 @@
                   <sst:i18n key='common.save' escapeDQuotes='true'/>
                   </span>
                 <i id="deleteImg" class="bi bi-trash  text-danger ms-2 me-2 fs-5" onclick="deleteUser();" title="<fmt:message key='common.delete'/>" style="display:none;">
-			<span style="font-size: 16px; color: var(--slts-color-primary-text);">
-				<sst:i18n key='common.delete' escapeDQuotes='true'/>
-			</span>
-		</i>
+                  <span style="font-size: 16px; color: var(--slts-color-primary-text);">
+                  <sst:i18n key='common.delete' escapeDQuotes='true'/>
+                  </span></i>
                 <i id="sendTestEmailImg" class="bi bi-envelope ms-2 me-2 fs-5" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="display:none;">
-			<span style="font-size: 16px;">
-				<sst:i18n key='common.sendTestEmail' escapeDQuotes='true'/>
-			</span>
-		</i>
+                  <span style="font-size: 16px;">
+                  <sst:i18n key='common.sendTestEmail' escapeDQuotes='true'/>
+                  </span></i>
               </div>
             </div>
           
@@ -423,142 +421,78 @@
               <td colspan="2" id="userMessage" class="formError"></td>
             </tr>
             <tr id="usernameRow" style="display:none;">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.username"/>
-		</td>
-		<td class="formField col-sm-5">
-			<input class="form-control form-control-sm my-2" id="username" type="text"/>
-		</td>
-		</tr>
-	<tr id="firstNameRow">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.firstName"/>
-		</td>
-		<td class="formField">
-			<input class="form-control form-control-sm my-2" id="firstName" type="text"/>
-		</td>
-	</tr>
-		<tr id="lastNameRow">
-			<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-				<fmt:message key="users.lastName"/>
-			</td>
-			<td class="formField">
-				<input class="form-control form-control-sm my-2" id="lastName" type="text"/>
-			</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.newPassword"/>
-		</td>
-		<td class="formField">
-			<input class="form-control form-control-sm my-2" id="password" type="text"/>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.email"/>
-		</td>
-		<td class="formField">
-			<input class="form-control form-control-sm my-2" id="email" type="text" class="formLong"/>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.phone"/>
-		</td>
-		<td class="formField">
-			<input class="form-control form-control-sm my-2" id="phone" type="text"/>
-		</td>
-	</tr>
-	<tr id="administrationRow" style="display:none;">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="common.administrator"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" id="administrator" type="checkbox" onclick="updateUserImg();"/>
-		</td>
-	</tr>
-	<tr id="disabledRow" style="display:none;">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="common.disabled"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" id="disabled" type="checkbox" onclick="updateUserImg();"/>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.receiveAlarmEmails"/>
-		</td>
-		<td class="formField">
-			<select class="form-select form-select-sm my-2" id="receiveAlarmEmails">
-				<tag:alarmLevelOptions/>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.receiveOwnAuditEvents"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" id="receiveOwnAuditEvents" type="checkbox"/>
-		</td>
-	</tr>
-	<tr id="hideMenuRow" style="display:none;">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.hideMenu"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" id="hideMenu" type="checkbox"/>
-		</td>
-	</tr>
-	<tr id="homeUrlRow" style="display:none;">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.homeUrl"/>
-		</td>
-		<td class="formField">
-			<input class="form-control form-control-sm my-2" id="homeUrl" type="text"/>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="users.theme"/>
-		</td>
-		<td class="formField"><select class="form-select form-select-sm my-2" id="theme"><tag:ScadaThemeOptions/></select></td>
-	</tr>
-<tbody id="usersProfilesListTable" style="display:none;">
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="userProfiles.selectName"/>
-		</td>
-		<td class="formField">
-			<select class="form-select form-select-sm my-2" id="usersProfilesList" onchange="checkProfile()">
-			</select>
-		</td>
-	</tr>
-</tbody>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="user.view.enableFullScreen"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" type="checkbox" id="enableFullScreen" />
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6">
-			<fmt:message key="user.view.hideShortcutDisableFullScreen"/>
-		</td>
-		<td class="formField">
-			<input  class="form-check-input custom-checkbox my-2" type="checkbox" id="hideShortcutDisableFullScreen" />
-		</td>
-	</tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.username"/></td>
+              <td class="formField col-sm-5"><input class="form-control form-control-sm my-2" id="username" type="text"/></td>
+            </tr>
+            <tr id="firstNameRow">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.firstName"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="firstName" type="text"/></td>
+            </tr>
+            <tr id="lastNameRow">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.lastName"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="lastName" type="text"/></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.newPassword"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="password" type="text"/></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.email"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="email" type="text" class="formLong"/></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.phone"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="phone" type="text"/></td>
+            </tr>
+            <tr id="administrationRow" style="display:none;">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.administrator"/></td>
+              <td class="formField"><input  class="form-check-input custom-checkbox my-2" id="administrator" type="checkbox" onclick="updateUserImg();"/></td>
+            </tr>
+            <tr id="disabledRow" style="display:none;">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="common.disabled"/></td>
+              <td class="formField"><input  class="form-check-input custom-checkbox my-2" id="disabled" type="checkbox" onclick="updateUserImg();"/></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.receiveAlarmEmails"/></td>
+              <td class="formField"><select class="form-select form-select-sm my-2" id="receiveAlarmEmails"><tag:alarmLevelOptions/></select></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.receiveOwnAuditEvents"/></td>
+              <td class="formField"><input  class="form-check-input custom-checkbox my-2" id="receiveOwnAuditEvents" type="checkbox"/></td>
+            </tr>
+            <tr id="hideMenuRow" style="display:none;">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.hideMenu"/></td>
+              <td class="formField"><input  class="form-check-input custom-checkbox my-2" id="hideMenu" type="checkbox"/></td>
+            </tr>
+            <tr id="homeUrlRow" style="display:none;">
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.homeUrl"/></td>
+              <td class="formField"><input class="form-control form-control-sm my-2" id="homeUrl" type="text"/></td>
+            </tr>
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.theme"/></td>
+              <td class="formField"><select class="form-select form-select-sm my-2" id="theme"><tag:ScadaThemeOptions/></select></td>
+            </tr>
+            <tbody id="usersProfilesListTable" style="display:none;">
+            <tr>
+              <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="userProfiles.selectName"/></td>
+              <td class="formField"><select class="form-select form-select-sm my-2" id="usersProfilesList" onchange="checkProfile()">
+              </select></td>
+            </tr>
+            </tbody>
+            <tr>
+            <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="user.view.enableFullScreen"/></td>
+            <td class="formField"><input  class="form-check-input custom-checkbox my-2" type="checkbox" id="enableFullScreen" /></td>
+            </tr>
+            <tr>
+            <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="user.view.hideShortcutDisableFullScreen"/></td>
+            <td class="formField"><input  class="form-check-input custom-checkbox my-2" type="checkbox" id="hideShortcutDisableFullScreen" /></td>
+            </tr>
             </div>
             
             <tbody id="dataSources" style="display:none;">
               <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
-	<tr class="text-center w-5 fs-6" id="dataSources">
-		<td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.dataSources"/></td>
+              <tr class="text-center w-5 fs-6" id="dataSources">
+                <td class="col-sm-3 col-form-label custom-padding-l my-2 fs-6"><fmt:message key="users.dataSources"/></td>
                 <td class="formField" id="dataSourceList"></td>
               </tr>
             </tbody>
@@ -569,4 +503,3 @@
     </tr>
   </table>
 </tag:page>
-

@@ -71,10 +71,10 @@
           dwr.util.addRows("selectedPoints", selectedPoints,
               [
                   function(data) { return data.pointName; },
-                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-success" : "bi bi-puzzle-fill text-danger") +"'></i>"; },
+                  function(data) { return "<i class='"+ (data.enabled ? "bi bi-puzzle-fill text-blue-add  align-middle me-2 fs-5" : "bi bi-puzzle-fill text-danger align-middle me-2 fs-5") +"'></i>"; },
                   function(data) { return data.pointType; },
                   function(data) { 
-                          return "<i class='bi bi-trash text-danger' "+
+                          return "<i class='bi bi-trash text-danger align-middle me-2 fs-5' "+
                                   "onclick='removeFromSelectedPoints("+ data.id +")'></i>";
                   }
               ],
@@ -112,7 +112,8 @@
       }
       dwr.util.addOptions("availablePoints", availPoints, "id", "name");
   }
-  
+  <%-- acerto de erro create Serotonin Persistent TCP type publisher github.com/SCADA-LTS/Scada-LTS/commit/e708ad5fd280e3e5fa18300849ac84d43f147898 --%>
+
   function savePublisherImpl(name, xid, enabled, cacheWarningSize, changesOnly, sendSnapshot, snapshotSendPeriods,
           snapshotSendPeriodType) {
       // Clear messages.
@@ -125,7 +126,7 @@
           points[points.length] = {dataPointId: selectedPoints[i].id};
       
       PublisherEditDwr.savePersistentSender(name, xid, enabled, points, $get("host"), $get("port"),
-              $get("authorizationKey"), $get("syncType"), cacheWarningSize, changesOnly, sendSnapshot, 
+              $get("authorizationKey"), xid, $get("syncType"), cacheWarningSize, changesOnly, sendSnapshot, 
               snapshotSendPeriods, snapshotSendPeriodType, savePublisherCB);
   }
 </script>
@@ -133,43 +134,47 @@
 <table cellpadding="0" cellspacing="0">
   <tr>
     <td valign="top">
-      <div class="borderDiv marR marB">
-        <table>
+      <div class="right-box my-3">
+        <table class="m-3">
           <tr>
-            <td colspan="2" class="smallTitle"><fmt:message key="publisherEdit.persistent.props"/> <tag:help id="persistentPublishing"/></td>
+            <td colspan="2" class="smallTitle">
+              <div class="d-flex align-items-center mb-3">
+                <fmt:message key="publisherEdit.persistent.props"/>
+                <tag:help id="persistentPublishing"/></td>
+              </div>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.persistent.host"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.persistent.host"/></td>
             <td class="formField">
-              <input type="text" id="host" value="${publisher.host}" class="formLong"/>
+              <input class='form-control form-control-sm my-2' type="text" id="host" value="${publisher.host}" class="formLong"/>
               <div id="hostMsg" class="formError" style="display:none;"></div>
             </td>
           </tr>
           
           <tr>
           
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.persistent.port"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.persistent.port"/></td>
             <td class="formField">
-              <input type="text" id="port" value="${publisher.port}"/>
+              <input class='form-control form-control-sm my-2' type="text" id="port" value="${publisher.port}"/>
               <div id="portMsg" class="formError" style="display:none;"></div>
             </td>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.persistent.authorizationKey"/></td>
-            <td class="formField"><input type="text" id="authorizationKey" value="${publisher.authorizationKey}"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.persistent.authorizationKey"/></td>
+            <td class="formField"><input class='form-control form-control-sm my-2' type="text" id="authorizationKey" value="${publisher.authorizationKey}"/></td>
           </tr>
           
           <tr>
-            <td class="formLabelRequired"><fmt:message key="publisherEdit.persistent.sync"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.persistent.sync"/></td>
             <td class="formField">
-              <sst:select id="syncType" value="${publisher.syncType}">
-                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_NONE) %>"><fmt:message key="publisherEdit.persistent.sync.none"/></sst:option>
-                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_DAILY) %>"><fmt:message key="publisherEdit.persistent.sync.daily"/></sst:option>
-                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_WEEKLY) %>"><fmt:message key="publisherEdit.persistent.sync.weekly"/></sst:option>
-                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_MONTHLY) %>"><fmt:message key="publisherEdit.persistent.sync.monthly"/></sst:option>
-              </sst:select>
+              <select  class="form-select form-select-sm my-2" id="syncType" value="${publisher.syncType}">
+                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_NONE) %>"><fmt:message key="publisherEdit.persistent.sync.none"/></option>
+                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_DAILY) %>"><fmt:message key="publisherEdit.persistent.sync.daily"/></option>
+                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_WEEKLY) %>"><fmt:message key="publisherEdit.persistent.sync.weekly"/></option>
+                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_MONTHLY) %>"><fmt:message key="publisherEdit.persistent.sync.monthly"/></option>
+              </select>
             </td>
           </tr>
         </table>
@@ -179,18 +184,28 @@
 </table>
 
 <table cellpadding="0" cellspacing="0"><tr><td>
-  <div class="borderDiv">
-    <table width="100%">
+  <div class="right-box my-3 w-100">
+    <table class="w-100">
       <tr>
-        <td class="smallTitle"><fmt:message key="publisherEdit.points"/></td>
-        <td align="right">
-          <select id="availablePoints"></select>
-          <i class="bi bi-plus-circle-fill text-success" onclick="selectPoint()"></i>
-        </td>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-auto smallTitle">
+              <fmt:message key="publisherEdit.points"/>
+            </div>
+            <div class="col-auto">
+              <select class="form-select form-select-sm my-2" id="availablePoints"></select>
+            </div>
+            <div class="col-auto">
+              <i class="bi bi-plus-circle-fill text-blue-add  align-middle me-2 fs-5" onclick="selectPoint()"></i>
+            </div>
+          </div>
+        </div>
       </tr>
     </table>
+
+    <div id="httpSenderTest" ></div>
     
-    <table cellspacing="1" cellpadding="0">
+    <table cellspacing="1" cellpadding="0" class="table table-light table-hover align-middle">
       <tr class="rowHeader">
         <td><fmt:message key="publisherEdit.point.name"/></td>
         <td><fmt:message key="publisherEdit.point.status"/></td>

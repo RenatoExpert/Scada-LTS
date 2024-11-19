@@ -29,6 +29,8 @@
                 $get("snapshotSendPeriodType"));
     }
     
+    <%-- acerto de erro create Serotonin Persistent TCP type publisher github.com/SCADA-LTS/Scada-LTS/commit/e708ad5fd280e3e5fa18300849ac84d43f147898 --%>
+
     function savePublisherCB(response) {
         if (response.hasMessages) {
             for (var i=0; i<response.messages.length; i++)
@@ -40,6 +42,9 @@
             }
             showMessage("message", "<fmt:message key="publisherEdit.saved"/>");
             showHttpSenderTest();
+            if (${publisher.type.id == applicationScope['constants.PublisherVO.Types.HTTP_SENDER']}) {
+                showHttpSenderTest();
+            }
         }
     }
     
@@ -62,25 +67,35 @@
         document.getElementById("httpSenderTest").style.visibility = "visible";
     }
   </script>
-  
   <table  class="subPageHeader container">
     <tr>
       <td>
         <c:if test="${!empty publisherEvents}">
-          <table class="right-box my-3">
-            <tr><td class="smallTitle"><fmt:message key="publisherEdit.currentAlarms"/></td></tr>
-            <c:forEach items="${publisherEvents}" var="event">
-              <tr><td class="formError">
-                <tag:eventIcon eventBean="${event}"/>
-                <c:out value="${event.prettyActiveTimestamp}" />:
-                <c:out value="${event.message}" />
-              </td></tr>
-            </c:forEach>
-          </table>
+          <div class="right-box my-3">
+            <table class="w-100  m-3">
+                <div class="col-12 m-3">
+                  <tr>
+                    <td class="smallTitle"><fmt:message key="publisherEdit.currentAlarms"/></td>
+                  </tr>
+                  <table cellspacing="1" cellpadding="0" border="0" class="table table-light table-hover">
+                      <c:forEach items="${publisherEvents}" var="event">
+                        <tr class="rowHeader">
+                          <td><tag:eventIcon eventBean="${event}"/></td>
+                          <td><c:out value="${event.prettyActiveTimestamp}" />:</td>
+                          <td><c:out value="${event.message}" /></td>
+                        </tr>
+                      </c:forEach>
+                  </table>
+                </div>
+            </table>
+          </div>
         </c:if>
         
         <div id="message" class="formError" style="display:none;"></div>
         
+        
+        <div class="container">
+
         <div class="right-box my-3">
           <table>
             <div class="container">
@@ -155,10 +170,12 @@
                 </div>
               </div>
             </div>
-
           </table>
         </div>
+
+        </div>
         
+        <div class="container">
         <div>
           <c:choose>
             <c:when test="${publisher.type.id == applicationScope['constants.PublisherVO.Types.HTTP_SENDER']}">
@@ -172,16 +189,19 @@
             </c:when>
           </c:choose>
         </div>
+        </div>
       </td>
     </tr>
+
     
     <tr><td>&nbsp;</td></tr>
-    
+    <div class="container">
     <tr>
       <td align="center">
         <button type="button" class="btn btn-primary custom-btn-blue mx-2" name="savePublisher" onclick="savePublisher()"><fmt:message key="common.save"/></button>
         <button type="button" class="btn btn-primary custom-btn-blue mx-2" name="common.cancel" onclick="window.location='publishers.shtm'"><fmt:message key="common.cancel"/></button>
       </td>
     </tr>
+    </div>
   </table>
 </tag:page>

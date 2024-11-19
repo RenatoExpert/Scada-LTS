@@ -255,17 +255,17 @@
         // iconNode: O nó do ícone que será atualizado. 
          function setAlarmLevelImg(alarmLevel, iconNode) {
             if (alarmLevel == 0)
-                updateIcon(iconNode, "bi bi-flag-fill text-success", "Green Flag", false, "none");
+                updateIcon(iconNode, "bi bi-flag-fill text-success align-middle ms-3 fs-6", "Green Flag", false, "none");
             else if (alarmLevel == 1)
-                updateIcon(iconNode, "bi bi-flag-fill text-primary", "Blue Flag", true, "visible");
+                updateIcon(iconNode, "bi bi-flag-fill text-primary align-middle ms-3 fs-6", "Blue Flag", true, "visible");
             else if (alarmLevel == 2)
-                updateIcon(iconNode, "bi bi-flag-fill text-warning", "Yellow Flag", true, "visible");
+                updateIcon(iconNode, "bi bi-flag-fill text-warning align-middle ms-3 fs-6", "Yellow Flag", true, "visible");
             else if (alarmLevel == 3)
-                updateIcon(iconNode, "bi bi-flag-fill text-orange", "Orange Flag", true, "visible"); // text-orange is not a default Bootstrap class, you might need to define it
+                updateIcon(iconNode, "bi bi-flag-fill text-orange align-middle ms-3 fs-6", "Orange Flag", true, "visible"); // text-orange is not a default Bootstrap class, you might need to define it
             else if (alarmLevel == 4)
-                updateIcon(iconNode, "bi bi-flag-fill text-danger", "Red Flag", true, "visible");
+                updateIcon(iconNode, "bi bi-flag-fill text-danger align-middle ms-3 fs-6", "Red Flag", true, "visible");
             else
-                updateIcon(iconNode, "bi bi-question-circle-fill", "(unknown)", true, "visible");
+                updateIcon(iconNode, "bi bi-question-circle-fill align-middle ms-3 fs-6", "(unknown)", true, "visible");
         }
         
         function updateIcon(imgNode, className, text, visible, styleType) {

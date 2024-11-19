@@ -61,7 +61,7 @@
 	  if(exists) {
 		  alert('Arquivo OK!');
 	  } else {
-		  alert('Arquivo n�o encontrado!');
+		  alert('Arquivo n�o encontrado!');
 	  }
   }	
   
@@ -109,61 +109,87 @@
   
   function refreshValueList(prefix, arr) {
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["quantize"],
+    classes: ["form-check-input", "custom-checkbox", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.asciiFile.desc"/></c:set>
 <c:set var="dsHelpId" value="asciiFileReaderDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-    <td class="formField">
-      <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+    <td class="d-flex align-items-center justify-content-start">
+      <input class=" w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort" />
       <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
         <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
       </sst:select>
     </td>
   </tr>
   <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.quantize"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.quantize"/></td>
           <td class="formField"><sst:checkbox id="quantize" selectedValue="${dataSource.quantize}"/></td>
   </tr>
   <tr>
-	<td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.filePath"/></td>
-  	<td class="formField"><input id="filePath" type="text" value="${dataSource.filePath}"/></td>
+	<td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.filePath"/></td>
+  	<td class="formField"><input id="filePath" class=" w-75 form-control form-control-sm my-2" type="text" value="${dataSource.filePath}"/></td>
   	<td>
-		<input id="checkBtn" type="button" value="<fmt:message key="dsEdit.asciiFile.checkFile"/>" onclick="checkFile();" />
+    <button id="checkBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="checkFile();" ><fmt:message key="dsEdit.asciiFile.checkFile"/></button>
+		<%-- <input id="checkBtn" type="button" value="<fmt:message key="dsEdit.asciiFile.checkFile"/>" onclick="checkFile();" /> --%>
 	</td>
   </tr>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsEventsFoot.jspf" %>
 
 <tag:pointList pointHelpId="asciiFileReaderPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
     <td class="formField">
-      <select id="dataTypeId">
+      <select class="w-50 form-select form-select-sm my-2" id="dataTypeId">
         <tag:dataTypeOptions excludeImage="true"/>
       </select>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.valueRegex"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.valueRegex"/></td>
     <td class="formField">
-    	<input id="valueRegex" type="text" value=""/>
-    	<select id="valueSuggestions" onchange="valueSuggestChanged();">
+    	<input id="valueRegex" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
+    	<select class="w-50 form-select form-select-sm my-2" id="valueSuggestions" onchange="valueSuggestChanged();">
     		<option value=""> &nbsp; </option>
         	<option value="((\b[0-9]+)?\.)?[0-9]+\b"> <fmt:message key="dsEdit.asciiFile.regex.number"/>  </option>
       	</select>
     </td>
   </tr>
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampCheck"/></td>
-    <td class="formField"><input id="customTimestamp" type="checkbox" onchange="checkTimestampChanged();"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampCheck"/></td>
+    <td class="formField"><input id="customTimestamp" class="form-check-input custom-checkbox my-2" type="checkbox" onchange="checkTimestampChanged();"/></td>
   </tr>
 	  <tr id="tsDiv1">
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampFormat"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampFormat"/></td>
 	    <td class="formField">
-	    	<input id="timestampFormat" type="text" value=""/>
-	    	<select id="timestampSuggestions" onchange="timestampSuggestChanged();">
+	    	<input id="timestampFormat" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
+	    	<select class="w-50 form-select form-select-sm my-2" id="timestampSuggestions" onchange="timestampSuggestChanged();">
 	    		<option value=""> &nbsp; </option>
 	        	<option value="20\d{2}\/((0[1-9])|(1[0-2]))\/((0[1-9])|([1-2][0-9])|(3[0-1]))\s(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])" title="yyyy/MM/dd KK:mm:ss"> YYYY/MM/DD HH:MM:SS (2010/12/25 18:30:00) </option>
 	        	<option value="20\d{2}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[0-1]))\s(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])" title="yyyy-MM-dd KK:mm:ss"> YYYY-MM-DD HH:MM:SS (2010-12-25 18:30:00)  </option>
@@ -173,9 +199,9 @@
 	    </td>
 	  </tr>
 	  <tr id="tsDiv2">
-	    <td class="formLabelRequired"><fmt:message key="dsEdit.asciiFile.timestampRegex"/></td>
+	    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.asciiFile.timestampRegex"/></td>
 	    <td class="formField">
-	    	<input id="timestampRegex" type="text" value=""/>
+	    	<input id="timestampRegex" class=" w-75 form-control form-control-sm my-2" type="text" value=""/>
 	    </td>
 	  </tr>
 </tag:pointList>

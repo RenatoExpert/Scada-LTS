@@ -17,30 +17,34 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
-<table cellpadding="0" cellspacing="0">
-  <tr>
+<table cellpadding="0" cellspacing="0" class="container">
+  <tr class="d-flex flex-column align-items-stretch justify-content-center">
     <td valign="top">
-      <div class="borderDiv marB marR" id="dataSourceProperties">
-        <table width="100%">
-          <tr>
-            <td class="smallTitle">
-              <i class="bi bi-database-fill-gear" title="<fmt:message key='common.edit'/>"></i>
+      <div class="right-box my-3" id="dataSourceProperties">
+        <table class="w-100  m-3">
+        <div class="d-flex justify-content-between align-items-center my-3">
+        <div>
+          <span class="smallTitle"><i class="bi bi-database-fill-gear align-middle ms-3 fs-5" title="<fmt:message key='common.edit'/>"></i>
               ${dsDesc}
               <tag:help id="${dsHelpId}"/>
-            </td>
-            <td align="right">
-              <i class="bi bi-database-fill-x  text-danger" onclick="toggleDataSource()" id="dsStatusImg" style="display:none; cursor: pointer;"></i>
-              <i id="dsSaveImg" class="bi bi-floppy2-fill text-success" onclick="saveDataSource()" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-            </td>
-          </tr>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+              <i class="bi bi-database-fill-x  text-danger align-middle me-3 fs-5" onclick="toggleDataSource()" id="dsStatusImg" style="display:none; cursor: pointer;"></i>
+              <i id="dsSaveImg" class="bi bi-floppy2-fill text-blue-add  me-2 fs-5" onclick="saveDataSource()" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+              <span style="font-size: 16px;" class="me-3">
+                <sst:i18n key='common.save' escapeDQuotes='true'/>
+              </span>
+        </div>
+        </div>
+        </div>
         </table>
         <div id="dataSourceMessage" class="ctxmsg formError"></div>
-        <table>
+        <table class="w-75">
           <tr>
-            <td class="formLabelRequired"><fmt:message key="dsEdit.head.name"/></td>
-            <td class="formField"><input type="text" id="dataSourceName" value="${dataSource.name}"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.head.name"/></td>
+            <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="dataSourceName" value="${dataSource.name}"/></td>
           </tr>
           <tr>
-            <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-            <td class="formField"><input type="text" id="dataSourceXid" value="${dataSource.xid}"/></td>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+            <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="dataSourceXid" value="${dataSource.xid}"/></td>
           </tr>

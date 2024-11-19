@@ -137,35 +137,56 @@
       
       DataSourceEditDwr.saveGalilPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
   }
+  //função para adicionar classes aos selects e checkbox estilo bootstrap
+  function addClassToSelects() {
+  var selectGroups = [
+    {
+    ids: ["updatePeriodType"],
+    classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    }
+  ];
+
+  selectGroups.forEach(function(group) {
+    group.ids.forEach(function(id) {
+    var selectElement = document.getElementById(id);
+    if (selectElement) {
+      selectElement.classList.add(...group.classes);
+    }
+    });
+  });
+  }
+
+  // Chama a função após a página ser carregada
+  window.onload = addClassToSelects;
 </script>
 
 <c:set var="dsDesc"><fmt:message key="dsEdit.galil.desc"/></c:set>
 <c:set var="dsHelpId" value="galilDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.galil.host"/></td>
-          <td class="formField"><input id="host" type="text" value="${dataSource.host}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.host"/></td>
+          <td class="formField"><input id="host" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.host}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.galil.port"/></td>
-          <td class="formField"><input id="port" type="text" value="${dataSource.port}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.port"/></td>
+          <td class="formField"><input id="port" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.port}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.galil.timeout"/></td>
-          <td class="formField"><input id="timeout" type="text" value="${dataSource.timeout}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.timeout"/></td>
+          <td class="formField"><input id="timeout" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.timeout}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.galil.retries"/></td>
-          <td class="formField"><input id="retries" type="text" value="${dataSource.retries}"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.retries"/></td>
+          <td class="formField"><input id="retries" class="w-75 form-control form-control-sm my-2" type="text" value="${dataSource.retries}"/></td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
             <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" ms="true" s="true" min="true" h="true"/>
             </sst:select>
@@ -177,18 +198,19 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
+    <div class="right-box w-25">
+      <table class="m-3">
         <tr><td colspan="2" class="smallTitle"><fmt:message key="dsEdit.galil.commandTesting"/></td></tr>
         
         <tr>
-          <td class="formLabel"><fmt:message key="dsEdit.galil.command"/></td>
-          <td class="formField"><input type="text" id="galilTestCommand"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.command"/></td>
+          <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="galilTestCommand"/></td>
         </tr>
         
         <tr>
           <td colspan="2" align="center">
-            <input id="galilTestBtn" type="button" value="<fmt:message key="dsEdit.galil.execute"/>" onclick="galilTest();"/>
+            <button id="galilTestBtn" class="btn btn-primary custom-btn-blue ms-3" onclick="galilTest();" ><fmt:message key="dsEdit.galil.execute"/></button>
+            <%-- <input id="galilTestBtn" type="button" value="<fmt:message key="dsEdit.galil.execute"/>" onclick="galilTest();"/> --%>
           </td>
         </tr>
         
@@ -197,9 +219,9 @@
 
 <tag:pointList pointHelpId="galilPP">
   <tr>
-    <td class="formLabelRequired"><fmt:message key="dsEdit.galil.pointType"/></td>
+    <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.pointType"/></td>
     <td class="formField">
-      <select id="pointTypeId" onchange="changePointType();">
+      <select class="w-50 form-select form-select-sm my-2" id="pointTypeId" onchange="changePointType();">
         <option value="<c:out value="<%= PointTypeVO.Types.COMMAND %>"/>"><fmt:message key="dsEdit.galil.pointType.command"/></option>
         <option value="<c:out value="<%= PointTypeVO.Types.INPUT %>"/>"><fmt:message key="dsEdit.galil.pointType.input"/></option>
         <option value="<c:out value="<%= PointTypeVO.Types.OUTPUT %>"/>"><fmt:message key="dsEdit.galil.pointType.output"/></option>
@@ -220,37 +242,37 @@
   --%>
   <tbody id="divPH2" style="display: none;">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
       <td class="formField">
-        <select id="inputPointType.dataTypeId" onchange="changeInputDataType();">
+        <select class="w-50 form-select form-select-sm my-2" id="inputPointType.dataTypeId" onchange="changeInputDataType();">
           <tag:dataTypeOptions excludeAlphanumeric="true" excludeImage="true" excludeMultistate="true"/>
         </select>
       </td>
     </tr>
   
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.inputNumber"/></td>
-      <td class="formField"><input type="text" id="inputPointType.inputId" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.inputNumber"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="inputPointType.inputId" /></td>
     </tr>
 
     <tr id="inputScaleRawLow">
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.scaleLow"/></td>
-      <td class="formField"><input type="text" id="inputPointType.scaleRawLow" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.scaleLow"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="inputPointType.scaleRawLow" /></td>
     </tr>
 
     <tr id="inputScaleRawHigh">
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.scaleHigh"/></td>
-      <td class="formField"><input type="text" id="inputPointType.scaleRawHigh" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.scaleHigh"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="inputPointType.scaleRawHigh" /></td>
     </tr>
 
     <tr id="inputScaleEngLow">
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.engLow"/></td>
-      <td class="formField"><input type="text" id="inputPointType.scaleEngLow" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.engLow"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="inputPointType.scaleEngLow" /></td>
     </tr>
 
     <tr id="inputScaleEngHigh">
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.engHigh"/></td>
-      <td class="formField"><input type="text" id="inputPointType.scaleEngHigh" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.engHigh"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="inputPointType.scaleEngHigh" /></td>
     </tr>
   </tbody>
 
@@ -259,8 +281,8 @@
   --%>
   <tbody id="divPH3" style="display: none;">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.outputNumber"/></td>
-      <td class="formField"><input type="text" id="outputPointType.outputId" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.outputNumber"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="outputPointType.outputId" /></td>
     </tr>
   </tbody>
 
@@ -269,9 +291,9 @@
   --%>
   <tbody id="divPH4" style="display: none;">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.axis"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.axis"/></td>
       <td class="formField">
-        <select id="tellPositionPointType.axis">
+        <select class="w-50 form-select form-select-sm my-2" id="tellPositionPointType.axis">
           <option>A</option>
           <option>B</option>
           <option>C</option>
@@ -285,28 +307,28 @@
     </tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.scaleLow"/></td>
-      <td class="formField"><input type="text" id="tellPositionPointType.scaleRawLow" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.scaleLow"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tellPositionPointType.scaleRawLow" /></td>
     </tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.scaleHigh"/></td>
-      <td class="formField"><input type="text" id="tellPositionPointType.scaleRawHigh" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.scaleHigh"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tellPositionPointType.scaleRawHigh" /></td>
     </tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.engLow"/></td>
-      <td class="formField"><input type="text" id="tellPositionPointType.scaleEngLow" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.engLow"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tellPositionPointType.scaleEngLow" /></td>
     </tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.engHigh"/></td>
-      <td class="formField"><input type="text" id="tellPositionPointType.scaleEngHigh" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.engHigh"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="tellPositionPointType.scaleEngHigh" /></td>
     </tr>
 
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.round"/></td>
-      <td class="formField"><input type="checkbox" id="tellPositionPointType.roundToInteger"></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.round"/></td>
+      <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="tellPositionPointType.roundToInteger"></td>
     </tr>
   </tbody>
 
@@ -315,14 +337,14 @@
   --%>
   <tbody id="divPH5" style="display: none;">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.galil.varName"/></td>
-      <td class="formField"><input type="text" id="variablePointType.variableName" /></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.galil.varName"/></td>
+      <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="variablePointType.variableName" /></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.pointDataType"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.pointDataType"/></td>
       <td class="formField">
-        <select id="variablePointType.dataTypeId">
+        <select class="w-50 form-select form-select-sm my-2" id="variablePointType.dataTypeId">
           <tag:dataTypeOptions excludeImage="true"/>
         </select>
       </td>

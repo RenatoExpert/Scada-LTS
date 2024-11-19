@@ -19,12 +19,24 @@
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.Common"%>
 
+<script>
+    function addClassToAllSelects() {
+        var selectElements = document.querySelectorAll("select");
+        selectElements.forEach(function(selectElement) {
+            selectElement.classList.add("w-50", "form-select", "form-select-sm", "my-2");
+        });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToAllSelects;
+</script>
+
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.port"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.port"/></td>
   <td class="formField">
     <c:choose>
       <c:when test="${!empty commPortError}">
-        <input id="commPortId" type="hidden" value=""/>
+        <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
         <span class="formError">${commPortError}</span>
       </c:when>
       <c:otherwise>
@@ -39,7 +51,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.baud"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.baud"/></td>
   <td class="formField">
     <sst:select id="baudRate" value="${serialPortSettings != null ? serialPortSettings.baudRate : rxtxDefaultBaudrate}">
       <sst:option>110</sst:option>
@@ -60,7 +72,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.flowControlIn"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.flowControlIn"/></td>
   <td class="formField">
     <sst:select id="flowControlIn" value="${serialPortSettings != null ? serialPortSettings.flowControlIn : rxtxDefaultFlowControl}">
       <sst:option value="NONE"><fmt:message key="dsEdit.serial.flow.none"/></sst:option>
@@ -71,7 +83,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.flowOut"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.flowOut"/></td>
   <td class="formField">
     <sst:select id="flowControlOut" value="${serialPortSettings != null ? serialPortSettings.flowControlOut : rxtxDefaultFlowControl}">
       <sst:option value="NONE"><fmt:message key="dsEdit.serial.flow.none"/></sst:option>
@@ -82,7 +94,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.dataBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.dataBits"/></td>
   <td class="formField">
     <sst:select id="dataBits" value="${serialPortSettings != null ? serialPortSettings.dataBits : rxtxDefaultDataBits}">
       <sst:option value="5">5</sst:option>
@@ -94,7 +106,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.stopBits"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.stopBits"/></td>
   <td class="formField">
     <sst:select id="stopBits" value="${serialPortSettings != null ? serialPortSettings.stopBits : rxtxDefaultStopBits}">
       <sst:option value="1">1</sst:option>
@@ -105,7 +117,7 @@
 </tr>
 
 <tr>
-  <td class="formLabelRequired"><fmt:message key="dsEdit.serial.parity"/></td>
+  <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.serial.parity"/></td>
   <td class="formField">
     <sst:select id="parity" value="${serialPortSettings != null ? serialPortSettings.parity : rxtxDefaultParity}">
       <sst:option value="NONE"><fmt:message key="dsEdit.serial.parity.none"/></sst:option>
@@ -118,11 +130,11 @@
 </tr>
 
 <tr>
-    <td class="formLabelRequired" for="inputBufferSize" ><fmt:message key="dsEdit.serial.inputBufferSize"/></td>
-    <td><input class="formShort" type="text" id="inputBufferSize" value="${serialPortSettings != null ? serialPortSettings.inputBufferSize : rxtxDefaultInputBufferSize}" /></td>
+    <td class="formLabelRequired align-middle my-2" for="inputBufferSize" ><fmt:message key="dsEdit.serial.inputBufferSize"/></td>
+    <td><input class="w-75 form-control form-control-sm my-2" type="text" id="inputBufferSize" value="${serialPortSettings != null ? serialPortSettings.inputBufferSize : rxtxDefaultInputBufferSize}" /></td>
 </tr>
 
 <tr>
-    <td class="formLabelRequired" for="outputBufferSize" ><fmt:message key="dsEdit.serial.outputBufferSize"/></td>
-    <td><input class="formShort" type="text" id="outputBufferSize" value="${serialPortSettings != null ? serialPortSettings.outputBufferSize : rxtxDefaultOutputBufferSize}" /></td>
+    <td class="formLabelRequired align-middle my-2" for="outputBufferSize" ><fmt:message key="dsEdit.serial.outputBufferSize"/></td>
+    <td><input class="w-75 form-control form-control-sm my-2" type="text" id="outputBufferSize" value="${serialPortSettings != null ? serialPortSettings.outputBufferSize : rxtxDefaultOutputBufferSize}" /></td>
 </tr>

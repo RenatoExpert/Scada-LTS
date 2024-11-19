@@ -22,7 +22,7 @@
 <c:set var="NEW_ID"><%= Common.NEW_ID %></c:set>
 
 <tag:page dwr="MailingListsDwr" onload="init">
-  <script>
+    <script>
     var users = new Array();
     var editingMailingList;
     var nextAddressEntryId = 1;
@@ -58,10 +58,10 @@
             for (var i=0; i<ml.entries.length; i++) {
                 entry = ml.entries[i];
                 if (entry.recipientType == <c:out value="<%= EmailRecipient.TYPE_USER %>"/>)
-                    appendUserEntry(entry);
+                appendUserEntry(entry);
                 else if (entry.recipientType == <c:out value="<%= EmailRecipient.TYPE_ADDRESS %>"/>) {
-                    entry.referenceId = nextAddressEntryId++;
-                    appendAddressEntry(entry);
+                      entry.referenceId = nextAddressEntryId++;
+                      appendAddressEntry(entry);
                 }
             }
 
@@ -90,8 +90,8 @@
             found = false;
             for (j=0; j<editingMailingList.entries.length; j++) {
                 if (editingMailingList.entries[j].referenceId && user.id == editingMailingList.entries[j].referenceId) {
-                    found = true;
-                    break;
+                      found = true;
+                      break;
                 }
             }
 
@@ -113,15 +113,15 @@
                 showDwrMessages(response.messages, $("genericMessages"));
             else {
                 if (editingMailingList.id == ${NEW_ID}) {
-                    stopImageFader("ml"+ editingMailingList.id +"Img");
-                    editingMailingList.id = response.data.mlId;
-                    appendMailingList(editingMailingList.id);
-                    startImageFader("ml"+ editingMailingList.id +"Img");
-                    setUserMessage("<fmt:message key="mailingLists.added"/>");
-                    show("deleteMailingListImg");
+                      stopImageFader("ml"+ editingMailingList.id +"Img");
+                      editingMailingList.id = response.data.mlId;
+                      appendMailingList(editingMailingList.id);
+                      startImageFader("ml"+ editingMailingList.id +"Img");
+                      setUserMessage("<fmt:message key="mailingLists.added"/>");
+                      show("deleteMailingListImg");
                 }
                 else
-                    setUserMessage("<fmt:message key="mailingLists.saved"/>");
+                setUserMessage("<fmt:message key="mailingLists.saved"/>");
                 MailingListsDwr.getMailingList(editingMailingList.id, updateMailingList)
             }
         });
@@ -288,14 +288,14 @@
 
                 content = '<table cellspacing="1" cellpadding="0"><tr>';
                 for (k=0; k<4; k++) {
-                    if (k == 0) title = hour +":00";
-                    else if (k == 1) title = hour +":15";
-                    else if (k == 2) title = hour +":30";
-                    else title = hour +":45";
-                    intId = getIntervalId(j, i, k);
-                    content += '<td id="ivl'+ intId +'" style="padding-right:2px;" title="'+ title +'"';
-                    content += ' class="qreg qon" onmouseover="quarterOver(this)" onmouseout="quarterOut(this)"';
-                    content += ' onmousedown="quarterDown(this); return false;">&nbsp;</td>';
+                      if (k == 0) title = hour +":00";
+                      else if (k == 1) title = hour +":15";
+                      else if (k == 2) title = hour +":30";
+                      else title = hour +":45";
+                      intId = getIntervalId(j, i, k);
+                      content += '<td id="ivl'+ intId +'" style="padding-right:3px;" title="'+ title +'"';
+                      content += ' class="qreg qon" onmouseover="quarterOver(this)" onmouseout="quarterOut(this)"';
+                      content += ' onmousedown="quarterDown(this); return false;">&nbsp;</td>';
                 }
                 content += '</tr></table>';
                 td.innerHTML = content;
@@ -382,14 +382,14 @@
         for (d=0; d<7; d++) {
             for (h=0; h<24; h++) {
                 for (m=0; m<4; m++) {
-                    node = $("ivl"+ iindex);
-                    if (inactive.length >= aindex && inactive[aindex] == iindex) {
-                        setCell(node, false);
-                        aindex++;
-                    }
-                    else
-                        setCell(node, true);
-                    iindex++;
+                      node = $("ivl"+ iindex);
+                      if (inactive.length >= aindex && inactive[aindex] == iindex) {
+                          setCell(node, false);
+                          aindex++;
+                      }
+                      else
+                          setCell(node, true);
+                      iindex++;
                 }
             }
         }
@@ -401,10 +401,10 @@
         for (d=0; d<7; d++) {
             for (h=0; h<24; h++) {
                 for (m=0; m<4; m++) {
-                    node = $("ivl"+ iindex);
-                    if (!isOn(node))
-                        arr[arr.length] = iindex;
-                    iindex++;
+                      node = $("ivl"+ iindex);
+                      if (!isOn(node))
+                          arr[arr.length] = iindex;
+                      iindex++;
                 }
             }
         }
@@ -441,154 +441,170 @@
     }
   </script>
 
-  <table class="subPageHeader">
+  <table class="subPageHeader container">
     <tr>
       <td valign="top">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td>
-                <span class="smallTitle"><fmt:message key="mailingLists.mailingLists"/></span>
-                <tag:help id="mailingLists"/>
-              </td>
-            <td align="right">
-              <i class="bi bi-journal-arrow-up" title="<fmt:message key='common.add'/>" onclick="showMailingList(${NEW_ID})" id="ml${NEW_ID}Img"></i>
-            </td>
-            </tr>
-          </table>
+        <div class="left-menu">
+          <table class="w-100">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <span class="smallTitle"><fmt:message key="mailingLists.mailingLists"/></span>
+          <tag:help id="mailingLists"/>
+        </div>
+        <div>
+          <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" onclick="showMailingList(${NEW_ID})" id="ml${NEW_ID}Img"></i>
+                <%-- <span style="font-size: 16px;">
+                  <sst:i18n key='users.add' escapeDQuotes='true'/>
+                </span> --%>
+        </div>
+        </div>
+        <div class="top-row-d-flex justify-content-between container py-2 box mb-3">
           <table id="mailingListsTable">
             <tbody id="ml_TEMPLATE_" onclick="showMailingList(getMangoId(this))" class="ptr" style="display:none;"><tr>
             <td>
-              <i class="bi bi-journal-arrow-up" id="ml_TEMPLATE_Img" title="<fmt:message key='mailingLists.mailingList'/>"></i>
+                <i class="bi bi-journal-arrow-up align-middle ms-3 fs-5" id="ml_TEMPLATE_Img" title="<fmt:message key='mailingLists.mailingList'/>"></i>
             </td>
-              <td class="link" id="ml_TEMPLATE_Name"></td>
+                <td class="text-uppercase fs-7" id="ml_TEMPLATE_Name"></td>
             </tr></tbody>
           </table>
         </div>
       </td>
 
       <td valign="top" style="display:none;" id="mailingListDetails">
-        <div class="borderDiv">
-          <table width="100%">
-            <tr>
-              <td><span class="smallTitle"><fmt:message key="mailingLists.details"/></span></td>
-              <td align="right">
-                <i class="bi bi-floppy2-fill text-success" onclick="saveMailingList();" title="<fmt:message key='common.save'/>"></i>
-                <i class="bi bi-trash  text-danger" id="deleteMailingListImg" onclick="deleteMailingList();" title="<fmt:message key='common.delete'/>"></i>
-                <i class="bi bi-envelope" id="sendTestEmailImg" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>"></i>
-              </td>
-            </tr>
-          </table>
+        <div class="right-box">
+          <table class="w-100">
+            <div class="d-flex justify-content-between container py-2 box mb-3">
+              <div>
+                <span class="smallTitle"><fmt:message key="mailingLists.details"/></span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <i id="saveImg" class="bi bi-floppy2-fill text-blue-add  me-2 fs-5" onclick="saveMailingList();" title="<fmt:message key='common.save'/>"></i>
+                    <span style="font-size: 16px;">
+                    <sst:i18n key='common.save' escapeDQuotes='true'/>
+                    </span>
+                <i id="deleteMailingListImg" class="bi bi-trash  text-danger ms-2 me-2 fs-5" onclick="deleteMailingList();" title="<fmt:message key='common.delete'/>" style="display:none;">
+                    <span style="font-size: 16px; color: var(--slts-color-primary-text);">
+                    <sst:i18n key='common.delete' escapeDQuotes='true'/>
+                    </span></i>
+                <i id="sendTestEmailImg" class="bi bi-envelope ms-2 me-2 fs-5" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="display:none;">
+                    <span style="font-size: 16px;">
+                        <sst:i18n key='common.sendTestEmail' escapeDQuotes='true'/>
+                        </span></i>
+              </div>
+
+
+          </div>
 
           <table><tr><td colspan="2" id="userMessage" class="formError" style="display:none;"></td></tr></table>
 
-          <table width="100%">
+          <table class="w-75">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" type="text" id="xid"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="mailingLists.name"/></td>
-              <td class="formField"><input id="name" type="text" onmousedown="this.focus()"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.name"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" id="name" type="text" onmousedown="this.focus()"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="mailingLists.collectInactiveEmails"/><tag:help id="collectInactiveMsg"/></td>
-              <td class="formField"><input id="collectInactiveEmails" type="checkbox" onmousedown="this.focus()" onclick="collectInactiveEmails(false)"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.collectInactiveEmails"/><tag:help id="collectInactiveMsg"/></td>
+                <td class="formField"><input class="form-check-input custom-checkbox my-2"  id="collectInactiveEmails" type="checkbox" onmousedown="this.focus()" onclick="collectInactiveEmails(false)"/></td>
             </tr>
 
             <tr id="cronPatternTr" style="display: none;">
-              <td class="formLabelRequired"><fmt:message key="mailingLists.cronPattern"/><tag:help id="cronPatterns"/></td>
-              <td class="formField"><input id="cronPattern" type="text" onmousedown="this.focus()"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.cronPattern"/><tag:help id="cronPatterns"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" id="cronPattern" type="text" onmousedown="this.focus()"/></td>
             </tr>
 
             <tr id="dailyLimitSentEmailsTr" style="display: none;">
-              <td class="formLabelRequired"><fmt:message key="mailingLists.dailyLimitSentEmails"/></td>
-              <td class="formField"><input id="dailyLimitSentEmails" type="checkbox" onmousedown="this.focus()" onclick="dailyLimitSentEmails(true)"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.dailyLimitSentEmails"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-check-input custom-checkbox my-2" id="dailyLimitSentEmails" type="checkbox" onmousedown="this.focus()" onclick="dailyLimitSentEmails(true)"/></td>
             </tr>
 
             <tr id="dailyLimitSentEmailsNumberTr" style="display: none;">
-              <td class="formLabelRequired"><fmt:message key="mailingLists.dailyLimitSentEmailsNumber"/></td>
-              <td class="formField"><input id="dailyLimitSentEmailsNumber" type="text" onmousedown="this.focus()"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="mailingLists.dailyLimitSentEmailsNumber"/></td>
+                <td class="formField d-flex align-items-center justify-content-center"><input class="form-control form-control-sm my-2" id="dailyLimitSentEmailsNumber" type="text" onmousedown="this.focus()"/></td>
             </tr>
+            
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
 
-            <tr><td class="horzSeparator" colspan="2"></td></tr>
             <tr>
-              <td class="formLabel"><fmt:message key="mailingLists.addUser"/></td>
-              <td class="formField">
-                <select id="userList"></select>
-                <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='common.add'/>" onclick="createUserEntry()"></i>
-              </td>
+                <td class="formLabel"><fmt:message key="mailingLists.addUser"/></td>
+                <td class="formField d-flex align-items-center justify-content-center">
+                <select class="form-select form-select-sm my-2" id="userList"></select>
+                <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" onclick="createUserEntry()"></i>
+                </td>
             </tr>
             <tr>
-              <td class="formLabel"><fmt:message key="mailingLists.addAddress"/></td>
-              <td class="formField">
-                <input id="address" type="text" class="formLong" onmousedown="this.focus()"/>
-                <i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='common.add'/>"  onclick="createAddressEntry()"></i>
-              </td>
+                <td class="formLabel"><fmt:message key="mailingLists.addAddress"/></td>
+                <td class="formField d-flex align-items-center justify-content-center">
+                <input class="form-control form-control-sm my-2" id="address" type="text" class="formLong" onmousedown="this.focus()"/>
+                <i class="bi bi-plus-circle-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>"  onclick="createAddressEntry()"></i>
+                </td>
             </tr>
-          </table>
-          
-          <table width="100%">
+        </table>
+
+        <table class="w-25 m-3">
             <tr><td colspan="3" class="smallTitle"><fmt:message key="mailingLists.entries"/></td></tr>
             <tr id="emptyEntryListMessage">
-              <td colspan="3"><fmt:message key="mailingLists.noEntries"/></td>
+                <td colspan="3"><fmt:message key="mailingLists.noEntries"/></td>
             </tr>
             <tr id="mleUser_TEMPLATE_" style="display:none;">
-              <td width="16"><i id="mle_TEMPLATE_Img" class="bi bi-person"></i>
-              <td id="mle_TEMPLATE_Username"></td>
-              <td width="16">
-                <i class="bi bi-trash text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteUserEntry(getMangoId(this));"></i>
-              </td>
+                <td width="16"><i id="mle_TEMPLATE_Img" class="bi bi-person align-middle mx-3 fs-5"></i>
+                <td id="mle_TEMPLATE_Username"></td>
+                <td width="16">
+                <i class="bi bi-trash text-danger align-middle mx-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="deleteUserEntry(getMangoId(this));"></i>
+                </td>
             </tr>
             <tr id="mleAddress_TEMPLATE_" style="display:none;">
-              <td width="16">
-                <i class="bi bi-envelope-open" title="<fmt:message key='mailingLists.emailAddress'/>"></i>
-              </td>
-              <td id="mle_TEMPLATE_Address"></td>
-              <td width="16">
-                <i class="bi bi-trash text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteAddressEntry(getMangoId(this));"></i>
-              </td>
+                <td width="16">
+                      <i class="bi bi-envelope-open align-middle mx-3 fs-5" title="<fmt:message key='mailingLists.emailAddress'/>"></i>
+                </td>
+                <td id="mle_TEMPLATE_Address"></td>
+                <td width="16">
+                      <i class="bi bi-trash text-danger align-middle mx-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="deleteAddressEntry(getMangoId(this));"></i>
+                </td>
             </tr>
             <tbody id="mailingListEntriesTable">
-              <tr><td width="16"></td><td></td><td width="16"></td></tr>
+                <tr><td width="16"></td><td></td><td width="16"></td></tr>
             </tbody>
-          </table>
-          <table width="100%">
+            </table>
+        <table class="w-100">
             <tbody id="genericMessages"></tbody>
-          </table>
-          
-          <table>
-            <tr><td colspan="5" class="horzSeparator" colspan="2"></td></tr>
+        </table>
+
+        <table class="w-100">
+            <%-- <tr><td colspan="5" class="horzSeparator" colspan="2"></td></tr> --%>
+            <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
             <tr>
-              <td class="smallTitle"><fmt:message key="common.activeTime"/></td>
-              <td class="qreg qon"></td>
-              <td><fmt:message key="common.active"/></td>
-              <td class="qreg qoff"></td>
-              <td><fmt:message key="common.inactive"/></td>
+                <td class="smallTitle"><fmt:message key="common.activeTime"/></>
+                <td class="qreg qon px-1"></td>
+                <td class="w-25 text-center"><fmt:message key="common.active"/></td>
+                <td class="qreg qoff px-3"></td>
+                <td class="w-25 text-center"><fmt:message key="common.inactive"/></td>
             </tr>
             <tr>
-              <td style="padding:5px;" colspan="5" >
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td></td>
-                    <th><fmt:message key="common.day.short.mon"/></th>
-                    <th><fmt:message key="common.day.short.tue"/></th>
-                    <th><fmt:message key="common.day.short.wed"/></th>
-                    <th><fmt:message key="common.day.short.thu"/></th>
-                    <th><fmt:message key="common.day.short.fri"/></th>
-                    <th><fmt:message key="common.day.short.sat"/></th>
-                    <th><fmt:message key="common.day.short.sun"/></th>
-                  </tr>
-                  <tbody id="scheduleRows"></tbody>
-                </table>
-              </td>
+                <td style="padding:5px;" colspan="5" >
+                      <table cellspacing="0" cellpadding="0" class="table table-light table-hover">
+                          <tr>
+                              <th><fmt:message key="maintenanceEvents.type.hour"/></th>
+                              <th><fmt:message key="common.day.short.mon"/></th>
+                              <th><fmt:message key="common.day.short.tue"/></th>
+                              <th><fmt:message key="common.day.short.wed"/></th>
+                              <th><fmt:message key="common.day.short.thu"/></th>
+                              <th><fmt:message key="common.day.short.fri"/></th>
+                              <th><fmt:message key="common.day.short.sat"/></th>
+                              <th><fmt:message key="common.day.short.sun"/></th>
+                          </tr>
+                          <tbody id="scheduleRows"></tbody>
+                      </table>
+                </td>
             </tr>
-          </table>
+            </table>
         </div>
-      </td>
+        </td>
     </tr>
-    <%-- <tag:newPageNotification href="./app.shtm#/recipient-list" ref="recipientListNotification"/> --%>
-  </table>
+    </table>
 </tag:page>

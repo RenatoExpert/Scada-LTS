@@ -196,42 +196,42 @@
 <c:set var="dsHelpId" value="1wireDS"/>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsHead.jspf" %>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.port"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.port"/></td>
           <td class="formField">
             <c:choose>
               <c:when test="${!empty commPortError}">
-                <input id="commPortId" type="hidden" value=""/>
+                <input id="commPortId" class="w-25 form-control form-control-sm my-2" type="hidden" value=""/>
                 <span class="formError">${commPortError}</span>
               </c:when>
               <c:otherwise>
-                <sst:select id="commPortId" value="${dataSource.commPortId}">
+                <select class="form-select form-select-sm my-2" id="commPortId" value="${dataSource.commPortId}">
                   <c:forEach items="${commPorts}" var="port">
                     <sst:option value="${port.name}">${port.name}</sst:option>
                   </c:forEach>
-                </sst:select>
+                </select>
               </c:otherwise>
             </c:choose>
           </td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.updatePeriod"/></td>
-          <td class="formField">
-            <input type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
-            <sst:select id="updatePeriodType" value="${dataSource.updatePeriodType}">
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.updatePeriod"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="updatePeriods" value="${dataSource.updatePeriods}" class="formShort"/>
+            <select class="w-25 form-select form-select-sm my-2" id="updatePeriodType" value="${dataSource.updatePeriodType}">
               <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
-            </sst:select>
+            </select>
           </td>
         </tr>
         
         <tr>
-          <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.scheduledRescan"/></td>
-          <td class="formField">
-            <input type="text" id="rescanPeriods" value="${dataSource.rescanPeriods}" class="formShort"/>
-            <sst:select id="rescanPeriodType" value="${dataSource.rescanPeriodType}" onchange="rescanChanged()">
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.scheduledRescan"/></td>
+          <td class="d-flex align-items-center justify-content-start">
+            <input class="w-25 form-control form-control-sm me-2" type="text" id="rescanPeriods" value="${dataSource.rescanPeriods}" class="formShort"/>
+            <select class="w-25 form-select form-select-sm my-2" id="rescanPeriodType" value="${dataSource.rescanPeriodType}" onchange="rescanChanged()">
               <sst:option value="<%= Integer.toString(OneWireDataSourceVO.RESCAN_NONE) %>"><fmt:message key="dsEdit.1wire.none"/></sst:option>
               <tag:timePeriodOptions sst="true" min="true" h="true" d="true" w="true"/>
-            </sst:select>
+            </select>
           </td>
         </tr>
       </table>
@@ -240,13 +240,14 @@
   </td>
   
   <td valign="top">
-    <div class="borderDiv marB">
-      <table>
-        <tr><td class="smallTitle"><fmt:message key="dsEdit.1wire.scan"/></td></tr>
+    <div class="right-box my-3">
+      <table class="m-3">
+        <tr class="my-2"><td class="smallTitle"><fmt:message key="dsEdit.1wire.scan"/></td></tr>
         
-        <tr>
+        <tr class="my-2">
           <td align="center">
-            <input id="scanBtn" type="button" value="<fmt:message key="dsEdit.1wire.runScan"/>" onclick="getNetworkInfo();"/>
+            <button id="scanBtn" type="button" class="btn btn-primary custom-btn-blue m-3" name="scanBtn" onclick="getNetworkInfo();"><sst:i18n key='dsEdit.1wire.runScan' escapeDQuotes='true'/></button>
+            <%-- <input id="scanBtn" type="button" value="<fmt:message key="dsEdit.1wire.runScan"/>" onclick="getNetworkInfo();"/> --%>
           </td>
         </tr>
         
@@ -265,42 +266,42 @@
 <tag:pointList pointHelpId="1wirePP">
   <tbody id="editableAttributes">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.address"/></td>
-      <td class="formField"><select id="address" onchange="addressChanged()"></select></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.address"/></td>
+      <td class="formField"><select class="form-select form-select-sm my-2" id="address" onchange="addressChanged()"></select></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.deviceType"/></td>
-      <td class="formField"><input type="text" id="deviceType" disabled="disabled" class="formLong"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.deviceType"/></td>
+      <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="deviceType" disabled="disabled" class="formLong"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.attribute"/></td>
-      <td class="formField"><select id="attributeId" onchange="attributeIdChanged()"></select></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.attribute"/></td>
+      <td class="formField"><select class="form-select form-select-sm my-2" id="attributeId" onchange="attributeIdChanged()"></select></td>
     </tr>
   </tbody>
   
   <tbody id="indexRow" style="display:none">
     <tr>
-      <td id="indexLabel" class="formLabelRequired"></td>
-      <td class="formField"><select id="index"></select></td>
+      <td id="indexLabel" class="formLabelRequired align-middle my-2"></td>
+      <td class="formField"><select class="form-select form-select-sm my-2" id="index"></select></td>
     </tr>
   </tbody>
   
   <tbody id="readonlyAttributes">
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.address"/></td>
-      <td class="formField"><input type="text" id="roAddress" disabled="disabled"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.address"/></td>
+      <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="roAddress" disabled="disabled"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.attribute"/></td>
-      <td class="formField"><input type="text" id="roAttributeDescription" disabled="disabled"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.attribute"/></td>
+      <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="roAttributeDescription" disabled="disabled"/></td>
     </tr>
     
     <tr>
-      <td class="formLabelRequired"><fmt:message key="dsEdit.1wire.index"/></td>
-      <td class="formField"><input type="text" id="roIndex" disabled="disabled"/></td>
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="dsEdit.1wire.index"/></td>
+      <td class="formField"><input class="form-control form-control-sm my-2" type="text" id="roIndex" disabled="disabled"/></td>
     </tr>
     
     <tr><td colspan="2" class="formError"><fmt:message key="dsEdit.1wire.noInfo"/></td></tr>

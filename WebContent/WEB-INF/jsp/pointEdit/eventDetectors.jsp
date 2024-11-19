@@ -18,22 +18,22 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.vo.event.PointEventDetectorVO"%>
-<div class="borderDiv">
-  <table id="eventDetectorTable">
+<div class="right-box my-3">
+  <table class="w-100" id="eventDetectorTable">
     <tr><td colspan="2">
-      <span class="smallTitle"><fmt:message key="pointEdit.detectors.eventDetectors"/></span>
+      <span class="smallTitle ms-3"><fmt:message key="pointEdit.detectors.eventDetectors"/></span>
       <tag:help id="eventDetectors"/>
     </td></tr>
-    
+    <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
     <tr>
-      <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.type"/></td>
-      <td class="formField">
-        <select id="eventDetectorSelect">
+      <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.type"/></td>
+      <td class="d-flex align-items-center justify-content-start">
+        <select class="w-50 form-select form-select-sm my-2" id="eventDetectorSelect">
           <c:forEach items="${eventDetectors}" var="eddef">
             <option value="${eddef.id}"><fmt:message key="${eddef.nameKey}"/></option>
           </c:forEach>
         </select>
-        <i class="bi bi-bell text-primary" title="<fmt:message key='common.add'/>" onclick="pointEventDetectorEditor.addEventDetector();"></i>
+        <i class="bi bi-bell-fill text-blue-add align-middle ms-3 fs-5" title="<fmt:message key='common.add'/>" onclick="pointEventDetectorEditor.addEventDetector();"></i>
       </td>
     </tr>
     
@@ -46,26 +46,27 @@
   
   <table style="display:none;">
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_ANALOG_HIGH_LIMIT %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <i class="bi bi-bell-slash text-danger" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.highLimitDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.alias"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
@@ -73,91 +74,101 @@
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.highLimit"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.highLimit"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
-        <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.duration"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <input id="eventDetector_TEMPLATE_Duration" class="w-25 form-control form-control-sm me-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_ANALOG_LOW_LIMIT %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.lowLimitDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.lowLimit"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.lowLimit"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_BINARY_STATE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.stateDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.state"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.state"/></td>
         <td class="formField">
-          <select id="eventDetector_TEMPLATE_State">
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_State">
             <option value="false"><fmt:message key="pointEdit.detectors.zero"/></option>
             <option value="true"><fmt:message key="pointEdit.detectors.one"/></option>
           </select>
@@ -166,325 +177,365 @@
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_MULTISTATE_STATE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.stateDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.state"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_State" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.state"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_State" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_POINT_CHANGE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.changeDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_STATE_CHANGE_COUNT %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.changeCounter"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.changeCount"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_ChangeCount" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.changeCount"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_ChangeCount" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_NO_CHANGE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.noChange"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_NO_UPDATE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.noUpdate"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_ALPHANUMERIC_STATE %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.stateDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.state"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_State" type="text" class="formLong"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.state"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_State" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_POSITIVE_CUSUM %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.posCusumDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.posLimit"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.posLimit"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.weight"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Weight" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.weight"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Weight" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
     </tbody>
     
     <tbody id="detectorType<%= PointEventDetectorVO.TYPE_NEGATIVE_CUSUM %>">
-      <tr><td class="horzSeparator" colspan="2"></td></tr>
+      <%-- <tr><td class="horzSeparator" colspan="2"></td></tr> --%>
+      <tr><td class="m-4 w-100" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
       <tr>
-        <td class="formLabelRequired">
-          <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/>
+        <td class="formLabelRequired align-middle my-2">
+          <i class="bi bi-bell-slash-fill text-danger align-middle me-3 fs-5" title="<fmt:message key='common.delete'/>" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"></i>
+          <%-- <tag:img png="bell_delete" title="common.delete" onclick="pointEventDetectorEditor.deleteDetector(getPedId(this))"/> --%>
           <fmt:message key="pointEdit.detectors.type"/>
         </td>
         <td class="formField"><fmt:message key="pointEdit.detectors.negCusumDet"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" type="text" class="formLong" maxlength="50"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Xid" class="w-75 form-control form-control-sm my-2" type="text" class="formLong" maxlength="50"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.alias"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" type="text" class="formLong"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Alias" class="w-75 form-control form-control-sm my-2" type="text" class="formLong"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="common.alarmLevel"/></td>
-        <td class="formField">
-          <select id="eventDetector_TEMPLATE_AlarmLevel"
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+        <td class="d-flex align-items-center justify-content-start">
+          <select class="w-50 form-select form-select-sm me-2" id="eventDetector_TEMPLATE_AlarmLevel"
                   onchange="pointEventDetectorEditor.updateAlarmLevelImage(this.value, getPedId(this))">
             <tag:alarmLevelOptions/>
           </select>
-          <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/>
+          <a id="eventDetector_TEMPLATE_AlarmLevelImg" href="#" class="nav-link" title="<fmt:message key='common.alarmLevel.none'/>" style="display:none;">
+            <i class="bi bi-flag-fill text-success align-middle me-3 fs-5"></i>
+          </a>
+          <%-- <tag:img id="eventDetector_TEMPLATE_AlarmLevelImg" png="flag_green" title="common.alarmLevel.none" style="display:none;"/> --%>
         </td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.negLimit"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.negLimit"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Limit" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="pointEdit.detectors.weight"/></td>
-        <td class="formField"><input id="eventDetector_TEMPLATE_Weight" type="text" class="formShort"/></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="pointEdit.detectors.weight"/></td>
+        <td class="formField"><input id="eventDetector_TEMPLATE_Weight" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/></td>
       </tr>
       <tr>
         <td class="formLabel"><fmt:message key="pointEdit.detectors.duration"/></td>
         <td class="formField">
-          <input id="eventDetector_TEMPLATE_Duration" type="text" class="formShort"/>
-          <select id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
+          <input id="eventDetector_TEMPLATE_Duration" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+          <select class="w-50 form-select form-select-sm my-2" id="eventDetector_TEMPLATE_DurationType"><tag:timePeriodOptions s="true" min="true" h="true"/></select>
         </td>
       </tr>
       <tr><td class="formError" id="eventDetector_TEMPLATE_ErrorMessage" colspan="2"></td></tr>
