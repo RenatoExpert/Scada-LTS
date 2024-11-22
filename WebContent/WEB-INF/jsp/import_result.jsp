@@ -84,51 +84,67 @@
 
   </script>
   
-  <div class="borderDiv marR marB" style="float:left;">
-   <table width="100%" cellspacing="2" cellpadding="2" border="0" align="center">
-  	<c:if test="${!empty errorMessages}">
-  		<tr>
-  			<td> <fmt:message key="emport.errorMessage"/> </td>
-  		</tr>
-  		
-  		<tr> 
-  		  <c:forEach items="${errorMessages}" var="error"> 
-  		  	<td> - ${error} </td>
-  		  </c:forEach>
-  		</tr>
-  	</c:if>
-  	<c:if test="${empty errorMessages}">
-  		<td>
-      		<span class="smallTitle"><fmt:message key="emport.importProjectTitle"/></span>
-      		<tag:help id="importProject"/>
-      	</td>
-  		<tr>
-      		<td> <b> <fmt:message key="emport.projectName"/> </b>   </td>
-    		<td> ${projectName} </td>
-    	</tr>
-    	<tr>
-      		<td> <b> <fmt:message key="emport.projectDescription"/> </b>  </td>
-    		<td>  ${projectDescription} </td>
-    	</tr>
-    	<tr>
-      		<td> <b> <fmt:message key="emport.serverVersion"/> </b>  </td>
-    		<td>  ${projectServerVersion} </td>
-    	</tr>
-    	<tr>
-      		<td> <b> <fmt:message key="emport.exportDate"/> </b>   </td>
-    		<td> ${exportDate} </td>
-    	</tr>
-    	<tbody id="importMessages"></tbody>
-      	<tr><td id="alternateMessage"></td></tr>
-    	<tr>
-    	   <td> </td>
-      	   <td> 
-      	     <input id="loadBtn" type="button" value="<fmt:message key="emport.importButton"/>" onclick="loadProject();"/>
-      	   </td>
-    	</tr>
-  	</c:if>
     
-  	</table>
-  </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="right-box my-3">
+				<table class="w-100 m-3">
+					<c:if test="${!empty errorMessages}">
+						<tr>
+							<td> <fmt:message key="emport.errorMessage"/> </td>
+						</tr>
+						<tr>
+							<c:forEach items="${errorMessages}" var="error">
+								<td> - ${error} </td>
+							</c:forEach>
+						</tr>
+					</c:if>
+					<c:if test="${empty errorMessages}">
+						<td>
+							<span class="smallTitle"><fmt:message key="emport.importProjectTitle"/></span>
+							<tag:help id="importProject"/>
+						</td>
+						<tr>
+							<td><hr class="border border-secondary w-100 my-4 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
+						<tr>
+							<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.projectName"/></td>
+							<td> ${projectName} </td>
+						</tr>
+						<tr>
+							<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.projectDescription"/></td>
+							<td> ${projectDescription} </td>
+						</tr>
+						<tr>
+							<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.serverVersion"/></td>
+							<td> ${projectServerVersion} </td>
+						</tr>
+						<tr>
+							<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.exportDate"/></td>
+							<td> ${exportDate} </td>
+						</tr>
+						<tr>
+							<td><hr class="border border-secondary w-100 my-4 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
+						<tbody id="importMessages"></tbody>
+						<tr><td id="alternateMessage"></td></tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<button id="loadBtn" type="button" class="btn btn-primary custom-btn-blue ms-3" onclick="loadProject();"><fmt:message key="emport.importButton"/></button>
+								<%-- <input id="loadBtn" type="button" value="<fmt:message key="emport.importButton"/>" onclick="loadProject();"/> --%>
+							</td>
+						</tr>
+					</c:if>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+  
   
 </tag:page>

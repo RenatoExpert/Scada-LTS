@@ -198,12 +198,17 @@
 					<tr>
 						<td colspan="2"><span class="smallTitle"><fmt:message key="emport.export" /></span> <tag:help id="emport" /></td>
 					</tr>
+						<tr>
+							<td><hr class="border border-secondary w-100 ms-4 my-2 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
 					<tr>
-						<td class="formLabel"><b><fmt:message key="emport.select" /></b><br /> 
+						<td class="formLabel"><b><fmt:message key="emport.select" /></b><br />
+						</td>
+						<td> 
 							<a href="#" onclick="selectAll(true); return false"><fmt:message key="emport.selectAll" /></a> | 
 							<a href="#" onclick="selectAll(false); return false"><fmt:message key="emport.unselectAll" /></a>
-						</td>
-						<td></td>
+						</td><br/>
 					</tr>
 					<tr>
 						<td class="formField" style="padding-left: 50px;">
@@ -247,6 +252,10 @@
 							<label class="align-middle m-2" for="reports"><fmt:message key="header.reports" /></label><br />
 						</td>
 					</tr>
+						<tr>
+							<td><hr class="border border-secondary w-100 ms-4 my-2 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
 					<tr>
 						<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.indent" /></td>
 						<td><input class="w-75 form-control form-control-sm my-2" type="text" id="prettyIndent" value="3" class="formVeryShort" /></td>
@@ -266,14 +275,14 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-							<button id="exportJsonBtn" type="button" class="btn btn-primary custom-btn-blue ms-3" onclick="doExportJson()"><fmt:message key="emport.exportJson"/></button>
+							<button id="exportJsonBtn" type="button" class="btn btn-primary custom-btn-blue m-3" onclick="doExportJson()"><fmt:message key="emport.exportJson"/></button>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<p></p>
 							<div style="float: none; border-bottom-width: 0; border-left-width: 0; border-right-width: 0;">
-								<p><hr class="border border-secondary w-75 my-4 mx-auto"/></p>
+								<p><hr class="border border-secondary w-75 my-4 ms-5 mx-auto"/></p>
 								<table class="w-100">
 									<tr>
 										<td><span class="smallTitle"><fmt:message key="emport.import" /></span></td>
