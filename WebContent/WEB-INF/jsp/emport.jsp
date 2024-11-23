@@ -190,250 +190,207 @@
 
   </script>
 
-	<div class="borderDiv marR marB" style="float: left;">
-		<table width="100%">
-			<tr>
-				<td colspan="2"><span class="smallTitle"><fmt:message
-							key="emport.export" />
-				</span> <tag:help id="emport" /></td>
-			</tr>
-			<tr>
-				<td class="formLabel"><b><fmt:message key="emport.select" />
-				</b><br /> <a href="#" onclick="selectAll(true); return false"><fmt:message
-							key="emport.selectAll" />
-				</a> | <a href="#" onclick="selectAll(false); return false"><fmt:message
-							key="emport.unselectAll" />
-				</a></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="formField" style="padding-left: 50px;"><input
-					type="checkbox" id="watchLists" /> <label for="watchLists"><fmt:message
-							key="header.watchLists" />
-				</label><br /> <input type="checkbox" id="graphicalViews" /> <label
-					for="graphicalViews"><fmt:message key="header.views" />
-				</label><br /> <input type="checkbox" id="eventHandlers" /> <label
-					for="eventHandlers"><fmt:message key="header.eventHandlers" />
-				</label><br /> <input type="checkbox" id="dataSources" /> <label
-					for="dataSources"><fmt:message key="header.dataSources" />
-				</label><br /> <input type="checkbox" id="dataPoints"
-					onchange="dataPointsCheckboxChanged();" /> <label for="dataPoints"><fmt:message
-							key="emport.dataPoints" />
-				</label><br /> - <input type="checkbox" id="pointValues" /> <label
-					for="pointValues"><fmt:message key="emport.pointValues" />
-				</label><br /> <input type="checkbox" id="scheduledEvents" /> <label
-					for="scheduledEvents"><fmt:message
-							key="header.scheduledEvents" />
-				</label><br /> <input type="checkbox" id="compoundEventDetectors" /> <label
-					for="compoundEventDetectors"><fmt:message
-							key="header.compoundEvents" />
-				</label><br /> <input type="checkbox" id="pointLinks" /> <label
-                    for="pointLinks"><fmt:message key="header.pointLinks" />
-                </label><br />
-                </td>
-				<td><input type="checkbox" id="users" /> <label for="users"><fmt:message
-							key="header.users" />
-				</label><br /> <input type="checkbox" id="pointHierarchy" /> <label
-					for="pointHierarchy"><fmt:message
-							key="header.pointHierarchy" />
-				</label><br /> <input type="checkbox" id="mailingLists" /> <label
-					for="mailingLists"><fmt:message key="header.mailingLists" />
-				</label><br /> <input type="checkbox" id="publishers" /> <label
-					for="publishers"><fmt:message key="header.publishers" />
-				</label><br /> <input type="checkbox" id="maintenanceEvents" /> <label
-					for="maintenanceEvents"><fmt:message
-							key="header.maintenanceEvents" />
-				</label><br /> <input type="checkbox" id="scripts" /> <label for="scripts"><fmt:message
-							key="header.scripts" />
-				</label><br /> <input type="checkbox" id="systemSettings" /> <label
-					for="scripts"><fmt:message key="header.systemSettings" />
-				</label><br />
-				<input type="checkbox" id="usersProfiles" /> <label
-					for="usersProfiles"><fmt:message key="header.usersProfiles" />
-				</label>
-				<br />
-				<input type="checkbox" id="reports" /> <label
-                    for="reports"><fmt:message key="header.reports" />
-                </label>
-                <br />
-				</td>
-				<!--          <input type="checkbox" id="reports"/> <label for="reports"><fmt:message key="header.reports"/></label><br/>-->
-				<!--          <input type="checkbox" id="systemSettings"/> <label for="systemSettings"><fmt:message key="header.systemSettings"/></label><br/>-->
-				<!--          <input type="checkbox" id="imageSets"/> <label for="imageSets"><fmt:message key="header.imageSets"/></label><br/>-->
-				<!--          <input type="checkbox" id="dynamicImages"/> <label for="dynamicImages"><fmt:message key="header.dynamicImages"/></label><br/>-->
-			</tr>
-			<tr>
-				<td class="formLabelRequired"><fmt:message key="emport.indent" />
-				</td>
-				<td><input type="text" id="prettyIndent" value="3"
-					class="formVeryShort" />
-				</td>
-			</tr>
-			<tr>
-				<td class="formLabelRequired"><fmt:message
-						key="emport.pointValuesMax" />
-				</td>
-				<td><select id="pointValuesMax">
-						<option value="100" />100
-						</option>
-						<option value="500" />500
-						</option>
-						<option value="1000" />1000
-						</option>
-						<option value="10000" />10000
-						</option>
-						<option value="100000" />100000
-						</option>
-						<option value="1000000" />1000000
-						</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center"><input id="exportJsonBtn"
-					type="button" value="<fmt:message key="emport.exportJson"/>"
-					onclick="doExportJson()" /></td>
-			</tr>
-			
-			<tr>
-				<td colspan="2" align="center">
-				<p></p>
-				<div class="borderDiv marB marR" style="float: none;border-bottom-width: 0;border-left-width:0;border-right-width:0;">
-		<p></p>
-		<table width="100%">
-			<tr>
-				<td><span class="smallTitle"><fmt:message
-							key="emport.import" />
-				</span>
-				</td>
-			</tr>
-			<tr>
-				<td><fmt:message key="emport.importInstruction" /> <input
-					id="importJsonBtn" type="button"
-					value="<fmt:message key="emport.import"/>" onclick="doImport()" />
-					<input id="cancelBtn" type="button"
-					value="<fmt:message key="common.cancel"/>" onclick="importCancel()"
-					disabled="disabled" /></td>
-			</tr>
-			<tbody id="importMessages"></tbody>
-			<tr>
-				<td id="alternateMessage"></td>
-			</tr>
-		</table>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="right-box my-3">
+				<table class="w-100 m-3">
+					<tr>
+						<td colspan="2"><span class="smallTitle"><fmt:message key="emport.export" /></span> <tag:help id="emport" /></td>
+					</tr>
+						<tr>
+							<td><hr class="border border-secondary w-100 ms-4 my-2 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
+					<tr>
+						<td class="formLabel"><b><fmt:message key="emport.select" /></b><br />
+						</td>
+						<td> 
+							<a href="#" onclick="selectAll(true); return false"><fmt:message key="emport.selectAll" /></a> | 
+							<a href="#" onclick="selectAll(false); return false"><fmt:message key="emport.unselectAll" /></a>
+						</td><br/>
+					</tr>
+					<tr>
+						<td class="formField" style="padding-left: 50px;">
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="watchLists" /> 
+							<label class="align-middle m-2" for="watchLists"><fmt:message key="header.watchLists" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="graphicalViews" /> 
+							<label class="align-middle m-2" for="graphicalViews"><fmt:message key="header.views" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="eventHandlers" /> 
+							<label class="align-middle m-2" for="eventHandlers"><fmt:message key="header.eventHandlers" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="dataSources" /> 
+							<label class="align-middle m-2" for="dataSources"><fmt:message key="header.dataSources" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="dataPoints" onchange="dataPointsCheckboxChanged();" /> 
+							<label class="align-middle m-2" for="dataPoints"><fmt:message key="emport.dataPoints" /></label><br />
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="pointValues" /> 
+							<label class="text-danger align-middle m-2" for="pointValues"><fmt:message key="emport.pointValues" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="scheduledEvents" /> 
+							<label class="align-middle m-2" for="scheduledEvents"><fmt:message key="header.scheduledEvents" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="compoundEventDetectors" /> 
+							<label class="align-middle m-2" for="compoundEventDetectors"><fmt:message key="header.compoundEvents" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="pointLinks" /> 
+							<label class="align-middle m-2" for="pointLinks"><fmt:message key="header.pointLinks" /></label><br />
+						</td>
+						<td>
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="users" /> 
+							<label class="align-middle m-2" for="users"><fmt:message key="header.users" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="pointHierarchy" /> 
+							<label class="align-middle m-2" for="pointHierarchy"><fmt:message key="header.pointHierarchy" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="mailingLists" /> 
+							<label class="align-middle m-2" for="mailingLists"><fmt:message key="header.mailingLists" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="publishers" /> 
+							<label class="align-middle m-2" for="publishers"><fmt:message key="header.publishers" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="maintenanceEvents" /> 
+							<label class="align-middle m-2" for="maintenanceEvents"><fmt:message key="header.maintenanceEvents" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="scripts" /> 
+							<label class="align-middle m-2" for="scripts"><fmt:message key="header.scripts" /></label><br /> 
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="systemSettings" /> 
+							<label class="align-middle m-2" for="systemSettings"><fmt:message key="header.systemSettings" /></label><br />
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="usersProfiles" /> 
+							<label class="align-middle m-2" for="usersProfiles"><fmt:message key="header.usersProfiles" /></label><br />
+							<input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="reports" /> 
+							<label class="align-middle m-2" for="reports"><fmt:message key="header.reports" /></label><br />
+						</td>
+					</tr>
+						<tr>
+							<td><hr class="border border-secondary w-100 ms-4 my-2 mx-auto"/></td>
+							<td><hr class="border border-secondary w-75 my-4 me-5 mx-auto"/></td>
+						</tr>
+					<tr>
+						<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.indent" /></td>
+						<td><input class="w-75 form-control form-control-sm my-2" type="text" id="prettyIndent" value="3" class="formVeryShort" /></td>
+					</tr>
+					<tr>
+						<td class="formLabelRequired align-middle my-2"><fmt:message key="emport.pointValuesMax" /></td>
+						<td>
+							<select class="w-50 form-select form-select-sm my-2" id="pointValuesMax">
+								<option value="100" />100</option>
+								<option value="500" />500</option>
+								<option value="1000" />1000</option>
+								<option value="10000" />10000</option>
+								<option value="100000" />100000</option>
+								<option value="1000000" />1000000</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<button id="exportJsonBtn" type="button" class="btn btn-primary custom-btn-blue m-3" onclick="doExportJson()"><fmt:message key="emport.exportJson"/></button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p></p>
+							<div style="float: none; border-bottom-width: 0; border-left-width: 0; border-right-width: 0;">
+								<p><hr class="border border-secondary w-75 my-4 ms-5 mx-auto"/></p>
+								<table class="w-100">
+									<tr>
+										<td><span class="smallTitle"><fmt:message key="emport.import" /></span></td>
+									</tr>
+									<tr>
+										<td>
+											<fmt:message key="emport.importInstruction" />
+											<button id="importJsonBtn" type="button" class="btn btn-primary custom-btn-blue ms-3" onclick="doImport()"><fmt:message key="emport.import"/></button>
+											<button id="cancelBtn" type="button" class="btn btn-primary custom-btn-blue ms-3" onclick="importCancel()" disabled="disabled"><fmt:message key="common.cancel"/></button>
+										</td>
+									</tr>
+									<tbody id="importMessages"></tbody>
+									<tr>
+										<td id="alternateMessage"></td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="right-box my-3">
+				<table class="w-100 m-3">
+					<tr>
+						<td><span class="smallTitle"><fmt:message key="emport.exportProjectTitle" /></span> <tag:help id="exportProject" /></td>
+					</tr>
+					<tr>
+						<td><label class="align-middle m-2" for="projectName"><fmt:message key="emport.projectName" /></label> <input class="w-75 form-control form-control-sm my-2" type="text" id="projectName" value="${instanceDescriptionHeader}" /><br /></td>
+					</tr>
+					<tr>
+						<td><label class="align-middle m-2" for="projectDescription"><fmt:message key="emport.projectDescription" /></label><br />
+						<textarea class="form-control mb-3 w-75" id="projectDescription" rows="4" cols="50"/></textarea>
+						<%-- <textarea id="projectDescription" rows="4" cols="50"></textarea> --%>
+						</td>
+					</tr>
+					<tr>
+						<td><input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="includePointValues" /> <label class="align-middle m-2" for="includePointValues"><fmt:message key="emport.includePointValues" /></label><br /> <input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="includeUploadsFolder" /> <label class="align-middle m-2" for="includeUploadsFolder"><fmt:message key="emport.uploadsFolder" /></label><br /> <input class="form-check-input align-middle custom-checkbox my-2" type="checkbox" id="includeGraphicsFolder" /> <label class="align-middle m-2" for="includeGraphicsFolder"><fmt:message key="emport.graphicsFolder" /></label><br /></td>
+					</tr>
+					<tr>
+						<td><label class="align-middle m-2" for="pointValuesMaxZip"><fmt:message key="emport.pointValuesMax" /></label> <select class="w-25 form-select form-select-sm my-2" id="pointValuesMaxZip">
+								<option value="100" />100</option>
+								<option value="500" />500</option>
+								<option value="1000" />1000</option>
+								<option value="10000" />10000</option>
+								<option value="100000" />100000</option>
+								<option value="1000000" />1000000</option>
+							</select></td>
+					</tr>
+					<tr>
+						<td><fmt:message key="emport.exportProjectInstruction" />
+						<button id="exportBtn" type="button" class="btn btn-primary custom-btn-blue ms-3" onclick="doExport()" ><fmt:message key="emport.exportProject"/></button>
+						<%-- <input id="exportBtn" type="button" value="<fmt:message key="emport.exportProject"/>" onclick="doExport()" /></td> --%>
+					</tr>
+					<tbody></tbody>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p><hr class="border border-secondary w-75 my-4 mx-auto"/></p>
+							<div>
+								<p></p>
+								<form method="POST" action="import_project.htm" enctype="multipart/form-data" onsubmit="return checkFileToImport();">
+									<table class="w-100 m-3">
+										<tr>
+											<td><span class="smallTitle"><fmt:message key="emport.importProjectTitle" /></span> <tag:help id="importProject" /></td>
+										</tr>
+										<tr>
+											<td><fmt:message key="emport.importProjectInstruction" /></td>
+										</tr>
+										<tr>
+											<td class="d-flex align-items-center justify-content-start">
+											<input class="form-control m-3 w-50" type="file" name="importFile" id="importFile" />
+											<button type="submit" class="btn btn-primary custom-btn-blue" id="importBtn" ><fmt:message key="emport.send"/></button>
+											<%-- <input id="importBtn" type="submit" value="<fmt:message key="emport.send"/>" /> --%>
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+									</table>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
-				
-				</td>
-			</tr>
-
-		</table>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="right-box my-3">
+				<div class="w-100 m-3">
+					<div>
+						<div><span class="smallTitle m-3"><fmt:message key="emport.data" /></span></div>
+					</div>
+					<div class="my-3 me-4">
+						<%-- <span class="formLabelRequired align-middle my-2"><fmt:message key="emport.data"/></span> --%>
+						<textarea class="form-control mb-3" id="emportData" rows="40" cols="150"/></textarea>
+						<%-- <textarea rows="40" cols="150" id="emportData"></textarea> --%>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="borderDiv marB marR" style="float: left;">
-		<table width="100%">
-			<tr>
-				<td><span class="smallTitle"><fmt:message
-							key="emport.exportProjectTitle" />
-				</span> <tag:help id="exportProject" /></td>
-			</tr>
-
-			<tr>
-				<td><label for="projectName"><fmt:message
-							key="emport.projectName" />
-				</label> <input type="text" id="projectName" value="${instanceDescriptionHeader}" /><br />
-				</td>
-
-			</tr>
-			<tr>
-				<td><label for="projectDescription"><fmt:message
-							key="emport.projectDescription" />
-				</label><br /> <textarea id="projectDescription" rows="4" cols="50"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="includePointValues" /> <label
-					for="includePointValues"><fmt:message
-							key="emport.includePointValues" />
-				</label><br /> <input type="checkbox" id="includeUploadsFolder" /> <label
-					for="includeUploadsFolder"><fmt:message
-							key="emport.uploadsFolder" />
-				</label><br /> <input type="checkbox" id="includeGraphicsFolder" /> <label
-					for="includeGraphicsFolder"><fmt:message
-							key="emport.graphicsFolder" />
-				</label><br /></td>
-
-			</tr>
-
-			<tr>
-				<td><label for="pointValuesMaxZip"><fmt:message
-							key="emport.pointValuesMax" />
-				</label> <select id="pointValuesMaxZip">
-						<option value="100" />100
-						</option>
-						<option value="500" />500
-						</option>
-						<option value="1000" />1000
-						</option>
-						<option value="10000" />10000
-						</option>
-						<option value="100000" />100000
-						</option>
-						<option value="1000000" />1000000
-						</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td><fmt:message key="emport.exportProjectInstruction" /> <input
-					id="exportBtn" type="button"
-					value="<fmt:message key="emport.exportProject"/>"
-					onclick="doExport()" /></td>
-			</tr>
-			<tbody></tbody>
-			<tr>
-				<td></td>
-			</tr>
-			
-			<tr>
-				<td colspan="2" align="center">
-				<p></p>
-				<div class="borderDiv marB marR" style="float: none;border-bottom-width: 0;border-left-width:0;border-right-width:0;">
-				<p></p>
-			<form method="POST" action="import_project.htm"
-			enctype="multipart/form-data" onsubmit="return checkFileToImport();">
-			<table width="100%">
-				<tr>
-					<td><span class="smallTitle"><fmt:message
-								key="emport.importProjectTitle" />
-					</span> <tag:help id="importProject" /></td>
-				</tr>
-
-				<tr>
-					<td><fmt:message key="emport.importProjectInstruction" /></td>
-				</tr>
-
-				<tr>
-					<td><input type="file" name="importFile" id="importFile" /> <input
-						id="importBtn" type="submit"
-						value="<fmt:message key="emport.send"/>" /></td>
-				</tr>
-
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-		</form>
-
-	</div>
-				
-				
-				</td>
-			</tr>
-			
-			
-		</table>
-	</div>
-
-	<div style="clear: both;">
-		<span class="formLabelRequired"><fmt:message key="emport.data" />
-		</span><br />
-		<textarea rows="40" cols="150" id="emportData"></textarea>
-	</div>
+</div>
 </tag:page>
