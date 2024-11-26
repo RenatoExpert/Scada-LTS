@@ -161,21 +161,21 @@
                     function(data) { return data.pointName; },
                     function(data) { return data.pointType; },
                     function(data) {
-                            return "<input type='text' value='"+ data.colour +"' "+
+                            return "<input class='w-100 form-control form-control-sm' type='text' value='"+ data.colour +"' "+
                                     "onblur='updatePointColour("+ data.pointId +", this.value)'/>";
                     },
                     function(data) {
-                        return "<input type='checkbox'"+ (data.consolidatedChart ? " checked='checked'" : "") +
+                        return "<input class='form-check-input custom-checkbox my-2' type='checkbox'"+ (data.consolidatedChart ? " checked='checked'" : "") +
                                 " onclick='updatePointConsolidatedChart("+ data.pointId +", this.checked)'/>";
                     },
                     function(data) { 
-                        return "<i class='bi bi-trash  text-danger' onclick='removeFromReportPointsArray(" + data.pointId + ")'></i>";
+                        return "<i class='bi bi-trash text-danger me-2 fs-5' onclick='removeFromReportPointsArray(" + data.pointId + ")'></i>";
                     }
                 ],
                 {
                     rowCreator:function(options) {
                         var tr = document.createElement("tr");
-                        tr.className = "smRow"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                        tr.className = "align-middle smRow"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                         return tr;
                     },
                     cellCreator:function(options) {
@@ -243,7 +243,7 @@
                     function(ri) { return ri.prettyReportEndTime; },
                     function(ri) { return ri.prettyRecordCount; },
                     function(ri) {
-                        return "<input type='checkbox'"+ (ri.preventPurge ? " checked='checked'" : "") +
+                        return "<input class='form-check-input custom-checkbox my-2' class='form-check-input custom-checkbox my-2' type='checkbox'"+ (ri.preventPurge ? " checked='checked'" : "") +
                                 " onclick='ReportsDwr.setPreventPurge("+ ri.id +", this.checked)'/>";
                     },
                     function(ri) { 
@@ -251,20 +251,20 @@
                                 ri.state == <c:out value="<%= ReportInstance.STATE_STARTED %>"/>)
                             return "";
                             
-                        var result = "<i class='bi bi-filetype-csv text-success' title='<fmt:message key="reports.export"/>' "+
+                        var result = "<i class='bi bi-filetype-csv text-success me-2 fs-5' title='<fmt:message key="reports.export"/>' "+
                                 "onclick='exportData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
                         if (ri.includeEvents != <c:out value="<%= ReportVO.EVENTS_NONE %>"/>)
-                            result += "<i class='bi bi-calendar-check text-primary' title='<fmt:message key="reports.eventExport"/>' "+
+                            result += "<i class='bi bi-calendar-check text-primary me-2 fs-5' title='<fmt:message key="reports.eventExport"/>' "+
                                     "onclick='exportEventData(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
                         if (ri.includeUserComments)
-                            result += "<i class='bi bi-chat-dots text-success' title='<fmt:message key="reports.userCommentExport"/>' "+
+                            result += "<i class='bi bi-chat-dots text-success me-2 fs-5' title='<fmt:message key="reports.userCommentExport"/>' "+
                                     "onclick='exportUserComments(\""+ encodeQuotes(ri.name) +"\", "+ ri.id +")'></i>";
                         
-                        result += "<i class='bi bi-graph-up-arrow text-success' title='<fmt:message key="reports.charts"/>' "+
+                        result += "<i class='bi bi-graph-up-arrow text-success me-2 fs-5' title='<fmt:message key="reports.charts"/>' "+
                                 "onclick='viewChart("+ ri.id +")'></i>"+
-                                "<i id='ri"+ ri.id +"DeleteImg' class='bi bi-trash text-danger' "+
+                                "<i id='ri"+ ri.id +"DeleteImg' class='bi bi-trash text-danger me-2 fs-5' "+
                                 "onclick='deleteReportInstance("+ ri.id +")'></i> ";
                         
                         return result;
@@ -273,13 +273,13 @@
                 {
                     rowCreator: function(options) {
                         var tr = document.createElement("tr");
-                        tr.className = "rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
+                        tr.className = "align-middle rowTable"+ (options.rowIndex % 2 == 0 ? "" : "Alt");
                         return tr;
                     },
                     cellCreator: function(options) {
                         var td = document.createElement("td");
                         if (options.cellNum == 5)
-                            td.align = "right";
+                            td.align = "center";
                         if (options.cellNum == 6)
                             td.align = "center";
                         return td;
@@ -497,22 +497,22 @@
     }
   </script>
   
-  <table cellpadding="0" cellspacing="0"><tr><td>
-    <div class="borderDiv marB" style="max-height:300px;overflow:auto;">
-      <table width="100%">
+  <table cellpadding="0" cellspacing="0" class="subPageHeader container"><tr><td>
+    <div class="right-box w-100 m-3" style="max-height:300px;overflow:auto;">
+      <table class="w-100">
         <tr>
           <td>
-            <span class="smallTitle"><fmt:message key="reports.reportQueue"/></span>
+            <span class="smallTitle "><fmt:message key="reports.reportQueue"/></span>
             <tag:help id="reportInstances"/>
           </td>
         <td align="right">
-            <i id="reportInstancesRefreshImg" class="bi bi-arrow-clockwise" title="<fmt:message key='common.refresh'/>" onclick="refreshReportInstanceList()"></i>
+            <i id="reportInstancesRefreshImg" class="bi bi-arrow-clockwise ms-2 fs-5" title="<fmt:message key='common.refresh'/>" onclick="refreshReportInstanceList()"></i>
         </td>
         </tr>
       </table>
       
-      <table cellspacing="1">
-        <tr class="rowHeader">
+      <table cellspacing="1" class="fs-7 text-center table table-light table-hover my-2">
+        <tr class="align-middle rowHeader">
           <td><fmt:message key="reports.reportName"/></td>
           <td><fmt:message key="reports.runTimeStart"/></td>
           <td><fmt:message key="reports.runDuration"/></td>
@@ -522,34 +522,32 @@
           <td><fmt:message key="reports.doNotPurge"/></td>
           <td></td>
         </tr>
-        <tr id="hourglass" class="rowTable"><td colspan="8" align="center"><i class="bi bi-hourglass-split" title="<fmt:message key='reports.loading'/>"></i></td></tr>
-        <tr id="noReportInstances" class="rowTable" style="display:none;"><td colspan="8"><fmt:message key="reports.noInstances"/></td></tr>
+        <tr id="hourglass" class="align-middle rowTable"><td colspan="8" align="center"><i class="bi bi-hourglass-split me-2 fs-5" title="<fmt:message key='reports.loading'/>"></i></td></tr>
+        <tr id="noReportInstances" class="align-middle rowTable" style="display:none;"><td colspan="8"><fmt:message key="reports.noInstances"/></td></tr>
         <tbody id="reportInstancesList"></tbody>
       </table>
     </div>
   </td></tr></table>
   
-  <table cellpadding="0" cellspacing="0">
+  <table cellpadding="0" cellspacing="0" class="subPageHeader container">
     <tr>
       <td valign="top">
-        <div class="borderDiv marR">
-          <table width="100%">
+        <div class="left-menu w-100 mx-3">
+          <table class="w-100">
             <tr>
               <td>
                 <span class="smallTitle"><fmt:message key="reports.templates"/></span>
                 <tag:help id="reportTemplates"/>
               </td>
               <td align="right">
-                  <i class="bi bi-file-text" title="<fmt:message key='reports.newReport'/>"
-                     onclick="loadReport(${applicationScope['constants.Common.NEW_ID']}, false)"
-                     id="r${applicationScope['constants.Common.NEW_ID']}Img"></i>
+                  <i class="bi bi-plus-circle-fill text-blue-add ms-2 fs-5" title="<fmt:message key='reports.newReport'/>" onclick="loadReport(${applicationScope['constants.Common.NEW_ID']}, false)" id="r${applicationScope['constants.Common.NEW_ID']}Img"></i>
               </td>
             </tr>
           </table>
           <table id="reportsTable">
             <tbody id="r_TEMPLATE_" onclick="loadReport(getMangoId(this), false)" class="ptr" style="display:none;"><tr>
               <td>
-                  <i id="r_TEMPLATE_Img" class="bi bi-journal-text" title="<fmt:message key='reports.report'/>"></i>
+                  <i id="r_TEMPLATE_Img" class="bi bi-journal-text me-2 fs-5" title="<fmt:message key='reports.report'/>"></i>
               </td>
               <td class="link" id="r_TEMPLATE_Name"></td>
             </tr></tbody>
@@ -558,19 +556,19 @@
       </td>
       
       <td valign="top" id="reportDetails" style="display:none;">
-        <div class="borderDiv">
-          <table width="100%">
+        <div class="right-box w-75 mx-4">
+          <table class="w-100 my-3">
             <tr>
               <td>
                 <span class="smallTitle">
-                <i id="reportImg" class="bi bi-journal-text" title="<fmt:message key='reports.report'/>"></i>
+                <i id="reportImg" class="bi bi-journal-text m-3 fs-5" title="<fmt:message key='reports.report'/>"></i>
                 <fmt:message key="reports.criteria"/></span>
               </td>
               <td align="right">
-                  <i id="deleteImg" class="bi bi-trash  text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteReport();"></i>
-                  <i id="runImg" class="bi bi-caret-right-square-fill text-success" title="<fmt:message key='reports.runNow'/>" onclick="runReport();"></i>
-                  <i id="saveImg" class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" onclick="saveReport();"></i>
-                  <i id="copyImg" class="bi bi-journals text-primary" title="<fmt:message key='common.copy'/>" onclick="loadReport(selectedReport.id, true);"></i>
+                  <i id="deleteImg" class="bi bi-trash  text-danger me-2 fs-5" title="<fmt:message key='common.delete'/>" onclick="deleteReport();"></i>
+                  <i id="runImg" class="bi bi-caret-right-square-fill text-success me-2 fs-5" title="<fmt:message key='reports.runNow'/>" onclick="runReport();"></i>
+                  <i id="saveImg" class="bi bi-floppy2-fill text-success me-2 fs-5" title="<fmt:message key='common.save'/>" onclick="saveReport();"></i>
+                  <i id="copyImg" class="bi bi-journals text-primary me-2 fs-5" title="<fmt:message key='common.copy'/>" onclick="loadReport(selectedReport.id, true);"></i>
               </td>
             </tr>
             <tr><td class="formError" id="userMessage"></td></tr>
@@ -578,25 +576,29 @@
           
           <table>
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.reportName"/></td>
-              <td class="formField">
-                <input type="text" id="name" class="formLong"/><br/>
-                <span class="formError" id="nameError"></span>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.reportName"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+                <input class="w-75 form-control form-control-sm my-2" type="text" id="name" class="formLong"/><br/>
+                <span class="formError ms-2" id="nameError"></span>
               </td>
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.points"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="common.points"/></td>
+                <td class="d-flex align-items-center justify-content-start">
+                  <select class="w-75 form-select form-select-sm my-2" id="allPointsList"></select>
+                  <i class="bi bi-plus-circle-fill text-blue-add ms-2 fs-5" onclick="addPointToReport();" title="<fmt:message key='common.add'/>"></i>
+                </td>
+            </tr>
+            <tr>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="dsList.show"/></td>
               <td class="formField">
-                <select class="form-select form-select-sm my-2" id="allPointsList"></select>
-                <i class="bi bi-plus-circle-fill text-success" onclick="addPointToReport();" title="<fmt:message key='common.add'/>"></i>
-                
-                <table cellspacing="1">
+                <table cellspacing="1" class="fs-7 text-center table table-light table-hover my-2">
                   <tbody id="reportPointsTableEmpty" style="display:none;">
                     <tr><th colspan="4"><fmt:message key="reports.noPoints"/></th></tr>
                   </tbody>
                   <tbody id="reportPointsTableHeaders" style="display:none;">
-                    <tr class="smRowHeader">
+                    <tr class="align-middle smRowHeader">
                       <td><fmt:message key="reports.pointName"/></td>
                       <td><fmt:message key="reports.dataType"/></td>
                       <td><fmt:message key="reports.colour"/></td>
@@ -611,9 +613,9 @@
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.events"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.events"/></td>
               <td class="formField">
-                <select class="form-select form-select-sm my-2" id="includeEvents">
+                <select class="w-75 form-select form-select-sm my-2" id="includeEvents">
                   <option value="<c:out value="<%= ReportVO.EVENTS_NONE %>"/>"><fmt:message key="reports.events.none"/></option>
                   <option value="<c:out value="<%= ReportVO.EVENTS_ALARMS %>"/>"><fmt:message key="reports.events.alarms"/></option>
                   <option value="<c:out value="<%= ReportVO.EVENTS_ALL %>"/>"><fmt:message key="reports.events.all"/></option>
@@ -622,16 +624,16 @@
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.comments"/></td>
-              <td class="formField"><input type="checkbox" id="includeUserComments"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.comments"/></td>
+              <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="includeUserComments"/></td>
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.dateRange"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.dateRange"/></td>
               <td class="formField">
                 <table>
                   <tr><td>
-                    <input type="radio" name="dateRangeType" value="<c:out value="<%= ReportVO.DATE_RANGE_TYPE_RELATIVE %>"/>" id="drrel" 
+                    <input class="form-check-input custom-checkbox align-middle me-3" type="radio" name="dateRangeType" value="<c:out value="<%= ReportVO.DATE_RANGE_TYPE_RELATIVE %>"/>" id="drrel" 
                             checked="checked" onchange="updateDateRangeFields()"/><label 
                             for="drrel"><fmt:message key="reports.relative"/></label>
                   </td></tr>
@@ -639,23 +641,28 @@
                     <td style="padding-left:40px;">
                       <table>
                         <tr>
-                          <td valign="top"><input type="radio" name="relativeType" onchange="updateDateRangeFields()"
-                                  id="relprev" value="<c:out value="<%= ReportVO.RELATIVE_DATE_TYPE_PREVIOUS %>"/>" 
-                                  checked="checked"/><label for="relprev"><fmt:message key="reports.previous"/></label></td>
-                          <td valign="top">
-                            <input type="text" id="prevPeriodCount" class="formVeryShort"/>
+                          <td valign="top" class="d-flex align-items-center justify-content-start">
+                          <input class="form-check-input custom-checkbox align-middle me-3" type="radio" name="relativeType" onchange="updateDateRangeFields()" id="relprev" value="<c:out value="<%= ReportVO.RELATIVE_DATE_TYPE_PREVIOUS %>"/>" checked="checked"/>
+                          <label for="relprev">
+                          <fmt:message key="reports.previous"/></label></td>
+                        <tr>
+                          <td valign="top" class="d-flex align-items-center justify-content-start">
+                            <input class="w-75 form-control form-control-sm mx-2" type="text" id="prevPeriodCount" class="formVeryShort"/>
                             <select class="form-select form-select-sm my-2" id="prevPeriodType">
                               <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
                             </select><br/>
                             <span class="formError" id="previousPeriodCountError"></span>
                           </td>
                         </tr>
+                        </tr>
                         <tr>
-                          <td valign="top"><input type="radio" name="relativeType" onchange="updateDateRangeFields()"
-                                  id="relpast" value="<c:out value="<%= ReportVO.RELATIVE_DATE_TYPE_PAST %>"/>"/><label 
-                                  for="relpast"><fmt:message key="reports.past"/></label></td>
-                          <td valign="top">
-                            <input type="text" id="pastPeriodCount" class="formVeryShort"/>
+                          <td valign="top" class="d-flex align-items-center justify-content-start">
+                            <input class="form-check-input custom-checkbox align-middle me-3" type="radio" name="relativeType" onchange="updateDateRangeFields()" id="relpast" value="<c:out value="<%= ReportVO.RELATIVE_DATE_TYPE_PAST %>"/>"/>
+                            <label for="relpast">
+                            <fmt:message key="reports.past"/></label>
+                          </td>
+                          <td valign="top" class="d-flex align-items-center justify-content-start">
+                            <input class="w-75 form-control form-control-sm mx-2" type="text" id="pastPeriodCount" class="formVeryShort"/>
                             <select class="form-select form-select-sm my-2" id="pastPeriodType">
                               <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
                             </select><br/>
@@ -667,11 +674,11 @@
                   </tr>
                   
                   <tr><td>
-                    <input type="radio" name="dateRangeType" value="<c:out value="<%= ReportVO.DATE_RANGE_TYPE_SPECIFIC %>"/>" id="drspec" 
+                    <input class="form-check-input custom-checkbox align-middle me-3" type="radio" name="dateRangeType" value="<c:out value="<%= ReportVO.DATE_RANGE_TYPE_SPECIFIC %>"/>" id="drspec" 
                             onchange="updateDateRangeFields()"/><label for="drspec"><fmt:message key="reports.specificDates"/></label>
                   </td></tr>
                   <tr>
-                    <td style="padding-left:40px;">
+                    <td class="text-center">
                       <table>
                         <tr>
                           <td></td>
@@ -684,23 +691,27 @@
                         </tr>
                         <tr>
                           <td><fmt:message key="common.dateRangeFrom"/></td>
-                          <td><input type="text" id="fromYear" class="formVeryShort"/></td>
+                          <td><input class="form-control form-control-sm my-2" type="text" id="fromYear" class="formVeryShort"/></td>
                           <td><select class="form-select form-select-sm my-2" id="fromMonth"><tag:monthOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="fromDay"><tag:dayOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="fromHour"><tag:hourOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="fromMinute"><tag:minuteOptions/></select></td>
-                          <td><input type="checkbox" name="fromNone" id="fromNone"
-                                  onclick="updateDateRangeFields()"/><label for="fromNone"><fmt:message key="common.inception"/></label></td>
+                          <td class="d-flex align-items-center justify-content-start text-center">
+                            <input class="form-check-input custom-checkbox m-3" type="checkbox" name="fromNone" id="fromNone" onclick="updateDateRangeFields()"/><label for="fromNone">
+                            <fmt:message key="common.inception"/></label>
+                          </td>
                         </tr>
                         <tr>
                           <td><fmt:message key="common.dateRangeTo"/></td>
-                          <td><input type="text" id="toYear" class="formVeryShort"/></td>
+                          <td><input class="form-control form-control-sm my-2" type="text" id="toYear" class="formVeryShort"/></td>
                           <td><select class="form-select form-select-sm my-2" id="toMonth"><tag:monthOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="toDay"><tag:dayOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="toHour"><tag:hourOptions/></select></td>
                           <td><select class="form-select form-select-sm my-2" id="toMinute"><tag:minuteOptions/></select></td>
-                          <td><input type="checkbox" name="toNone" id="toNone" 
-                                  onclick="updateDateRangeFields()"/><label for="toNone"><fmt:message key="common.latest"/></label></td>
+                          <td class="d-flex align-items-center justify-content-start">
+                            <input class="form-check-input custom-checkbox m-3" type="checkbox" name="toNone" id="toNone" onclick="updateDateRangeFields()"/>
+                            <label for="toNone"><fmt:message key="common.latest"/></label>
+                          </td>
                         </tr>
                       </table>
                     </td>
@@ -712,29 +723,29 @@
             <tr><td colspan="3" class="horzSeparator"></td></tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.schedule"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.schedule"/></td>
               <td class="formField">
-                <input type="checkbox" id="schedule" onclick="updateScheduleFields();"/>
+                <input class="form-check-input custom-checkbox my-2" type="checkbox" id="schedule" onclick="updateScheduleFields();"/>
               </td>
             </tr>
             
             <tbody id="scheduleDetails">
               <tr>
-                <td class="formLabelRequired"><fmt:message key="reports.runEvery"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.runEvery"/></td>
                 <td class="formField">
                   <table cellpadding="0" cellspacing="0">
                     <tr><td>
-                      <select class="form-select form-select-sm my-2" id="schedulePeriod" onchange="updateSchedulePeriodFields()">
+                      <select class="w-50 form-select form-select-sm my-2" id="schedulePeriod" onchange="updateSchedulePeriodFields()">
                         <tag:timePeriodOptions h="true" d="true" w="true" mon="true" y="true" singular="true"/>
                         <option value="<c:out value="<%= ReportVO.SCHEDULE_CRON %>"/>"><fmt:message key="reports.cron"/></option>
                       </select>
                     </td></tr>
-                    <tr><td style="padding-left:40px;">
-                      <fmt:message key="reports.runDelay"/>: <input type="text" id="runDelayMinutes" class="formVeryShort"/>
+                    <tr><td class="d-flex align-items-center justify-content-start">
+                      <fmt:message key="reports.runDelay"/>: <input class="w-25 form-control form-control-sm ms-2" type="text" id="runDelayMinutes" class="formVeryShort"/>
                       <div id="runDelayMinutesError" class="formError"></div>
                     </td></tr>
-                    <tr><td style="padding-left:40px;">
-                      <fmt:message key="common.cronPattern"/>: <input type="text" id="scheduleCron"/>
+                    <tr><td class="d-flex align-items-center justify-content-start">
+                      <fmt:message key="common.cronPattern"/>: <input class="w-50 form-control form-control-sm m-2" type="text" id="scheduleCron"/>
                       <tag:help id="cronPatterns"/><br/>
                       <span id="scheduleCronError" class="formError"></span>
                     </td></tr>
@@ -746,19 +757,19 @@
             <tr><td colspan="3" class="horzSeparator"></td></tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="reports.emailReport"/></td>
-              <td class="formField"><input type="checkbox" id="email" onclick="updateEmailFields();"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.emailReport"/></td>
+              <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="email" onclick="updateEmailFields();"/></td>
             </tr>
               
             <tbody id="emailDetails">
               <tr>
-                <td class="formLabelRequired"><fmt:message key="reports.includeTabular"/></td>
-                <td class="formField"><input type="checkbox" id="includeData"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.includeTabular"/></td>
+                <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="includeData"/></td>
               </tr>
               
               <tr>
-                <td class="formLabelRequired"><fmt:message key="reports.zipData"/></td>
-                <td class="formField"><input type="checkbox" id="zipData"/></td>
+                <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.zipData"/></td>
+                <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="zipData"/></td>
               </tr>
             </tbody>
             
