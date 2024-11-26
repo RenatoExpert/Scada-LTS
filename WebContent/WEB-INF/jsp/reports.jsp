@@ -502,7 +502,7 @@
       <table class="w-100">
         <tr>
           <td>
-            <span class="smallTitle "><fmt:message key="reports.reportQueue"/></span>
+            <span class="smallTitle m-3"><fmt:message key="reports.reportQueue"/></span>
             <tag:help id="reportInstances"/>
           </td>
         <td align="right">
@@ -536,7 +536,7 @@
           <table class="w-100">
             <tr>
               <td>
-                <span class="smallTitle"><fmt:message key="reports.templates"/></span>
+                <span class="smallTitle ms-3"><fmt:message key="reports.templates"/></span>
                 <tag:help id="reportTemplates"/>
               </td>
               <td align="right">
@@ -544,12 +544,12 @@
               </td>
             </tr>
           </table>
-          <table id="reportsTable">
+          <table id="reportsTable" class="text-uppercase align-middle fs-7 m-3">
             <tbody id="r_TEMPLATE_" onclick="loadReport(getMangoId(this), false)" class="ptr" style="display:none;"><tr>
               <td>
                   <i id="r_TEMPLATE_Img" class="bi bi-journal-text me-2 fs-5" title="<fmt:message key='reports.report'/>"></i>
               </td>
-              <td class="link" id="r_TEMPLATE_Name"></td>
+              <td class="link" id="r_TEMPLATE_Name" style="text-decoration: none;"></td>
             </tr></tbody>
           </table>
         </div>
@@ -720,10 +720,10 @@
               </td>
             </tr>
             
-            <tr><td colspan="3" class="horzSeparator"></td></tr>
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
             
             <tr>
-              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.schedule"/></td>
+              <td class="formLabelRequired align-middle my-2 text-uppercase"><fmt:message key="reports.schedule"/></td>
               <td class="formField">
                 <input class="form-check-input custom-checkbox my-2" type="checkbox" id="schedule" onclick="updateScheduleFields();"/>
               </td>
@@ -753,11 +753,11 @@
                 </td>
               </tr>
             </tbody>
-              
-            <tr><td colspan="3" class="horzSeparator"></td></tr>
+            
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-100 my-4"/></td></tr>
             
             <tr>
-              <td class="formLabelRequired align-middle my-2"><fmt:message key="reports.emailReport"/></td>
+              <td class="formLabelRequired align-middle my-2 text-uppercase"><fmt:message key="reports.emailReport"/></td>
               <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="email" onclick="updateEmailFields();"/></td>
             </tr>
               
