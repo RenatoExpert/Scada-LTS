@@ -27,8 +27,8 @@
 
 
 <tag:page dwr="SystemSettingsDwr" onload="init">
-<link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css">
-<link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css">
+<%-- <link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css"> --%>
+<%-- <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css"> --%>
 
   <script type="text/javascript">
     var systemEventAlarmLevels = new Array();
@@ -51,7 +51,7 @@
                 function(et) { return et.description; },
                 function(et) {
                     var etid = et.typeId +"-"+ et.typeRef1;
-                    var content = "<select id='alarmLevel"+ etid +"' ";
+                    var content = "<select class='w-75 form-select form-select-sm my-2' id='alarmLevel"+ etid +"' ";
                     content += "onchange='updateAlarmLevel("+ et.typeId +", "+ et.typeRef1 +", this.value)'>";
                     content += "<option value='<c:out value="<%= AlarmLevels.NONE %>"/>'><fmt:message key="<%= AlarmLevels.NONE_DESCRIPTION %>"/></option>";
                     content += "<option value='<c:out value="<%= AlarmLevels.INFORMATION %>"/>'><fmt:message key="<%= AlarmLevels.INFORMATION_DESCRIPTION %>"/></option>";
@@ -66,7 +66,7 @@
             var alarmOptions = {
                 cellCreator: function(options) {
                     var td = document.createElement("td");
-                    td.className = (options.cellNum == 0 ? "formLabelRequired" : "formField");
+                    td.className = (options.cellNum == 0 ? "formLabelRequired align-middle my-2" : "d-flex align-items-center justify-content-start formField align-middle");
                     return td;
                 }
             };
@@ -552,513 +552,569 @@
     }
   </script>
   
-  <div class="borderDivPadded marB marR">
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.systemInformation"/></span>
-          <tag:help id="systemInformation"/>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.version"/></td>
-        <td class="formField"><c:out value="<%= Common.getVersion() %>"/></td>
-      </tr>
-      <%-- 
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.notify"/></td>
-        <td class="formField" valign="top">
-          <select id="<c:out value="<%= SystemSettingsDAO.NEW_VERSION_NOTIFICATION_LEVEL %>"/>">
-            <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_STABLE %>"/>"><fmt:message key="systemSettings.notifyStable"/></option>
-            <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_RC %>"/>"><fmt:message key="systemSettings.notifyRC"/></option>
-            <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_BETA %>"/>"><fmt:message key="systemSettings.notifyBeta"/></option>
-          </select>
-          <tag:img png="accept" title="systemSettings.checkNow" onclick="newVersionCheck()"/>
-        </td>
-      </tr>
-      --%>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.instanceDescription"/></td>
-        <td align="center"><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#system-info-settings'"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.databaseSize"/></td>
-        <td class="formField">
-          <span id="databaseSize"></span>
-          <i id="refreshImg" class="bi bi-arrow-repeat" onclick="dbSizeUpdate()" title="<fmt:message key='common.refresh'/>" style="cursor: pointer;"></i>
-          <i id="purgeNowImg" class="bi bi-trash3-fill  text-danger" onclick="purgeNow()" title="<fmt:message key='systemSettings.purgeNow'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.filedataSize"/></td>
-        <td class="formField" id="filedataSize"></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.totalSize"/></td>
-        <td class="formField" id="totalSize"></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.historyCount"/></td>
-        <td class="formField" id="historyCount"></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.topPoints"/></td>
-        <td class="formField" id="topPoints"></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.eventCount"/></td>
-        <td class="formField" id="eventCount"></td>
-      </tr>
-      <tr>
-        <td colspan="2" id="infoMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
-  
-  <div class="borderDivPadded marB marR" >
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.systemAlarmLevels"/></span>
-          <tag:help id="systemAlarmLevels"/>
-        </td>
-        <td align="right">
-          <i id="saveSystemEventAlarmLevelsImg" class="bi bi-floppy2-fill text-success" onclick="saveSystemEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tbody id="systemEventAlarmLevelsList"></tbody>
-      <tr>
-        <td colspan="2" id="systemEventAlarmLevelsMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
-  
-  <div class="borderDivPadded marB marR" >
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.auditAlarmLevels"/></span>
-          <tag:help id="auditAlarmLevels"/>
-        </td>
-        <td align="right">
-          <i id="saveAuditEventAlarmLevelsImg" class="bi bi-floppy2-fill text-success" onclick="saveAuditEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tbody id="auditEventAlarmLevelsList"></tbody>
-      <tr>
-        <td colspan="2" id="auditEventAlarmLevelsMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
-  
-  <div class="borderDivPadded marB marR">
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.languageSettings"/></span>
-          <tag:help id="languageSettings"/>
-        </td>
-        <td align="right">
-          <i id="saveLangSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveLangSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
+  <table cellpadding="0" cellspacing="0" class="subPageHeader container"><tr><td>
+  <div class="row">
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.systemInformation"/></span>
+              <tag:help id="systemInformation"/>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.version"/></td>
+            <td class="formField"><c:out value="<%= Common.getVersion() %>"/></td>
+          </tr>
+          <%-- 
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.notify"/></td>
+            <td class="formField" valign="top">
+              <select class="w-75 form-select form-select-sm my-2" id="<c:out value="<%= SystemSettingsDAO.NEW_VERSION_NOTIFICATION_LEVEL %>"/>">
+                <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_STABLE %>"/>"><fmt:message key="systemSettings.notifyStable"/></option>
+                <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_RC %>"/>"><fmt:message key="systemSettings.notifyRC"/></option>
+                <option value="<c:out value="<%= SystemSettingsDAO.NOTIFICATION_LEVEL_BETA %>"/>"><fmt:message key="systemSettings.notifyBeta"/></option>
+              </select>
+              <tag:img png="accept" title="systemSettings.checkNow" onclick="newVersionCheck()"/>
+            </td>
+          </tr>
+          --%>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.instanceDescription"/></td>
+            <td align="center">
+            <button id="setInNewUI01" class="btn btn-primary custom-btn-blue m-3" onClick="location.href='app.shtm#/system-settings#system-info-settings'" ><fmt:message key="systemSettings.setInNewUI"/></button>
+            <%-- <input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#system-info-settings'"/> --%>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.databaseSize"/></td>
+            <td class="formField">
+              <span id="databaseSize"></span>
+              <i id="refreshImg" class="bi bi-bootstrap-reboot text-blue-add align-middle ms-5 me-5 fs-5" onclick="dbSizeUpdate()" title="<fmt:message key='common.refresh'/>" style="cursor: pointer;"></i>
+              <i id="purgeNowImg" class="bi bi-trash3-fill  text-danger align-middle me-4 fs-5" onclick="purgeNow()" title="<fmt:message key='systemSettings.purgeNow'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.filedataSize"/></td>
+            <td class="formField" id="filedataSize"></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.totalSize"/></td>
+            <td class="formField" id="totalSize"></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.historyCount"/></td>
+            <td class="formField" id="historyCount"></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.topPoints"/></td>
+            <td class="formField" id="topPoints"></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.eventCount"/></td>
+            <td class="formField" id="eventCount"></td>
+          </tr>
+          <tr>
+            <td colspan="2" id="infoMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.languageSettings"/></span>
+              <tag:help id="languageSettings"/>
+            </td>
+            <td align="right">
+              <i id="saveLangSettingsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveLangSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
 
-    <table>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.systemLanguage"/></td>
-        <td class="formField">
-          <select id="<c:out value="<%= SystemSettingsDAO.LANGUAGE %>"/>"></select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" id="langMessage" class="formError"></td>
-      </tr>
-    </table>
+        <table>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.systemLanguage"/></td>
+            <td class="formField">
+              <select class="w-75 form-select form-select-sm my-2" id="<c:out value="<%= SystemSettingsDAO.LANGUAGE %>"/>"></select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" id="langMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle">Cache images</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <button id="Refresh" class="btn btn-primary custom-btn-blue m-1" onClick="refreshImages()">
+                <fmt:message key="common.refresh"/>
+              </button>
+              <%-- <input type="button" value="Refresh" onClick="refreshImages()"/> --%>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="borderDivPadded marB marR">
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.emailSettings"/></span>
-          <tag:help id="emailSettings"/>
-        </td>
-        <td align="right">
-          <i id="saveEmailSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveEmailSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-          <i id="sendTestEmailImg" class="bi bi-envelope" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.smtpHost"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_HOST %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.smtpPort"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_PORT %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.fromAddress"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_FROM_ADDRESS %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.fromName"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_FROM_NAME %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.auth"/></td>
-        <td class="formField">
-          <input id="<c:out value="<%= SystemSettingsDAO.EMAIL_AUTHORIZATION %>"/>" type="checkbox" onclick="smtpAuthChange()"/>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.smtpUsername"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_USERNAME %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.smtpPassword"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_PASSWORD %>"/>" type="password"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.tls"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_TLS %>"/>" type="checkbox"/></td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.contentType"/></td>
-        <td class="formField">
-          <select id="<c:out value="<%= SystemSettingsDAO.EMAIL_CONTENT_TYPE %>"/>">
-            <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_BOTH %>"/>"><fmt:message key="systemSettings.contentType.both"/></option>
-            <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_HTML %>"/>"><fmt:message key="systemSettings.contentType.html"/></option>
-            <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_TEXT %>"/>"><fmt:message key="systemSettings.contentType.text"/></option>
-          </select>
-        </td>
-      </tr>
+  
+  <div class="row">
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3" >
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.systemAlarmLevels"/></span>
+              <tag:help id="systemAlarmLevels"/>
+            </td>
+            <td align="right">
+              <i id="saveSystemEventAlarmLevelsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveSystemEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table class="w-100">
+          <tbody id="systemEventAlarmLevelsList"></tbody>
+          <tr>
+            <td colspan="2" id="systemEventAlarmLevelsMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
       
-      <tr>
-        <td colspan="2" id="emailMessage" class="formError"></td>
-      </tr>
-    </table>
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3" >
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.auditAlarmLevels"/></span>
+              <tag:help id="auditAlarmLevels"/>
+            </td>
+            <td align="right">
+              <i id="saveAuditEventAlarmLevelsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveAuditEventAlarmLevels();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table class="w-100 mb-5">
+          <tbody id="auditEventAlarmLevelsList"></tbody>
+          <tr>
+            <td colspan="2" id="auditEventAlarmLevelsMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
   
-  <div class="borderDivPadded marB marR">
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.httpSettings"/></span>
-          <tag:help id="httpSettings"/>
-        </td>
-        <td align="right">
-          <i id="saveHttpSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveHttpSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.useProxy"/></td>
-        <td class="formField">
-          <input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_USE_PROXY %>"/>" type="checkbox"
-                  onclick="httpUseProxyChange()"/>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.proxyHost"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_SERVER %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.proxyPort"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_PORT %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.proxyUsername"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_USERNAME %>"/>" type="text"/></td>
-      </tr>
-      <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.proxyPassword"/></td>
-        <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_PASSWORD %>"/>" type="password"/></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center"><fmt:message key="systemsettings.http.response.headers"/></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center"><textarea placeholder="<fmt:message key="systemsettings.http.response.headers"/>" rows="5" cols="60" id="<c:out value="<%= SystemSettingsDAO.HTTP_RESPONSE_HEADERS %>"/>"></textarea></td>
-      </tr>
-      <tr>
-        <td colspan="2" id="httpMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
-  
-  <div class="borderDivPadded marB marR">
-    <table width="100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.dataRetentionSettings"/></span>
-          <tag:help id="dataRetentionSettings"/>
-        </td>
-        <td align="right">
-          <i id="saveDataRetentionSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveDataRetentionSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <%--
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.groveLogging"/></td>
-        <td class="formField"><input type="checkbox" id="<c:out value="<%= SystemSettingsDAO.GROVE_LOGGING %>"/>"/></td>
-      </tr>
-      --%>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.purgeEvents"/></td>
-        <td class="formField">
-          <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PURGE_PERIODS %>"/>" type="text" class="formShort"/>
-          <select id="<c:out value="<%= SystemSettingsDAO.EVENT_PURGE_PERIOD_TYPE %>"/>">
-            <tag:timePeriodOptions d="true" w="true" mon="true" y="true"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.purgeReports"/></td>
-        <td class="formField">
-          <input id="<c:out value="<%= SystemSettingsDAO.REPORT_PURGE_PERIODS %>"/>" type="text" class="formShort"/>
-          <select id="<c:out value="<%= SystemSettingsDAO.REPORT_PURGE_PERIOD_TYPE %>"/>">
-            <tag:timePeriodOptions d="true" w="true" mon="true" y="true"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.futureDateLimit"/></td>
-        <td class="formField">
-          <input id="<c:out value="<%= SystemSettingsDAO.FUTURE_DATE_LIMIT_PERIODS %>"/>" type="text" class="formShort"/>
-          <select id="<c:out value="<%= SystemSettingsDAO.FUTURE_DATE_LIMIT_PERIOD_TYPE %>"/>">
-            <tag:timePeriodOptions min="true" h="true"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.valuesLimitForPurge"/></td>
-        <td><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#data-retention-settings'"/></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center">
-          <input type="button" value="<fmt:message key="systemSettings.purgeData"/>" onclick="checkPurgeAllData()" style="margin: 5px;"/>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center">
-          <input type="button" value="<fmt:message key="systemSettings.purgeNow"/>" onclick="purgeNow()" style="margin: 5px;"/>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" id="dataRetentionMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
+  <div class="row">
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.emailSettings"/></span>
+              <tag:help id="emailSettings"/>
+            </td>
+            <td align="right">
+              <i id="saveEmailSettingsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveEmailSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+              <i id="sendTestEmailImg" class="bi bi-envelope align-middle ms-2 me-5 fs-5" onclick="sendTestEmail();" title="<fmt:message key='common.sendTestEmail'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table class="w-100">
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.smtpHost"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_HOST %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.smtpPort"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_PORT %>"/>" class="w-25 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.fromAddress"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_FROM_ADDRESS %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.fromName"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_FROM_NAME %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.auth"/></td>
+            <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.EMAIL_AUTHORIZATION %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox" onclick="smtpAuthChange()"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.smtpUsername"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_USERNAME %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.smtpPassword"/></td>
+            <td class="formField"><input class="w-75 form-control form-control-sm my-2" id="<c:out value="<%= SystemSettingsDAO.EMAIL_SMTP_PASSWORD %>"/>" type="password"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.tls"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.EMAIL_TLS %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.contentType"/></td>
+            <td class="formField">
+              <select class="w-75 form-select form-select-sm my-2" id="<c:out value="<%= SystemSettingsDAO.EMAIL_CONTENT_TYPE %>"/>">
+                <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_BOTH %>"/>"><fmt:message key="systemSettings.contentType.both"/></option>
+                <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_HTML %>"/>"><fmt:message key="systemSettings.contentType.html"/></option>
+                <option value="<c:out value="<%= MangoEmailContent.CONTENT_TYPE_TEXT %>"/>"><fmt:message key="systemSettings.contentType.text"/></option>
+              </select>
+            </td>
+          </tr>
+          
+          <tr>
+            <td colspan="2" id="emailMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-    <div class="borderDivPadded marB marR">
-      <table width="100%">
-        <tr>
-          <td>
-            <span class="smallTitle"><fmt:message key="systemSettings.otherSettings"/></span>
-            <tag:help id="otherSettings"/>
-          </td>
-          <td align="right">
-            <i id="saveMiscSettingsImg" class="bi bi-floppy2-fill text-success" onclick="saveMiscSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
-          </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td class="formLabelRequired"><fmt:message key="systemSettings.uiPerformance"/></td>
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.httpSettings"/></span>
+              <tag:help id="httpSettings"/>
+            </td>
+            <td align="right">
+              <i id="saveHttpSettingsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveHttpSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table class="w-100">
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.useProxy"/></td>
+            <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_USE_PROXY %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox"
+                      onclick="httpUseProxyChange()"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.proxyHost"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_SERVER %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.proxyPort"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_PORT %>"/>" class="w-25 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.proxyUsername"/></td>
+            <td class="formField"><input id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_USERNAME %>"/>" class="w-75 form-control form-control-sm my-2" type="text"/></td>
+          </tr>
+          <tr>
+            <td class="formLabel align-middle my-2"><fmt:message key="systemSettings.proxyPassword"/></td>
+            <td class="formField"><input class="w-75 form-control form-control-sm my-2" id="<c:out value="<%= SystemSettingsDAO.HTTP_CLIENT_PROXY_PASSWORD %>"/>" type="password"/></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="formLabelRequired align-middle my-2">
+            <fmt:message key="systemsettings.http.response.headers"/></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+            <textarea class="w-75 form-control m-3" placeholder="<fmt:message key="systemsettings.http.response.headers"/>" rows="5" cols="40" id="<c:out value="<%= SystemSettingsDAO.HTTP_RESPONSE_HEADERS %>"/>"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2" id="httpMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.otherSettings"/></span>
+              <tag:help id="otherSettings"/>
+            </td>
+            <td align="right">
+              <i id="saveMiscSettingsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveMiscSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.uiPerformance"/></td>
+            <td class="d-flex align-items-center justify-content-start">
+              <input id="<c:out value="<%= SystemSettingsDAO.UI_PERFORMANCE %>"/>" class="w-25 form-control form-control-sm my-2" type="number" class="formShort"/>
+              <select class="w-50 form-select form-select-sm ms-2" id="uiPerformanceId" onchange="toUiPerformanceId()">
+                <option value=""></option>
+                <option value="1000"><fmt:message key="systemSettings.uiPerformance.veryHigh"/></option>
+                <option value="2000"><fmt:message key="systemSettings.uiPerformance.high"/></option>
+                <option value="5000"><fmt:message key="systemSettings.uiPerformance.med"/></option>
+                <option value="10000"><fmt:message key="systemSettings.uiPerformance.low"/></option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized"/></td>
           <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.UI_PERFORMANCE %>"/>" type="number" class="formShort"/>
-            <select id="uiPerformanceId" onchange="toUiPerformanceId()">
-              <option value=""></option>
-              <option value="1000"><fmt:message key="systemSettings.uiPerformance.veryHigh"/></option>
-              <option value="2000"><fmt:message key="systemSettings.uiPerformance.high"/></option>
-              <option value="5000"><fmt:message key="systemSettings.uiPerformance.med"/></option>
-              <option value="10000"><fmt:message key="systemSettings.uiPerformance.low"/></option>
+            <select class="w-75 form-select form-select-sm my-2" id="<c:out value="<%= SystemSettingsDAO.DATAPOINT_RUNTIME_VALUE_SYNCHRONIZED %>"/>">
+              <option value="NONE"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.none"/></option>
+              <option value="PARTIAL"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.partial"/></option>
+              <option value="ALL"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.all"/></option>
             </select>
           </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized"/></td>
-         <td class="formField">
-           <select id="<c:out value="<%= SystemSettingsDAO.DATAPOINT_RUNTIME_VALUE_SYNCHRONIZED %>"/>">
-             <option value="NONE"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.none"/></option>
-             <option value="PARTIAL"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.partial"/></option>
-             <option value="ALL"><fmt:message key="systemsettings.misc.dataPointRuntimeValueSynchronized.all"/></option>
-           </select>
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.view.forceFullScreen"/></td>
-         <td class="formField">
-           <input type="checkbox" id="<c:out value="<%= SystemSettingsDAO.VIEW_FORCE_FULL_SCREEN_MODE %>"/>" />
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.view.hideShortcutDisableFullScreen"/></td>
-         <td class="formField">
-           <input type="checkbox" id="<c:out value="<%= SystemSettingsDAO.VIEW_HIDE_SHORTCUT_DISABLE_FULL_SCREEN %>"/>" />
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.event.pendingCacheEnabled"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PENDING_CACHE_ENABLED %>"/>" type="checkbox" />
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.event.pendingLimit"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PENDING_LIMIT %>"/>" type="number" class="formShort"/>
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.workitems.reporting.enabled"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ENABLED %>"/>" type="checkbox" onchange="workItemsReportingEnabledChange()"/>
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.workitems.reporting.itemspersecond.enabled"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ITEMS_PER_SECOND_ENABLED %>"/>" type="checkbox" onchange="workItemsReportingItemsPerSecondEnabledChange()"/>
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.workitems.reporting.itemspersecond.limit"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ITEMS_PER_SECOND_LIMIT %>"/>" type="number" class="formShort"/>
-         </td>
-        </tr>
-        <tr>
-         <td class="formLabelRequired"><fmt:message key="systemsettings.threads.name.additional.length"/></td>
-         <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.THREADS_NAME_ADDITIONAL_LENGTH %>"/>" type="number" class="formShort"/>
-         </td>
-        </tr>
-        <tr>
-          <td class="formLabelRequired"><fmt:message key="systemsettings.webresource.graphics.path"/></td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.view.forceFullScreen"/></td>
           <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.WEB_RESOURCE_GRAPHICS_PATH %>"/>" type="text" class="formShort" style="width: 300px;"/>
+            <input class="form-check-input custom-checkbox my-2" type="checkbox" id="<c:out value="<%= SystemSettingsDAO.VIEW_FORCE_FULL_SCREEN_MODE %>"/>" />
           </td>
-          <td colspan="2" id="uploadsPathMessage" class="formError"></td>
-        </tr>
-        <tr>
-          <td class="formLabelRequired"><fmt:message key="systemsettings.webresource.uploads.path"/></td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.view.hideShortcutDisableFullScreen"/></td>
           <td class="formField">
-            <input id="<c:out value="<%= SystemSettingsDAO.WEB_RESOURCE_UPLOADS_PATH %>"/>" type="text" class="formShort" style="width: 300px;"/>
+            <input class="form-check-input custom-checkbox my-2" type="checkbox" id="<c:out value="<%= SystemSettingsDAO.VIEW_HIDE_SHORTCUT_DISABLE_FULL_SCREEN %>"/>" />
           </td>
-          <td colspan="2" id="graphicsPathMessage" class="formError"></td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.event.pendingCacheEnabled"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PENDING_CACHE_ENABLED %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox" />
+          </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.event.pendingLimit"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PENDING_LIMIT %>"/>" class="w-25 form-control form-control-sm my-2" type="number" class="formShort"/>
+          </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.workitems.reporting.enabled"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ENABLED %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox" onchange="workItemsReportingEnabledChange()"/>
+          </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.workitems.reporting.itemspersecond.enabled"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ITEMS_PER_SECOND_ENABLED %>"/>" class="form-check-input custom-checkbox my-2" type="checkbox" onchange="workItemsReportingItemsPerSecondEnabledChange()"/>
+          </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.workitems.reporting.itemspersecond.limit"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.WORK_ITEMS_REPORTING_ITEMS_PER_SECOND_LIMIT %>"/>" class="w-25 form-control form-control-sm my-2" type="number" class="formShort"/>
+          </td>
+          </tr>
+          <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.threads.name.additional.length"/></td>
+          <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.THREADS_NAME_ADDITIONAL_LENGTH %>"/>" class="w-25 form-control form-control-sm my-2" type="number" class="formShort"/>
+          </td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.webresource.graphics.path"/></td>
+            <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.WEB_RESOURCE_GRAPHICS_PATH %>"/>" class="w-75 form-control form-control-sm my-2" type="text" class="formShort" style="width: 300px;"/>
+            </td>
+            <td colspan="2" id="uploadsPathMessage" class="formError"></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemsettings.webresource.uploads.path"/></td>
+            <td class="formField">
+              <input id="<c:out value="<%= SystemSettingsDAO.WEB_RESOURCE_UPLOADS_PATH %>"/>" class="w-75 form-control form-control-sm my-2" type="text" class="formShort" style="width: 300px;"/>
+            </td>
+            <td colspan="2" id="graphicsPathMessage" class="formError"></td>
+          </tr>
+          <tr>
+            <td colspan="2" id="miscMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+		<div class="col-md-6">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+          <tr>
+            <td>
+              <span class="smallTitle"><fmt:message key="systemSettings.dataRetentionSettings"/></span>
+              <tag:help id="dataRetentionSettings"/>
+            </td>
+            <td align="right">
+              <i id="saveDataRetentionSettingsImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" onclick="saveDataRetentionSettings();" title="<fmt:message key='common.save'/>" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <%--
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.groveLogging"/></td>
+            <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="<c:out value="<%= SystemSettingsDAO.GROVE_LOGGING %>"/>"/></td>
+          </tr>
+          --%>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.purgeEvents"/></td>
+            <td class="formField d-flex align-items-center justify-content-start">
+              <input id="<c:out value="<%= SystemSettingsDAO.EVENT_PURGE_PERIODS %>"/>" class="w-25 form-control form-control-sm my-2" type="text" class="formShort"/>
+              <select class="w-50 form-select form-select-sm ms-2" id="<c:out value="<%= SystemSettingsDAO.EVENT_PURGE_PERIOD_TYPE %>"/>">
+                <tag:timePeriodOptions d="true" w="true" mon="true" y="true"/>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.purgeReports"/></td>
+            <td class="formField d-flex align-items-center justify-content-start">
+              <input id="<c:out value="<%= SystemSettingsDAO.REPORT_PURGE_PERIODS %>"/>" class="w-25 form-control form-control-sm my-2" type="text"/>
+              <select class="w-50 form-select form-select-sm ms-2" id="<c:out value="<%= SystemSettingsDAO.REPORT_PURGE_PERIOD_TYPE %>"/>">
+                <tag:timePeriodOptions d="true" w="true" mon="true" y="true"/>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.futureDateLimit"/></td>
+            <td class="formField d-flex align-items-center justify-content-start">
+              <input id="<c:out value="<%= SystemSettingsDAO.FUTURE_DATE_LIMIT_PERIODS %>"/>" class="w-25 form-control form-control-sm my-2" type="text" class="formShort"/>
+              <select class="w-50 form-select form-select-sm ms-2" id="<c:out value="<%= SystemSettingsDAO.FUTURE_DATE_LIMIT_PERIOD_TYPE %>"/>">
+                <tag:timePeriodOptions min="true" h="true"/>
+              </select>
+            </td>
+          </tr>
+          <%-- <tr>
+            <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.valuesLimitForPurge"/></td>
+            <td><button id="setInNewUI" class="btn btn-primary custom-btn-blue m-2" onClick="location.href='app.shtm#/system-settings#data-retention-settings'" ><fmt:message key="systemSettings.setInNewUI"/></button></td>
+            <td><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#data-retention-settings'"/></td>
+          </tr> --%>
+          <tr>
+              <td>
+                  <button id="purgeData" class="btn btn-outline-danger m-3 p-3" onclick="checkPurgeAllData()">
+                      <i class="bi bi-trash text-danger ms-2 fs-7"></i>
+                      <fmt:message key="systemSettings.purgeData"/>
+                  </button>
+              </td>
+              <td>
+                  <button id="purgeNow" class="btn btn-outline-danger m-3 p-1" onclick="purgeNow()">
+                      <i class="bi bi-trash text-danger ms-2 fs-7"></i>
+                      <fmt:message key="systemSettings.purgeNow"/>
+                  </button>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="2" id="dataRetentionMessage" class="formError"></td>
+          </tr>
+        </table>
+      </div>
+
+    
+  <%--
+    <div class="right-box w-50 m-3" style="float:left">
+      <table align="center" "100%">
+        <tr>
+          <td>
+            <span class="smallTitle"><fmt:message key="systemSettings.dbConfiguration"/></span>
+            <tag:help id="dbConfiguration"/>
+          </td>
+          <td align="right">
+            <tag:img id="saveConfigurationDB" png="save" onclick="saveConfigDB();" title="common.save"/>
+          </td>
+        </tr>
+        </table>
+        <table align="center">
+        <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.dbConfiguration.Derby"/></td>
+          <td class="formField">
+            <input id="radioDerby" name="db" type="radio"/>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.dbConfiguration.Mysql"/></td>
+          <td class="formField">
+            <input id="radioMysql" name="db" type="radio"/>
+          </td>
         </tr>
         <tr>
-          <td colspan="2" id="miscMessage" class="formError"></td>
+          <td class="formLabel"><fmt:message key="systemSettings.dbConfiguration.Mssql"/></td>
+          <td class="formField">
+            <input id="radioMssql" name="db" type="radio" disabled/>
+          </td>
+        </tr>
+        
+        <tr>
+          <td colspan="2" align="center">
+            <input type="button" value="<fmt:message key="systemSettings.dbBackup"/>" onclick="dbBackup()"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" id="httpMessage" class="formError"></td>
         </tr>
       </table>
     </div>
-  
-<%--
-   <div class="borderDivPadded marB marR" style="float:left">
-    <table align="center" "100%">
-      <tr>
-        <td>
-          <span class="smallTitle"><fmt:message key="systemSettings.dbConfiguration"/></span>
-          <tag:help id="dbConfiguration"/>
-        </td>
-        <td align="right">
-          <tag:img id="saveConfigurationDB" png="save" onclick="saveConfigDB();" title="common.save"/>
-        </td>
-      </tr>
-      </table>
-      <table align="center">
-      <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.dbConfiguration.Derby"/></td>
-        <td class="formField">
-          <input id="radioDerby" name="db" type="radio"/>
-        </td>
-      </tr>
-      
-       <tr>
-        <td class="formLabelRequired"><fmt:message key="systemSettings.dbConfiguration.Mysql"/></td>
-        <td class="formField">
-          <input id="radioMysql" name="db" type="radio"/>
-        </td>
-      </tr>
-       <tr>
-        <td class="formLabel"><fmt:message key="systemSettings.dbConfiguration.Mssql"/></td>
-        <td class="formField">
-          <input id="radioMssql" name="db" type="radio" disabled/>
-        </td>
-      </tr>
-       
-       <tr>
-        <td colspan="2" align="center">
-          <input type="button" value="<fmt:message key="systemSettings.dbBackup"/>" onclick="dbBackup()"/>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" id="httpMessage" class="formError"></td>
-      </tr>
-    </table>
-  </div>
---%>
+  --%>
 
-  <div class="borderDivPadded marB marR">
-       <table width="100%">
+      <div class="right-box w-100 m-3">
+        <table class="w-100 m-3">
+            <tr>
+                <td>
+                    <span class="smallTitle"><fmt:message key="systemSettings.newUI"/></span>
+                    <tag:help id="newUISettings"/>
+                </td>
+            </tr>
+        </table>
+        <table align="center">
           <tr>
-             <td>
-               <span class="smallTitle">Cache images</span>
-             </td>
+            <%-- <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.smsDomain"/></td> --%>
+            <td colspan="2" align="center">
+              <button id="setInNewUI1" class="btn btn-outline-primary m-2" onClick="location.href='app.shtm#/system-settings#sms-domain-settings'">
+                <fmt:message key="systemSettings.smsDomain"/>
+              </button>
+            </td>
+
+            <%-- <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.defaultDataPointLoggingType"/></td> --%>
+            <td colspan="2" align="center">
+              <button id="setInNewUI3" class="btn btn-outline-primary m-2" onClick="location.href='app.shtm#/system-settings#default-logging-type-settings'">
+                <fmt:message key="systemSettings.defaultDataPointLoggingType"/>
+              </button>
+            </td>
           </tr>
           <tr>
-             <td align="center">
-               <input type="button" value="Refresh" onClick="refreshImages()"/>
-             </td>
+            <%-- <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.amCharts"/></td> --%>
+            <td colspan="2" align="center">
+              <button id="setInNewUI2" class="btn btn-outline-primary m-2" onClick="location.href='app.shtm#/system-settings#aggregation-settings'">
+                <fmt:message key="systemSettings.amCharts"/>
+              </button>
+            </td>
+          
+            <%-- <td class="formLabelRequired align-middle my-2"><fmt:message key="systemSettings.environmentSettings"/></td> --%>
+            <td colspan="2" align="center">
+              <button id="setInNewUI4" class="btn btn-outline-primary m-2" onClick="location.href='app.shtm#/system-settings#scada-configuration'">
+                <fmt:message key="systemSettings.environmentSettings"/>
+              </button>
+            </td>
           </tr>
-       </table>
+            <tr>
+                <td colspan="2" id="httpMessage" class="formError"></td>
+            </tr>
+        </table>
+    </div>
+    </div>
   </div>
 
-    <div class="borderDivPadded marB marR" >
-         <table align="center" "100%">
-           <tr>
-             <td>
-               <span class="smallTitle"><fmt:message key="systemSettings.newUI"/></span>
-               <tag:help id="newUISettings"/>
-             </td>
-          </tr>
-       </table>
-       <table>
-                  <tr>
-                    <td class="formLabelRequired"><fmt:message key="systemSettings.smsDomain"/></td>
-                    <td colspan="2" align="center"><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#sms-domain-settings'"/></td>
-                  </tr>
-                  <tr>
-                    <td class="formLabelRequired"><fmt:message key="systemSettings.amCharts"/></td>
-                    <td colspan="2" align="center"><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#aggregation-settings'"/></td>
-                  </tr>
-                  <tr>
-                    <td class="formLabelRequired"><fmt:message key="systemSettings.defaultDataPointLoggingType"/></td>
-                    <td colspan="2" align="center"><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#default-logging-type-settings'"/></td>
-                  </tr>
-                  <tr>
-                    <td class="formLabelRequired"><fmt:message key="systemSettings.environmentSettings"/></td>
-                    <td colspan="2" align="center"><input type="button" value="<fmt:message key="systemSettings.setInNewUI"/>" onClick="location.href='app.shtm#/system-settings#scada-configuration'"/></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" id="httpMessage" class="formError"></td>
-                  </tr>
-                </table>
-  </div>
-
-  <div class="borderDiv marB marR" >
+  <%-- <div class="borderDiv marB marR" >
         <table>
             <tr>
               <td>
@@ -1069,13 +1125,13 @@
         <table>
           <tr>
             <td>
-              <button onclick="showCssDialog()"><fmt:message key="systemSettings.customCss.edit"/></button>
+              <button class="btn btn-primary custom-btn-blue m-2" onclick="showCssDialog()"><fmt:message key="systemSettings.customCss.edit"/></button>
             </td>
           </tr>
         </table>
-      </div>
+      </div> --%>
 
-  <div class="" style="color:white">
+  <%-- <div class="" style="color:white">
   #branchName
 
   <div id="css-editor-dialog">
@@ -1100,23 +1156,23 @@
               </code>
             </pre>
           </div>
-          <div class="css-dialog-buttons">
+          <div >
           <table>
             <tr>
               <td>
-                <button onclick="hideCssDialog()"><fmt:message key="common.cancel"/></button>
+                <button class="btn btn-primary custom-btn-blue m-2" onclick="hideCssDialog()"><fmt:message key="common.cancel"/></button>
               </td>
               <td>
-                <button onclick="saveCssSettings()"><fmt:message key="common.save"/></button>
+                <button class="btn btn-primary custom-btn-blue m-2" onclick="saveCssSettings()"><fmt:message key="common.save"/></button>
               </td>
             </tr>
           </table>
           </div>
         </div>
-      </div>
+      </div> --%>
+  </table>
 
-
-      <style>
+      <%-- <style>
       #css-editor-dialog {
         position: fixed;
         top: 0;
@@ -1151,7 +1207,7 @@
         height: 520px;
       }
 
-      </style>
+      </style> --%>
   
   
 </tag:page>
