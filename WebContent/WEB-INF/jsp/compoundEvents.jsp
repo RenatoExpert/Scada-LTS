@@ -38,7 +38,7 @@
             var pointRoot = dojo.widget.manager.getWidgetById('rootPoint');
             for (i=0; i<data.dataPoints.length; i++) {
                 dp = data.dataPoints[i];
-                pointNode = dojo.widget.createWidget("TreeNode", {title: "<i class='bi bi-search'></i> " + dp.name});
+                pointNode = dojo.widget.createWidget("TreeNode", {title: "<i class='bi bi-search mx-2'></i> " + dp.name});
                 pointRoot.addChild(pointNode);
                 
                 for (j=0; j<dp.eventTypes.length; j++) {
@@ -74,6 +74,7 @@
         });
         parent.addChild(node);
         setAlarmLevelImg(eventType.alarmLevel, $(widgetId +"Img"));
+        removeBackgroundImage(); // Remove the background image from the tree nodes
     }
     
     var TreeClickHandler = function() {
@@ -190,6 +191,20 @@
     
     function insertText(text) {
         insertIntoTextArea($("condition"), text);
+    }
+
+    function removeBackgroundImage() {
+        var selectors = [
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_blank.gif"]',
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_minus.gif"]',
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_plus.gif"]'
+        ];
+        selectors.forEach(function(selector) {
+            var elements = document.querySelectorAll(selector);
+            elements.forEach(function(element) {
+                element.style.backgroundImage = 'none';
+            });
+        });
     }
   </script>
   

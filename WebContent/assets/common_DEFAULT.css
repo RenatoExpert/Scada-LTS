@@ -262,9 +262,10 @@ html > body .dojoFloatingPaneClient h1, #help h2 {
 
 /* Common tree styling */
 html > body .dojoTreeNodeLabelSelected {
-    background-color: var(--slts-color-primary);
-	color: var(--slts-color-secondary-text);
-    padding: 2px var(--padding-default);
+    background-color: #d3d3d3;
+	color: var(--slts-color-primary-text);
+    padding: 4px var(--padding-default);
+	border-radius: 30px;
 }
 html > body .dojoTreeNodeLabelTitle {
 	color: var(--slts-color-primary-text)

@@ -93,7 +93,7 @@
         for (i=0; i<data.dataPoints.length; i++) {
             dp = data.dataPoints[i];
             pointNode = dojo.widget.createWidget("TreeNode", {
-                    title: "<i class='bi bi-search'></i> " + dp.name,
+                    title: "<i class='bi bi-search text-blue-add align-middle mx-2 fs-5'></i> " + dp.name,
                     object: dp
             });
             pointRoot.addChild(pointNode);
@@ -122,7 +122,7 @@
         for (i=0; i<data.dataSources.length; i++) {
             ds = data.dataSources[i];
             dataSourceNode = dojo.widget.createWidget("TreeNode", {
-                    title: "<i class='bi bi-database-add'></i> " + ds.name,
+                    title: "<i class='bi bi-database-add text-blue-add align-middle mx-2 fs-5'></i> " + ds.name,
                     object: ds
             });
             dataSourceRoot.addChild(dataSourceNode);
@@ -137,7 +137,7 @@
             for (i=0; i<data.publishers.length; i++) {
                 p = data.publishers[i];
                 publisherNode = dojo.widget.createWidget("TreeNode", {
-                                        title: "<i class='bi bi-upload'></i> " + p.name,
+                                        title: "<i class='bi bi-upload text-blue-add align-middle mx-2 fs-5'></i> " + p.name,
                                         object: p
                                 });
                 publisherRoot.addChild(publisherNode);
@@ -175,6 +175,7 @@
 
         hide("loadingImg");
         show("tree");
+        removeBackgroundImage(); // Remove the background image from the tree nodes
 
         // Default the selection of the parameter was provided.
         if (selectedHandlerNode) {
@@ -205,11 +206,11 @@
     }
 
     function createHandlerNode(handler) {
-        var img = "class='bi bi-hammer'";
+        var img = "class='bi bi-hammer text-blue-add align-middle mx-2 fs-6'";
         if (handler.handlerType == <c:out value="<%= EventHandlerVO.TYPE_EMAIL %>"/>)
-            img = "class='bi bi-envelope'";
+            img = "class='bi bi-envelope text-blue-add align-middle mx-2 fs-6'";
         else if (handler.handlerType == <c:out value="<%= EventHandlerVO.TYPE_PROCESS %>"/>)
-            img = "class='bi bi-terminal'";
+            img = "class='bi bi-terminal text-blue-add align-middle mx-2 fs-6'";
 
         var node = dojo.widget.createWidget("TreeNode", {
                 title: "<a "+ img +"/> <span id='"+ handler.id +"Msg'>"+ handler.message +"</span>",
@@ -219,6 +220,9 @@
 
         if (handler.id == defaultHandlerId)
             selectedHandlerNode = node;
+        
+
+        removeBackgroundImage(); // Remove the background image from the tree nodes
 
         return node;
     }
@@ -546,68 +550,86 @@
         else
             hide("inactiveAddresses2");
     }
+
+    function removeBackgroundImage() {
+        var selectors = [
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_blank.gif"]',
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_minus.gif"]',
+            'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_plus.gif"]'
+        ];
+        selectors.forEach(function(selector) {
+            var elements = document.querySelectorAll(selector);
+            elements.forEach(function(element) {
+                element.style.backgroundImage = 'none';
+            });
+        });
+    }
+    
   </script>
 
-  <table class="marB subPageHeader" id="eventHandlerHeader"><tr><td>
-    <a href="#" class="nav-link" title="<fmt:message key='eventHandlers.eventHandlers'/>">
-        <i class="bi bi-gear"></i>
-    </a>
-    <span class="smallTitle"><fmt:message key="eventHandlers.eventHandlers"/></span>
-    <tag:help id="eventHandlers"/>
+  <table class="subPageHeader container" id="eventHandlerHeader"><tr><td>
+    <%-- <a href="#" class="nav-link" title="<fmt:message key='eventHandlers.eventHandlers'/>">
+        <i class="bi bi-gear text-blue-add align-middle me-4 fs-5"></i>
+    </a> --%>
   </td></tr></table>
 
-  <table cellpadding="0" cellspacing="0">
+  <table class="subPageHeader container" cellpadding="0" cellspacing="0">
     <tr>
       <td valign="top">
-        <div class="borderDivPadded marR">
-          <span class="smallTitle"><fmt:message key="eventHandlers.types"/></span>
-          <div dojoType="TreeBasicController" widgetId="controller"></div>
-            <i id="loadingImg" class="bi bi-hourglass-split"></i>
-          <div id="tree" style="display:none;">
-              <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
-                  <div dojoType="TreeNode" title="<i class='bi bi-bell'></i> <fmt:message key='eventHandlers.pointEventDetector'/>" widgetId="rootPoint"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-calendar-check'></i> <fmt:message key='scheduledEvents.ses'/>" widgetId="rootScheduled"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-calendar-week'></i> <fmt:message key='compoundDetectors.compoundEventDetectors'/>" widgetId="rootCompound"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-database-add'></i> <fmt:message key='eventHandlers.dataSourceEvents'/>" widgetId="rootDataSource"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-upload'></i> <fmt:message key='eventHandlers.publisherEvents'/>" widgetId="rootPublisher"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-wrench-adjustable-circle'></i> <fmt:message key='eventHandlers.maintenanceEvents'/>" widgetId="rootMaintenance"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-gear'></i> <fmt:message key='eventHandlers.systemEvents'/>" widgetId="rootSystem"></div>
-                  <div dojoType="TreeNode" title="<i class='bi bi-shield'></i> <fmt:message key='eventHandlers.auditEvents'/>" widgetId="rootAudit"></div>
-              </div>
+        <div class="left-menu m-3 h-100">
+          <div class="my-3">
+        <span class="smallTitle"><fmt:message key="eventHandlers.eventHandlers"/></span>
+        <tag:help id="eventHandlers"/>
           </div>
+          <div class="mb-2">
+        <span class="smallTitle"><fmt:message key="eventHandlers.types"/></span>
+          </div>
+          <div dojoType="TreeBasicController" widgetId="controller"></div>
+          <i id="loadingImg" class="bi bi-hourglass-split text-blue-add align-middle mx-2 fs-5"></i>
+          <div id="tree" style="display:none;" class="my-4">
+        <div dojoType="Tree" widgetId="eventTypeTree" listeners="controller" toggle="wipe">
+          <div dojoType="TreeNode" title="<i class='bi bi-bell text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.pointEventDetector'/>" widgetId="rootPoint"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-calendar-check text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='scheduledEvents.ses'/>" widgetId="rootScheduled"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-calendar-week text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='compoundDetectors.compoundEventDetectors'/>" widgetId="rootCompound"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-database-add text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.dataSourceEvents'/>" widgetId="rootDataSource"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-upload text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.publisherEvents'/>" widgetId="rootPublisher"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-wrench-adjustable-circle text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.maintenanceEvents'/>" widgetId="rootMaintenance"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-gear text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.systemEvents'/>" widgetId="rootSystem"></div>
+          <div dojoType="TreeNode" title="<i class='bi bi-shield text-blue-add align-middle mx-2 fs-5'></i> <fmt:message key='eventHandlers.auditEvents'/>" widgetId="rootAudit"></div>
+        </div>
           </div>
         </div>
       </td>
 
       <td valign="top">
-        <div id="handlerEditDiv" class="borderDivPadded" style="display:none;">
-          <table width="100%">
+        <div id="handlerEditDiv" class="right-box m-3" style="display:none;">
+          <table class="w-100 m-3">
             <tr>
               <td class="smallTitle"><fmt:message key="eventHandlers.eventHandler"/></td>
               <td align="right">
-                  <i id="deleteImg" class="bi bi-trash  text-danger" title="<fmt:message key='common.delete'/>" onclick="deleteHandler();"></i>
-                  <i id="saveImg" class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" onclick="saveHandler();"></i>
+                  <i id="deleteImg" class="bi bi-trash  text-danger align-middle me-4 fs-5" title="<fmt:message key='common.delete'/>" onclick="deleteHandler();"></i>
+                  <i id="saveImg" class="bi bi-floppy2-fill text-blue-add align-middle me-4 fs-5" title="<fmt:message key='common.save'/>" onclick="saveHandler();"></i>
               </td>
             </tr>
             <tr><td class="formError" id="userMessage"></td></tr>
           </table>
 
-          <table width="100%">
+          <table class="w-100 m-3">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.type"/></td>
-              <td class="formField">
-                <select id="handlerTypeSelect" onchange="handlerTypeChanged()">
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.type"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+                <select class="w-50 form-select form-select-sm my-2" id="handlerTypeSelect" onchange="handlerTypeChanged()">
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_EMAIL %>"/>"><fmt:message key="eventHandlers.type.email"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_SET_POINT %>"/>"><fmt:message key="eventHandlers.type.setPoint"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_PROCESS %>"/>"><fmt:message key="eventHandlers.type.process"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_SCRIPT %>"/>"><fmt:message key="eventHandlers.type.script"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.TYPE_SMS %>"/>"><fmt:message key="eventHandlers.type.sms"/></option>
                 </select>
-                <i id="handler1Img" class="bi bi-wrench" title="<fmt:message key='eventHandlers.type.setPointHandler'/>" style="display:none;"></i>
-                <i id="handler2Img" class="bi bi-envelope" title="<fmt:message key='eventHandlers.type.emailHandler'/>" style="display:none;"></i>
-                <i id="handler3Img" class="bi bi-gear" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
-                <i id="handler4Img" class="bi bi-file-earmark-text" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
-                <i id="handler5Img" class="bi bi-phone" title="<fmt:message key='eventHandlers.type.smsHandler'/>" style="display:none;"></i>
+                <i id="handler1Img" class="bi bi-wrench text-blue-add align-middle ms-2 fs-5" title="<fmt:message key='eventHandlers.type.setPointHandler'/>" style="display:none;"></i>
+                <i id="handler2Img" class="bi bi-envelope text-blue-add align-middle ms-2 fs-5" title="<fmt:message key='eventHandlers.type.emailHandler'/>" style="display:none;"></i>
+                <i id="handler3Img" class="bi bi-gear text-blue-add align-middle ms-2 fs-5" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
+                <i id="handler4Img" class="bi bi-file-earmark-text text-blue-add align-middle ms-2 fs-5" title="<fmt:message key='eventHandlers.type.processHandler'/>" style="display:none;"></i>
+                <i id="handler5Img" class="bi bi-phone text-blue-add align-middle ms-2 fs-5" title="<fmt:message key='eventHandlers.type.smsHandler'/>" style="display:none;"></i>
                 <span id="handler5Help" style="display:none;">
                     <tag:help id="smsEventHandlers"/>
                 </span>
@@ -615,35 +637,35 @@
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.xid"/></td>
-              <td class="formField"><input type="text" id="xid"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="common.xid"/></td>
+              <td class="formField"><input class="w-75 form-control form-control-sm my-2" type="text" id="xid"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.alias"/></td>
-              <td class="formField"><input id="alias" type="text"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.alias"/></td>
+              <td class="formField"><input id="alias" class="w-75 form-control form-control-sm my-2" type="text"/></td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="common.disabled"/></td>
-              <td class="formField"><input type="checkbox" id="disabled"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="common.disabled"/></td>
+              <td class="formField"><input class="form-check-input custom-checkbox my-2" type="checkbox" id="disabled"/></td>
             </tr>
 
-            <tr><td class="horzSeparator" colspan="2"></td></tr>
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-75 my-4 mx-auto"/></td></tr>
           </table>
 
-          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SET_POINT %>"/>" style="display:none" width="100%">
+          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SET_POINT %>"/>" style="display:none" class="w-100 m-3">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.target"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.target"/></td>
               <td class="formField">
-                <select id="targetPointSelect" onchange="targetPointSelectChanged()"></select>
+                <select class="w-50 form-select form-select-sm my-2" id="targetPointSelect" onchange="targetPointSelectChanged()"></select>
               </td>
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.activeAction"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.activeAction"/></td>
               <td class="formField">
-                <select id="activeAction" onchange="activeActionChanged()">
+                <select class="w-50 form-select form-select-sm my-2" id="activeAction" onchange="activeActionChanged()">
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_NONE %>"/>"><fmt:message key="eventHandlers.action.none"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_POINT_VALUE %>"/>"><fmt:message key="eventHandlers.action.point"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_STATIC_VALUE %>"/>"><fmt:message key="eventHandlers.action.static"/></option>
@@ -653,7 +675,7 @@
 
             <tr id="activePointIdRow">
               <td class="formLabel"><fmt:message key="eventHandlers.sourcePoint"/></td>
-              <td class="formField"><select id="activePointId"></select></td>
+              <td class="formField"><select class="w-50 form-select form-select-sm my-2" id="activePointId"></select></td>
             </tr>
 
             <tr id="activeValueToSetRow">
@@ -662,9 +684,9 @@
             </tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveAction"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.inactiveAction"/></td>
               <td class="formField">
-                <select id="inactiveAction" onchange="inactiveActionChanged()">
+                <select class="w-50 form-select form-select-sm my-2" id="inactiveAction" onchange="inactiveActionChanged()">
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_NONE %>"/>"><fmt:message key="eventHandlers.action.none"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_POINT_VALUE %>"/>"><fmt:message key="eventHandlers.action.point"/></option>
                   <option value="<c:out value="<%= EventHandlerVO.SET_ACTION_STATIC_VALUE %>"/>"><fmt:message key="eventHandlers.action.static"/></option>
@@ -674,7 +696,7 @@
 
             <tr id="inactivePointIdRow">
               <td class="formLabel"><fmt:message key="eventHandlers.sourcePoint"/></td>
-              <td class="formField"><select id="inactivePointId"></select></td>
+              <td class="formField"><select class="w-50 form-select form-select-sm my-2" id="inactivePointId"></select></td>
             </tr>
 
             <tr id="inactiveValueToSetRow">
@@ -683,21 +705,21 @@
             </tr>
           </table>
 
-          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_EMAIL %>"/>" style="display:none" width="100%">
+          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_EMAIL %>"/>" style="display:none" class="w-100 m-3">
             <tbody id="emailRecipients"></tbody>
 
-            <tr><td class="horzSeparator" colspan="2"></td></tr>
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-75 my-4 mx-auto"/></td></tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.escal"/></td>
-              <td class="formField"><input id="sendEscalation" type="checkbox" onclick="sendEscalationChanged()"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.escal"/></td>
+              <td class="formField"><input id="sendEscalation" class="form-check-input custom-checkbox my-2" type="checkbox" onclick="sendEscalationChanged()"/></td>
             </tr>
 
             <tr id="escalationAddresses1">
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.escalPeriod"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.escalPeriod"/></td>
               <td class="formField">
-                <input id="escalationDelay" type="text" class="formShort"/>
-                <select id="escalationDelayType">
+                <input id="escalationDelay" class="w-75 form-control form-control-sm my-2" type="text" class="formShort"/>
+                <select class="w-50 form-select form-select-sm my-2" id="escalationDelayType">
                   <tag:timePeriodOptions min="true" h="true" d="true"/>
                 </select>
               </td>
@@ -705,57 +727,57 @@
 
             <tbody id="escalRecipients"></tbody>
 
-            <tr><td class="horzSeparator" colspan="2"></td></tr>
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-75 my-4 mx-auto"/></td></tr>
 
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveNotif"/></td>
-              <td class="formField"><input id="sendInactive" type="checkbox" onclick="sendInactiveChanged()"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.inactiveNotif"/></td>
+              <td class="formField"><input id="sendInactive" class="form-check-input custom-checkbox my-2" type="checkbox" onclick="sendInactiveChanged()"/></td>
             </tr>
 
             <tr id="inactiveAddresses1">
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveOverride"/></td>
-              <td class="formField"><input id="inactiveOverride" type="checkbox" onclick="inactiveOverrideChanged()"/></td>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.inactiveOverride"/></td>
+              <td class="formField"><input id="inactiveOverride" class="form-check-input custom-checkbox my-2" type="checkbox" onclick="inactiveOverrideChanged()"/></td>
             </tr>
 
             <tbody id="inactiveRecipients"></tbody>
           </table>
 
-          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SMS %>"/>" style="display:none" width="100%">
+          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SMS %>"/>" style="display:none" class="w-100 m-3">
             <tbody id="smsRecipients"></tbody>
           </table>
           
-          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_PROCESS %>"/>" style="display:none" width="100%">
+          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_PROCESS %>"/>" style="display:none" class="w-100 m-3">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.activeCommand"/></td>
-              <td class="formField">
-                <input type="text" id="activeProcessCommand" class="formLong"/>
-                <i class="bi bi-gear-fill text-primary" onclick="testProcessCommand('activeProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.activeCommand"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+                <input class="w-75 form-control form-control-sm my-2" type="text" id="activeProcessCommand" class="formLong"/>
+                <i class="bi bi-gear-fill text-blue-add align-middle ms-2 fs-5" onclick="testProcessCommand('activeProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveCommand"/></td>
-              <td class="formField">
-                <input type="text" id="inactiveProcessCommand" class="formLong"/>
-                <i class="bi bi-gear-fill text-primary" onclick="testProcessCommand('inactiveProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
+              <td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.inactiveCommand"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+                <input class="w-75 form-control form-control-sm my-2" type="text" id="inactiveProcessCommand" class="formLong"/>
+                <i class="bi bi-gear-fill text-blue-add align-middle ms-2 fs-5" onclick="testProcessCommand('inactiveProcessCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
           </table>
           
-          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SCRIPT %>"/>" style="display:none" width="100%">
+          <table id="handler<c:out value="<%= EventHandlerVO.TYPE_SCRIPT %>"/>" style="display:none" class="w-100 m-3">
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.activeScript"/></td>
-              <td class="formField">
-              	<select id="activeScriptCommand"></select>
-                <i class="bi bi-gear-fill text-primary" onclick="testScriptCommand('activeScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
+              <td class="w-25 formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.activeScript"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+              	<select class="w-75 form-select form-select-sm my-2" id="activeScriptCommand"></select>
+                <i class="bi bi-gear-fill text-blue-add align-middle ms-2 fs-5" onclick="testScriptCommand('activeScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
             
             <tr>
-              <td class="formLabelRequired"><fmt:message key="eventHandlers.inactiveScript"/></td>
-              <td class="formField">
-                <select id="inactiveScriptCommand"></select>
-                <i class="bi bi-gear-fill text-primary" onclick="testScriptCommand('inactiveScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
+              <td class="w-25 formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.inactiveScript"/></td>
+              <td class="d-flex align-items-center justify-content-start">
+                <select class="w-75 form-select form-select-sm my-2" id="inactiveScriptCommand"></select>
+                <i class="bi bi-gear-fill text-blue-add align-middle ms-2 fs-5" onclick="testScriptCommand('inactiveScriptCommand')" title="<fmt:message key='eventHandlers.commandTest.title'/>"></i>
               </td>
             </tr>
           </table>
