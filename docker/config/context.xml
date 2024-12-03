@@ -32,4 +32,5 @@
               defaultTransactionIsolation="READ_COMMITTED"
               connectionProperties="useSSL=false;allowPublicKeyRetrieval=true"
               url="jdbc:mysql://scada.mysql.database.azure.com:3306/scada"
+    />
 </Context>
