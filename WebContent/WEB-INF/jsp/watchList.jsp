@@ -34,7 +34,7 @@
     }
     html > body .dojoSplitContainerSizerH {
         border: 1px solid #FFFFFF;
-        background-color: #39B54A;
+        background-color:rgb(85, 85, 85);
         margin-top:4px;
         margin-bottom:4px;
     }
@@ -153,8 +153,8 @@
 
       function addPoint(point, parent) {
           var pointNode = dojo.widget.createWidget("TreeNode", {
-                  title: "<i class='bi bi-search'></i> <span id='ph"+ point.key +"Name'>"+ point.value +"</span> "+
-                          "<i class='bi bi-caret-right-square-fill text-success' id='ph"+ point.key +"Image' title='<fmt:message key="watchlist.addToWatchlist"/>'></i>",
+                  title: "<i class='bi bi-search align-middle ms-2 fs-6'></i> <span id='ph"+ point.key +"Name'>"+ point.value +"</span> "+
+                          "<i class='bi bi-arrow-right-circle text-blue-add align-middle ms-2 fs-6' id='ph"+ point.key +"Image' title='<fmt:message key="watchlist.addToWatchlist"/>'></i>",
                   object: point
           });
           parent.addChild(pointNode);
@@ -193,6 +193,7 @@
                   return;
               }
               addToWatchListImpl(points[i]);
+
           }
 
           fixRowFormatting();
@@ -222,6 +223,8 @@
           var icons = getElementsByMangoName($("treeDiv"), "pointTreeIcon");
           for (var i=0; i<icons.length; i++)
               icons[i].src = iconSrc;
+
+            removeBackgroundImage(); // Remove the background image from the tree nodes
       }
 
 
@@ -611,6 +614,64 @@
   		  }
       }
 
+        function removeBackgroundImage() {
+            var selectors = [
+                'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_blank.gif"]',
+                'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_minus.gif"]',
+                'img[src="resources/dojo/src/widget/templates/images/Tree/treenode_expand_plus.gif"]'
+            ];
+            selectors.forEach(function(selector) {
+                var elements = document.querySelectorAll(selector);
+                elements.forEach(function(element) {
+                    element.style.backgroundImage = 'none';
+                });
+            });
+        }
+
+        //função para adicionar classes aos selects e checkbox estilo bootstrap
+        function addClassToSelectsPointDetails() {
+        var selectGroups = [
+        {
+        ids: ["datPointDetailsPointSelect", "statsChartDurationType"],
+        classes: ["w-50", "form-select", "form-select-sm", "me-2"]
+        },
+        {
+        ids: ["watchListSelect"],
+        classes: ["w-75", "form-select", "form-select-sm", "m-3"]
+        },
+        {
+        ids: ["fromMonth", "fromDay", "fromHour", "fromMinute", "fromSecond", "toMonth", "toDay", "toHour", "toMinute", "toSecond"],
+        classes: ["form-select", "form-select-sm", "my-2"]
+        }
+        ];
+
+        selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+            selectElement.classList.add(...group.classes);
+        }
+        });
+        });
+        }
+
+        function addOverflowHiddenToDojoTree() {
+            var elements = document.getElementsByClassName('dojoTree');
+            for (var i = 0; i < elements.length; i++) {
+            elements[i].style.overflow = 'hidden';
+            }
+        }
+
+        // Chama a função quando o DOM estiver completamente carregado
+        document.addEventListener('DOMContentLoaded', addOverflowHiddenToDojoTree);
+        
+
+        // Chama a função após a página ser carregada
+        window.onload = function() {
+            addClassToSelectsPointDetails();
+            addOverflowHiddenToDojoTree();
+        };
+
       var splitContainerHeight;
       var chartContainerHeight;
 
@@ -634,9 +695,9 @@
     </script>
     <table width="100%">
     <tr><td>
-      <div id="splitContainer" dojoType="SplitContainer" orientation="horizontal" sizerWidth="3" activeSizing="true" class="borderDiv"
-              widgetId="splitContainer" style="width: 100%; height: 500px; resize:vertical;">
-        <div dojoType="ContentPane" sizeMin="20" sizeShare="20" style="overflow:auto;padding:2px;">
+      <div id="splitContainer" dojoType="SplitContainer" orientation="horizontal" sizerWidth="3" activeSizing="true" class="my-3 right-box"
+              widgetId="splitContainer" style="width: 100%; height: 600px; resize:vertical;">
+        <div dojoType="ContentPane" sizeMin="20" sizeShare="20" style="overflow:auto;padding:2px;" class="m-3">
           <span class="smallTitle"><fmt:message key="watchlist.points"/></span> <tag:help id="watchListPoints"/><br/>
         <!-- <div style="margin:5px 0 10px 5px;">
           <select id="dpSelector" data-placeholder="Choose data point ..." class="chosen-select" style="width:80%;margin-bottom:10px;">
@@ -645,44 +706,53 @@
           <img title="Add to watch list" src="images/bullet_go.png" onclick="addSelectedToWatchList()" style="cursor:pointer;">
         </div>
         <div class="horzSeparator" style="margin-bottom:10px;"></div> -->
-        <i id="loadingImg" class="bi bi-hourglass-split" style="cursor: pointer;"></i>
-        <div id="treeDiv" style="display:none;"><div dojoType="Tree" widgetId="tree"></div></div>
+        <i id="loadingImg" class="bi bi-hourglass-split align-middle ms-2 fs-6" style="cursor: pointer;"></i>
+        <div id="treeDiv" style="display:none;" class="my-3"><div dojoType="Tree" widgetId="tree"></div></div>
         </div>
         <div dojoType="ContentPane" sizeMin="50" sizeShare="50" style="overflow:auto; padding:2px 10px 2px 2px;">
-          <table cellpadding="0" cellspacing="0" width="100%">
+          <table cellpadding="0" cellspacing="0" width="96%" class="mx-3">
             <tr>
               <td class="smallTitle"><fmt:message key="watchlist.watchlist"/> <tag:help id="watchList"/></td>
-              <td align="right">
-                <sst:select id="watchListSelect" value="${selectedWatchList}" onchange="watchListChanged()"
-                        onmouseover="closeLayers();">
+              <td align="right"  class="d-flex align-items-center justify-content-start">
+                <sst:select id="watchListSelect" value="${selectedWatchList}" onchange="watchListChanged()" onmouseover="closeLayers();">
                   <c:forEach items="${watchLists}" var="wl">
                     <sst:option value="${wl.key}">${sst:escapeLessThan(wl.value)}</sst:option>
                   </c:forEach>
                 </sst:select>
 
                 <div id="wlEditDiv" style="display:inline;" onmouseover="showWatchListEdit()">
-                  <i id="wlEditImg" class="bi bi-pencil" title="<fmt:message key='watchlist.editListName'/>" style="cursor: pointer;"></i>
-                  <div id="wlEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv"
-                          onmouseout="hideLayer(this)">
-                    <fmt:message key="watchlist.newListName"/><br/>
-                    <input type="text" id="newWatchListName"
-                            onkeypress="if (event.keyCode==13) $('saveWatchListNameLink').onclick();"/>
-                    <a class="ptr" id="saveWatchListNameLink" onclick="saveWatchListName()"><fmt:message key="common.save"/></a>
-                  </div>
+                    <i id="wlEditImg" class="bi bi-pencil text-primary align-middle ms-3 fs-6" title="<fmt:message key='watchlist.editListName'/>" style="cursor: pointer;"></i>
+                    <div id="wlEdit" style="visibility:hidden;left:0px;top:100px;" class="labelDiv" onmouseout="hideLayer(this)">
+                        <table class="w-100">
+                            <tr>
+                                <td class="m-3 formLabelRequired">
+                                    <fmt:message key="watchlist.newListName"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="d-flex align-items-center justify-content-start">
+                                    <input class="w-75 form-control form-control-sm m-2 " type="text" id="newWatchListName" onkeypress="if (event.keyCode==13) $('saveWatchListNameLink').onclick();"/>
+                                    <button id="saveWatchListNameLink" class="btn btn-primary btn-sm custom-btn-blue ms-3" onclick="saveWatchListName()">
+                                        <fmt:message key="common.save"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="usersEditDiv" style="display:inline;" onmouseover="showWatchListUsers()">
-                  <i class="bi bi-people" title="<fmt:message key='share.sharing'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                  <i class="bi bi-people align-middle ms-2 fs-6" title="<fmt:message key='share.sharing'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
                   <div id="usersEdit" style="visibility:hidden;left:0px;top:15px;" class="labelDiv">
                     <tag:sharedUsers doxId="watchListSharing" noUsersKey="share.noWatchlistUsers"
                             closeFunction="hideLayer('usersEdit')"/>
                   </div>
                 </div>
 
-                <i class="bi bi-journals text-primary" onclick="addWatchList(true)" title="<fmt:message key='watchlist.copyList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
-                <i class="bi bi-clipboard-plus-fill text-success" onclick="addWatchList(false)" title="<fmt:message key='watchlist.addNewList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
-                <i class="bi bi-clipboard-minus-fill  text-danger" id="watchListDeleteImg" onclick="deleteWatchList()" title="<fmt:message key='watchlist.deleteList'/>" style="display:none; cursor: pointer;" onmouseover="closeLayers();"></i>
-                <i class="bi bi-file-text" onclick="createReport()" title="<fmt:message key='watchlist.createReport'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-journals text-primary align-middle ms-3 fs-6" onclick="addWatchList(true)" title="<fmt:message key='watchlist.copyList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-clipboard-plus-fill text-success align-middle ms-3 fs-6" onclick="addWatchList(false)" title="<fmt:message key='watchlist.addNewList'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
+                <i class="bi bi-clipboard-minus-fill text-danger align-middle ms-3 fs-6" id="watchListDeleteImg" onclick="deleteWatchList()" title="<fmt:message key='watchlist.deleteList'/>" style="display:none; cursor: pointer;" onmouseover="closeLayers();"></i>
+                <i class="bi bi-file-text align-middle ms-3 me-5 fs-6" onclick="createReport()" title="<fmt:message key='watchlist.createReport'/>" onmouseover="closeLayers();" style="cursor: pointer;"></i>
               </td>
             </tr>
           </table>
@@ -697,31 +767,31 @@
                         <td onclick="mango.view.showChange('p'+ getMangoId(this) +'Change', 4, 12);"
                                 ondblclick="mango.view.hideChange('p'+ getMangoId(this) +'Change');"
                                 id="p_TEMPLATE_ChangeMin" style="display:none;">
-                                <i class="bi bi-pencil-square" id="p_TEMPLATE_Changing" style="cursor: pointer;"></i>
+                                <i class="bi bi-pencil-square align-middle ms-2 fs-6" id="p_TEMPLATE_Changing" style="cursor: pointer;"></i>
                                 <div id="p_TEMPLATE_Change" class="labelDiv"
                                 style="visibility:hidden;top:10px;left:1px;" ondblclick="hideLayer(this);">
-                          <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i>
+                          <i class="bi bi-hourglass-split align-middle ms-2 fs-6" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i>
                         </div></td>
                         <td id="p_TEMPLATE_ChartMin" style="display:none;" onmouseover="showChart(getMangoId(this), event, this);"
                                 onmouseout="hideChart(getMangoId(this), event, this);"><img alt=""
                                 src="images/icon_chart.png"/><div id="p_TEMPLATE_ChartLayer" class="labelDiv"
                                 style="visibility:hidden;top:0;left:0;"></div><textarea
                                 style="display:none;" id="p_TEMPLATE_Chart">
-                                <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i></textarea>
+                                <i class="bi bi-hourglass-split align-middle ms-2 fs-6" title="<fmt:message key='common.gettingData'/>" style="cursor: pointer;"></i></textarea>
                         </td>
                       </tr>
                     </table>
                   </td>
                   <td id="p_TEMPLATE_Name" style="font-weight:bold"></td>
-                  <td id="p_TEMPLATE_Value" align="center"><i class="bi bi-hourglass-split" style="cursor: pointer;"></i></td>
+                  <td id="p_TEMPLATE_Value" align="center"><i class="bi bi-hourglass-split align-middle ms-2 fs-6" style="cursor: pointer;"></i></td>
                   <td id="p_TEMPLATE_Time" align="center"></td>
                   <td style="width:1px; white-space:nowrap;">
                     <input type="checkbox" name="chartCB" id="p_TEMPLATE_ChartCB" value="_TEMPLATE_" checked="checked"
                             title="<fmt:message key="watchlist.consolidatedChart"/>"/>
-                    <i class="bi bi-search" title="<fmt:message key='watchlist.pointDetails'/>" onclick="window.location='data_point_details.shtm?dpid=' + getMangoId(this)" style="cursor: pointer;"></i>
-                    <i class="bi bi-caret-up-square-fill" id="p_TEMPLATE_MoveUp" title="<fmt:message key='watchlist.moveUp'/>" style="display:none; cursor: pointer;" onclick="moveRowUp('p'+ getMangoId(this));"></i>
-                    <i class="bi bi-caret-down-square-fill" id="p_TEMPLATE_MoveDown" title="<fmt:message key='watchlist.moveDown'/>" style="display:none; cursor: pointer;" onclick="moveRowDown('p'+ getMangoId(this));"></i>
-                    <i id="p_TEMPLATE_Delete" class="bi bi-trash3-fill  text-danger" title="<fmt:message key='watchlist.delete'/>" style="display:none; cursor: pointer;" onclick="removeFromWatchList(getMangoId(this))"></i>
+                    <i class="bi bi-search align-middle ms-2 fs-6" title="<fmt:message key='watchlist.pointDetails'/>" onclick="window.location='data_point_details.shtm?dpid=' + getMangoId(this)" style="cursor: pointer;"></i>
+                    <i class="bi bi-caret-up-square-fill align-middle ms-2 fs-6" id="p_TEMPLATE_MoveUp" title="<fmt:message key='watchlist.moveUp'/>" style="display:none; cursor: pointer;" onclick="moveRowUp('p'+ getMangoId(this));"></i>
+                    <i class="bi bi-caret-down-square-fill align-middle ms-2 fs-6" id="p_TEMPLATE_MoveDown" title="<fmt:message key='watchlist.moveDown'/>" style="display:none; cursor: pointer;" onclick="moveRowDown('p'+ getMangoId(this));"></i>
+                    <i id="p_TEMPLATE_Delete" class="bi bi-trash3-fill text-danger align-middle ms-2 fs-6" title="<fmt:message key='watchlist.delete'/>" style="display:none; cursor: pointer;" onclick="removeFromWatchList(getMangoId(this))"></i>
                   </td>
                 </tr>
                 <tr><td colspan="5" style="padding-left:16px;" id="p_TEMPLATE_Messages"></td></tr>
@@ -737,25 +807,24 @@
     </td></tr>
 
     <tr><td>
-      <div id="chartContainer" class="borderDiv" style="width: 100%; resize: vertical; overflow: hidden; height: 500px;">
+      <div id="chartContainer" class="right-box" style="width: 100%; resize: vertical; overflow: hidden; height: 500px;">
         <table width="100%">
-          <tr>
+        <tr class="d-flex align-items-center justify-content-around">
             <td class="smallTitle"><fmt:message key="watchlist.chart"/> <tag:help id="watchListCharts"/></td>
-            <td align="right"><input type="text" id="prevPeriodCount" class="formVeryShort"/>
-            	<select id="prevPeriodType">
-                	<tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
-            	</select>
+            <td align="right" class="d-flex align-items-center justify-content-start">
+                <input class="w-75 form-control form-control-sm my-2" type="text" id="prevPeriodCount" class="formVeryShort"/>
+                <select class="w-50 form-select form-select-sm ms-2" id="prevPeriodType">
+                    <tag:timePeriodOptions min="true" h="true" d="true" w="true" mon="true" y="true"/>
+                </select>
+                <i id="imageChartLiveImg" class="bi bi-play-circle-fill text-primary align-middle ms-2 fs-5" title="<fmt:message key='watchlist.imageChartLiveButton'/>" onclick="switchChartMode()" style="cursor: pointer;"></i>
             </td>
-            <td  align="left"><i id="imageChartLiveImg" class="bi bi-play-circle-fill text-primary" title="<fmt:message key='watchlist.imageChartLiveButton'/>" onclick="switchChartMode()" style="cursor: pointer;"></i><br/></td>
             <td class="vertSeparator"></td>
-            <td align="right"><tag:dateRange/></td>
-            <td>
-              <i id="imageChartImg" class="bi bi-play-circle-fill text-primary" title="<fmt:message key='watchlist.imageChartButton'/>" onclick="getImageChart()" style="cursor: pointer;"></i>
-<%--               <tag:img id="chartDataImg" png="bullet_down" title="watchlist.chartDataButton" --%>
-<!--                       onclick="getChartData()"/> -->
+            <td align="right" class="d-flex align-items-center justify-content-start">
+            <tag:dateRange/>
+            <i id="imageChartImg" class="bi bi-play-circle-fill text-primary align-middle me-4 fs-5" title="<fmt:message key='watchlist.imageChartButton'/>" onclick="getImageChart()" style="cursor: pointer;"></i>
             </td>
-          </tr>
-          <tr><td colspan="6" id="imageChartDiv"></td></tr>
+        </tr>
+          <tr class="m-3"><td colspan="6" id="imageChartDiv"></td></tr>
           <tr><td colspan="6" id="temp" style="display:none"></td></tr>
         </table>
       </div>
