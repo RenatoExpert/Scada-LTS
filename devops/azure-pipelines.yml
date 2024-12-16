@@ -68,4 +68,25 @@ stages:
                  appSettingsValues: $(appSettingsValues) 
                  azureSubscription: $(azureSubscription)
 
+
+  - stage: DeployBAHIAGAS
+    displayName: 'Deploy BAHIA GAS'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/bahiagas'))
+    jobs:
+    - deployment:
+      environment: Development
+      strategy:
+       runOnce:
+         deploy:
+           steps:
+             - template: java/azure/webapp/steps/webapp-deploy-template-v1.yml@templates
+               parameters:
+                 webAppName: scada-bahiagas
+                 dockerNamespace: $(dockerNamespace)
+                 dockerRepository: $(dockerRepository)
+                 appSettingsValues: $(appSettingsValues) 
+                 azureSubscription: $(azureSubscription)
+
+
    
