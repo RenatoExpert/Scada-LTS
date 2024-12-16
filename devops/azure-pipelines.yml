@@ -4,7 +4,8 @@ name: scada_dev_v$(Build.BuildId)
 trigger:
   branches:
     include:
-      - refs/heads/release
+      - release
+      - bahiagas
 
 pool:
   vmImage: ubuntu-latest
