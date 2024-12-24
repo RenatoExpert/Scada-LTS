@@ -71,6 +71,10 @@
     {
     ids: ["updatePeriodType", "protocolVersion", "brokerMode"],
     classes: ["w-25", "form-select", "form-select-sm", "my-2"]
+    },
+    {
+    ids: ["alarmLevel1", "alarmLevel2", "alarmLevel3", "alarmLevel4"],
+    classes: ["w-100", "form-select", "form-select-sm", "my-2"]
     }
   ];
 

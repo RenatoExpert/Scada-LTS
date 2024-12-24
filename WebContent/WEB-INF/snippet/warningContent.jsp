@@ -21,23 +21,33 @@
     <c:choose>
       <c:when test="${!empty invalid}">
         <tr>
-          <td valign="top"><tag:img png="warn" title="common.warning"/></td>
+          <td valign="top">
+          <i class="bi bi-exclamation-circle-fill text-warning align-middle me-3 fs-5" title="<fmt:message key='common.warning'/>"></i>
+          <%-- <tag:img png="warn" title="common.warning"/> --%>
+          </td>
           <td colspan="3"><fmt:message key="common.pointInvalid"/></td>
         </tr>
       </c:when>
       <c:when test="${!empty disabled}">
         <tr>
-          <td valign="top"><tag:img png="warn" title="common.warning"/></td>
+          <td valign="top">
+          <i class="bi bi-exclamation-circle-fill text-warning align-middle me-3 fs-5" title="<fmt:message key='common.warning'/>"></i>
+          <%-- <tag:img png="warn" title="common.warning"/> --%>
+          </td>
           <td colspan="3"><fmt:message key="common.pointWarning"/></td>
         </tr>
       </c:when>
     </c:choose>
     <c:if test="${pointRT.attributes.UNRELIABLE || pointRT.attributes.DP_UPDATE_ERROR}">
       <tr>
-        <td><tag:img png="exclamation" title="common.valueUnreliable"/></td>
+        <td>
+        <i class="bi bi-exclamation-circle-fill text-warning align-middle me-3 fs-6" title="<fmt:message key='common.valueUnreliable'/>"></i>
+        <%-- <tag:img png="exclamation" title="common.valueUnreliable"/> --%>
+        </td>
         <td style="white-space:nowrap;" colspan="3">
           <fmt:message key="common.valueUnreliable"/>
-          <tag:img png="arrow_refresh" title="common.refresh" onclick="WatchListDwr.forcePointRead(${point.id})" style="display:inline"/>
+          <i class="bi bi-arrow-clockwise text-blue-add align-middle me-3 fs-5" title="<fmt:message key='common.refresh'/>" onclick="WatchListDwr.forcePointRead(${point.id})" style="display:inline"></i>
+          <%-- <tag:img png="arrow_refresh" title="common.refresh" onclick="WatchListDwr.forcePointRead(${point.id})" style="display:inline"/> --%>
         </td>
       </tr>
     </c:if>

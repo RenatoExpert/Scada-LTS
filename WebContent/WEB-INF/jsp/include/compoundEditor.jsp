@@ -25,74 +25,77 @@
 
 <div id="compoundEditorPopup" style="display: none; left: 0px; top: 0px;" class="windowDiv">
 	<div>
-	<table cellpadding="0" cellspacing="0">
+	<table cellpadding="0" cellspacing="0" class="m-3">
 		<tr>
 			<td>
 				<table width="100%">
 					<tr>
 						<td>
-							<i class="bi bi-pencil-fill text-success" title="<fmt:message key='viewEdit.compound.editor'/>" style="display:inline;"></i>
+							<i class="bi bi-pencil-fill text-success align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.compound.editor'/>" style="display:inline;"></i>
 							<span class="copyTitle" id="compoundComponentName"></span>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.compound.editor' escapeDQuotes='true'/>
+							</span>
 						</td>
 						<td align="right">
-							<i class="bi bi-floppy2-fill text-success" title="<fmt:message key='common.save'/>" style="display:inline;" onclick="compoundEditor.save()"></i>&nbsp;
-							<i class="bi bi-x-lg text-danger" title="<fmt:message key='common.close'/>" style="display:inline;" onclick="compoundEditor.close()"></i>
+							<i class="bi bi-floppy2-fill text-success align-middle ms-3 fs-6" title="<fmt:message key='common.save'/>" style="display:inline;" onclick="compoundEditor.save()"></i>&nbsp;
+							<i class="bi bi-x-lg text-danger align-middle ms-3 fs-6" title="<fmt:message key='common.close'/>" style="display:inline;" onclick="compoundEditor.close()"></i>
 						</td>
 					</tr>
 				</table>
 				<table>
 					<tr>
-        				<td class="formLabel"><fmt:message key="viewEdit.position.x"/></td>
-        				<td class="formField"><input id="compoundPositionX" type="number" default="0" min="0"/></td>
+        				<td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.position.x"/></td>
+        				<td class="formField"><input id="compoundPositionX" class="w-50 form-control form-control-sm my-2" type="number" default="0" min="0"/></td>
       				</tr>
       				<tr>
-        				<td class="formLabel"><fmt:message key="viewEdit.position.y"/></td>
-        				<td class="formField"><input id="compoundPositionY" type="number" default="0" min="0"/></td>
+        				<td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.position.y"/></td>
+        				<td class="formField"><input id="compoundPositionY" class="w-50 form-control form-control-sm my-2" type="number" default="0" min="0"/></td>
       				</tr>
 				</table>
 				<table>
 					<tr>
-						<td class="formLabelRequired">
+						<td class="formLabelRequired align-middle my-2">
 							<fmt:message key="viewEdit.compound.name"/>
 						</td>
 						<td class="formField">
-							<input id="compoundName" type="text"/>
+							<input id="compoundName" class="w-75 form-control form-control-sm my-2" type="text"/>
 						</td>
 					</tr>
 					<tbody id="simpleCompoundAttrs">
 						<tr>
-							<td class="formLabel">
+							<td class="formLabel align-middle my-2">
 								<fmt:message key="viewEdit.compound.backgroundColour"/>
 							</td>
 							<td class="formField">
-								<input id="compoundBackgroundColour" type="text"/>
+								<input id="compoundBackgroundColour" class="w-75 form-control form-control-sm my-2" type="text"/>
 							</td>
 						</tr>
 					</tbody>
 					<tbody id="imageChartAttrs">
 						<tr>
-							<td class="formLabelRequired">
+							<td class="formLabelRequired align-middle my-2">
 								<fmt:message key="viewEdit.compound.width"/>
 							</td>
 							<td class="formField">
-								<input id="imageChartWidth" type="text" />
+								<input id="imageChartWidth" class="w-75 form-control form-control-sm my-2" type="text" />
 							</td>
 						</tr>
 						<tr>
-							<td class="formLabelRequired">
+							<td class="formLabelRequired align-middle my-2">
 								<fmt:message key="viewEdit.compound.height" />
 							</td>
 							<td class="formField">
-								<input id="imageChartHeight" type="text" />
+								<input id="imageChartHeight" class="w-75 form-control form-control-sm my-2" type="text" />
 							</td>
 						</tr>
 						<tr>
-							<td class="formLabelRequired">
+							<td class="formLabelRequired align-middle my-2">
 								<fmt:message key="viewEdit.compound.duration"/>
 							</td>
-							<td class="formField">
-								<input type="text" id="imageChartDurationPeriods" class="formShort" />
-								<select id="imageChartDurationType">
+							<td class="formField d-flex align-items-center justify-content-start">
+								<input class="w-75 form-control form-control-sm me-2" type="text" id="imageChartDurationPeriods" class="formShort" />
+								<select class="w-50 form-select form-select-sm my-2" id="imageChartDurationType">
 									<tag:timePeriodOptions sst="false" s="true" min="true" h="true"
 										d="true" w="true" mon="true" y="true"/>
 								</select>
@@ -101,19 +104,20 @@
 					</tbody>
 					<tbody id="enhancedImageChartAttrs">
 						<tr>
-							<td class="formLabelRequired">
+							<td class="formLabelRequired align-middle my-2">
 								<fmt:message key="viewEdit.compound.type"/>
 							</td>
 							<td class="formField">
-								<input name="enhancedImageChartType" type="radio" 
+								<input name="enhancedImageChartType"  class="form-check-input custom-checkbox align-middle mx-3" type="radio" 
 									value="<%= EnhancedImageChartType.STATIC.name() %>">
 								<fmt:message key="viewEdit.compound.type.static" /></input> 
-								<input name="enhancedImageChartType" type="radio"
+								<input name="enhancedImageChartType"  class="form-check-input custom-checkbox align-middle mx-3" type="radio"
 									value="<%= EnhancedImageChartType.DYNAMIC.name() %>">
 								<fmt:message key="viewEdit.compound.type.dynamic" /></input>
 							</td>
 						</tr>
 					</tbody>
+					<tr><td class="m-4" colspan="2"><hr class="border border-secondary w-75 my-4 mx-auto"/></td></tr>
 					<tbody id="pointLists"></tbody>
 				</table>
 			</td>
@@ -293,23 +297,23 @@
             
             var functions = [
                 (data) => { return data.description; },
-                (data) => { return '<select id="compoundPointSelect'+ data.id +'"></select>'; }
+                (data) => { return '<select class="w-50 form-select form-select-sm my-2" id="compoundPointSelect'+ data.id +'"></select>'; }
             ];
             if(this.component.defName === "enhancedImageChart") {
             	functions = [
                     (data) => { return data.description; },
-                    (data) => { return '<select id="compoundPointSelect'+ data.id +'"></select></br></br>' + 
-                    	'<label for="compoundPointColor'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.color"/></span></label>' +
+                    (data) => { return '<select class="w-50 form-select form-select-sm my-2" id="compoundPointSelect'+ data.id +'"></select></br></br>' + 
+                    	'<label class="formLabel align-middle mx-2" for="compoundPointColor'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.color"/></span></label>' +
                     	'<input id="compoundPointColor'+ data.id +'" type="hidden" value="' + data.viewComponent.color + '"/>' +
-                    	'<label for="compoundPointStrokeWidth'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.strokeWidth"/></span></label>' + 
+                    	'<label class="formLabel align-middle mx-2" for="compoundPointStrokeWidth'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.strokeWidth"/></span></label>' + 
                     	'<input id="compoundPointStrokeWidth'+ data.id +'" value="' + data.viewComponent.strokeWidth + '" style="width: 20%;"/>'; },
-                    (data) => { return '<label for="compoundPointName'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.alias"/></span></label>' +
-                    	'<input id="compoundPointName' + data.id + '" type="text" value="' + defaultIfBlank(data.viewComponent.alias, "") + '"/></br>' +
-                    	'<input name="compoundPointLineType'+ data.id +'" type="radio" ' + ((data.viewComponent.lineType === "<%= EnhancedPointLineType.LINE.name() %>" ) ? 'checked="checked"' : '')  +
+                    (data) => { return '<label  class="formLabel align-middle mx-2" for="compoundPointName'+ data.id +'"><span><fmt:message key="viewEdit.compound.point.alias"/></span></label>' +
+                    	'<input id="compoundPointName' + data.id + '" class="w-75 form-control form-control-sm my-2" type="text" value="' + defaultIfBlank(data.viewComponent.alias, "") + '"/></br>' +
+                    	'<input name="compoundPointLineType'+ data.id +'"  class="form-check-input custom-checkbox align-middle mx-3" type="radio" ' + ((data.viewComponent.lineType === "<%= EnhancedPointLineType.LINE.name() %>" ) ? 'checked="checked"' : '')  +
                    		' value="<%= EnhancedPointLineType.LINE.name() %>"><fmt:message key="viewEdit.compound.point.lineType.line"/></input>' +
-          				'<input name="compoundPointLineType'+ data.id +'" type="radio" ' + ((data.viewComponent.lineType === "<%= EnhancedPointLineType.SPLINE.name() %>" ) ? 'checked="checked"' : '')  +
+          				'<input name="compoundPointLineType'+ data.id +'"  class="form-check-input custom-checkbox align-middle mx-3" type="radio" ' + ((data.viewComponent.lineType === "<%= EnhancedPointLineType.SPLINE.name() %>" ) ? 'checked="checked"' : '')  +
 						' value="<%= EnhancedPointLineType.SPLINE.name() %>"><fmt:message key="viewEdit.compound.point.lineType.spline"/></input>' + 
-						'<input id="compoundPointShowPoints' + data.id + '" type="checkbox" ' + (data.viewComponent.showPoints ? 'checked':'') + '><fmt:message key="viewEdit.compound.point.showPoints"/></input>'; }
+						'<input id="compoundPointShowPoints' + data.id + '" class="form-check-input custom-checkbox mx-3" type="checkbox" ' + (data.viewComponent.showPoints ? 'checked':'') + '><fmt:message key="viewEdit.compound.point.showPoints"/></input>'; }
                 ];
             }
             
@@ -323,9 +327,9 @@
 							this.component.defName == "simpleCompound" &&
                             options.rowData.id == "<%= SimpleCompoundComponent.LEAD_POINT %>"
 						)
-							td.className = "formLabelRequired";
+							td.className = "formLabelRequired align-middle my-5";
 						else {
-							td.className = "formLabel";
+							td.className = "formLabelRequired d-flex align-items-center justify-content-start";
 						}						
 					} else if (options.cellNum % 2 == 1)
 						td.className = "formField";

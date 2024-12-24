@@ -376,6 +376,33 @@
   function showHttpSenderTest() {
       document.getElementById("httpSenderTest").style.visibility = "visible";
   }
+
+    
+    //função para adicionar classes aos selects e checkbox estilo bootstrap
+    function addClassToSelectsPointDetails() {
+    var selectGroups = [
+      {
+      ids: ["usePost", "dateFormat"],
+      classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+      },
+      {
+        ids: ["fromMonth", "fromDay", "fromHour", "fromMinute", "fromSecond", "toMonth", "toDay", "toHour", "toMinute", "toSecond"],
+        classes: ["form-select", "form-select-sm", "my-2"]
+      }
+    ];
+
+    selectGroups.forEach(function(group) {
+      group.ids.forEach(function(id) {
+      var selectElement = document.getElementById(id);
+      if (selectElement) {
+        selectElement.classList.add(...group.classes);
+      }
+      });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelectsPointDetails;
 </script>
 
 <table id="publisherEditor" class="container">
@@ -399,10 +426,10 @@
                   <div class="form-group row">
                     <label for="usePost" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.method"/></label>
                     <div class="col-sm-8 my-2">
-                    <select id="usePost" class="form-select form-select-sm my-2" value="${publisher.usePost}">
-                      <option value="false">GET</option>
-                      <option value="true">POST</option>
-                    </select>
+                      <sst:select id="usePost" value="${publisher.usePost}">
+                        <sst:option value="false">GET</sst:option>
+                        <sst:option value="true">POST</sst:option>
+                      </sst:select>
                     </div>
                   </div>
 
@@ -431,11 +458,11 @@
                   <div class="form-group row">
                     <label for="dateFormat" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.httpSender.dateFormat"/></label>
                     <div class="col-sm-8 my-2">
-                    <select class="form-select form-select-sm my-2" id="dateFormat" value="${publisher.dateFormat}">
-                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_BASIC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.basic"/></option>
-                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_TZ) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.tz"/></option>
-                      <option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_UTC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.utc"/></option>
-                    </select>
+                    <sst:select id="dateFormat" value="${publisher.dateFormat}">
+                      <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_BASIC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.basic"/></sst:option>
+                      <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_TZ) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.tz"/></sst:option>
+                      <sst:option value="<%= Integer.toString(HttpSenderVO.DATE_FORMAT_UTC) %>"><fmt:message key="publisherEdit.httpSender.dateFormat.utc"/></sst:option>
+                    </sst:select>
                     </div>
                   </div>
 

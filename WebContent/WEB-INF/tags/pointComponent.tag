@@ -25,22 +25,29 @@
   <c:when test="${vc.pointComponent}">
     <div id="c${vc.id}" class="viewComponent" style="${vc.style}"
             <c:if test="${vc.displayControls}">onmouseover="vcOver('c${vc.id}', ${vc.z+1});" onmouseout="vcOut('c${vc.id}', ${vc.z});"</c:if>>
-      <div id="c${vc.id}Content"><img src="images/icon_comp.png" alt=""/></div>
+      <div id="c${vc.id}Content">
+      <i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" alt=""></i>
+      
+      <%-- <img src="images/icon_comp.png" alt=""/> --%>
+      
+      </div>
       <c:if test="${vc.displayControls}">
         <div id="c${vc.id}Controls" class="controlsDiv">
           <table cellpadding="0" cellspacing="1">
             <tr onmouseover="showMenu('c${vc.id}Info', 16, 0);" onmouseout="hideLayer('c${vc.id}Info');"><td>
               <tag:img png="information"/>
               <div id="c${vc.id}Info" onmouseout="hideLayer(this);">
-                <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
+                <i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" title="<fmt:message key='common.gettingData'/>"></i>
               </div>
             </td></tr>
             <c:if test="${vc.settable}">
               <tr id="c${vc.id}ChangeMin" ondblclick="mango.view.hideChange('c${vc.id}Change');"
                       onclick="mango.view.showChange('c${vc.id}Change', 16, 0);"><td>
-                <img src="images/icon_edit.png" alt=""/>
+                
+                <i class="bi bi-tools align-middle text-blue-add align-middle m-3 fs-4" alt=""></i>
+                <%-- <img src="images/icon_edit.png" alt=""/> --%>
                 <div id="c${vc.id}Change">
-                  <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
+                  <i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" title="<fmt:message key='common.gettingData'/>"></i>
                 </div>
               </td></tr>
             </c:if>
@@ -49,19 +56,24 @@
                       onmouseout="mango.view.hideChart('${vc.id}', event, this);"><td>
                 <img src="images/icon_chart.png" alt=""/>
                 <div id="c${vc.id}ChartLayer"></div>
-                <textarea style="display:none;" id="c${vc.id}Chart"><i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i></textarea>
+                <textarea style="display:none;" id="c${vc.id}Chart"><i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" title="<fmt:message key='common.gettingData'/>"></i></textarea>
               </td></tr>
             </c:if>
           </table>
         </div>
       </c:if>
-      <div style="position:absolute;left:-16px;top:0px;z-index:${vc.z+1};">
+      <div style="position:absolute;left:-30px;top:25px;z-index:${vc.z+1};">
         <div id="c${vc.id}Warning" style="display:none;" onmouseover="showMenu('c${vc.id}Messages', 16, 0);"
                 onmouseout="hideLayer('c${vc.id}Messages');">
-          	  <tag:img png="warn" title="common.warning"/>
+                
+              <i class="bi bi-exclamation-circle-fill text-warning align-middle m-3 fs-5" alt="<fmt:message key='common.warning'/>"  title="<fmt:message key='common.warning'/>"></i>
+          	  <%-- <tag:img png="warn" title="common.warning"/> --%>
           <div id="c${vc.id}Messages" onmouseout="hideLayer(this);" class="controlContent"></div>
         </div>
-        <div id="c${vc.id}Changing" style="display:none;"><tag:img png="icon_edit" title="common.settingValue"/></div>
+        <div id="c${vc.id}Changing" style="display:none;">
+        <i class="bi bi-tools align-middle text-blue-add align-middle m-3 fs-4" alt="" title="<fmt:message key='common.settingValue'/>"></i>
+        <%-- <tag:img png="icon_edit" title="common.settingValue"/> --%>
+        </div>
       </div>
     </div>
   </c:when>
@@ -70,14 +82,20 @@
   </c:when>
   <c:when test="${vc.customComponent}">
     <div id="c${vc.id}" class="viewComponent" style="${vc.style}">
-      <div id="c${vc.id}Content"><i class="bi bi-hourglass-split" alt=""></i></div>
-      <div style="position:absolute;left:-16px;top:0px;z-index:${vc.z+1};">
+      <div id="c${vc.id}Content"><i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" alt=""></i></div>
+      <div style="position:absolute;left:25px;top:-14px;z-index:${vc.z+1};">
         <div id="c${vc.id}Warning" style="display:none;" onmouseover="showMenu('c${vc.id}Messages', 16, 0);"
                 onmouseout="hideLayer('c${vc.id}Messages');">
-          	  <tag:img png="warn" title="common.warning"/>
+                
+              <i class="bi bi-exclamation-circle-fill text-warning align-middle m-3 fs-5" alt=""  title="<fmt:message key='common.warning'/>"></i>
+          	  <%-- <tag:img png="warn" title="common.warning"/> --%>
           <div id="c${vc.id}Messages" onmouseout="hideLayer(this);" class="controlContent"></div>
         </div>
-        <div id="c${vc.id}Changing" style="display:none;"><tag:img png="icon_edit" title="common.settingValue"/></div>
+        <div id="c${vc.id}Changing" style="display:none;">
+        
+        <i class="bi bi-tools align-middle text-blue-add align-middle m-3 fs-4" alt=""  title="<fmt:message key='common.settingValue'/>"></i>
+        <%-- <tag:img png="icon_edit" title="common.settingValue"/> --%>
+        </div>
       </div>
     </div>
   </c:when>

@@ -1,5 +1,6 @@
-http://scada-argos.eastus2.cloudapp.azure.com:8791/plc4j-api-0.13.0-SNAPSHOT.jar
-http://scada-argos.eastus2.cloudapp.azure.com:8791/plc4j-driver-opcua-0.13.0-SNAPSHOT.jar
+https://repo.maven.apache.org/maven2/org/apache/plc4x/plc4j-api/0.12.0/plc4j-api-0.12.0.jar
+https://repo.maven.apache.org/maven2/org/apache/plc4x/plc4j-api/0.12.0/plc4j-api-0.12.0.jar
+https://repo.maven.apache.org/maven2/org/apache/plc4x/plc4j-driver-opcua/0.12.0/plc4j-driver-opcua-0.12.0.jar
 https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.106.Final/netty-transport-4.1.106.Final.jar
 https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.106.Final/netty-resolver-4.1.106.Final.jar
 https://repo.maven.apache.org/maven2/io/vavr/vavr/0.10.4/vavr-0.10.4.jar

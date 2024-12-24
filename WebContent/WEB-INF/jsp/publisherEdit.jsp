@@ -66,6 +66,29 @@
     function showHttpSenderTest() {
         document.getElementById("httpSenderTest").style.visibility = "visible";
     }
+
+    
+    //função para adicionar classes aos selects e checkbox estilo bootstrap
+    function addClassToSelectsPointDetails() {
+    var selectGroups = [
+      {
+      ids: ["snapshotSendPeriodType", "changesOnly"],
+      classes: ["w-50", "form-select", "form-select-sm", "my-2"]
+      }
+    ];
+
+    selectGroups.forEach(function(group) {
+      group.ids.forEach(function(id) {
+      var selectElement = document.getElementById(id);
+      if (selectElement) {
+        selectElement.classList.add(...group.classes);
+      }
+      });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelectsPointDetails;
   </script>
   <table  class="subPageHeader container">
     <tr>
@@ -145,10 +168,10 @@
                   <div class="form-group row">
                     <label for="changesOnly" class="col-sm-3 col-form-label custom-padding-l"><fmt:message key="publisherEdit.updateEvent"/></label>
                     <div class="col-sm-8 my-2">
-                      <select id="changesOnly" class="form-select form-select-sm my-2" value="${publisher.changesOnly}">
-                        <option value="false"><fmt:message key="publisherEdit.updateEvent.all"/></option>
-                        <option value="true"><fmt:message key="publisherEdit.updateEvent.changes"/></option>
-                      </select>
+                      <sst:select id="changesOnly" value="${publisher.changesOnly}">
+                        <sst:option value="false"><fmt:message key="publisherEdit.updateEvent.all"/></sst:option>
+                        <sst:option value="true"><fmt:message key="publisherEdit.updateEvent.changes"/></sst:option>
+                      </sst:select>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -161,9 +184,9 @@
                     <label for="snapshotSendPeriods" class="col-sm-6 col-form-label custom-padding-l"><fmt:message key="publisherEdit.snapshotPeriod"/></label>
                     <div class="col-sm-5 my-2">
                       <input class="form-control form-control-sm" type="text" id="snapshotSendPeriods" value="${publisher.snapshotSendPeriods}" class="formShort"/>
-                      <select class="form-select form-select-sm my-2" id="snapshotSendPeriodType" value="${publisher.snapshotSendPeriodType}">
+                      <sst:select id="snapshotSendPeriodType" value="${publisher.snapshotSendPeriodType}">
                         <tag:timePeriodOptions sst="true" s="true" min="true" h="true"/>
-                      </select>
+                      </sst:select>
                       <div id="snapshotSendPeriodsMsg" class="formError" style="display:none;"></div>
                     </div>
                   </div>

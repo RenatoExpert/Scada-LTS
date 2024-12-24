@@ -5,7 +5,8 @@
 
 <div class="notification-alert" id="newPageNotification">
     <div class="image">
-    <img src="images/warn.png"/>
+    <%-- <img src="images/warn.png"/> --%>
+    <i class="bi bi-exclamation-circle-fill text-warning align-middle m-3 fs-5" ></i>
 
     </div>
     <div class="content">

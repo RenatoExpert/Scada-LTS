@@ -16,52 +16,54 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
 --%>
-<link href="resources/jQuery/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css"/>	
+<link href="resources/jQuery/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resources/jQuery/plugins/chosen/chosen.jquery.min.js"></script>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <div id="settingsEditorPopup" style="display:none;left:0px;top:0px;" class="windowDiv">
   <div>
-  <table cellpadding="0" cellspacing="0"><tr><td>
-    <table width="100%">
+  <table cellpadding="0" cellspacing="0" class="m-3"><tr><td>
+    <table width="100%" class="m-3">
       <tr>
         <td>
-          <i class="bi bi-pencil-fill text-success" title="<fmt:message key='viewEdit.settings.editor'/>" style="display:inline;"></i>
+          <i class="bi bi-pencil-fill text-success align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.settings.editor'/>" style="display:inline;"></i>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.settings.editor' escapeDQuotes='true'/> - </span>
           <span class="copyTitle" id="settingsComponentName"></span>
         </td>
         <td align="right">
-          <i class="bi bi-floppy2-fill text-success" onclick="settingsEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
-          <i class="bi bi-x-lg text-danger" onclick="settingsEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
+          <i class="bi bi-floppy2-fill text-success align-middle mx-3 fs-6" onclick="settingsEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+          <i class="bi bi-x-lg text-danger align-middle mx-3 fs-6" onclick="settingsEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>
     <table>
       <tr>
-        <td class="formLabelRequired"><fmt:message key="viewEdit.settings.point"/></td>
-        <td class="formField"><select id="settingsPointList" onchange="settingsEditor.pointSelectChanged()"></select></td>
+        <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.settings.point"/></td>
+        <td class="formField"><select class="w-50 form-select form-select-sm my-2" id="settingsPointList" onchange="settingsEditor.pointSelectChanged()"></select></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.settings.nameOverride"/></td>
-        <td class="formField"><input id="settingsPointName" type="text"/></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.settings.nameOverride"/></td>
+        <td class="formField"><input id="settingsPointName" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.settings.settableOverride"/></td>
-        <td class="formField"><input id="settingsSettable" type="checkbox"/></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.settings.settableOverride"/></td>
+        <td class="formField"><input id="settingsSettable" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.settings.background"/></td>
-        <td class="formField"><input id="settingsBkgdColor" type="text"/></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.settings.background"/></td>
+        <td class="formField"><input id="settingsBkgdColor" class="w-75 form-control form-control-sm my-2" type="text"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.settings.displayControls"/></td>
-        <td class="formField"><input id="settingsControls" type="checkbox"/></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.settings.displayControls"/></td>
+        <td class="formField"><input id="settingsControls" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.position.x"/></td>
-        <td class="formField"><input id="settingsPositionX" type="number"/></td></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.position.x"/></td>
+        <td class="formField"><input id="settingsPositionX" class="w-25 form-control form-control-sm my-2" type="number"/></td></td>
       </tr>
       <tr>
-        <td class="formLabel"><fmt:message key="viewEdit.position.y"/></td>
-        <td class="formField"><input id="settingsPositionY" type="number"/></td></td>
+        <td class="formLabel align-middle my-2"><fmt:message key="viewEdit.position.y"/></td>
+        <td class="formField"><input id="settingsPositionY" class="w-25 form-control form-control-sm my-2" type="number"/></td></td>
       </tr>
     </table>
   </td></tr></table>

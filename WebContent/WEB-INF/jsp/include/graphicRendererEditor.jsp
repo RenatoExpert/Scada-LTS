@@ -18,16 +18,18 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <div id="graphicRendererEditorPopup" style="display:none;left:0px;top:0px;" class="windowDiv">
-  <table cellpadding="0" cellspacing="0"><tr><td>
-    <table width="100%">
+  <table cellpadding="0" cellspacing="0" class="m-3"><tr><td>
+    <table width="100%" class="m-3">
       <tr>
         <td>
-          <i class="bi bi-bar-chart text-success" title="<fmt:message key='viewEdit.graphic.editor'/>" style="display:inline;"></i>
+          <i class="bi bi-bar-chart text-success align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.graphic.editor'/>" style="display:inline;"></i>
           <span class="copyTitle" id="graphicsComponentName"></span>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.graphic.editor' escapeDQuotes='true'/></span>
         </td>
         <td align="right">
-            <i class="bi bi-floppy2-fill text-success" onclick="graphicRendererEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
-            <i class="bi bi-x-lg text-danger" onclick="graphicRendererEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
+            <i class="bi bi-floppy2-fill text-success align-middle mx-3 fs-6" onclick="graphicRendererEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+            <i class="bi bi-x-lg text-danger align-middle mx-3 fs-6" onclick="graphicRendererEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>
@@ -35,21 +37,21 @@
     <table>
       <tbody id="graphicRenderer_analogGraphic" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.min"/></td>
-          <td class="formField"><input id="graphicRendererAnalogMin" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.min"/></td>
+          <td class="formField"><input id="graphicRendererAnalogMin" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.max"/></td>
-          <td class="formField"><input id="graphicRendererAnalogMax" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.max"/></td>
+          <td class="formField"><input id="graphicRendererAnalogMax" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.displayText"/></td>
-          <td class="formField"><input id="graphicRendererAnalogDisplayText" type="checkbox"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.displayText"/></td>
+          <td class="formField"><input id="graphicRendererAnalogDisplayText" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.imageSet"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.imageSet"/></td>
           <td>
-            <select id="graphicRendererAnalogImageSet" onchange="graphicRendererEditor.updateSampleImageSet(this)">
+            <select class="w-50 form-select form-select-sm my-2" id="graphicRendererAnalogImageSet" onchange="graphicRendererEditor.updateSampleImageSet(this)">
               <option value=""></option>
               <c:forEach items="${imageSets}" var="imageSet">
                 <option value="${imageSet.id}">${imageSet.name} (${imageSet.imageCount} <fmt:message key="viewEdit.graphic.images"/>)</option>
@@ -62,13 +64,13 @@
       
       <tbody id="graphicRenderer_binaryGraphic" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.displayText"/></td>
-          <td class="formField"><input id="graphicRendererBinaryDisplayText" type="checkbox"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.displayText"/></td>
+          <td class="formField"><input id="graphicRendererBinaryDisplayText" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.imageSet"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.imageSet"/></td>
           <td>
-            <select id="graphicRendererBinaryImageSet" onchange="graphicRendererEditor.displayBinaryImages($get(this));">
+            <select class="w-50 form-select form-select-sm my-2" id="graphicRendererBinaryImageSet" onchange="graphicRendererEditor.displayBinaryImages($get(this));">
               <option value=""></option>
               <c:forEach items="${imageSets}" var="imageSet">
                 <option value="${imageSet.id}">${imageSet.name} (${imageSet.imageCount} <fmt:message key="viewEdit.graphic.images"/>)</option>
@@ -77,14 +79,14 @@
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.zero"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.zero"/></td>
           <td class="formField">
             <div id="graphicRendererBinaryImageSetZero" style="width:200px; overflow:auto; white-space:nowrap;"></div>
             <input type="hidden" id="graphicRendererBinaryImageSetZeroMsg"/>
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.one"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.one"/></td>
           <td class="formField">
             <div id="graphicRendererBinaryImageSetOne" style="width:200px; overflow:auto; white-space:nowrap;"></div>
             <input type="hidden" id="graphicRendererBinaryImageSetOneMsg"/>
@@ -94,21 +96,21 @@
       
       <tbody id="graphicRenderer_dynamicGraphic" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.min"/></td>
-          <td class="formField"><input id="graphicRendererDynamicMin" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.min"/></td>
+          <td class="formField"><input id="graphicRendererDynamicMin" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.max"/></td>
-          <td class="formField"><input id="graphicRendererDynamicMax" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.max"/></td>
+          <td class="formField"><input id="graphicRendererDynamicMax" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.displayText"/></td>
-          <td class="formField"><input id="graphicRendererDynamicDisplayText" type="checkbox"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.displayText"/></td>
+          <td class="formField"><input id="graphicRendererDynamicDisplayText" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.dynamicImage"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.dynamicImage"/></td>
           <td>
-            <select id="graphicRendererDynamicImage" onchange="graphicRendererEditor.updateSampleDynamicImage(this)">
+            <select class="w-50 form-select form-select-sm my-2" id="graphicRendererDynamicImage" onchange="graphicRendererEditor.updateSampleDynamicImage(this)">
               <option value=""></option>
               <c:forEach items="${dynamicImages}" var="dynamicImage">
                 <option value="${dynamicImage.id}">${dynamicImage.name}</option>
@@ -121,13 +123,13 @@
       
       <tbody id="graphicRenderer_multistateGraphic" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.displayText"/></td>
-          <td class="formField"><input id="graphicRendererMultistateDisplayText" type="checkbox"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.displayText"/></td>
+          <td class="formField"><input id="graphicRendererMultistateDisplayText" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.imageSet"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.imageSet"/></td>
           <td>
-            <select id="graphicRendererMultistateImageSet" onchange="graphicRendererEditor.displayMultistateImages($get(this));">
+            <select class="w-50 form-select form-select-sm my-2" id="graphicRendererMultistateImageSet" onchange="graphicRendererEditor.displayMultistateImages($get(this));">
               <option value=""></option>
               <c:forEach items="${imageSets}" var="imageSet">
                 <option value="${imageSet.id}">${imageSet.name} (${imageSet.imageCount} <fmt:message key="viewEdit.graphic.images"/>)</option>
@@ -136,7 +138,7 @@
           </td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.state"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.state"/></td>
           <td class="formField" id="graphicRendererMultistateImageSetList">
           </td>
         </tr>
@@ -145,49 +147,49 @@
       <tbody id="graphicRenderer_script" style="display:none;">
         <tr>
           <td colspan="2">
-            <span class="formLabelRequired"><fmt:message key="viewEdit.graphic.script"/></span><br/>
+            <span class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.script"/></span><br/>
             <span class="formField"><textarea id="graphicRendererScriptScript" rows="10" cols="50"></textarea></span>
           </td>
         </tr>
       </tbody>
       
       <tbody id="graphicRenderer_simpleImage" style="display:none;">
-        <tr><td class="formLabelRequired"><fmt:message key="viewEdit.graphic.noConfig"/></td></tr>
+        <tr><td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.noConfig"/></td></tr>
       </tbody>
       
       <tbody id="graphicRenderer_simple" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.displayPointName"/></td>
-          <td class="formField"><input id="graphicRendererSimpleDisplayPointName" type="checkbox"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.displayPointName"/></td>
+          <td class="formField"><input id="graphicRendererSimpleDisplayPointName" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.styleAttribute"/></td>
-          <td class="formField"><input id="graphicRendererSimpleStyleAttribute" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.styleAttribute"/></td>
+          <td class="formField"><input id="graphicRendererSimpleStyleAttribute" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
       </tbody>
       
       <tbody id="graphicRenderer_thumbnailImage" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.scale"/></td>
-          <td class="formField"><input id="graphicRendererThumbnailScalePercent" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.scale"/></td>
+          <td class="formField"><input id="graphicRendererThumbnailScalePercent" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
       </tbody>
       <tbody id="graphicRenderer_button" style="display:none;">
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.whenOnLabel"/></td>
-          <td class="formField"><input id="graphicRendererButtonWhenOnLabel" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.whenOnLabel"/></td>
+          <td class="formField"><input id="graphicRendererButtonWhenOnLabel" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.whenOffLabel"/></td>
-          <td class="formField"><input id="graphicRendererButtonWhenOffLabel" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.whenOffLabel"/></td>
+          <td class="formField"><input id="graphicRendererButtonWhenOffLabel" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.height"/></td>
-          <td class="formField"><input id="graphicRendererButtonHeight" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.height"/></td>
+          <td class="formField"><input id="graphicRendererButtonHeight" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.width"/></td>
-          <td class="formField"><input id="graphicRendererButtonWidth" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.width"/></td>
+          <td class="formField"><input id="graphicRendererButtonWidth" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         
       </tbody>

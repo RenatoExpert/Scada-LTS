@@ -129,6 +129,30 @@
               $get("authorizationKey"), xid, $get("syncType"), cacheWarningSize, changesOnly, sendSnapshot, 
               snapshotSendPeriods, snapshotSendPeriodType, savePublisherCB);
   }
+
+        //função para adicionar classes aos selects e checkbox estilo bootstrap
+        function addClassToSelectsPointDetails() {
+        var selectGroups = [
+        {
+        ids: ["syncType"],
+        classes: ["form-select", "form-select-sm", "my-2"]
+        }
+        ];
+
+        selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+            selectElement.classList.add(...group.classes);
+        }
+        });
+        });
+        }
+
+		// Chama a função após a página ser carregada
+        window.onload = function() {
+            addClassToSelectsPointDetails();
+        };
 </script>
 
 <table cellpadding="0" cellspacing="0">
@@ -169,12 +193,12 @@
           <tr>
             <td class="formLabelRequired align-middle my-2"><fmt:message key="publisherEdit.persistent.sync"/></td>
             <td class="formField">
-              <select  class="form-select form-select-sm my-2" id="syncType" value="${publisher.syncType}">
-                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_NONE) %>"><fmt:message key="publisherEdit.persistent.sync.none"/></option>
-                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_DAILY) %>"><fmt:message key="publisherEdit.persistent.sync.daily"/></option>
-                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_WEEKLY) %>"><fmt:message key="publisherEdit.persistent.sync.weekly"/></option>
-                <option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_MONTHLY) %>"><fmt:message key="publisherEdit.persistent.sync.monthly"/></option>
-              </select>
+              <sst:select id="syncType" value="${publisher.syncType}">
+                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_NONE) %>"><fmt:message key="publisherEdit.persistent.sync.none"/></sst:option>
+                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_DAILY) %>"><fmt:message key="publisherEdit.persistent.sync.daily"/></sst:option>
+                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_WEEKLY) %>"><fmt:message key="publisherEdit.persistent.sync.weekly"/></sst:option>
+                <sst:option value="<%= Integer.toString(PersistentSenderVO.SYNC_TYPE_MONTHLY) %>"><fmt:message key="publisherEdit.persistent.sync.monthly"/></sst:option>
+              </sst:select>
             </td>
           </tr>
         </table>
