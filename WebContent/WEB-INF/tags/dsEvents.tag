@@ -34,9 +34,9 @@
         <tr>
           <td><b><sst:i18n message="${type.description}"/></b></td>
           <td class="d-flex align-items-center justify-content-center">
-            <select class="form-select form-select-sm my-2" id="alarmLevel${type.typeRef2}" onchange="alarmLevelChanged(${type.typeRef2})" value="${type.alarmLevel}">
+            <sst:select id="alarmLevel${type.typeRef2}" onchange="alarmLevelChanged(${type.typeRef2})" value="${type.alarmLevel}">
               <tag:alarmLevelOptions sst="true"/>
-            </select>
+            </sst:select>
             <i id="alarmLevelImg${type.typeRef2}" class="bi bi-flag-fill align-middle ms-3 fs-5" style="display:none;"></i>
             <script type="text/javascript">setAlarmLevelImg(${type.alarmLevel}, 'alarmLevelImg${type.typeRef2}')</script>
           </td>

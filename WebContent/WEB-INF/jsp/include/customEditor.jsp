@@ -18,16 +18,19 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <div id="customEditorPopup" style="display:none;left:0px;top:0px;" class="windowDiv">
-  <table cellpadding="0" cellspacing="0"><tr><td>
+  <table cellpadding="0" cellspacing="0"  class="m-3"><tr><td>
     <table width="100%">
       <tr>
         <td>
-          <i class="bi bi-bar-chart text-success" title="<fmt:message key='viewEdit.graphic.editor'/>" style="display:inline;"></i>
+          <i class="bi bi-bar-chart text-success align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.graphic.editor'/>" style="display:inline;"></i>
           <span class="copyTitle" id="graphicsComponentName"></span>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.graphic.editor' escapeDQuotes='true'/>
+							</span>
         </td>
         <td align="right">
-            <i class="bi bi-floppy2-fill text-success" onclick="customEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
-            <i class="bi bi-x-lg text-danger" onclick="customEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
+            <i class="bi bi-floppy2-fill text-success align-middle ms-3 fs-6" onclick="customEditor.save()" title="<fmt:message key='common.save'/>" style="display:inline;"></i>&nbsp;
+            <i class="bi bi-x-lg text-danger align-middle ms-3 fs-6" onclick="customEditor.close()" title="<fmt:message key='common.close'/>" style="display:inline;"></i>
         </td>
       </tr>
     </table>
@@ -35,36 +38,36 @@
     <table>
       <tbody id="customEditor_alarmlist" style="display:none;">
       	<tr>
-          <td class="formLabel"><fmt:message key="common.alarmLevel"/></td>
-          <td class="formField"><select id="customEditorAlarmListMinAlarmLevel"><tag:alarmLevelOptions allOption="true"/></select></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="common.alarmLevel"/></td>
+          <td class="formField"><select  class="w-50 form-select form-select-sm my-2" id="customEditorAlarmListMinAlarmLevel"><tag:alarmLevelOptions allOption="true"/></select></td>
         </tr>
       	<tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.maxListSize"/></td>
-          <td class="formField"><input id="customEditorAlarmListMaxListSize" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.maxListSize"/></td>
+          <td class="formField"><input id="customEditorAlarmListMaxListSize" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabelRequired"><fmt:message key="viewEdit.graphic.width"/></td>
-          <td class="formField"><input id="customEditorAlarmListWidth" type="text"/></td>
+          <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.width"/></td>
+          <td class="formField"><input id="customEditorAlarmListWidth" class="w-75 form-control form-control-sm my-2" type="text"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="viewEdit.graphic.hideIdColumn"/></td>
-          <td class="formField"><input id="customEditorAlarmListIdColumn" type="checkbox"/></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="viewEdit.graphic.hideIdColumn"/></td>
+          <td class="formField"><input id="customEditorAlarmListIdColumn" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="viewEdit.graphic.hideAlarmLevelColumn"/></td>
-          <td class="formField"><input id="customEditorAlarmListAlarmLevelColumn" type="checkbox"/></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="viewEdit.graphic.hideAlarmLevelColumn"/></td>
+          <td class="formField"><input id="customEditorAlarmListAlarmLevelColumn" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="viewEdit.graphic.hideTimestampColumn"/></td>
-          <td class="formField"><input id="customEditorAlarmListTimestampColumn" type="checkbox"/></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="viewEdit.graphic.hideTimestampColumn"/></td>
+          <td class="formField"><input id="customEditorAlarmListTimestampColumn" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="viewEdit.graphic.hideInactivityColumn"/></td>
-          <td class="formField"><input id="customEditorAlarmListInactivityColumn" type="checkbox"/></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="viewEdit.graphic.hideInactivityColumn"/></td>
+          <td class="formField"><input id="customEditorAlarmListInactivityColumn" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
         <tr>
-          <td class="formLabel"><fmt:message key="viewEdit.graphic.hideAckColumn"/></td>
-          <td class="formField"><input id="customEditorAlarmListAckColumn" type="checkbox"/></td>
+          <td class="formLabel  align-middle my-2"><fmt:message key="viewEdit.graphic.hideAckColumn"/></td>
+          <td class="formField"><input id="customEditorAlarmListAckColumn" class="form-check-input custom-checkbox my-2" type="checkbox"/></td>
         </tr>
       </tbody>
       

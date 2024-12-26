@@ -23,8 +23,8 @@
 	js="view,dygraph-combined,dygraph-extra,dygraphsSplineUtils,dygraphsCharts"
 	css="jQuery/plugins/chosen/chosen,jQuery/plugins/jpicker/css/jPicker-1.1.6.min,jQuery/plugins/jquery-ui/css/south-street/jquery-ui-1.10.3.custom.min" 
 	jqplugins="chosen/chosen.jquery.min,jpicker/jpicker-1.1.6.min,jquery-ui/js/jquery-ui-1.10.3.custom.min" >
-	<link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css">
-    <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css">
+	<%-- <link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css"> --%>
+    <%-- <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css"> --%>
   <script type="text/javascript" src="resources/wz_jsgraphics.js"></script>
   <script type="text/javascript" src="resources/customClientScripts/customView.js"></script>
   <script type="text/javascript">
@@ -157,7 +157,7 @@
     
     function updateHtmlComponentContent(id, content) {
         if (!content || content == "")
-            $set(id +"Content", '<i class="bi bi-file-earmark-code" alt=""></i>');
+            $set(id +"Content", '<i class="bi bi-file-earmark-code text-blue-add align-middle mx-3 fs-6" alt=""></i>');
         else
             $set(id +"Content", content);
     }
@@ -302,7 +302,7 @@
                     content = $("c"+ ids[i] +"Content");
                     if (!comp.savedContent)
                         comp.savedContent = content.innerHTML;
-                    content.innerHTML = "<img src='images/plugin.png'/>";
+                    content.innerHTML = "<i class='bi bi-box-seam-fill text-info align-middle mx-3 fs-3'></i>";
                 }
             }
             else {
@@ -452,6 +452,30 @@
         return false;
     }
 
+        //função para adicionar classes aos selects e checkbox estilo bootstrap
+        function addClassToSelectsPointDetails() {
+        var selectGroups = [
+        {
+        ids: ["viewAnonymousAccess", "view.resolution", "allShareUsersList"],
+        classes: ["w-50", "form-select", "form-select-sm", "m-2"]
+        }
+        ];
+
+        selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+            selectElement.classList.add(...group.classes);
+        }
+        });
+        });
+        }
+
+		// Chama a função após a página ser carregada
+        window.onload = function() {
+            addClassToSelectsPointDetails();
+        };
+
 
   </script>
   
@@ -459,60 +483,60 @@
     <table>
       <tr>
         <td valign="top">
-          <div class="borderDiv marR">
+          <div class="left-menu m-3">
             <table>
               <tr>
                 <td colspan="3">
-                  <i class="bi bi-diagram-3" title="<fmt:message key='viewEdit.editView'/>"></i>
+                  <%-- <i class="bi bi-diagram-3 text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.editView'/>"></i> --%>
                   <span class="smallTitle"><fmt:message key="viewEdit.viewProperties"/></span>
                   <tag:help id="editingGraphicalViews"/>
                 </td>
               </tr>
-
+              
               <spring:bind path="form.view.name">
                 <tr>
-                  <td class="formLabelRequired" width="150"><fmt:message key="viewEdit.name"/></td>
-                  <td class="formField" width="250">
-                    <input type="text" name="view.name" value="${status.value}"/>
+                  <td class="formLabelRequired align-middle my-2" width="150"><fmt:message key="viewEdit.name"/></td>
+                  <td class="formField" width="500">
+                    <input class="w-75 form-control form-control-sm my-2" type="text" name="view.name" value="${status.value}"/>
                   </td>
                   <td class="formError">${status.errorMessage}</td>
                 </tr>
               </spring:bind>
-
-
-
+              
               <spring:bind path="form.view.xid">
                 <tr>
-                  <td class="formLabelRequired" width="150"><fmt:message key="common.xid"/></td>
+                  <td class="formLabelRequired align-middle my-2" width="150"><fmt:message key="common.xid"/></td>
                   <td class="formField" width="250">
-                    <input type="text" name="view.xid" value="${status.value}"/>
+                    <input class="w-75 form-control form-control-sm my-2" type="text" name="view.xid" value="${status.value}"/>
                   </td>
                   <td class="formError">${status.errorMessage}</td>
                 </tr>
               </spring:bind>
               <spring:bind path="form.backgroundImageMP">
                 <tr>
-                  <td class="formLabelRequired"><fmt:message key="viewEdit.background"/></td>
+                  <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.background"/></td>
                   <td class="formField">
-                    <input type="file" id="backgroundImageMP" name="backgroundImageMP" onchange="validateUploadImage()"/>
+                    <input class="form-control m-3 w-75" type="file" id="backgroundImageMP" name="backgroundImageMP" onchange="validateUploadImage()"/>
                   </td>
                   <td class="formError">${status.errorMessage}</td>
                 </tr>
               </spring:bind>
               <tr>
                 <td colspan="2" align="center">
-                  <input type="submit" name="upload" value="<fmt:message key="viewEdit.upload"/>" onclick="window.onbeforeunload = null;"/>
-                  <input type="submit" name="clearImage" value="<fmt:message key="viewEdit.clearImage"/>" onclick="window.onbeforeunload = null;"/>
+                  <button type="submit" name="upload" class="btn btn-primary btn-sm custom-btn-blue mx-2" onclick="window.onbeforeunload = null;"><fmt:message key="viewEdit.upload"/></button>
+                  <%-- <input type="submit" name="upload" value="<fmt:message key="viewEdit.upload"/>" onclick="window.onbeforeunload = null;"/> --%>
+                  <button type="submit" name="clearImage" class="btn btn-primary btn-sm custom-btn-blue mx-2" onclick="window.onbeforeunload = null;"><fmt:message key="viewEdit.clearImage"/></button>
+                  <%-- <input type="submit" name="clearImage" value="<fmt:message key="viewEdit.clearImage"/>" onclick="window.onbeforeunload = null;"/> --%>
                 </td>
                 <td class="formError">${status.errorMessage}</td>
               </tr>
 
               <spring:bind path="form.view.anonymousAccess">
                 <tr>
-                  <td class="formLabelRequired" width="150"><fmt:message key="viewEdit.anonymous"/></td>
+                  <td class="formLabelRequired align-middle m-2" width="150"><fmt:message key="viewEdit.anonymous"/>
+                  <tag:help id="anonymousView"/></td>
                   <td class="formField" width="250">
-                  <tag:help id="anonymousView"/>
-                    <sst:select name="view.anonymousAccess" value="${status.value}">
+                    <sst:select id="viewAnonymousAccess" name="view.anonymousAccess" value="${status.value}">
                       <sst:option value="<%= Integer.toString(ShareUser.ACCESS_NONE) %>"><fmt:message key="common.access.none"/></sst:option>
                       <sst:option value="<%= Integer.toString(ShareUser.ACCESS_READ) %>"><fmt:message key="common.access.read"/></sst:option>
                       <sst:option value="<%= Integer.toString(ShareUser.ACCESS_SET) %>"><fmt:message key="common.access.set"/></sst:option>
@@ -524,7 +548,7 @@
 
               <spring:bind path="form.view.resolution">
                 <tr>
-                  <td id="sizeLabel" class="formLabelRequired" width="150"><fmt:message key="viedEdit.viewSize" /></td>
+                  <td id="sizeLabel" class="formLabelRequired align-middle my-2" width="150"><fmt:message key="viedEdit.viewSize" /></td>
                   <td class="formField" width="250">
                     <sst:select id="view.resolution" name="view.resolution" value="${status.value}" onchange="resizeViewBackgroundToResolution(this.options[this.selectedIndex].value)">
                       <sst:option value="<%= Integer.toString(0) %>"> 640x480</sst:option>
@@ -545,12 +569,14 @@
                 </tr>
               </spring:bind>
 
-              <tr><td colspan="2"><hr style="margin: 5px 0;"></td></tr>
+            <tr><td class="m-4" colspan="2"><hr class="border border-secondary w-75 my-2 mx-auto"/></td></tr>
 
               <tr>
                 <td colspan="2" align="center">
-                  <input type="submit" name="save" value="<fmt:message key="common.save"/>" onclick="window.onbeforeunload = null;"/>
-                  <input type="submit" name="cancel" value="<fmt:message key="common.cancel"/>"/>
+                  <button type="submit" name="save" onclick="window.onbeforeunload = null;" class="btn btn-primary custom-btn-blue m-2" ><fmt:message key="common.save"/></button>
+                  <%-- <input type="submit" name="save" value="<fmt:message key="common.save"/>" onclick="window.onbeforeunload = null;"/> --%>
+                  <button type="submit" name="cancel" class="btn btn-primary custom-btn-blue m-2" ><fmt:message key="common.cancel"/></button>
+                  <%-- <input type="submit" name="cancel" value="<fmt:message key="common.cancel"/>"/> --%>
                 </td>
               </tr>
 
@@ -563,29 +589,34 @@
             <tag:sharedUsers doxId="viewSharing" noUsersKey="share.noViewUsers"/>
           </div>
         </td>
+
       </tr>
     </table>
-
     <table>
       <tr>
-        <td>
-          <fmt:message key="viewEdit.viewComponents"/>:
-          <select id="componentList"></select>
-          <i class="bi bi-plus-square" title="<fmt:message key='viewEdit.addViewComponent'/>" onclick="addViewComponent()"></i>
+        <td valign="top">
+          <div class="right-box m-2 w-100">
+            <table class="formField d-flex align-items-center justify-content-start">
+              <tr class="formField d-flex align-items-center justify-content-start">
+                  <td class="formLabelRequired align-middle my-2 d-flex align-items-center">
+                      <fmt:message key="viewEdit.viewComponents"/>:
+                      <select class="w-50 form-select form-select-sm mx-2" id="componentList"></select>
+                      <i class="bi bi-plus-square text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.addViewComponent'/>" onclick="addViewComponent()"></i>
+                  </td>
+                  <td class="formField d-flex align-items-center justify-content-start">
+                    <td  class="formLabelRequired align-middle my-2"><label for="iconifyCB"><fmt:message key="viewEdit.iconify"/>:</label>
+                    <input class="form-check-input custom-checkbox align-middle m-2" type="checkbox" id="iconifyCB" onclick="iconizeClicked();"/>
+                  </td></td>
+                  <td class="formField d-flex align-items-center justify-content-start">
+                    <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.viewDelete"/>
+                    <input id="deleteCheckbox" class="form-check-input custom-checkbox align-middle m-2" type="checkbox" onclick="deleteConfirm()"/>
+                    <button id="deleteButton" type="submit" name="delete" class="btn btn-primary btn-sm custom-btn-blue mx-2"  style="visibility:hidden; margin-left:15px;" onclick="window.onbeforeunload = null; return confirm('<fmt:message key="common.confirmDelete"/>')"><fmt:message key="viewEdit.viewDeleteConfirm"/></button>
+                    <%-- <input id="deleteButton" type="submit" name="delete" onclick="window.onbeforeunload = null; return confirm('<fmt:message key="common.confirmDelete"/>')" value="<fmt:message key="viewEdit.viewDeleteConfirm"/>" style="visibility:hidden; margin-left:15px;"/> --%>
+                  </td></td>
+              </tr>
+            </table>
+          </div>
         </td>
-        <td style="width:30px;"></td>
-
-        <td>
-          <input type="checkbox" id="iconifyCB" onclick="iconizeClicked();"/>
-          <label for="iconifyCB"><fmt:message key="viewEdit.iconify"/></label>
-        </td>
-
-        <td class="formLabelRequired" width="350"><fmt:message key="viewEdit.viewDelete"/></td>
-        <td class="formField" width="250">
-          <input id="deleteCheckbox" type="checkbox" onclick="deleteConfirm()" style="padding-top:10px; vertical-align: middle;"/>
-          <input id="deleteButton" type="submit" name="delete" onclick="window.onbeforeunload = null; return confirm('<fmt:message key="common.confirmDelete"/>')" value="<fmt:message key="viewEdit.viewDeleteConfirm"/>" style="visibility:hidden; margin-left:15px;"/>
-        </td>
-
       </tr>
     </table>
 
@@ -623,31 +654,34 @@
           <div id="pointTemplate" onmouseover="revealPointControls(getViewComponentId(this))"
                   onmouseout="hideLayer('c'+ getViewComponentId(this) +'Controls');"
                   style="position:absolute;left:0px;top:0px;display:none;">
-            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-primary" alt=""></i></div>
+            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-blue-add align-middle mx-3 fs-6" alt=""></i></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
                 <tr onmouseover="showMenu('c'+ getViewComponentId(this) +'Info', 16, 0);"
                         onmouseout="hideLayer('c'+ getViewComponentId(this) +'Info');">
                   <td>
-                    <i class="bi bi-info-circle-fill text-primary" alt=""></i>
+                    <i class="bi bi-info-circle-fill text-blue-add align-middle mx-3 fs-6" alt=""></i>
                     <div id="c_TEMPLATE_Info" onmouseout="hideLayer(this);">
-                      <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
+                      <i class="bi bi-hourglass-split text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='common.gettingData'/>"></i>
                     </div>
                   </td>
                 </tr>
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openSettingsEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-bar-chart text-primary" onclick="openGraphicRendererEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editGraphicalRenderer'/>"></i></td></tr>
-                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openSettingsEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-bar-chart text-blue-add align-middle my-3 fs-6" onclick="openGraphicRendererEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editGraphicalRenderer'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td></td></tr>
               </table>
             </div>
-            <div style="position:absolute;left:-16px;top:0px;z-index:1;">
-              <div id="c_TEMPLATE_Warning" style="display:none;"
-                      onmouseover="showMenu('c'+ getViewComponentId(this) +'Messages', 16, 0);"
-                      onmouseout="hideLayer('c'+ getViewComponentId(this) +'Messages');">
-                <i class="bi bi-exclamation-triangle-fill text-warning" title="<fmt:message key='common.warning'/>" style="cursor: pointer;"></i>
+            <div style="position:absolute;left:35px;top:0px;z-index:1;">
+              <div id="c_TEMPLATE_Warning" style="display:none;" onmouseover="showMenu('c'+ getViewComponentId(this) +'Messages', 30, -25);" onmouseout="hideLayer('c'+ getViewComponentId(this) +'Messages');">
+                <%-- <tag:img png="warn" title="common.warning"/> --%>
+                <i class="bi bi-exclamation-triangle-fill text-warning align-middle m-3 fs-6" title="<fmt:message key='common.warning'/>"></i>
                 <div id="c_TEMPLATE_Messages" onmouseout="hideLayer(this);" class="controlContent"></div>
               </div>
             </div>
@@ -659,11 +693,13 @@
             <div id="c_TEMPLATE_Content"></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openStaticEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openStaticEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -675,11 +711,13 @@
             <span id="c_TEMPLATE_Content"></span>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -695,11 +733,13 @@
             </div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-x-lg text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -710,20 +750,23 @@
             <span id="c_TEMPLATE_Content"></span>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr onmouseover="showMenu('c'+ getViewComponentId(this) +'Info', 16, 0);"
+                <tr onmouseover="showMenu('c'+ getViewComponentId(this) +'Info', 30, -25);"
                         onmouseout="hideLayer('c'+ getViewComponentId(this) +'Info');">
                   <td>
-                    <i class="bi bi-info-circle-fill" alt="teste"></i>
+                    <tr><td></td></tr>
+                    <i class="bi bi-info-circle-fill text-blue-add align-middle mx-3 fs-6" alt=""></i>
                     <div id="c_TEMPLATE_Info" onmouseout="hideLayer(this);">
-                      <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>
+                      <i class="bi bi-hourglass-split text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='common.gettingData'/>"></i>
                     </div>
                   </td>
                 </tr>
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openCompoundEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editPointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deletePointView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
             
@@ -731,7 +774,7 @@
           </div>
           
           <div id="compoundChildTemplate" style="position:absolute;left:0px;top:0px;display:none;">
-            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-primary" alt=""></i></i></div>
+            <div id="c_TEMPLATE_Content"><i class="bi bi-puzzle-fill text-blue-add align-middle mx-3 fs-6" alt=""></i></i></div>
           </div>
           
           <div id="customTemplate" onmouseover="revealPointControls(getViewComponentId(this))"
@@ -740,11 +783,13 @@
             <div id="c_TEMPLATE_Content"></div>
             <div id="c_TEMPLATE_Controls" class="controlsDiv">
               <table cellpadding="0" cellspacing="1">
-                <tr><td><i class="bi bi-pencil-fill text-success" onclick="openCustomEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
-                <tr><td><i class="bi bi-trash  text-danger" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
-                <tr><td><i class="bbi bi-caret-up-square-fill text-primary" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-pencil-fill text-success align-middle my-3 fs-6" onclick="openCustomEditor(getViewComponentId(this))" title="<fmt:message key='viewEdit.editStaticView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bi bi-trash  text-danger align-middle my-3 fs-6" onclick="deleteViewComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.deleteStaticView'/>"></i></td></tr>
+                <tr><td></td></tr>
+                <tr><td><i class="bbi bi-caret-up-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveUpComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveUpComponent'/>"></i></td></tr>
                 <tr style="display:none;"><td style="text-align:center;"><span id="c_TEMPLATE_zindex"></span></td></tr>
-                <tr><td><i class="bi bi-caret-down-square-fill text-primary" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
+                <tr><td><i class="bi bi-caret-down-square-fill text-blue-add align-middle my-3 fs-6" onclick="moveDownComponent(getViewComponentId(this))" title="<fmt:message key='viewEdit.moveDownComponent'/>"></i></td></tr>
               </table>
             </div>
           </div>
@@ -754,6 +799,7 @@
   </form>
 </tag:page>
 <script>
+
 </script>
 <%@ include file="/WEB-INF/jsp/include/vue/vue-app.js.jsp"%>
 <%@ include file="/WEB-INF/jsp/include/vue/vue-view.js.jsp"%>

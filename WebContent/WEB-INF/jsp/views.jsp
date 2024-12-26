@@ -24,7 +24,7 @@
   <script type="text/javascript" src="resources/wz_jsgraphics.js"></script>
   <script type="text/javascript" src="resources/shortcut.js"></script>
   <script type="text/javascript" src="resources/customClientScripts/customView.js"></script>
-  <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css">
+  <%-- <link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css"> --%>
   <link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css">
   <link
 	href="resources/node_modules/sweetalert2/dist/sweetalert2.min.css"
@@ -237,28 +237,57 @@
    		keyListen(evnt);
 	}
 
+        //função para adicionar classes aos selects e checkbox estilo bootstrap
+        function addClassToSelectsPointDetails() {
+        var selectGroups = [
+        {
+        ids: ["datPointDetailsPointSelect", "statsChartDurationType"],
+        classes: ["w-50", "form-select", "form-select-sm", "me-2"]
+        },
+        {
+        ids: ["listview"],
+        classes: ["w-50", "form-select", "form-select-sm", "m-3"]
+        },
+        {
+        ids: ["fromMonth", "fromDay", "fromHour", "fromMinute", "fromSecond", "toMonth", "toDay", "toHour", "toMinute", "toSecond"],
+        classes: ["form-select", "form-select-sm", "my-2"]
+        }
+        ];
+
+        selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+            selectElement.classList.add(...group.classes);
+        }
+        });
+        });
+        }
+
+		// Chama a função após a página ser carregada
+        window.onload = function() {
+            addClassToSelectsPointDetails();
+        };
+
 	
 </script>
 
-	<table class="subPageHeader" id="graphical">
+	<table class="subPageHeader right-box m-2" id="graphical">
 		<tr>
 			<td class="smallTitle"><fmt:message key="views.title" /> <tag:help
 					id="graphicalViews" /></td>
 			<td width="50"></td>
-			<c:if test="${fn:length(views) != 0}">
-				<td>
-					<i class="bi bi-arrows-fullscreen text-primary" title="<fmt:message key='viewEdit.fullScreen'/>" onclick="fullScreen()"></i>
-				</td>
-			</c:if>
-			<td align="left"><sst:select value="${currentView.id}"
-					onchange="window.location='?viewId='+ this.value;">
+			<td align="left" class="d-flex align-items-center justify-content-start"><sst:select id="listview" value="${currentView.id}" onchange="window.location='?viewId='+ this.value;">
 					<c:forEach items="${views}" var="aView">
 						<sst:option value="${aView.key}">${sst:escapeLessThan(aView.value)}</sst:option>
 					</c:forEach>
 				</sst:select> <c:if test="${!empty currentView}">
 					<c:choose>
 						<c:when test="${owner}">
-							<a href="view_edit.shtm?viewId=${currentView.id}"><i class="bi bi-pencil text-primary" title="<fmt:message key='viewEdit.editView'/>"></i> </a>
+							<a href="view_edit.shtm?viewId=${currentView.id}"><i class="bi bi-pencil text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='viewEdit.editView'/>"></i> </a>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.editView' escapeDQuotes='true'/>
+							</span>
 						</c:when>
 						<c:otherwise>
 							<!-- Apenas Admin pode remover compartilhamento
@@ -266,7 +295,17 @@
 								onclick="unshare()" />-->
 						</c:otherwise>
 					</c:choose>
-				</c:if> <a href="view_edit.shtm"><i class="bi bi-plus-circle-fill text-success" title="<fmt:message key='views.newView'/>"></i> </a></td>
+				</c:if> <a href="view_edit.shtm"><i class="bi bi-file-earmark-plus text-blue-add align-middle mx-3 fs-6" title="<fmt:message key='views.newView'/>"></i></a>
+							<span style="font-size: 16px;">
+							<sst:i18n key='views.newView' escapeDQuotes='true'/>
+							</span>
+				
+				<c:if test="${fn:length(views) != 0}">
+						<i class="bi bi-arrows-fullscreen text-blue-add align-middle mx-3 fs-5" title="<fmt:message key='viewEdit.fullScreen'/>" onclick="fullScreen()"></i>
+							<span style="font-size: 16px;">
+							<sst:i18n key='viewEdit.fullScreen' escapeDQuotes='true'/>
+							</span>
+				</c:if></td>
 		</tr>
 		
 	</table>
@@ -280,12 +319,18 @@
 	</table>
 
 	<script type="text/javascript">
-	
+    	// Chama a função addClassToSelectsPointDetails() primeiro
+    	addClassToSelectsPointDetails();
 		checkFullScreen();
 	
 	</script>
-
-	<tag:displayView view="${currentView}" emptyMessageKey="views.noViews" />
+	<div class="container d-flex justify-content-center">
+		<div class="row">
+			<div class="col">
+				<tag:displayView view="${currentView}" emptyMessageKey="views.noViews" />
+			</div>
+		</div>
+	</div>
 
     <span>
 	    <div id='refresh-view' ptimeToCheckRefresh=7000 pviewId=${currentView.id}> </div>

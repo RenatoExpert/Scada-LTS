@@ -85,7 +85,11 @@
       {
         ids: ["commPortId", "baudRate", "dataBits", "stopBits", "parity", "pollingMode", "updatePeriodType"],
         classes: ["w-50", "form-select", "form-select-sm", "my-2"]
-      }
+      },
+    {
+    ids: ["alarmLevel1", "alarmLevel2", "alarmLevel3", "alarmLevel4"],
+    classes: ["w-100", "form-select", "form-select-sm", "my-2"]
+    }
     ];
 
     selectGroups.forEach(function(group) {

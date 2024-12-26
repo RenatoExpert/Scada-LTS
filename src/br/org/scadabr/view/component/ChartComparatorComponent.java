@@ -10,6 +10,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.scada_lts.dao.DataPointDAO;
+import org.scada_lts.dao.model.ScadaObjectIdentifier;
+import org.scada_lts.permissions.service.GetDataPointsWithAccess;
+
 import com.serotonin.json.JsonRemoteEntity;
 import com.serotonin.json.JsonRemoteProperty;
 import com.serotonin.mango.Common;
@@ -18,21 +22,20 @@ import com.serotonin.mango.view.component.HtmlComponent;
 import com.serotonin.mango.view.component.ViewComponent;
 import com.serotonin.mango.vo.User;
 import com.serotonin.util.SerializationHelper;
-import org.scada_lts.dao.DataPointDAO;
-import org.scada_lts.dao.model.ScadaObjectIdentifier;
-import org.scada_lts.permissions.service.GetDataPointsWithAccess;
 
 @JsonRemoteEntity
 public class ChartComparatorComponent extends HtmlComponent {
 	public static ImplDefinition DEFINITION = new ImplDefinition(
 			"chartComparator", "CHART_COMPARATOR", "graphic.chartComparator",
 			null);
-
+			
+	//private static final String DESCRIPTION = "graphic.chartComparator";
 	@JsonRemoteProperty
-	private int width = 480;
-
+	private int width = 380;
+	
+	//private static final String WIDTH = "380";
 	@JsonRemoteProperty
-	private int height = 320;
+	private int height = 220;
 
 	public ChartComparatorComponent() {}
 
@@ -71,7 +74,7 @@ public class ChartComparatorComponent extends HtmlComponent {
 		sb.append(createDataPointsSelectComponent(idPrefix + "_dp2", dataPoints));
 		sb.append(createDataPointsSelectComponent(idPrefix + "_dp3", dataPoints));
 		sb.append(createDataPointsSelectComponent(idPrefix + "_dp4", dataPoints));
-		sb.append("<div style='float:right;'><input type='button' style='width: 100%;' value='Atualizar' onclick=\"updateChartComparatorComponent('"
+		sb.append("<div style='float:left;'><input class='btn btn-primary btn-sm custom-btn-blue ms-3' type='button' style='width: 100%;' value='Atualizar' onclick=\"updateChartComparatorComponent('"
 				+ idPrefix + "'," + width + "," + height + ");\" /> </div>");
 		sb.append("<div style='clear:both;'> </div>");
 		Calendar defaultFromDate1 = Calendar.getInstance();
@@ -79,7 +82,7 @@ public class ChartComparatorComponent extends HtmlComponent {
 		Calendar defaultToDate1 = Calendar.getInstance();
 		defaultToDate1.add(Calendar.MINUTE, -1);
 
-		sb.append("<div style='width: 50%; float:left;'> ");
+		sb.append("<div style='width: 39%; float:left;'> ");
 		sb.append(createDateRangeComponent(idPrefix, idPrefix + "_fromDate1",
 				idPrefix + "_toDate1", defaultFromDate1, defaultToDate1));
 		sb.append("<img id='"
@@ -90,7 +93,7 @@ public class ChartComparatorComponent extends HtmlComponent {
 		Calendar defaultFromDate2 = Calendar.getInstance();
 		defaultFromDate2.add(Calendar.MINUTE, -1);
 		Calendar defaultToDate2 = Calendar.getInstance();
-		sb.append("<div style='width: 50%; float:left;'> ");
+		sb.append("<div style='width: 39%; float:left;'> ");
 		sb.append(createDateRangeComponent(idPrefix, idPrefix + "_fromDate2",
 				idPrefix + "_toDate2", defaultFromDate2, defaultToDate2));
 		sb.append("<img id='"
@@ -108,7 +111,7 @@ public class ChartComparatorComponent extends HtmlComponent {
 
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("<select style='float:left;'  id='" + idPrefix + "'>");
+		sb.append("<select class='form-select form-select-sm me-4' style='width: 17%;float:left;'  id='" + idPrefix + "'>");
 
 		sb.append("<option value='0'> &nbsp; </option>");
 
@@ -133,11 +136,11 @@ public class ChartComparatorComponent extends HtmlComponent {
 				.getTimeInMillis())));
 
 		sb.append("<table>");
-		sb.append("<tr> <td> De </td> <td> A </td> </tr>");
-		sb.append("<tr> <td><input type='text' class='formField' id='"
+		sb.append("<tr> <td class='me-1'> De </td> <td class='me-1'> A </td> </tr>");
+		sb.append("<tr> <td><input class='formField form-control form-control-sm my-1' style='width: 88%;float:left;'  type='text' id='"
 				+ fromDateId + "' value='" + defaultFromDateString
 				+ "'/> </td> "
-				+ "<td> <input type='text' class='formField' id='" + toDateId
+				+ "<td> <input class='formField form-control form-control-sm my-1' style='width: 88%;float:left;'  type='text' id='" + toDateId
 				+ "' value='" + defaultToDateString + "'/> </td> </tr>");
 		sb.append("</table>");
 		return sb.toString();

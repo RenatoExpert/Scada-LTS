@@ -100,6 +100,28 @@
 
         DataSourceEditDwr.saveFhz4JPointLocator(currentPoint.id, $get("xid"), $get("name"), locator, savePointCB);
     }
+    
+    //função para adicionar classes aos selects e checkbox estilo bootstrap
+    function addClassToSelects() {
+    var selectGroups = [
+        {
+        ids: ["alarmLevel1", "alarmLevel2", "alarmLevel3", "alarmLevel4"],
+        classes: ["w-100", "form-select", "form-select-sm", "my-2"]
+        }
+    ];
+
+    selectGroups.forEach(function(group) {
+        group.ids.forEach(function(id) {
+        var selectElement = document.getElementById(id);
+        if (selectElement) {
+        selectElement.classList.add(...group.classes);
+        }
+        });
+    });
+    }
+
+    // Chama a função após a página ser carregada
+    window.onload = addClassToSelects;
 
 </script>
 
