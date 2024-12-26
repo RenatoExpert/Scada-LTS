@@ -66,7 +66,7 @@
       <c:when test="${vc.defName == 'imageChart'}">
         <div id="c${vc.id}" class="viewComponent" style="position:absolute;left:${vc.x}px;top:${vc.y}px;z-index:${vc.z};"
                   onmouseover="vcOver('c${vc.id}', ${vc.z+1});" onmouseout="vcOut('c${vc.id}', ${vc.z});">
-          <div id="c${vc.id}Content"><i class="bi bi-hourglass-split" alt=""></i></div>
+          <div id="c${vc.id}Content"><i class="bi bi-hourglass-split text-blue-add align-middle mx-3 fs-6" alt=""></i></div>
           <div id="c${vc.id}Controls" class="controlContent">
             <div id="c${vc.id}Info">
               <i class="bi bi-hourglass-split" title="<fmt:message key='common.gettingData'/>"></i>

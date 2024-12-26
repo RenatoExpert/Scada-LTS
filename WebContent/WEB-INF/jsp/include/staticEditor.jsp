@@ -61,7 +61,7 @@
         </tr>
         <tr>
         <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.views"/></td>
-        <td class="formField"><select id="viewsList" onchange="staticEditor.viewSelectChanged(this.value)"></select></td>
+        <td class="formField"><select class="w-75 form-select form-select-sm my-2" id="viewsList" onchange="staticEditor.viewSelectChanged(this.value)"></select></td>
       </tr>
     </table>
     <table id="scriptButtonEditor">
@@ -71,7 +71,7 @@
         </tr>
         <tr>
         	<td class="formLabelRequired align-middle my-2"><fmt:message key="eventHandlers.type.script"/></td>
-        	<td class="formField"><select id="scriptsList"></select></td>
+        	<td class="formField"><select class="w-75 form-select form-select-sm my-2" id="scriptsList"></select></td>
       	</tr>
     </table>
 
@@ -105,7 +105,7 @@
         </tr>
 		<tr>
         	<td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.project"/></td>
-        	<td class="formField"><select id="flexProjectsList"></select></td>
+        	<td class="formField"><select class="w-50 form-select form-select-sm my-2" id="flexProjectsList"></select></td>
       	</tr>
         <tr>
           <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.runtimeMode"/></td>

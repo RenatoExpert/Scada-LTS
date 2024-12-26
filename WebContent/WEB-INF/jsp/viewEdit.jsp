@@ -496,7 +496,7 @@
               <spring:bind path="form.view.name">
                 <tr>
                   <td class="formLabelRequired align-middle my-2" width="150"><fmt:message key="viewEdit.name"/></td>
-                  <td class="formField" width="250">
+                  <td class="formField" width="500">
                     <input class="w-75 form-control form-control-sm my-2" type="text" name="view.name" value="${status.value}"/>
                   </td>
                   <td class="formError">${status.errorMessage}</td>
@@ -516,7 +516,7 @@
                 <tr>
                   <td class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.background"/></td>
                   <td class="formField">
-                    <input class="form-control m-3 w-50" type="file" id="backgroundImageMP" name="backgroundImageMP" onchange="validateUploadImage()"/>
+                    <input class="form-control m-3 w-75" type="file" id="backgroundImageMP" name="backgroundImageMP" onchange="validateUploadImage()"/>
                   </td>
                   <td class="formError">${status.errorMessage}</td>
                 </tr>

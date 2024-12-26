@@ -21,7 +21,7 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <c:if test="${!empty sessionUser && !empty point}">
-  <i class="bi bi-search align-middle m-3 fs-5" title="<fmt:message key='watchlist.pointDetails'/>" style="display:inline" onclick="window.location='data_point_details.shtm?dpid=${point.id}'"></i>
+  <i class="bi bi-search text-blue-add align-middle m-3 fs-5" title="<fmt:message key='watchlist.pointDetails'/>" style="display:inline" onclick="window.location='data_point_details.shtm?dpid=${point.id}'"></i>
   <%-- <tag:img png="icon_comp" title="watchlist.pointDetails" style="display:inline" onclick="window.location='data_point_details.shtm?dpid=${point.id}'"/> --%>
 </c:if>
 <b>${pointComponent.name}</b><br/>

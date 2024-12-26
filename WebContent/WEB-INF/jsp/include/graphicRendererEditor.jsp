@@ -148,7 +148,7 @@
         <tr>
           <td colspan="2">
             <span class="formLabelRequired align-middle my-2"><fmt:message key="viewEdit.graphic.script"/></span><br/>
-            <span class="formField"><textarea id="graphicRendererScriptScript" rows="10" cols="50"></textarea></span>
+            <span class="formField"><textarea class="form-control mx-2" id="graphicRendererScriptScript" rows="10" cols="45"></textarea></span>
           </td>
         </tr>
       </tbody>
@@ -403,7 +403,8 @@
         
         this.displayMultistateImages = function(imageSetId) {
             var imageSet = graphicRendererEditor.findImageSet(imageSetId);
-            var graphicImg = '<tag:img png="graphic" title="viewEdit.graphic.imageSample" style="display:inline;"/>';
+            var graphicImg = '<i class="bi bi-image-fill text-blue-add align-middle m-3 fs-5" title="viewEdit.graphic.imageSample" style="display:inline"></i>';
+            <%-- var graphicImg = '<tag:img png="graphic" title="viewEdit.graphic.imageSample" style="display:inline;"/>'; --%>
             if (imageSet) {
                 var html = "\
                     <table>\

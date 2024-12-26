@@ -25,8 +25,8 @@
   <c:if test="${!empty child.point}">
     &nbsp;&nbsp;&nbsp;
     <c:if test="${!empty sessionUser}">
-      <tag:img png="icon_comp" title="watchlist.pointDetails" style="display:inline"
-              onclick="window.location='data_point_details.shtm?dpid=${child.point.id}'"/>
+      <i class="bi bi-search text-blue-add align-middle m-3 fs-5" title="<fmt:message key='watchlist.pointDetails'/>" style="display:inline" onclick="window.location='data_point_details.shtm?dpid=${child.point.id}'"></i>
+      <%-- <tag:img png="icon_comp_add" title="watchlist.pointDetails" style="display:inline" onclick="window.location='data_point_details.shtm?dpid=${child.point.id}'"/> --%>
     </c:if>
     ${child.name}: <span class="infoData">${mango:htmlText(child.point, child.pointValue)}</span><br/>
   </c:if>

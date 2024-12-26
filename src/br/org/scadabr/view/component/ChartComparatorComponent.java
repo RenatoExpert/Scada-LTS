@@ -28,12 +28,14 @@ public class ChartComparatorComponent extends HtmlComponent {
 	public static ImplDefinition DEFINITION = new ImplDefinition(
 			"chartComparator", "CHART_COMPARATOR", "graphic.chartComparator",
 			null);
-
+			
+	//private static final String DESCRIPTION = "graphic.chartComparator";
 	@JsonRemoteProperty
-	private int width = 480;
-
+	private int width = 380;
+	
+	//private static final String WIDTH = "380";
 	@JsonRemoteProperty
-	private int height = 320;
+	private int height = 220;
 
 	public ChartComparatorComponent() {}
 
