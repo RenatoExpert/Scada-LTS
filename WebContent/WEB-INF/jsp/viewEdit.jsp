@@ -678,8 +678,11 @@
                 <tr><td></td></tr>
               </table>
             </div>
+            
             <div style="position:absolute;left:35px;top:0px;z-index:1;">
-              <div id="c_TEMPLATE_Warning" style="display:none;" onmouseover="showMenu('c'+ getViewComponentId(this) +'Messages', 30, -25);" onmouseout="hideLayer('c'+ getViewComponentId(this) +'Messages');">
+              <div id="c_TEMPLATE_Warning" style="display:none;" 
+                    onmouseover="showMenu('c'+ getViewComponentId(this) +'Messages', 30, -25);" 
+                    onmouseout="hideLayer('c'+ getViewComponentId(this) +'Messages');">
                 <%-- <tag:img png="warn" title="common.warning"/> --%>
                 <i class="bi bi-exclamation-triangle-fill text-warning align-middle m-3 fs-6" title="<fmt:message key='common.warning'/>"></i>
                 <div id="c_TEMPLATE_Messages" onmouseout="hideLayer(this);" class="controlContent"></div>

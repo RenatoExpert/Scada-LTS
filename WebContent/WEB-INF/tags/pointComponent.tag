@@ -20,6 +20,7 @@
 --%><%@include file="/WEB-INF/tags/decl.tagf"%><%--
 --%><%@tag body-content="empty"%><%--
 --%><%@attribute name="vc" type="com.serotonin.mango.view.component.ViewComponent" required="true" rtexprvalue="true"%>
+
 <c:choose>
   <c:when test="${vc.pointComponent && !vc.visible}"><!-- vc ${vc.id} not a point component or not visible --></c:when>
   <c:when test="${vc.pointComponent}">
@@ -35,7 +36,8 @@
         <div id="c${vc.id}Controls" class="controlsDiv">
           <table cellpadding="0" cellspacing="1">
             <tr onmouseover="showMenu('c${vc.id}Info', 16, 0);" onmouseout="hideLayer('c${vc.id}Info');"><td>
-              <tag:img png="information"/>
+                <i class="bi bi-info-circle-fill text-blue-add align-middle m-3 fs-5"></i>
+              <%-- <tag:img png="information"/> --%>
               <div id="c${vc.id}Info" onmouseout="hideLayer(this);">
                 <i class="bi bi-hourglass-split text-blue-add align-middle m-3 fs-5" title="<fmt:message key='common.gettingData'/>"></i>
               </div>
@@ -63,12 +65,13 @@
         </div>
       </c:if>
       <div style="position:absolute;left:-30px;top:25px;z-index:${vc.z+1};">
-        <div id="c${vc.id}Warning" style="display:none;" onmouseover="showMenu('c${vc.id}Messages', 16, 0);"
-                onmouseout="hideLayer('c${vc.id}Messages');">
-                
-              <i class="bi bi-exclamation-circle-fill text-warning align-middle m-3 fs-5" alt="<fmt:message key='common.warning'/>"  title="<fmt:message key='common.warning'/>"></i>
-          	  <%-- <tag:img png="warn" title="common.warning"/> --%>
+
+        <div id="c${vc.id}Warning" style="display:none;" class="warningDiv"
+            onmouseover="showMenu('c${vc.id}Messages', 16, 0);"
+            onmouseout="hideLayer('c${vc.id}Messages');">
+          <i class="bi bi-exclamation-circle-fill text-warning align-middle m-3 fs-5" alt=""  title="<fmt:message key='common.warning'/>"></i>
           <div id="c${vc.id}Messages" onmouseout="hideLayer(this);" class="controlContent"></div>
+
         </div>
         <div id="c${vc.id}Changing" style="display:none;">
         <i class="bi bi-tools align-middle text-blue-add align-middle m-3 fs-4" alt="" title="<fmt:message key='common.settingValue'/>"></i>
@@ -100,3 +103,18 @@
     </div>
   </c:when>
 </c:choose>
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    var controlContent = document.querySelector(".controlContent");
+    var warningDiv = document.querySelector(".warningDiv");
+
+    if (controlContent && warningDiv) {
+        if (controlContent.innerText.trim() === "") {
+            warningDiv.style.display = "none";
+        } else {
+            warningDiv.style.display = "";
+        }
+    }
+});
+</script>

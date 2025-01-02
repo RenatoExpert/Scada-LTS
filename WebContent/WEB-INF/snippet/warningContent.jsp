@@ -32,7 +32,7 @@
         <tr>
           <td valign="top">
           <i class="bi bi-exclamation-circle-fill text-warning align-middle me-3 fs-5" title="<fmt:message key='common.warning'/>"></i>
-          <%-- <tag:img png="warn" title="common.warning"/> --%>
+          <%-- <tag:img png="warn" title="common.warning"/></td> --%>
           </td>
           <td colspan="3"><fmt:message key="common.pointWarning"/></td>
         </tr>

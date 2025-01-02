@@ -86,6 +86,7 @@
 
               hide("loadingImg");
               show("treeDiv");
+              removeBackgroundImage(); // Remove the background image from the tree nodes
               document.getElementById("chartContainer").style.height = "auto";
 
               addPointNames(rootFolder);
@@ -127,11 +128,12 @@
 
       function addFolder(folder, parent) {
           var folderNode = dojo.widget.createWidget("TreeNode", {
-                  title: "<img src='images/folder_brick.png'/> "+ folder.name,
+                  title: "<i class='bi bi-folder2 text-blue-add align-middle mx-2 fs-5'></i>"+ folder.name,
                   isFolder: "true",
                   lazyLoadData: folder
           });
           parent.addChild(folderNode);
+        removeBackgroundImage(); // Remove the background image from the tree nodes
       }
 
       function populateFolder(folderNode, lazyLoadData) {

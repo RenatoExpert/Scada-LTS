@@ -1,8 +1,24 @@
-<%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
-<%@page import="com.serotonin.mango.Common"%>
-<%@page import="com.serotonin.mango.view.ShareUser"%>
+<%--
+    Mango - Open Source M2M - http://mango.serotoninsoftware.com
+    Copyright (C) 2006-2011 Serotonin Software Technologies Inc.
+    @author Matthew Lohbihler
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-<tag:page dwr="WatchListDwr" js="view" onload="init">
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+--%>
+<%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
+
+<tag:page onload="setFocus">
 
 <style type="text/css">
 
@@ -54,10 +70,10 @@ div#tree {
 	width: 1px;
 }
 
-#mainHeader {
+<%-- #mainHeader {
 	padding-top: 5px;
 	background-color: #d6d5d5;
-}
+} --%>
 
 .menu {
 	margin-top: 10px;
@@ -95,223 +111,33 @@ thead th {
 
 </style>
 
-<body>
 
-		<div class="row">
-			<div id="pointHierarchy" class="col-md-12">
-				<c:if test="${!empty sessionUser}">
-				    <!--
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								Search
-							</h3>
-						</div>
-						<div class="panel-body hidden-print">
-						  <div class="col-sm-6">
+  <script type="text/javascript">
 
-							<input name="query" id="query" autocorrect="off"
-								autocomplete="off" placeholder="Enter Search Phrase" type="text">
-							<button disabled="disabled" id="btnResetSearch"
-								class="btn btn-default btn-sm">×</button>
-							<button disabled="disabled" id="btnSearch"
-								class="btn btn-default btn-sm">Search</button>
+  "use strict";
 
-							<div class="collapse" id="searchResultPane">
-								<table tabindex="0" id="searchResultTree"
-									class="table table-striped table-hover table-condensed table-bordered fancytree-container fancytree-ext-table ">
-									<colgroup>
-										<col width="*">
-										   <col width="100px">
-										   <col width="100px">
-										<col width="100px">
-									</colgroup>
-									<thead>
-										<tr>
-										   <th>Name</th>
-										      <th>Actions</th>
-										      <th>Path</th>
-										   <th>Folder/Point</th>
-										</tr>
-									</thead>
-									<tbody>
+<c:set var="isRoles" value="${not empty sessionUser && sessionUser.getAttribute('roles') != null}" />
+<c:set var="isRolePublic" value="${isRoles && sessionUser.getAttribute('roles').contains('ROLE_PUBLIC')}" />
+<c:set var="isRoleService" value="${isRoles && (sessionUser.getAttribute('roles').size() == 1 && sessionUser.getAttribute('roles').contains('ROLE_SERVICES'))}" />
+<c:set var="isLoggedToScadaUser" value="${isRoles && !isRoleService && !isRolePublic}" />
 
-									</tbody>
-
-								</table>
-							</div>
-						   </div>
-						   <div class=".col-sm-6">
-						   </div>
-						</div>
-					</div> -->
-
-					<div class="panel panel-default">
-						<div class="panel-heading help">
-							<b><fmt:message key="pointHierarchySLTS.pointHierarchy" /></b>
-						</div>
-						<div class="menu panel-heading help">
-							<div class="btn-group">
-								<button id="addNode" class="btn btn-success"
-									data-toggle="tooltip" data-placement="top"
-									title='<fmt:message key="menu.point_hierarchy.add.tooltip"/>'>
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-								<button id="editNode" class="btn btn-warning"
-									data-toggle="tooltip" data-placement="top"
-									title='<fmt:message key="menu.point_hierarchy.edit.tooltip"/>'>
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-								<button id="deleteNode" class="btn btn-danger"
-									data-toggle="tooltip" data-placement="top"
-									title='<fmt:message key="menu.point_hierarchy.delete.tooltip"/>'>
-									<span class="glyphicon glyphicon-minus"></span>
-								</button>
-								<button id="reloadNode" class="btn btn-primary"
-									data-toggle="tooltip" data-placement="top"
-									title='<fmt:message key="menu.point_hierarchy.refresh.tooltip"/>'>
-									<span class="glyphicon glyphicon-refresh"></span>
-								</button>
-								<button id="infoNode" class="btn btn-primary"
-									data-toggle="tooltip" data-placement="top"
-									title='<fmt:message key="menu.point_hierarchy.info.tooltip"/>'>
-									<span class="glyphicon glyphicon-info-sign"></span>
-								</button>
-							</div>
-
-							<div class="btn-group">
-								<div id="hierarchy-import-export" >
-
-                                    <button onclick="collapseImportExport()" id="Export_Import" class="btn" data-toggle="collapse" href="#collapseImport" role="button" aria-expanded="false" aria-controls="collapseImport">
-                                        <span class="glyphicon glyphicon-export"></span> <span class="glyphicon glyphicon-import"></span>
-                                    </button>
-
-                            	</div>
-							</div>
-
-						</div>
-						<div id="tree"
-							class=" panel-body fancytree-colorize-hover fancytree-fade-expander pre-scrollable" style="max-height: 65vh"></div>
-					</div>
-
-				</c:if>
-			</div>
-			<div class="collapse" id="collapseImport">
-			 <div class="btn-group">
-             	<button onclick="closeImportExport()" id="close-export-import" class="btn btn-default"
-             	    data-toggle="tooltip" data-placement="top"
-             			title='close export/import'>
-             			<span class="glyphicon glyphicon-resize-small"></span>
-             	</button>
-             </div>
-                <div id=export-import-ph></div>
-            </div>
-		</div>
-		<!-- <table width="100%" cellspacing="0" cellpadding="0" border="0">
-			<tr>
-				<td colspan="2">&nbsp;</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="footer" align="center">&copy;2012-${toYear} Scada-LTS <fmt:message
-						key="footer.rightsReserved" /></td>
-			</tr>
-		</table>-->
-	</div>
-	<%-- <tag:newPageNotification href="./app.shtm#/point-hierarchy" ref="pointHierarchyNotification"/> --%>
-</body>
-
-<script src="resources/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="resources/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
-<script	src="resources/node_modules/jquery.fancytree/dist/jquery.fancytree-all.min.js"></script>
-<script	src="resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script	src="resources/node_modules/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
-<script src="resources/node_modules/stompjs/lib/stomp.min.js"></script>
-<script src="resources/node_modules/sockjs-client/dist/sockjs.min.js"></script>
-
-<!-- <script src="resources/node_modules/axios/dist/axios.min.js"></script>
-<script src="resources/node_modules/vue/dist/vue.min.js"></script>
-<script src="resources/node_modules/vue-axios/dist/vue-axios.min.js"></script>-->
-
-<!--<script src="resources/vue-mixins/shared/mixins-export-import.js"></script>
-<script src="resources/vue-components/export-import/export-import.js"></script>-->
-
-<script src="resources/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.js"></script>
-<script src="resources/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.css"></script>
+<c:if test="${isLoggedToScadaUser}"> dojo.addOnLoad(mango.header.onLoad); </c:if>
 
 
-<%@ include file="/WEB-INF/jsp/include/vue/vue-app.js.jsp"%>
-
-
-
-<script>
-"use strict";
-
-var header = { init: "1" };
-header.onLoad = function() {
-        //header.evtVisualizer = new ImageFader($("__header__alarmLevelDiv"), 75, .2);
-};
-
-var stompClient = null;
-
-var connectCallback = function(frame) {
-    	console.log('Connected: ' + frame);
-
-    	stompClient.subscribe("/app/alarmLevel/register", function(message) {
-    		//console.log("message[/app/alarmLevel/register]:" + message.body);
-    		stompClient.subscribe("/topic/alarmLevel/"+message.body, function(message) {
-    			var response = JSON.parse(message.body);
-    			var alarmLevel = parseInt(response.alarmlevel);
-    			//console.log("response.alarmLevel: "+response.alarmlevel);
-   		        if (alarmLevel > 0) {
-   		            document.getElementById("__header__alarmLevelText").innerHTML = response.alarmlevel;
-   		            setAlarmLevelImg(alarmLevel, "__header__alarmLevelImg");
-   		            setAlarmLevelText(alarmLevel, "__header__alarmLevelText");
-   		            document.getElementById("__header__alarmLevelDiv").style.visibility = "visible";
-   		        	document.getElementById("__header__alarmLevelImg").style.visibility = "visible";
-   		        }
-   		        else {
-   		            document.getElementById("__header__alarmLevelText").innerHTML = "";
-   		        	document.getElementById("__header__alarmLevelImg").style.visibility = "hidden";
-   		            document.getElementById("__header__alarmLevelDiv").style.visibility =  "hidden";
-   		        }
-    		})
-    		stompClient.send("/app/alarmLevel", {priority: 1}, "STOMP");
-    	});
-    	stompClient.send("/app/alarmLevel", {priority: 9}, "STOMP");
-};
-
-
-function setAlarmLevelImg(alarmLevel, iconNode) {
+function setAlarmLevelImg(alarmLevel, imgNode) {
     if (alarmLevel == 0)
-        updateIcon(iconNode, "bi bi-flag-fill text-success", "Green Flag", false, "none");
+        updateImg(imgNode, "images/flag_green.png", "Green Flag", false, "none");
     else if (alarmLevel == 1)
-        updateIcon(iconNode, "bi bi-flag-fill text-primary", "Blue Flag", true, "visible");
+        updateImg(imgNode, "images/flag_blue.png", "Blue Flag", true, "visible");
     else if (alarmLevel == 2)
-        updateIcon(iconNode, "bi bi-flag-fill text-warning", "Yellow Flag", true, "visible");
+        updateImg(imgNode, "images/flag_yellow.png", "Yellow Flag", true, "visible");
     else if (alarmLevel == 3)
-        updateIcon(iconNode, "bi bi-flag-fill text-orange", "Orange Flag", true, "visible"); // text-orange is not a default Bootstrap class, you might need to define it
+        updateImg(imgNode, "images/flag_orange.png", "Orange Flag", true, "visible");
     else if (alarmLevel == 4)
-        updateIcon(iconNode, "bi bi-flag-fill text-danger", "Red Flag", true, "visible");
+        updateImg(imgNode, "images/flag_red.png", "Red Flag", true, "visible");
     else
-        updateIcon(iconNode, "bi bi-question-circle-fill", "(unknown)", true, "visible");
+        updateImg(imgNode, "(unknown)", "(unknown)", true, "visible");
 }
-
-function updateIcon(imgNode, className, text, visible, styleType) {
-            if (visible) {
-                if (imgNode != null) {
-                    imgNode = getNodeIfString(imgNode);
-                    show(imgNode, styleType);
-                    if (className)
-                        imgNode.className = className;
-                    if (text) {
-                        imgNode.title = text;
-                        imgNode.alt = text;
-                    }
-                }
-            }
-            else
-                hide(imgNode);
-        }
 
 function setAlarmLevelText(alarmLevel, textNode) {
     textNode = document.getElementById(textNode);
@@ -342,49 +168,6 @@ function updateImg(imgNode, src, text, visible, styleType) {
     //}
     //else
     //    imgNode.style.display = 'none';
-}
-
-var errorCallback = function(error) {
-	alert("Connect error:" + error);
-}
-
-function connect(url, headers, errorCallback, connectCallback) {
-    var socket = new SockJS(url);
-    var stompClient = Stomp.over(socket);
-    stompClient.heartbeat.outgoing = 20000;
-    stompClient.heartbeat.incoming = 0;
-    stompClient.debug = null;
-    stompClient.connect(headers, connectCallback, errorCallback);
-    return stompClient;
-}
-
-function disconnect(stompClient) {
-    if(stompClient != null) {
-    	console.log("Disconnecting...");
-        stompClient.disconnect(function(){
-        	console.log("Disconnected");
-        	stompClient = null;
-        });
-    }
-}
-
-
-function OnListUserSessions() {
-	stompClient.subscribe("/app/listusers", function(message) {
-		console.log("message[/app/listusers]:\n" + message.body);
-	} );
-}
-
-function OnListSessionsAttributes() {
-	stompClient.subscribe("/app/session", function(message) {
-		console.log("message[/app/session]:\n" + message.body);
-	} );
-}
-
-function OnListWebsocketStats() {
-	stompClient.subscribe("/app/websocketStats", function(message) {
-		console.log("message[/app/websocketStats]:\n" + message.body);
-	} );
 }
 
 
@@ -448,24 +231,15 @@ var messages = {
 	var nodeDragAndDrop;
 	var newNode;
 
-	var pathArray = location.href.split( '/' );
-    var protocol = pathArray[0];
-    var host = pathArray[2];
-    var port = '<c:out value="${appPort}"/>';
-    var appScada = '<c:out value="${appName}"/>';
-    var url = protocol + '//' + host;
-    var myLocation;
-    if (!myLocation) {
- 	   myLocation = location.protocol + "//" + location.host + "" + appScada + "/";
-    }
+    let url = location.origin;
+    let myLocation = getAppLocation();
 
     function onloadHandler() {
-    	// connecting to server websocket endpoint...
-       stompClient = connect(myLocation + 'ws-scada/alarmLevel', {}, errorCallback, connectCallback);
+       onloadHandlerWebsocket();
     }
 
     function onunloadHandler() {
-   	   disconnect(stompClient);
+   	   disconnectWebsocket();
    	}
 
 
@@ -1175,8 +949,159 @@ var messages = {
 
     });
     $('.jsoneditor-menu').prop('hidden', true);
-    </script>
 
-</html>
+
+  </script>
+  
+  <table class="subPageHeader container">
+  
+	<link href="resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="resources/node_modules/jquery.fancytree/dist/skin-bootstrap/ui.fancytree.min.css" rel="stylesheet" type="text/css">
+	<link href="resources/node_modules/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+	<link href="resources/node_modules/sweetalert2/dist/sweetalert2.css" rel="stylesheet" type="text/css">
+	<link href="resources/js-ui/app/css/chunk-vendors.css" rel="stylesheet" type="text/css">
+	<link href="resources/js-ui/app/css/app.css" rel="stylesheet" type="text/css">
+	<link href="resources/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.css" rel="stylesheet" type="text/css">
+
+  		<div class="row">
+			<div id="pointHierarchy" class="col-md-12">
+				<c:if test="${!empty sessionUser}">
+				    <!--
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								Search
+							</h3>
+						</div>
+						<div class="panel-body hidden-print">
+						  <div class="col-sm-6">
+
+							<input name="query" id="query" autocorrect="off"
+								autocomplete="off" placeholder="Enter Search Phrase" type="text">
+							<button disabled="disabled" id="btnResetSearch"
+								class="btn btn-default btn-sm">×</button>
+							<button disabled="disabled" id="btnSearch"
+								class="btn btn-default btn-sm">Search</button>
+
+							<div class="collapse" id="searchResultPane">
+								<table tabindex="0" id="searchResultTree"
+									class="table table-striped table-hover table-condensed table-bordered fancytree-container fancytree-ext-table ">
+									<colgroup>
+										<col width="*">
+										   <col width="100px">
+										   <col width="100px">
+										<col width="100px">
+									</colgroup>
+									<thead>
+										<tr>
+										   <th>Name</th>
+										      <th>Actions</th>
+										      <th>Path</th>
+										   <th>Folder/Point</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						   </div>
+						   <div class=".col-sm-6">
+						   </div>
+						</div>
+					</div> -->
+
+					<div class="panel panel-default">
+						<div class="panel-heading help">
+							<b><fmt:message key="pointHierarchySLTS.pointHierarchy" /></b>
+						</div>
+						<div class="menu panel-heading help">
+							<div class="btn-group">
+								<button id="addNode" class="btn btn-success"
+									data-toggle="tooltip" data-placement="top"
+									title='<fmt:message key="menu.point_hierarchy.add.tooltip"/>'>
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<button id="editNode" class="btn btn-warning"
+									data-toggle="tooltip" data-placement="top"
+									title='<fmt:message key="menu.point_hierarchy.edit.tooltip"/>'>
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button>
+								<button id="deleteNode" class="btn btn-danger"
+									data-toggle="tooltip" data-placement="top"
+									title='<fmt:message key="menu.point_hierarchy.delete.tooltip"/>'>
+									<span class="glyphicon glyphicon-minus"></span>
+								</button>
+								<button id="reloadNode" class="btn btn-primary"
+									data-toggle="tooltip" data-placement="top"
+									title='<fmt:message key="menu.point_hierarchy.refresh.tooltip"/>'>
+									<span class="glyphicon glyphicon-refresh"></span>
+								</button>
+								<button id="infoNode" class="btn btn-primary"
+									data-toggle="tooltip" data-placement="top"
+									title='<fmt:message key="menu.point_hierarchy.info.tooltip"/>'>
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</button>
+							</div>
+
+							<div class="btn-group">
+								<div id="hierarchy-import-export" >
+
+                                    <button onclick="collapseImportExport()" id="Export_Import" class="btn" data-toggle="collapse" href="#collapseImport" role="button" aria-expanded="false" aria-controls="collapseImport">
+                                        <span class="glyphicon glyphicon-export"></span> <span class="glyphicon glyphicon-import"></span>
+                                    </button>
+
+                            	</div>
+							</div>
+
+						</div>
+						<div id="tree"
+							class=" panel-body fancytree-colorize-hover fancytree-fade-expander pre-scrollable" style="max-height: 65vh"></div>
+					</div>
+
+				</c:if>
+			</div>
+			<div class="collapse" id="collapseImport">
+			 <div class="btn-group">
+             	<button onclick="closeImportExport()" id="close-export-import" class="btn btn-default"
+             	    data-toggle="tooltip" data-placement="top"
+             			title='close export/import'>
+             			<span class="glyphicon glyphicon-resize-small"></span>
+             	</button>
+             </div>
+                <div id=export-import-ph></div>
+            </div>
+		</div>
+	</div>
+
+<script src="resources/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="resources/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+<script	src="resources/node_modules/jquery.fancytree/dist/jquery.fancytree-all.min.js"></script>
+<script	src="resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script	src="resources/node_modules/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+<script src="resources/node_modules/stompjs/lib/stomp.min.js"></script>
+<script src="resources/node_modules/sockjs-client/dist/sockjs.min.js"></script>
+
+<!-- <script src="resources/node_modules/axios/dist/axios.min.js"></script>
+<script src="resources/node_modules/vue/dist/vue.min.js"></script>
+<script src="resources/node_modules/vue-axios/dist/vue-axios.min.js"></script>-->
+
+<!--<script src="resources/vue-mixins/shared/mixins-export-import.js"></script>
+<script src="resources/vue-components/export-import/export-import.js"></script>-->
+
+<script src="resources/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.js"></script>
+<script src="resources/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.css"></script>
+
+<script type="text/javascript" src="resources/dojo/dojo.js"></script>
+<script type="text/javascript" src="dwr/engine.js"></script>
+<script type="text/javascript" src="dwr/util.js"></script>
+<script type="text/javascript" src="dwr/interface/MiscDwr.js"></script>
+<script type="text/javascript" src="resources/soundmanager2-nodebug-jsmin.js"></script>
+<script type="text/javascript" src="resources/common.js"></script>
+<script type="text/javascript" src="resources/header.js"></script>
+
+
+  </table>
 
 </tag:page>
