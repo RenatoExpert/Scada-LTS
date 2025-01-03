@@ -1,6 +1,7 @@
 import Component from '../../../prototype/Component.js';
-import ASSETSAPI from '../../../lib/ASSETSAPI.js';
+//import ASSETSAPI from '../../../lib/ASSETSAPI.js';
 
+import ERPMDetails from './details/ERPMDetails.js';
 import ERPMOverview from './overview/ERPMOverview.js';
 import ERPMUnit from './unit/ERPMUnit.js';
 
@@ -21,11 +22,12 @@ class ERPMBody extends Component {
 			case 2:
 				child = new ERPMUnit(this.map);
 				break;
-			/*
 			case 3:
-				child = new StationsBody();
+				child = new ERPMDetails(this.map);
 				break;
-				*/
+			case 4:
+				child = new ERPMMaintenance(this.map);
+				
 			default:
 				console.warn(`map.levelmap.max must be between 1 and 3: ${this.map.levelmap.max}`);
 				child = document.createElement("div");

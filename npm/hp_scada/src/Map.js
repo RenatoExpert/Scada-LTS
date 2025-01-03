@@ -40,6 +40,10 @@ class Map {
 			{
 				regex: /cathodic/,
 				template: "cathodic"
+			},
+			{
+				regex: /graphics/,
+				template: "graphics"
 			}
 		];
 		for (let i = 0; i < routerTable.length; i++) {
