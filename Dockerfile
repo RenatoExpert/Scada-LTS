@@ -117,10 +117,8 @@ RUN mkdir -p ./resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client ./resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs ./resources/node_modules		;
 COPY --from=npm_package /dist dist
-COPY --from=newnpm_package /dist/hp.umd.js ./assets/hp/hp.umd.js
-COPY --from=newnpm_build /package/src/header_L1.svg ./assets/hp/header_L1.svg
-COPY --from=newnpm_build /package/src/views_tree.json ./assets/hp/views_tree.js
-COPY --from=newnpm_build /package/bg ./assets/hp/bg
+COPY --from=newnpm_package /dist/hp.umd.js ./assets/ruah/hp.umd.js
+COPY --from=newnpm_build /package/html/assets/ruah/img/ ./assets/ruah/img/
 RUN mkdir -p ./resources/js-ui/app/									&& \
 	cp -r dist/css						./resources/js-ui/app/css		&& \
 	mkdir -p ./resources/js-ui/app/js								&& \
