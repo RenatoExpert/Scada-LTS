@@ -53,10 +53,9 @@ RUN mkdir -p WebContent/resources/node_modules						&& \
 	cp -r /tmp/node_modules/sockjs-client WebContent/resources/node_modules		&& \
 	cp -r /tmp/node_modules/stompjs WebContent/resources/node_modules		;
 COPY --from=npm_package /dist dist
-COPY --from=newnpm_package /dist/hp.umd.js WebContent/assets/hp/hp.umd.js
-COPY --from=newnpm_build /package/assets/header_L1.svg WebContent/assets/hp/header_L1.svg
-COPY --from=newnpm_build /package/assets/views_tree.json WebContent/assets/hp/views_tree.js
-COPY --from=newnpm_build /package/assets/bg WebContent/assets/hp/bg
+COPY --from=newnpm_package /dist/hp.umd.js ./WebContent/assets/ruah/hp.umd.js
+COPY --from=newnpm_build /package/html/assets/ruah/img/ ./WebContent/assets/ruah/img/
+COPY npm/config ./WebContent/assets/ruah/config
 RUN mkdir -p WebContent/resources/js-ui/app/									&& \
 	cp -r dist/css						WebContent/resources/js-ui/app/css		&& \
 	mkdir -p WebContent/resources/js-ui/app/js								&& \
@@ -93,7 +92,6 @@ RUN mkdir -p /output/WEB-INF/classes
 WORKDIR /build
 COPY src src
 COPY tomcat/lib lib
-COPY tomcatlib lib
 COPY WebContent/WEB-INF/lib/ lib
 COPY WebContent/WEB-INF/tmp-lib/ lib
 COPY --from=lib /output lib
@@ -119,6 +117,7 @@ RUN mkdir -p ./resources/node_modules						&& \
 COPY --from=npm_package /dist dist
 COPY --from=newnpm_package /dist/hp.umd.js ./assets/ruah/hp.umd.js
 COPY --from=newnpm_build /package/html/assets/ruah/img/ ./assets/ruah/img/
+COPY npm/config ./assets/ruah/config
 RUN mkdir -p ./resources/js-ui/app/									&& \
 	cp -r dist/css						./resources/js-ui/app/css		&& \
 	mkdir -p ./resources/js-ui/app/js								&& \
