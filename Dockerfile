@@ -4,9 +4,9 @@ FROM renatoexpert/scadalts_npm_src as npm_src
 
 FROM node:22.3.0-alpine3.20 as newnpm_build
 WORKDIR /package
-COPY npm/hp_scada/package.json .
+COPY npm/ruah/package.json .
 RUN npm install
-COPY npm/hp_scada .
+COPY npm/ruah .
 RUN npm run build
 CMD cat dist/hp.umd.js
 
