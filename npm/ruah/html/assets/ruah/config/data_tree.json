@@ -1,0 +1,84 @@
+{
+	"root": {
+		"label": "MyGasCompany",
+		"children": {
+			"cidades": {
+				"label": "Stations"
+			},
+			"system": {
+				"custom_bg": "l1-system.svg",
+				"label": "Systems"
+			},
+			"graphics": {
+				"label": "Live Graphics"
+			},
+			"hourly": {
+				"label": "Hourly Relatory"
+			},
+			"daily": {
+				"label": "Daily Relatory"
+			},
+			"cathodic": {
+				"label": "Cathodic Protection Monitoring",
+				"children": {
+					"saintlouis": {
+						"code": "005",
+						"label": "Saint Louis"
+					},
+					"miamigasstation": {
+						"code": "005",
+						"label": "Miami Gas Station"
+					},
+					"stuartshoppingmall": {
+						"code": "005",
+						"label": "Stuart Shopping Mall"
+					},
+					"jeanvaljeangasstation": {
+						"code": "005",
+						"label": "Jean Valjean Gas Station"
+					}
+				}
+			},
+			"rectifiers": {
+				"label": "Rectifiers",
+				"children": {
+					"newberlin": {
+						"code": "966",
+						"label": "New Berlin"
+					},
+					"sweetwine": {
+						"code": "377",
+						"label": "Sweet Wines"
+					}
+				}
+			},
+			"erpm": {
+				"label": "Gas Flow System",
+				"children": {
+					"tokyo": {
+						"label": "Tokyo",
+						"code": "070",
+						"children": {
+							"oishiisushi": {
+								"label": "Oishii Sushi",
+								"code": "075"
+							}
+						}
+					},
+
+					"kyoto": {
+						"code": "008",
+						"label": "Kyoto",
+						"children": {
+							"shotokandojo": {
+								"label": "Shotokan Dojo",
+								"code": "080"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
