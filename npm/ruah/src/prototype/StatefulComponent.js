@@ -8,6 +8,7 @@ class StatefulComponent extends Component {
 		super (map, nodeTag, className);
 		this.datapoint = datapoint;
 		this.errorCount = 0;
+		this.case_undefined = "?";
 		this.start_loop();
 		this.openRequestCount = 0;
 	}
@@ -34,7 +35,7 @@ class StatefulComponent extends Component {
 	}
 
 	replace_text (value) {
-		this.node.innerText = value;
+		this.node.innerText = value === undefined ? this.case_undefined : value;
 	}
 
 	write_value (value) {

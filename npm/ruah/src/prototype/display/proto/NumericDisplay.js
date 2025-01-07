@@ -16,12 +16,6 @@ class NumericDisplay extends StatefulComponent {
 			this.fetch_value();
 		}, 5e3);
 	}
-
-	update_value (value) {
-		let text = "";
-		text = value === undefined ? this.case_undefined : value;
-		this.node.innerHTML = text;
-	}
 }
 
 export default NumericDisplay;
