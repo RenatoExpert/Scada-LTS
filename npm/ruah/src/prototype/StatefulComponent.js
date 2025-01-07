@@ -15,7 +15,7 @@ class StatefulComponent extends Component {
 		console.warn({ datapoint: this.datapoint });
 		DatapointApi.tag_load_num(this.datapoint).then(value => {
 			console.log({ datapoint: this.datapoint, stats: "pegou" });
-			this.update_value(value);
+			this.write_value(value);
 		}).catch((error) => {
 			console.log({ datapoint: this.datapoint, stats: "deu erro" });
 			this.errorCount += 1;
