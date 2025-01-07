@@ -14,7 +14,9 @@ class Summary extends Component {
 		let className = "hp-summary";
 		super(map, nodeTag, className);
 		this.entries = entries;
-		this.max_per_page = 20;
+		//	Claudio reverta aqui depois
+		//this.max_per_page = 20;
+		this.max_per_page = 3;	//	Modificação
 		this.last = howManyPages(entries.length, this.max_per_page);
 		this.index = this.map.params.page;
 		this.table_particle = table_particle;
