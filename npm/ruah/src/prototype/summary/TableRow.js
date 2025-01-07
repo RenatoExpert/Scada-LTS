@@ -11,7 +11,7 @@ class TableRow extends Component {
 		this.name = name;
 		this.label = label;
 		this.isatag = isatag;
-		console.log({ TableRow: this });
+		//console.debug({ TableRow: this });
 		this.#makeChildren();
 		this.node.addEventListener("click", e => {
 			NAVAPI.append_address(name);

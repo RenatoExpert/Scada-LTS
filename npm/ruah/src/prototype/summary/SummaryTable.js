@@ -26,7 +26,7 @@ class SummaryTable extends Component {
 		this.model = table_model;
 		this.particle = table_particle;
 		this.entries = entries;
-		console.log({ SummaryTable: this });
+		//console.debug({ SummaryTable: this });
 		this.#makeChildren();
 	}
 
@@ -43,7 +43,7 @@ class SummaryTable extends Component {
 			let row = new TableRow(this.model, childName, childLabel, isaTag);
 			this.node.append(row.node);
 		});
-		console.log({ from, to, slice, here: this });
+		//console.debug({ from, to, slice, here: this });
 	}
 }
 

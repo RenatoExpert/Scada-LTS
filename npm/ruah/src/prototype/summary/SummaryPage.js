@@ -34,7 +34,7 @@ class SummaryPage extends Component {
 		this.index = currentPage;
 		this.last = lastPage;
 		this.#makeChildren();
-		console.log({ SummaryPage: this });
+		//console.debug({ SummaryPage: this });
 	}
 
 	#makeChildren () {

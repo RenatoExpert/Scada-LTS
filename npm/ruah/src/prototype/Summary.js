@@ -21,9 +21,9 @@ class Summary extends Component {
 		this.index = this.map.params.page;
 		this.table_particle = table_particle;
 		this.table_model = table_model;
-		console.log({ Summary: this });
+		//console.debug({ Summary: this });
 		this.#makeChildren();
-		console.log({ Summary: this });
+		//console.debug({ Summary: this });
 	}
 
 	#makeChildren () {
