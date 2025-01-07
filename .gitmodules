@@ -1,4 +1,0 @@
-[submodule "npm/ruah"]
-	path = npm/ruah
-	url = https://github.com/argos-scada/ruahframework
-	branch = main
