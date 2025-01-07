@@ -10,7 +10,7 @@ class NumericDisplay extends StatefulComponent {
 		let case_undefined = "\u23f3";
 		this.engineering_unit = engineering_unit;
 		this.case_undefined = case_undefined;
-		this.update_value();
+		this.write_value();
 		//	Remove Later
 		setTimeout(() => {
 			this.fetch_value();
