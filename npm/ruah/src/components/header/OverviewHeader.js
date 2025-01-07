@@ -45,7 +45,7 @@ function subtitle(desc, source) {
 	if (desc) {
 		//var bounds = getAbsoluteNodeBounds(source);
 		let bounds = source.getBoundingClientRect();
-		console.debug(bounds);
+		//console.debug(bounds);
 		c.innerHTML = desc;
 		c.style.left = (bounds.x + 16) +"px";
 		c.style.top = (bounds.y - 150) +"px";
