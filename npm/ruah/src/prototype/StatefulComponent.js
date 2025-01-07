@@ -9,17 +9,23 @@ class StatefulComponent extends Component {
 		this.datapoint = datapoint;
 		this.errorCount = 0;
 		this.start_loop();
+		this.openRequestCount = 0;
 	}
 
 	fetch_value () {
-		console.warn({ datapoint: this.datapoint });
+		//console.debug({ datapoint: this.datapoint });
+		this.openRequestCount += 1;
 		DatapointApi.tag_load_num(this.datapoint).then(value => {
-			console.log({ datapoint: this.datapoint, stats: "pegou" });
+			//console.debug({ datapoint: this.datapoint, stats: "pegou" });
 			this.write_value(value);
 		}).catch((error) => {
-			console.log({ datapoint: this.datapoint, stats: "deu erro" });
+			//console.debug({ datapoint: this.datapoint, stats: "deu erro" });
 			this.errorCount += 1;
 			console.error({ error, Component: this, datapoint: this.datapoint });
+		}).finally(() => {
+			setTimeout(() => {
+				this.openRequestCount -= 1;
+			}, 1e3 * this.errorCount);
 		});
 	}
 
@@ -42,9 +48,11 @@ class StatefulComponent extends Component {
 	start_loop () {
 		this.loopPointer = setInterval(() => {
 			let mayStop = this.errorCount > 3;
-			console.log({ mayStop, errorCount: this.errorCount, datapoint: this.datapoint });
+			//console.debug({ mayStop, errorCount: this.errorCount, datapoint: this.datapoint });
 			if (mayStop) {
 				this.stop_loop();
+			} else if (this.openRequestCount > 1) {
+				//	Skip - do not make a request before finishing another one
 			} else {
 				this.fetch_value();
 			}
@@ -52,7 +60,7 @@ class StatefulComponent extends Component {
 	}
 
 	stop_loop () {
-		console.warn({ message: "Stop loop", errorCount: this.errorCount, datapoint: this.datapoint });
+		//console.debug({ message: "Stop loop", errorCount: this.errorCount, datapoint: this.datapoint });
 		clearInterval(this.loopPointer);
 		this.write_error();
 	}
